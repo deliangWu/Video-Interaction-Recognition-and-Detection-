@@ -1,9 +1,10 @@
+from __future__ import print_function
 import os
 from os import listdir
 from os.path import isfile, join
 import numpy as np
 import re
-import videoPreProcess
+import videoPreProcess as vpp
 
 
 def sequence(fileName):
@@ -27,15 +28,17 @@ class ut_interaction:
         self._trainingEpoch = 0
         files = np.array([f for f in listdir(path) if isfile(join(path,f)) and re.search('.avi',f) is not None])
         self._filesSet = np.array([[sequence(fileName), fileName, Label(fileName)] for fileName in files])
-        for file in self._filesSet:
-            print(file[1])
-            video = videoPreProcess.videoProcess(join(path,file[1]),self._frmSize)
+        print('loading videos from dataset UT-Interacion.')
+        for i,file in enumerate(self._filesSet):
+            video = vpp.videoProcess(join(path,file[1]),self._frmSize)
             self._videos = np.append(self._videos,video,axis=0)
-            labelCode = videoPreProcess.int2OneHot(int(file[2]),6)
+            labelCode = vpp.int2OneHot(int(file[2]),6)
             label = np.repeat(np.reshape(labelCode,(1,6)),video.shape[0],axis=0)
             self._labels =  np.append(self._labels,label,axis=0)
             self._seqs = np.append(self._seqs,np.repeat(int(file[0]),video.shape[0]))
             self._labs = np.append(self._labs,np.repeat(int(file[2]),video.shape[0]))
+            print(i, '...',end='')
+        print('All videos loaded!')
         
     def splitTrainingTesting(self,n):
         testingIndex = [i for i,j in enumerate(self._seqs) if int(j) == n]
@@ -55,7 +58,7 @@ class ut_interaction:
             start = self._trainingPointer
             self._trainingPointer += batch
         end = self._trainingPointer
-        return(self._trainingSet[0][start:end],self._trainingSet[1][start:end])
+        return(self._trainingSet[0][self._trainingIndex][start:end],self._trainingSet[1][self._trainingIndex][start:end])
     
     def loadTesting(self):
         testingIndex = np.arange(len(self._testingSet[0]))
@@ -80,6 +83,7 @@ class ut_interaction:
             else:
                 index = iLoc[int(numOfClips/2) - 1: int(numOfClips/2) + 2]
             videosI = self._testingSet[0][index]
+            videosI = vpp.videoNorm(videosI)
             labelI = self._testingSet[1][iLoc[0]]
             if videosI is not None:
                 if i == 0:
@@ -114,17 +118,14 @@ if __name__ == '__main__':
     set1 = ut_interaction_set1((112,144,3))
     
     for seq in range(1,11):
-        print '**************************************************************'
-        print 'current sequence is ', seq
-        print '**************************************************************'
+        print('**************************************************************')
+        print('current sequence is ', seq)
+        print('**************************************************************')
         set1.splitTrainingTesting(seq)
         test = set1.loadTesting_new()
-        print test[0].shape
         for clips in test[0]:
             for v in clips:
-                videoPreProcess.videoPlay(v,25)
-        print test[1]
-        print test[1].shape
-        print '    '
+                vpp.videoPlay(v,25)
+        print('    ')
         
         

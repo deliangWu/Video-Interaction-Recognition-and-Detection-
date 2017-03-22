@@ -1,4 +1,6 @@
 import numpy as np
+import sys
+sys.path.insert(1,'/home/wdl/opencv/lib')
 import cv2
 from functools import reduce
 import tensorflow as tf
@@ -39,8 +41,8 @@ def videoNorm(videoIn):
 
 def videoPlay(video,fps = 25):
     cv2.namedWindow('Video Player',cv2.WINDOW_AUTOSIZE)
-    for i in range(video.shape[0]):
-        img_show = video[i].copy()
+    for i,img in enumerate(video):
+        img_show = img.copy()
         cv2.putText(img_show, str(i), (20,20), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255,0,0), 1, cv2.LINE_AA)
         cv2.imshow('Video Player',img_show)
         if cv2.waitKey(int(1000/fps)) == 27:
@@ -50,7 +52,6 @@ def videoPlay(video,fps = 25):
 def videoToImages(video):
     cv2.namedWindow('Video Player',cv2.WINDOW_AUTOSIZE)
     video_copy = video.copy()
-    print(video_copy.shape)
     images = video_copy[0]
     for i in range(1,video_copy.shape[0]):
         images = np.append(images,video_copy[i],axis = 1)
@@ -134,8 +135,8 @@ def videoFormat(batchIn):
 def videoRezise(videoIn,frmSize):
     def imgResize(img,frmSize):
         imgOut = np.reshape(np.array([119,136,153] * frmSize[0] * frmSize[1],dtype=np.uint8), frmSize)
-        whRatio = img.shape[1] / img.shape[0]
-        refRatio = frmSize[1] / frmSize[0]
+        whRatio = float(img.shape[1]) / img.shape[0]
+        refRatio = float(frmSize[1]) / frmSize[0]
         if whRatio < refRatio * 0.8:
             imgResized = cv2.resize(img,(int(img.shape[1] * frmSize[0] / (img.shape[0] * 2)) * 2 ,frmSize[0]), interpolation= cv2.INTER_AREA)
             imgOut[:, int((frmSize[1] - imgResized.shape[1])/2) : int((frmSize[1] + imgResized.shape[1])/2)] = imgResized
@@ -152,7 +153,6 @@ def videoRezise(videoIn,frmSize):
 
 def videoProcess(fileName,frmSize,NormEn = False, RLFlipEn = True, batchMode = True):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=2)
-    print(vIn.shape)
     if vIn is not None:
         vRS = videoRezise(vIn,frmSize)
         vSimp = videoSimplify(vRS)

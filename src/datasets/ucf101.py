@@ -1,25 +1,8 @@
-import cv2
+from __future__ import print_function
 import numpy as np
 import random
-import videoPreProcess
-import time
+import videoPreProcess as vpp
 
-def videoProcess(fileName,frmSize):
-    v1 = videoPreProcess.videoRead(fileName)
-    if v1 is not None:
-        v2 = videoPreProcess.videoRezise(v1,frmSize)
-        v3 = videoPreProcess.videoSimplify(v2)
-        v4 = videoPreProcess.downSampling(v3)
-        v5 = videoPreProcess.batchFormat(v4)
-        return v5
-    else:
-        return None
-
-def int2OneHot(din,range):
-    code = np.zeros(range,dtype=np.float32)
-    code[din-1] = 1
-    return code
-    
 class ucf101:
     def __init__(self,frmSize,numOfClasses):
         self._datasetPath = "/home/wdl/3DCNN/datasets/UCF101/"
@@ -31,7 +14,7 @@ class ucf101:
         self._trainFilelist1 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/trainlist01.txt",dtype=bytes).astype(str)
         print(self._trainFilelist1.shape)
         np.random.shuffle(self._trainFilelist1)
-        self._trainVideos = np.empty((0,16) + self._frmSize + (3,),dtype=np.uint8)        
+        self._trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
         self._trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         self._numOfTrainSamples = 0
         self._trainFileIndex = 0
@@ -55,22 +38,22 @@ class ucf101:
         
         
     def loadTest(self,n = 0):
-        testVideos = np.empty((0,16) + self._frmSize + (3,),dtype=np.uint8)        
+        testVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
         testlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         for file in self._testFilelist1:
             label = self._classInd[:,0][np.where(self._classInd == file[0:file.index("/")])[0]]
             if int(label[0]) in self._validLabels:
                 print(file,'--------- label is ',label[0])
-                labelCode = int2OneHot(int(label[0]),self._numOfClasses)
+                labelCode = vpp.int2OneHot(int(label[0])-1,self._numOfClasses)
                 fileName = self._datasetPath + 'UCF-101/' + file
-                video = videoProcess(fileName,self._frmSize)
+                video = vpp.videoProcess(fileName,self._frmSize)
                 if video is not None:
                     videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
                     testVideos = np.append(testVideos,video,axis=0)
                     testlabels = np.append(testlabels,videoLabel,axis=0)
                     if (n > 0) and (testVideos.shape[0] >= n):
                         break
-        print ('the shape of testVideos is ',testVideos.shape)
+        print('the shape of testVideos is ',testVideos.shape)
         return (testVideos[0:n],testlabels[0:n])    
     
         
@@ -84,7 +67,7 @@ class ucf101:
             np.random.shuffle(perm)
             self._trainVideos = self._trainVideos[perm]
             self._trainlabels = self._trainlabels[perm]
-            print 'current epoch is ',self._trainEpoch
+            print('current epoch is ',self._trainEpoch)
         else:
             start = self._trainFileIndex
             self._trainFileIndex += n
@@ -95,10 +78,9 @@ class ucf101:
     def loadTrainAll(self,n=0):
         for file,label in self._trainFilelist1:
             if int(label) in self._validLabels:
-                #print(file,'--------- label is ',label)
-                labelCode = int2OneHot(int(label),self._numOfClasses)
+                labelCode = vpp.int2OneHot(int(label)-1,self._numOfClasses)
                 fileName = self._datasetPath + 'UCF-101/' + file
-                video = videoProcess(fileName,self._frmSize)
+                video = vpp.videoProcess(fileName,self._frmSize)
                 if video is not None:
                     videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
                     self._trainVideos = np.append(self._trainVideos,video,axis=0)
@@ -106,6 +88,17 @@ class ucf101:
                     if n > 0 and (self._trainVideos.shape[0] >= n):
                         break
                     if self._trainVideos.shape[0]%50 == 0:
-                        print self._trainVideos.shape[0],' files are loaded!'
+                        print(self._trainVideos.shape[0],' files are loaded!')
         self._numOfTrainSamples = self._trainVideos.shape[0]
         print('training videos are loaded, the shape of loaded videos is ',self._numOfTrainSamples)
+
+if __name__ == '__main__':
+    print('ok')
+    frmSize = (112,80,3)
+    numOfClasses = 5
+    ucf = ucf101(frmSize, numOfClasses)    
+    ucf.loadTrainAll(50)    
+    batch = ucf.loadTrainBatch(10)
+    print(batch[0].shape)
+    for clips in batch[0]:
+        vpp.videoPlay(clips,2)
