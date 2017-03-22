@@ -29,9 +29,13 @@ class ucf101:
         self._classInd = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/classInd.txt",dtype=bytes).astype(str)
         
         self._trainFilelist1 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/trainlist01.txt",dtype=bytes).astype(str)
-        self._trainFilelist1 = self._trainFilelist1
         print(self._trainFilelist1.shape)
         np.random.shuffle(self._trainFilelist1)
+        self._trainVideos = np.empty((0,16) + self._frmSize + (3,),dtype=np.uint8)        
+        self._trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
+        self._numOfTrainSamples = 0
+        self._trainFileIndex = 0
+        self._trainEpoch = 0
         
         #self._trainFilelist2 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/trainlist02.txt",dtype=bytes).astype(str)
         #np.random.shuffle(self._trainFilelist2)
@@ -40,7 +44,6 @@ class ucf101:
         #np.random.shuffle(self._trainFilelist3)
         
         self._testFilelist1 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/testlist01.txt",dtype=bytes).astype(str)
-        self._testFilelist1 = self._testFilelist1
         print(self._testFilelist1.shape)
         np.random.shuffle(self._testFilelist1)
         
@@ -49,7 +52,6 @@ class ucf101:
         
         #self._testFilelist3 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/testlist03.txt",dtype=bytes).astype(str)
         #np.random.shuffle(self._testFilelist3)
-        self.trainFileIndex = 0
         
         
     def loadTest(self,n = 0):
@@ -73,9 +75,25 @@ class ucf101:
     
         
     def loadTrainBatch(self,n):
-        trainVideos = np.empty((0,16) + self._frmSize + (3,),dtype=np.uint8)        
-        trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
-        for file,label in self._trainFilelist1[self.trainFileIndex:]:
+        if (self._trainFileIndex + n > self._trainVideos.shape[0]):
+            start = 0
+            self._trainFileIndex = n
+            self._trainEpoch += 1
+            # shuffle the data
+            perm = np.arange(self._numOfTrainSamples)
+            np.random.shuffle(perm)
+            self._trainVideos = self._trainVideos[perm]
+            self._trainlabels = self._trainlabels[perm]
+            print 'current epoch is ',self._trainEpoch
+        else:
+            start = self._trainFileIndex
+            self._trainFileIndex += n
+        
+        end = self._trainFileIndex
+        return self._trainVideos[start:end],self._trainlabels[start:end]
+        
+    def loadTrainAll(self,n=0):
+        for file,label in self._trainFilelist1:
             if int(label) in self._validLabels:
                 #print(file,'--------- label is ',label)
                 labelCode = int2OneHot(int(label),self._numOfClasses)
@@ -83,13 +101,11 @@ class ucf101:
                 video = videoProcess(fileName,self._frmSize)
                 if video is not None:
                     videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
-                    trainVideos = np.append(trainVideos,video,axis=0)
-                    trainlabels = np.append(trainlabels,videoLabel,axis=0)
-                    if (trainVideos.shape[0] >= n):
+                    self._trainVideos = np.append(self._trainVideos,video,axis=0)
+                    self._trainlabels = np.append(self._trainlabels,videoLabel,axis=0)
+                    if n > 0 and (self._trainVideos.shape[0] >= n):
                         break
-            self.trainFileIndex= self.trainFileIndex+ 1
-            if (self.trainFileIndex >= (self._trainFilelist1.shape[0] - 1)):
-                self.trainFileIndex= 0
-                np.random.shuffle(self._trainFilelist1)
-                
-        return (trainVideos[0:n],trainlabels[0:n])
+                    if self._trainVideos.shape[0]%50 == 0:
+                        print self._trainVideos.shape[0],' files are loaded!'
+        self._numOfTrainSamples = self._trainVideos.shape[0]
+        print('training videos are loaded, the shape of loaded videos is ',self._numOfTrainSamples)
