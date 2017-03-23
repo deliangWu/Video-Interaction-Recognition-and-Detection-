@@ -12,12 +12,12 @@ import network
 
 def main(_):
     # define the dataset
-    ut_set = ut.ut_interaction_set1(frmSize)
     numOfClasses = 6 
     frmSize = (112,128,3)
+    ut_set = ut.ut_interaction_set1(frmSize)
     logName = 'c3d_train_on_set1.txt'
     common.clearFile(logName)
-    seqRange = range(1,11)
+    seqRange = range(1,2)
     iteration = 1301
     batchSize = 15
     
@@ -38,10 +38,11 @@ def main(_):
         test_x,test_y = ut_set.loadTesting_new()
         for i in range(iteration):
             train_x,train_y = ut_set.loadTraining(batchSize)
-            train_accuracy = c3d.evaluate(train_x, train_y, sess)
-            test_accuracy = c3d.evaluate(test_x, test_y, sess)
-            log = "step %d, training accuracy %g and testing accuracy %g \n"%(i, train_accuracy, test_accuracy)
-            common.pAndWf(logName,log)
+            if i%int(iteration/20) == 0:
+                train_accuracy = c3d.evaluate(train_x, train_y, sess)
+                test_accuracy = c3d.evaluate(test_x, test_y, sess)
+                log = "step %d, training accuracy %g and testing accuracy %g \n"%(i, train_accuracy, test_accuracy)
+                common.pAndWf(logName,log)
             c3d.train(train_x, train_y, sess)
         common.pAndWf(logName,' \n')
 if __name__ == "__main__":
