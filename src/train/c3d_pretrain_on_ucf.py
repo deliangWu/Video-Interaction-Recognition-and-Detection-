@@ -44,6 +44,7 @@ def main(_):
                 best_accuracy = test_accuracy
             log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
             common.pAndWf(logName,log)
+            if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
                 save_path = saver.save(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf.ckpt'))
                 break
         c3d.train(train_x, train_y, sess)
