@@ -37,7 +37,6 @@ class ut_interaction:
             self._labels =  np.append(self._labels,label,axis=0)
             self._seqs = np.append(self._seqs,np.repeat(int(file[0]),video.shape[0]))
             self._labs = np.append(self._labs,np.repeat(int(file[2]),video.shape[0]))
-            print(i, '...',end='')
         print('All videos loaded!')
         
     def splitTrainingTesting(self,n):
@@ -115,9 +114,9 @@ class ut_interaction_set2(ut_interaction):
         
 
 if __name__ == '__main__':
-    set1 = ut_interaction_set1((112,144,3))
+    set1 = ut_interaction_set2((112,144,3))
     
-    for seq in range(1,11):
+    for seq in range(11,21):
         print('**************************************************************')
         print('current sequence is ', seq)
         print('**************************************************************')
