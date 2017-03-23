@@ -2,12 +2,10 @@ import numpy as np
 import tensorflow as tf
 
 def weight_variable(shape):
-    initializer = tf.truncated_normal_initializer(stddev=1.1)
-    return tf.get_variable('weight',shape,initializer)
+    return tf.get_variable('weight',shape,initializer=tf.truncated_normal_initializer(stddev=1.1))
 
 def bias_variable(shape):
-    initializer = tf.truncated_normal_initializer(stddev=1.1)
-    return tf.get_variable('bias',shape,initializer)
+    return tf.get_variable('bias',shape,initializer=tf.truncated_normal_initializer(stddev=1.1))
 
 def conv3d(x, W):
     return tf.nn.conv3d(x, W, strides=[1, 1, 1, 1,1], padding='SAME')
