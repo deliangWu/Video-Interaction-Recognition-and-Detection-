@@ -3,9 +3,9 @@ import tensorflow as tf
 import tensorlayer as tl
 import numpy as np
 from tensorflow.python.framework import ops
-import time
+import rtime
 
-time.Wdatetime('time.txt','start')
+rtime.Wdatetime('time.txt','start')
 X_train,y_train,X_test,y_test=tl.files.load_cifar10_dataset(shape=(-1,32,32,3),plotable=False)
 X_train = np.asarray(X_train, dtype=np.float32)
 y_train = np.asarray(y_train, dtype=np.int32)
@@ -171,4 +171,4 @@ with tf.Session() as sess:
     print('mAP:'+error)
     losslist_2.append(error)
     np.savetxt("losslist_2.txt",losslist,newline='\n')
-    time.Wdatetime('time.txt','end')
+    rtime.Wdatetime('time.txt','end')
