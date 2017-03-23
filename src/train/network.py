@@ -36,11 +36,6 @@ class C3DNET:
         else:
             self._devs = ['/gpu:0']
     
-    def sessRun(op):
-        with sess.as_default():
-            sess.run(op)
-        return None
-    
     def train(self, train_x,train_y,sess):
         with sess.as_default():
             with tf.device(self._devs[0]):

@@ -19,14 +19,15 @@ def clearFile(fileName):
 
 class path:
     if os.name == 'nt':
-        projectPath = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-'
+        projectPath = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/'
         ucfPath = "D:/Course/Final_Thesis_Project/project/datasets/UCF101/"
-        utSet1Path = "D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_segmented_set1/segmented_set1"
-        utSet2Path = "D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_segmented_set2/segmented_set2"
+        utSet1Path = "D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_segmented_set1/segmented_set1/"
+        utSet2Path = "D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_segmented_set2/segmented_set2/"
     else:
-        projectPath = '/home/wdl/Video-Interaction-Recognition-and-Detection-'        
+        projectPath = '/home/wdl/Video-Interaction-Recognition-and-Detection-/'        
         ucfPath = "/home/wdl/3DCNN/datasets/UCF101/"        
-        utSet1Path = "/home/wdl/3DCNN/datasets/ut_interaction/segmented_set1"
-        utSet2Path = "/home/wdl/3DCNN/datasets/ut_interaction/segmented_set2"
+        utSet1Path = "/home/wdl/3DCNN/datasets/ut_interaction/segmented_set1/"
+        utSet2Path = "/home/wdl/3DCNN/datasets/ut_interaction/segmented_set2/"
         
+    variablePath = join(projectPath,'variableSave/')
     logPath = join(projectPath,'log/')

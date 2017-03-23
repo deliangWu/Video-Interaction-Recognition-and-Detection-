@@ -99,7 +99,7 @@ class Classifier:
     def softmax(features,numOfClasses):
         # softmax
         features_l2norm = tf.nn.l2_normalize(features,dim=1)
-        with tf.variable_scope('fc7'):
+        with tf.variable_scope('sm'):
             W_sm = weight_variable([4096, numOfClasses])
             b_sm = bias_variable([numOfClasses])
             y_conv = tf.matmul(features_l2norm, W_sm) + b_sm 
