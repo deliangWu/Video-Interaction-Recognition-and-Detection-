@@ -23,7 +23,7 @@ def main(argv):
     batchSize = 15
     
     # define the network
-    with tf.variable_scope('atomic_action_features') as scope:
+    with tf.variable_scope('global_interaction_features') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize)
     
     # define session
@@ -47,11 +47,11 @@ def main(argv):
                 if i%int(iteration/100) == 0:
                     train_accuracy = c3d.evaluate(train_x, train_y, sess)
                     test_accuracy = c3d.evaluate(test_x, test_y, sess)
-                    log = "step %d, training accuracy %g and testing accuracy %g \n"%(i, train_accuracy, test_accuracy)
-                    common.pAndWf(logName,log)
                     if test_accuracy > best_accuracy:
                         best_accuracy = test_accuracy
-                    if test_accuracy == 1 or (i > 1500 and test_accuracy >= best_accuracy):
+                    log = "step %d, training accuracy %g and testing accuracy %g, best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
+                    common.pAndWf(logName,log)
+                    if test_accuracy == 1 or (i > int(iteration * 0.75) and test_accuracy >= best_accuracy):
                         save_path = saver.save(sess,join(common.path.variablePath, 'c3d_train_on_ut_' + str(seq) +'.ckpt'))
                         break
                 c3d.train(train_x, train_y, sess)
