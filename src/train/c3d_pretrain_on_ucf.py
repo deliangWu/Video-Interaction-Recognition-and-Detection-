@@ -37,7 +37,7 @@ def main(_):
     for i in range(iteration):
         train_x,train_y = ucf_set.loadTrainBatch(batchSize)
         best_accuracy = 0
-        if i%int(iteration/20) == 0:
+        if i%int(iteration/200) == 0:
             train_accuracy = c3d.evaluate(train_x, train_y, sess)
             test_accuracy = c3d.evaluate(test_x, test_y, sess)
             if test_accuracy > best_accuracy:
