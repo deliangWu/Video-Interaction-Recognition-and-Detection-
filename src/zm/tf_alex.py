@@ -145,30 +145,31 @@ losslist=[]
 with tf.Session() as sess:
     tf.global_variables_initializer().run()
     print('Start Training')
-    for i, samples, label in get_chunk_random(X_train, y_train, batch_size,times=500):
-        _, loss_1, predictions = sess.run(
-                    [optimizer, loss, train_predictions],
-                    feed_dict={train_samples: samples})
-        if i % 100 == 0:
-            print('Minibatch loss at step {}: {}'.format(i, loss_1))
-            losslist.append(loss_1)
-    test_prediction=sess.run(test_predictions,feed_dict={test_samples:test_samples})
-
-    # for i, samples,_ in get_chunk_random(test_samples, test_labels, test_batch_size,times=1):
-    #     test_predictions_1 = sess.run(
-    #                 test_predictions,
-    #                 feed_dict={test_samples: samples})
-    n_test=y_test.shape[0]
-    precision_test=y_test.reshape(-1,1)-y_test
-    precision_predict=np.zeros((n_test,n_test))
-    for i in range(n_test):
-        precision_predict[i,:]=np.linalg.norm(test_prediction[i,:].reshape(1,-1)-test_prediction,axis=1)
-    precision_predict[np.where(precision_predict<=2)]=0
-    precision_predict[np.where(precision_predict>0)]=1
-    precision_test[np.where(precision_test>0)]=1
-    ##1代表i和j不相似
-    error=np.sum(abs(precision_predict-precision_test))/(n_test*(n_test-1))
-    print('mAP:'+error)
-    losslist_2.append(error)
-    np.savetxt("losslist_2.txt",losslist,newline='\n')
-    rtime.Wdatetime('time.txt','end')
+    with tf.device('/gpu0:'):
+        for i, samples, label in get_chunk_random(X_train, y_train, batch_size,times=500):
+            _, loss_1, predictions = sess.run(
+                        [optimizer, loss, train_predictions],
+                        feed_dict={train_samples: samples})
+            if i % 100 == 0:
+                print('Minibatch loss at step {}: {}'.format(i, loss_1))
+                losslist.append(loss_1)
+        test_prediction=sess.run(test_predictions,feed_dict={test_samples:test_samples})
+    
+        # for i, samples,_ in get_chunk_random(test_samples, test_labels, test_batch_size,times=1):
+        #     test_predictions_1 = sess.run(
+        #                 test_predictions,
+        #                 feed_dict={test_samples: samples})
+        n_test=y_test.shape[0]
+        precision_test=y_test.reshape(-1,1)-y_test
+        precision_predict=np.zeros((n_test,n_test))
+        for i in range(n_test):
+            precision_predict[i,:]=np.linalg.norm(test_prediction[i,:].reshape(1,-1)-test_prediction,axis=1)
+        precision_predict[np.where(precision_predict<=2)]=0
+        precision_predict[np.where(precision_predict>0)]=1
+        precision_test[np.where(precision_test>0)]=1
+        ##1代表i和j不相似
+        error=np.sum(abs(precision_predict-precision_test))/(n_test*(n_test-1))
+        print('mAP:'+error)
+        losslist.append(error)
+        np.savetxt("losslist_2.txt",losslist,newline='\n')
+        rtime.Wdatetime('time.txt','end')
