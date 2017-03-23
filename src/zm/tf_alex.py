@@ -145,7 +145,7 @@ losslist=[]
 with tf.Session() as sess:
     tf.global_variables_initializer().run()
     print('Start Training')
-    with tf.device('/gpu0:'):
+    with tf.device('/gpu:0'):
         for i, samples, label in get_chunk_random(X_train, y_train, batch_size,times=500):
             _, loss_1, predictions = sess.run(
                         [optimizer, loss, train_predictions],
