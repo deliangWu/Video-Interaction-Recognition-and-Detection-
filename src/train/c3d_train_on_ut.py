@@ -15,9 +15,9 @@ def main(_):
     numOfClasses = 6 
     frmSize = (112,128,3)
     ut_set = ut.ut_interaction_set1(frmSize)
-    logName = 'c3d_train_on_set1.txt'
+    seqRange = range(1,11)
+    logName = 'c3d_train_on_ut_set1.txt'
     common.clearFile(logName)
-    seqRange = range(1,2)
     iteration = 1301
     batchSize = 15
     
