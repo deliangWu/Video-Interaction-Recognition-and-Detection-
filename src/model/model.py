@@ -98,9 +98,10 @@ class Classifier:
     @staticmethod
     def softmax(features,numOfClasses):
         # softmax
+        featuresDims = features.get_shape().as_list()[1]
         features_l2norm = tf.nn.l2_normalize(features,dim=1)
         with tf.variable_scope('sm'):
-            W_sm = weight_variable([4096, numOfClasses])
+            W_sm = weight_variable([featuresDims, numOfClasses])
             b_sm = bias_variable([numOfClasses])
             y_conv = tf.matmul(features_l2norm, W_sm) + b_sm 
         

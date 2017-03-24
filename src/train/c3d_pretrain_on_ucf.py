@@ -23,7 +23,7 @@ def main(_):
     logName = 'c3d_pretrain_on_ucf.txt'
     common.clearFile(logName)
     iteration = 20001 
-    batchSize = 15
+    batchSize = 30 
     
     # define the network
     with tf.device('/gpu:1'):
