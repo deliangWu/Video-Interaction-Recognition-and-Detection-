@@ -17,7 +17,8 @@ class C3DNET:
         self._featuresT = tf.placeholder(tf.float32,(None,4096))
         self._keep_prob = tf.placeholder(tf.float32)
         
-        self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob)
+        with tf.variable_scope('feature_descriptor') as scope:
+            self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob)
         with tf.variable_scope('classifier') as scope:
             self._y_conv = model.Classifier.softmax(self._features,numOfClasses)
             scope.reuse_variables()
