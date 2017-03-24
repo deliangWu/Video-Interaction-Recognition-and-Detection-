@@ -85,34 +85,37 @@ class ucf101:
         return self._trainVideos[start:end],self._trainlabels[start:end]
         
     def loadTrainAll(self,n=0):
+        cntVideos = 0
         for file,label in self._trainFilelist1:
             if int(label) in self._validLabels:
                 labelCode = vpp.int2OneHot(int(label)-1,self._numOfClasses)
                 fileName = self._datasetPath + 'UCF-101/' + file
-                video = vpp.videoProcess(fileName,self._frmSize)
+                video = vpp.videoProcess(fileName,self._frmSize,RLFlipEn=False)
                 if video is not None:
+                    cntVideos += 1
                     videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
                     self._trainVideos = np.append(self._trainVideos,video,axis=0)
                     self._trainlabels = np.append(self._trainlabels,videoLabel,axis=0)
-                    if n > 0 and (self._trainVideos.shape[0] >= n):
+                    if n > 0 and (cntVideos >= n):
                         break
-                    if self._trainVideos.shape[0]%50 == 0:
-                        print(self._trainVideos.shape[0],' files are loaded!')
+                    if cntVideos%20 == 0:
+                        print(cntVideos,' files are loaded!')
         self._numOfTrainSamples = self._trainVideos.shape[0]
         print('training videos are loaded, the shape of loaded videos is ',self._numOfTrainSamples)
+        return None
 
 if __name__ == '__main__':
     frmSize = (112,80,3)
     numOfClasses = 5
     ucf = ucf101(frmSize, numOfClasses)    
-    #ucf.loadTrainAll(50)    
-    #batch = ucf.loadTrainBatch(10)
-    #print(batch[0].shape)
-    #for clips in batch[0]:
-    #    vpp.videoPlay(clips,2)    
+    ucf.loadTrainAll(50)    
+    batch = ucf.loadTrainBatch(10)
+    print(batch[0].shape)
+    for clips in batch[0]:
+        vpp.videoPlay(clips,10)    
     videos,labels = ucf.loadTest(5)    
     print('the shape of testVideos is ',videos.shape)
     for g in videos:
         for i,v in enumerate(g):
             print('video label is ',labels[i])
-            vpp.videoPlay(v,fps = 25)
+            vpp.videoPlay(v,fps = 10)

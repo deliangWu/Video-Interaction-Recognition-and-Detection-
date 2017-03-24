@@ -16,8 +16,10 @@ import network
 def main(_):
     # define the dataset
     numOfClasses = 20 
-    frmSize = (112,80,3)
+    frmSize = (112,128,3)
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
+    ucf_set.loadTrainAll()
+    test_x,test_y = ucf_set.loadTest(50) 
     logName = 'c3d_pretrain_on_ucf.txt'
     common.clearFile(logName)
     iteration = 20001 
@@ -31,12 +33,11 @@ def main(_):
     sess = tf.InteractiveSession()
     saver = tf.train.Saver()
     initVars = tf.global_variables_initializer()
-    sess.run(initVars)
-    test_x,test_y = ucf_set.loadTest(50) 
-    ucf_set.loadTrainAll()
+    with sess.as_default():
+        sess.run(initVars)
+    best_accuracy = 0
     for i in range(iteration):
         train_x,train_y = ucf_set.loadTrainBatch(batchSize)
-        best_accuracy = 0
         if i%int(iteration/200) == 0:
             train_accuracy = c3d.evaluate(train_x, train_y, sess)
             test_accuracy = c3d.evaluate(test_x, test_y, sess)
