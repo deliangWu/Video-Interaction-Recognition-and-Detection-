@@ -38,17 +38,15 @@ class C3DNET:
     
     def train(self, train_x,train_y,sess):
         with sess.as_default():
-            with tf.device(self._devs[0]):
-                self._train_step.run(feed_dict={self._x:train_x, self._y_: train_y, self._keep_prob:0.5})
+            self._train_step.run(feed_dict={self._x:train_x, self._y_: train_y, self._keep_prob:0.5})
         return None
     
     def evaluate(self, test_x,test_y,sess):
         with sess.as_default():
-            with tf.device(self._devs[0]):
-                if test_x.ndim == 6:
-                    testF = np.mean([self._features.eval(feed_dict={self._x:xT,self._keep_prob: 1}) for xT in test_x],0)
-                    test_accuracy = self._accuracyT.eval(feed_dict={self._featuresT:testF, self._y_:test_y})
-                else:
-                    test_accuracy = self._accuracy.eval(feed_dict={self._x:test_x, self._y_: test_y, self._keep_prob: 1})
+            if test_x.ndim == 6:
+                testF = np.mean([self._features.eval(feed_dict={self._x:xT,self._keep_prob: 1}) for xT in test_x],0)
+                test_accuracy = self._accuracyT.eval(feed_dict={self._featuresT:testF, self._y_:test_y})
+            else:
+                test_accuracy = self._accuracy.eval(feed_dict={self._x:test_x, self._y_: test_y, self._keep_prob: 1})
         return test_accuracy 
     
