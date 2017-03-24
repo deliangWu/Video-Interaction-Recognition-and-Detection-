@@ -23,8 +23,9 @@ def main(argv):
     batchSize = 15
     
     # define the network
-    with tf.variable_scope('global_interaction_features') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize)
+    with tf.device('/gpu:1'):
+        with tf.variable_scope('global_interaction_features') as scope:
+            c3d = network.C3DNET(numOfClasses, frmSize)
     
     # define session
     sess = tf.InteractiveSession()
