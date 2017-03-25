@@ -102,7 +102,7 @@ class FeatureDescriptor:
             h_fc7 = tf.nn.relu(tf.matmul(h_fc6_l2norm, W_fc7) + b_fc7)
             h_fc7_drop = tf.nn.dropout(h_fc7, drop_var)
         
-        return h_fc7_drop
+        return h_fc6_drop
 
 class Classifier:
     @staticmethod
@@ -113,5 +113,6 @@ class Classifier:
         with tf.variable_scope('sm'):
             W_sm = weight_variable([featuresDims, numOfClasses])
             b_sm = bias_variable([numOfClasses])
-            y_conv = tf.matmul(features_l2norm, W_sm) + b_sm 
+            #y_conv = tf.matmul(features_l2norm, W_sm) + b_sm 
+            y_conv = tf.matmul(features, W_sm) + b_sm 
         return y_conv

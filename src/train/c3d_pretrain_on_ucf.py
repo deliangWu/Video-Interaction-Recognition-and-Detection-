@@ -15,7 +15,7 @@ import network
 
 def main(_):
     # define the dataset
-    numOfClasses = 4 
+    numOfClasses = 30 
     frmSize = (112,128,3)
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
     ucf_set.loadTrainAll()
