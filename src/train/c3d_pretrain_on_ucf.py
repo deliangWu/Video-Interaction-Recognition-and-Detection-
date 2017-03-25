@@ -31,7 +31,9 @@ def main(_):
             c3d = network.C3DNET(numOfClasses, frmSize)
     
     # define session
-    sess = tf.InteractiveSession()
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth=True
+    sess = tf.InteractiveSession(config=config)
     saver = tf.train.Saver()
     initVars = tf.global_variables_initializer()
     with sess.as_default():
