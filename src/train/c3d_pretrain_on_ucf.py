@@ -19,7 +19,7 @@ def main(_):
     frmSize = (112,128,3)
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
     ucf_set.loadTrainAll()
-    test_x,test_y = ucf_set.loadTest(10) 
+    test_x,test_y = ucf_set.loadTest(40) 
     logName = 'c3d_pretrain_on_ucf.txt'
     common.clearFile(logName)
     iteration = 20001 
