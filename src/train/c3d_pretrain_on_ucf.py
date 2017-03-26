@@ -26,7 +26,7 @@ def main(_):
     batchSize = 30 
     
     # define the network
-    with tf.device('/gpu:1'):
+    with tf.device('/gpu:0'):
         with tf.variable_scope('atomic_action_features') as scope:
             c3d = network.C3DNET(numOfClasses, frmSize)
     
