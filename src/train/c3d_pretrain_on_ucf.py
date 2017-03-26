@@ -19,11 +19,11 @@ def main(_):
     frmSize = (112,128,3)
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
     ucf_set.loadTrainAll()
-    test_x,test_y = ucf_set.loadTest(40) 
+    test_x,test_y = ucf_set.loadTest(20) 
     logName = 'c3d_pretrain_on_ucf.txt'
     common.clearFile(logName)
     iteration = 20001 
-    batchSize = 30 
+    batchSize = 20 
     
     # define the network
     with tf.device('/gpu:0'):
