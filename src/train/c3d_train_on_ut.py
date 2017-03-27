@@ -10,6 +10,7 @@ import ut_interaction as ut
 import model
 import common
 import network
+import time
 
 def main(argv):
     # define the dataset

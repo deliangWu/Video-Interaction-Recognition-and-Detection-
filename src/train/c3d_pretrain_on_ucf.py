@@ -13,6 +13,7 @@ import videoPreProcess as vpp
 import model
 import common
 import network
+import time
 
 def loadTrainBatch(dataset,n,q):
     trainSet = dataset.loadTrainBatchMP(n)
@@ -57,19 +58,23 @@ def main(_):
     q = multiprocessing.Queue()
     pro_loadTrain = multiprocessing.Process(target=loadTrainBatch,args=(ucf_set,batchSize,q))
     for i in range(iteration):
-        pro_loadTrain.start()
-        train_x,train_y = q.get()
-        print(train_y)
-        if i%int(iteration/200) == 0:
-            train_accuracy = c3d.evaluate(train_x, train_y, sess)
-            test_accuracy = c3d.evaluate(test_x, test_y, sess)
-            if test_accuracy > best_accuracy:
-                best_accuracy = test_accuracy
-            log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
-            common.pAndWf(logName,log)
-            if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
-                save_path = saver.save(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf.ckpt'))
-                break
+        start = time.time()
+        train_x,train_y = ucf_set.loadTrainBatchMP(5) 
+        duration = time.time() - start
+        print('time for read dataset is ',duration)
+        #if i%int(iteration/200) == 0:
+        #    train_accuracy = c3d.evaluate(train_x, train_y, sess)
+        #    test_accuracy = c3d.evaluate(test_x, test_y, sess)
+        #    if test_accuracy > best_accuracy:
+        #        best_accuracy = test_accuracy
+        #    log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
+        #    common.pAndWf(logName,log)
+        #    if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
+        #        save_path = saver.save(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf.ckpt'))
+        #        break
+        start = time.time()
         c3d.train(train_x, train_y, sess)
+        duration = time.time() - start
+        print('time for training is ', duration)
 if __name__ == "__main__":
     tf.app.run(main=main)
