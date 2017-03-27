@@ -3,7 +3,6 @@ import sys
 sys.path.insert(1,'/home/wdl/opencv/lib')
 import cv2
 from functools import reduce
-import tensorflow as tf
 import time
 
 def videoRead(fileName,grayMode=True,downSample = 1):

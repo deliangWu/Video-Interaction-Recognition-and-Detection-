@@ -5,7 +5,6 @@ import os
 import time
 import multiprocessing as mp
 import videoPreProcess as vpp
-import videoPreProcess as vpp
 import sys
 sys.path.insert(1,'../common')
 import common
