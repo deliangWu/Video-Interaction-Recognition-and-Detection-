@@ -20,12 +20,13 @@ def worker(ucfset,q):
         q.put(g)
 
 if __name__ == "__main__":
-    ucfset = ucf101.ucf101MP((112,128,3), 5)
+    ucfset = ucf101.ucf101((112,128,3), 5)
     ucfset.test()
-    ucfset.loadTrainProcess()
+    lt = multiprocessing.Process(target = ucfset.loadTrainAll, args=())
+    lt.start()
     while True:
         print('test')
         ucfset.test()
-        time.sleep(1)
+        time.sleep(5)
     
     

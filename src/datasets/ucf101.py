@@ -98,24 +98,14 @@ class ucf101:
                     self._trainlabels = np.append(self._trainlabels,videoLabel,axis=0)
                     if n > 0 and (cntVideos >= n):
                         break
-                    if cntVideos%20 == 0:
+                    if cntVideos%1 == 0:
                         print(cntVideos,' files are loaded!')
         self._numOfTrainSamples = self._trainVideos.shape[0]
         print('training videos are loaded, the shape of loaded videos is ',self._numOfTrainSamples)
         return None
-
-import multiprocessing as mp
-class ucf101MP(ucf101):
-    def __init__(self,frmSize,numOfClasses):
-        ucf101.__init__(self, frmSize, numOfClasses)
-    
-    def loadTrainProcess(self):
-        lt = mp.Process(target=self.loadTrainAll(),args=())
-        lt.start()
     
     def test(self):
         print('The shape of current loaded dataset is ',self._trainVideos)
-        
 
 if __name__ == '__main__':
     frmSize = (112,80,3)
