@@ -2,6 +2,7 @@ from __future__ import print_function
 import numpy as np
 import random
 import os
+import multiprocessing as mp
 import videoPreProcess as vpp
 import videoPreProcess as vpp
 import sys
@@ -137,20 +138,41 @@ class ucf101:
                 trainVideos = np.append(trainVideos,video,axis=0)
                 trainlabels = np.append(trainlabels,videoLabel,axis=0)
         return [trainVideos,trainlabels]
+    
+    def loadTrainAllMP(self,mp=(1,0)):
+        videosPerProcess = int(self._trainFilelist1.shape[0]/mp[0])
+        if mp[1] >= mp[0]:
+            trainFilelist = self._trainFilelist1[mp[1] * videosPerProcess:]
+        else:
+            trainFilelist = self._trainFilelist1[mp[1] * videosPerProcess:(mp[1] + 1)*videosPerProcess]
+        print(trainFilelist)
+        cntVideos = 0
+        trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
+        trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
+        for file,label in trainFilelist:
+            labelCode = vpp.int2OneHot(int(label)-1,self._numOfClasses)
+            fileName = self._datasetPath + 'UCF-101/' + file
+            video = vpp.videoProcess(fileName,self._frmSize,RLFlipEn=False)
+            if video is not None:
+                videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
+                trainVideos = np.append(trainVideos,video,axis=0)
+                trainlabels = np.append(trainlabels,videoLabel,axis=0)
+                if cntVideos%1 == 0:
+                    print(cntVideos,' files are loaded!')
+        return [trainVideos,trainlabels]
+    
+    def runloadTrainAllMP(self):
+        processes = []
+        for i in range(4):
+            p = mp.Process(target=self.loadTrainAllMP,args=((4,i),))
+            processes.append(p)
+        [x.start() for x in processes]
         
-
 if __name__ == '__main__':
     frmSize = (112,80,3)
-    numOfClasses = 5
+    numOfClasses = 1
     ucf = ucf101(frmSize, numOfClasses)    
-    ucf.loadTrainAll(50)    
-    batch = ucf.loadTrainBatch(10)
-    print(batch[0].shape)
-    for clips in batch[0]:
-        vpp.videoPlay(clips,10)    
-    videos,labels = ucf.loadTest(5)    
-    print('the shape of testVideos is ',videos.shape)
-    for g in videos:
-        for i,v in enumerate(g):
-            print('video label is ',labels[i])
-            vpp.videoPlay(v,fps = 10)
+    ucf.runloadTrainAllMP()
+    
+    
+    
