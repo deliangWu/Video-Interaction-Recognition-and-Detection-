@@ -15,7 +15,7 @@ import common
 import network
 
 def loadTrainBatch(dataset,n,q):
-    trainSet = dataset.loadTrainBathMP(n)
+    trainSet = dataset.loadTrainBatchMP(n)
     q.put(trainSet)
 
 def main(_):
