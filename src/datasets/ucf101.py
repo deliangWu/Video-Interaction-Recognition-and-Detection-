@@ -29,7 +29,6 @@ class ucf101:
         self._trainFilelist1 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/trainlist01.txt",dtype=bytes).astype(str)
         np.random.shuffle(self._trainFilelist1)
         self._trainFilelist1 = validSet(self._trainFilelist1,self._validLabels)
-        print('The size of trainSet is ',self._trainFilelist1.shape)
         
         self._trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
         self._trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
@@ -120,6 +119,7 @@ class ucf101:
         else:
             trainFilelist = self._trainFilelist1[mp[1] * videosPerProcess:(mp[1] + 1)*videosPerProcess]
         cntVideos = 0
+        numOfVideos = trainFilelist.shape[0]
         trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
         trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         for file,label in trainFilelist:
@@ -132,9 +132,8 @@ class ucf101:
                 trainlabels = np.append(trainlabels,videoLabel,axis=0)
                 cntVideos += 1
                 if cntVideos%3 == 0:
-                    print(cntVideos,' files are loaded!')
+                    print('Loading videos: %2f%%'%(float(cntVideos * 100) /trainFilelist.shape[0]),end='\r')
         q.put([trainVideos,trainlabels])
-        print('training set was put into queue, the length is ',trainlabels.shape[0])
     
     def runloadTrainAllMP(self,numOfProcesses):
         trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
