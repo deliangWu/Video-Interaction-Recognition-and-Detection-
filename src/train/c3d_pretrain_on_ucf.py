@@ -38,7 +38,7 @@ def main(_):
     # load the dataset into memory
     # ******************************************************
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
-    test_x,test_y = ucf_set.loadTest(30) 
+    test_x,test_y = ucf_set.loadTest(20) 
     print('initial testing accuracy ',c3d.evaluate(test_x, test_y, sess))
     ucf_set.loadTrainAll()
    
@@ -48,7 +48,7 @@ def main(_):
     logName = 'c3d_pretrain_on_ucf.txt'
     common.clearFile(logName)
     iteration = 20001 
-    batchSize = 20 
+    batchSize = 15 
     best_accuracy = 0
     for i in range(iteration):
         train_x,train_y = ucf_set.loadTrainBatch(batchSize)
