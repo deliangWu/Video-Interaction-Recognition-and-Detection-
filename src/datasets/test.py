@@ -12,7 +12,7 @@ def worker(ucfset,q):
     for i in range(10):
         print("--------------sub-process-------------------------------")
         print("The time is {0}".format(time.ctime()))
-        gv,l = ucfset.loadTest(5)
+        gv,l = ucfset.loadTest(2)
         print(gv.shape)
         g = np.append(g,gv,1)
         print(g.shape)
@@ -20,19 +20,12 @@ def worker(ucfset,q):
         q.put(g)
 
 if __name__ == "__main__":
-    ucfset = ucf101.ucf101(frmSize=(112,128,3), numOfClasses=6)
-    ucfset.loadTest(1)
-    print('Load video ok')
-    q = multiprocessing.Queue()
-    p = multiprocessing.Process(target = worker, args = (ucfset,q,))
-    p.start()
-    time.sleep(2)
+    ucfset = ucf101.ucf101MP((112,128,3), 5)
+    ucfset.test()
+    ucfset.loadTrainProcess()
     while True:
-        vg = q.get_nowait()
-        print("--------------father-process-------------------------------")
-        print("The time for father process is {0}".format(time.ctime()))
-        print(vg.shape)
-        print("--------------father-process-------------------------------")
-        print(' ')
-        time.sleep(2)
-    p.join()
+        print('test')
+        ucfset.test()
+        time.sleep(1)
+    
+    

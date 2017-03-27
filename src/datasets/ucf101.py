@@ -104,6 +104,19 @@ class ucf101:
         print('training videos are loaded, the shape of loaded videos is ',self._numOfTrainSamples)
         return None
 
+import multiprocessing as mp
+class ucf101MP(ucf101):
+    def __init__(self,frmSize,numOfClasses):
+        ucf101.__init__(self, frmSize, numOfClasses)
+    
+    def loadTrainProcess(self):
+        lt = mp.Process(target=self.loadTrainAll(),args=())
+        lt.start()
+    
+    def test(self):
+        print('The shape of current loaded dataset is ',self._trainVideos)
+        
+
 if __name__ == '__main__':
     frmSize = (112,80,3)
     numOfClasses = 5
