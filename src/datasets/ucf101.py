@@ -2,6 +2,7 @@ from __future__ import print_function
 import numpy as np
 import random
 import os
+import time
 import multiprocessing as mp
 import videoPreProcess as vpp
 import videoPreProcess as vpp
@@ -159,6 +160,7 @@ class ucf101:
                 trainlabels = np.append(trainlabels,videoLabel,axis=0)
                 if cntVideos%1 == 0:
                     print(cntVideos,' files are loaded!')
+                cntVideos += 1
         return [trainVideos,trainlabels]
     
     def runloadTrainAllMP(self):
@@ -167,12 +169,15 @@ class ucf101:
             p = mp.Process(target=self.loadTrainAllMP,args=((4,i),))
             processes.append(p)
         [x.start() for x in processes]
+        [x.join() for x in processes]
         
 if __name__ == '__main__':
     frmSize = (112,80,3)
     numOfClasses = 1
     ucf = ucf101(frmSize, numOfClasses)    
+    print('start time is ',time.ctime())
     ucf.runloadTrainAllMP()
+    print('end time is ',time.ctime())
     
     
     
