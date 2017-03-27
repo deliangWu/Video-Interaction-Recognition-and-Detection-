@@ -8,6 +8,14 @@ import sys
 sys.path.insert(1,'../common')
 import common
 
+def validSet(filelist,validLabels):
+    tmpList = np.empty((0,2))
+    for file,label in filelist:
+        if int(label) in validLabels:
+            tmpList = np.append(tmpList,np.reshape(np.array([file,label]),(1,2)),axis=0)
+    return(tmpList)
+    
+
 class ucf101:
     def __init__(self,frmSize,numOfClasses):
         self._datasetPath = common.path.ucfPath
@@ -18,6 +26,8 @@ class ucf101:
         
         self._trainFilelist1 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/trainlist01.txt",dtype=bytes).astype(str)
         np.random.shuffle(self._trainFilelist1)
+        self._trainFilelist1 = validSet(self._trainFilelist1,self._validLabels)
+        
         self._trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
         self._trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         self._numOfTrainSamples = 0
@@ -87,25 +97,47 @@ class ucf101:
     def loadTrainAll(self,n=0):
         cntVideos = 0
         for file,label in self._trainFilelist1:
-            if int(label) in self._validLabels:
-                labelCode = vpp.int2OneHot(int(label)-1,self._numOfClasses)
-                fileName = self._datasetPath + 'UCF-101/' + file
-                video = vpp.videoProcess(fileName,self._frmSize,RLFlipEn=False)
-                if video is not None:
-                    cntVideos += 1
-                    videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
-                    self._trainVideos = np.append(self._trainVideos,video,axis=0)
-                    self._trainlabels = np.append(self._trainlabels,videoLabel,axis=0)
-                    if n > 0 and (cntVideos >= n):
-                        break
-                    if cntVideos%1 == 0:
-                        print(cntVideos,' files are loaded!')
+            labelCode = vpp.int2OneHot(int(label)-1,self._numOfClasses)
+            fileName = self._datasetPath + 'UCF-101/' + file
+            video = vpp.videoProcess(fileName,self._frmSize,RLFlipEn=False)
+            if video is not None:
+                cntVideos += 1
+                videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
+                self._trainVideos = np.append(self._trainVideos,video,axis=0)
+                self._trainlabels = np.append(self._trainlabels,videoLabel,axis=0)
+                if n > 0 and (cntVideos >= n):
+                    break
+                if cntVideos%1 == 0:
+                    print(cntVideos,' files are loaded!')
         self._numOfTrainSamples = self._trainVideos.shape[0]
         print('training videos are loaded, the shape of loaded videos is ',self._numOfTrainSamples)
         return None
     
-    def test(self):
-        print('The shape of current loaded dataset is ',self._trainVideos)
+    def loadTrainBatchMP(self,n):
+        if self._trainFileIndex + n > self._trainFilelist1.shape[0] - 1:
+            start = 0
+            self._trainFileIndex = n
+            self._trainEpoch += 1
+            # shuffle the data
+            np.random.shuffle(self._trainFilelist1)
+            print('current epoch is ',self._trainEpoch)
+        else:
+            start = self._trainFileIndex
+            self._trainFileIndex += n
+        end = self._trainFileIndex
+        
+        trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
+        trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
+        for file,label in self._trainFilelist1[start:end]:
+            labelCode = vpp.int2OneHot(int(label)-1,self._numOfClasses)
+            fileName = self._datasetPath + 'UCF-101/' + file
+            video = vpp.videoProcess(fileName,self._frmSize,RLFlipEn=False)
+            if video is not None:
+                videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
+                trainVideos = np.append(trainVideos,video,axis=0)
+                trainlabels = np.append(trainlabels,videoLabel,axis=0)
+        return [trainVideos,trainlabels]
+        
 
 if __name__ == '__main__':
     frmSize = (112,80,3)

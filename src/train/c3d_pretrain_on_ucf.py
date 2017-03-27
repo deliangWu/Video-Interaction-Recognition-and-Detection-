@@ -3,6 +3,7 @@ import os
 from os.path import isfile, join
 import sys
 import tensorflow as tf
+import multiprocessing
 sys.path.insert(1,'../datasets')
 sys.path.insert(1,'../model')
 sys.path.insert(1,'../common')
@@ -12,6 +13,10 @@ import videoPreProcess as vpp
 import model
 import common
 import network
+
+def loadTrainBatch(dataset,n,q):
+    trainSet = dataset.loadTrainBathMP(n)
+    q.put(trainSet)
 
 def main(_):
     # ******************************************************
@@ -40,7 +45,6 @@ def main(_):
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
     test_x,test_y = ucf_set.loadTest(20) 
     print('initial testing accuracy ',c3d.evaluate(test_x, test_y, sess))
-    ucf_set.loadTrainAll()
    
     # ******************************************************
     # Train and test the network 
@@ -48,10 +52,14 @@ def main(_):
     logName = 'c3d_pretrain_on_ucf.txt'
     common.clearFile(logName)
     iteration = 20001 
-    batchSize = 15 
+    batchSize = 5 
     best_accuracy = 0
+    q = multiprocessing.Queue()
+    pro_loadTrain = multiprocessing.Process(target=loadTrainBatch,args=(ucf_set,batchSize,q))
     for i in range(iteration):
-        train_x,train_y = ucf_set.loadTrainBatch(batchSize)
+        pro_loadTrain.start()
+        train_x,train_y = q.get()
+        print(trian_y)
         if i%int(iteration/200) == 0:
             train_accuracy = c3d.evaluate(train_x, train_y, sess)
             test_accuracy = c3d.evaluate(test_x, test_y, sess)
