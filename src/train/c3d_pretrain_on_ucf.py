@@ -38,7 +38,7 @@ def main(_):
     # load the dataset into memory
     # ******************************************************
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
-    test_x,test_y = ucf_set.loadTest(40) 
+    test_x,test_y = ucf_set.loadTest(30) 
     print('initial testing accuracy ',c3d.evaluate(test_x, test_y, sess))
     ucf_set.loadTrainAll()
    
