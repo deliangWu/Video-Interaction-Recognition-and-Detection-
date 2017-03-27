@@ -131,7 +131,7 @@ class ucf101:
                 trainlabels = np.append(trainlabels,videoLabel,axis=0)
                 cntVideos += 1
                 if cntVideos%3 == 0:
-                    print('Loading videos: %2f%%'%(float(cntVideos * 100) /trainFilelist.shape[0]),end='\r')
+                    print('Loading videos: ' + str(int(float(cntVideos * 100) /trainFilelist.shape[0])) +'%',end='\r')
         q.put([trainVideos,trainlabels])
     
     def runloadTrainAllMP(self,numOfProcesses):
@@ -158,6 +158,10 @@ class ucf101:
                 break
         [x.join() for x in processes]
         self._trainVideos,self._trainlabels = trainSet
+        perm = np.arange(self._trainVideos.shape[0])
+        np.random.shuffle(perm)
+        self._trainVideos = self._trainVideos[perm]
+        self._trainlabels = self._trainlabels[perm]
         return None
         
 if __name__ == '__main__':
@@ -167,4 +171,9 @@ if __name__ == '__main__':
     numOfProcesses = int(sys.argv[1])
     print('start time is ',time.ctime())
     ucf.runloadTrainAllMP(numOfProcesses)
+    for i in range(10):
+        vb,l =ucf.loadTrainBatch(20)    
+        for v in vb:
+            vpp.videoPlay(v,fps=10)
+    
     print('end time is ',time.ctime())
