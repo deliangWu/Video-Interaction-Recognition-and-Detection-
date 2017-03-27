@@ -140,7 +140,7 @@ class ucf101:
                 trainlabels = np.append(trainlabels,videoLabel,axis=0)
         return [trainVideos,trainlabels]
     
-    def loadTrainAllMP(self,mp=(1,0)):
+    def loadTrainAllMP(self,mp=(1,0),q):
         videosPerProcess = int(self._trainFilelist1.shape[0]/mp[0])
         if mp[1] >= mp[0]:
             trainFilelist = self._trainFilelist1[mp[1] * videosPerProcess:]
@@ -160,19 +160,25 @@ class ucf101:
                 if cntVideos%3 == 0:
                     print(cntVideos,' files are loaded!')
                 cntVideos += 1
-        return [trainVideos,trainlabels]
+        q.put([trainVideos,trainlabels])
     
     def runloadTrainAllMP(self,numOfProcesses):
         processes = []
+        queues=[]
         for i in range(numOfProcesses):
-            p = mp.Process(target=self.loadTrainAllMP,args=((numOfProcesses,i),))
+            q = mp.Queue()
+            p = mp.Process(target=self.loadTrainAllMP,args=((numOfProcesses,i),q,))
             processes.append(p)
+            queues.append(q)
         [x.start() for x in processes]
         [x.join() for x in processes]
+        trainSet = [x.get() for x in queues]
+        for ts in trainSet:
+            print(ts[1].shape)
         
 if __name__ == '__main__':
     frmSize = (112,80,3)
-    numOfClasses = 1
+    numOfClasses =int(sys.argv[2])
     ucf = ucf101(frmSize, numOfClasses)    
     numOfProcesses = int(sys.argv[1])
     print('start time is ',time.ctime())
