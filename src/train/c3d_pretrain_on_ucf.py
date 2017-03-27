@@ -54,26 +54,20 @@ def main(_):
     logName = 'c3d_pretrain_on_ucf.txt'
     common.clearFile(logName)
     iteration = 20001 
-    batchSize = 5 
+    batchSize = 15 
     best_accuracy = 0
     for i in range(iteration):
-        start = time.time()
         train_x,train_y = ucf_set.loadTrainBatch(batchSize) 
-        duration = time.time() - start
-        print('time for read dataset is ',duration)
-        #if i%int(iteration/200) == 0:
-        #    train_accuracy = c3d.evaluate(train_x, train_y, sess)
-        #    test_accuracy = c3d.evaluate(test_x, test_y, sess)
-        #    if test_accuracy > best_accuracy:
-        #        best_accuracy = test_accuracy
-        #    log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
-        #    common.pAndWf(logName,log)
-        #    if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
-        #        save_path = saver.save(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf.ckpt'))
-        #        break
-        start = time.time()
+        if i%int(iteration/200) == 0:
+            train_accuracy = c3d.evaluate(train_x, train_y, sess)
+            test_accuracy = c3d.evaluate(test_x, test_y, sess)
+            if test_accuracy > best_accuracy:
+                best_accuracy = test_accuracy
+            log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
+            common.pAndWf(logName,log)
+            if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
+                save_path = saver.save(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf.ckpt'))
+                break
         c3d.train(train_x, train_y, sess)
-        duration = time.time() - start
-        print('time for training is ', duration)
 if __name__ == "__main__":
     tf.app.run(main=main)

@@ -130,8 +130,8 @@ class ucf101:
                 trainVideos = np.append(trainVideos,video,axis=0)
                 trainlabels = np.append(trainlabels,videoLabel,axis=0)
                 cntVideos += 1
-                if cntVideos%3 == 0:
-                    print('Loading videos: ' + str(int(float(cntVideos * 100) /trainFilelist.shape[0])) +'%',end='\r')
+                if cntVideos%20 == 0:
+                    print('Loading videos: ' + str(int(float(cntVideos * 100) /trainFilelist.shape[0])) +'%')
         q.put([trainVideos,trainlabels])
     
     def runloadTrainAllMP(self,numOfProcesses):
