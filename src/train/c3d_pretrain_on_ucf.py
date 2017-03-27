@@ -59,7 +59,7 @@ def main(_):
     for i in range(iteration):
         pro_loadTrain.start()
         train_x,train_y = q.get()
-        print(trian_y)
+        print(train_y)
         if i%int(iteration/200) == 0:
             train_accuracy = c3d.evaluate(train_x, train_y, sess)
             test_accuracy = c3d.evaluate(test_x, test_y, sess)
