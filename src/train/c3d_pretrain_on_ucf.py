@@ -1,7 +1,6 @@
 import numpy as np
 import os
 from os.path import isfile, join
-import tensorflow as tf
 import sys
 sys.path.insert(1,'../datasets')
 sys.path.insert(1,'../model')
@@ -14,23 +13,19 @@ import common
 import network
 
 def main(_):
-    # define the dataset
+    # ******************************************************
+    # define the network
+    # ******************************************************
     numOfClasses = 30 
     frmSize = (112,128,3)
-    ucf_set = ucf.ucf101(frmSize,numOfClasses) 
-    ucf_set.loadTrainAll()
-    test_x,test_y = ucf_set.loadTest(20) 
-    logName = 'c3d_pretrain_on_ucf.txt'
-    common.clearFile(logName)
-    iteration = 20001 
-    batchSize = 20 
-    
-    # define the network
     with tf.device('/gpu:0'):
+        import tensorflow as tf
         with tf.variable_scope('atomic_action_features') as scope:
             c3d = network.C3DNET(numOfClasses, frmSize)
     
+    # ******************************************************
     # define session
+    # ******************************************************
     config = tf.ConfigProto()
     config.gpu_options.allow_growth=True
     sess = tf.InteractiveSession(config=config)
@@ -38,6 +33,22 @@ def main(_):
     initVars = tf.global_variables_initializer()
     with sess.as_default():
         sess.run(initVars)
+   
+    # ******************************************************
+    # load the dataset into memory
+    # ******************************************************
+    ucf_set = ucf.ucf101(frmSize,numOfClasses) 
+    test_x,test_y = ucf_set.loadTest(20) 
+    print('initial testing accuracy ',c3d.evaluate(test_x, test_y, sess))
+    ucf_set.loadTrainAll()
+   
+    # ******************************************************
+    # Train and test the network 
+    # ******************************************************
+    logName = 'c3d_pretrain_on_ucf.txt'
+    common.clearFile(logName)
+    iteration = 20001 
+    batchSize = 20 
     best_accuracy = 0
     for i in range(iteration):
         train_x,train_y = ucf_set.loadTrainBatch(batchSize)

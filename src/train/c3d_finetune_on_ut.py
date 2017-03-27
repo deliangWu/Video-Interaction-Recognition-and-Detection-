@@ -12,22 +12,22 @@ import common
 import network
 
 def main(argv):
-    # define the dataset for finetuning
+    # define the network
     numOfClasses = 6 
     frmSize = (112,128,3)
+    with tf.device('/gpu:1'):
+        with tf.variable_scope('global_interaction_features') as scope:
+            c3d_0 = network.C3DNET(numOfClasses, frmSize)
+            scope.reuse_variables()
+            c3d_1 = network.C3DNET(numOfClasses, frmSize)
+    
+    # define the dataset for finetuning
     ut_set = ut.ut_interaction_set1(frmSize)
     seqRange = range(1,2)
     logName = 'c3d_train_on_ut_set1.txt'
     common.clearFile(logName)
     iteration = 2001
     batchSize = 15
-    
-    # define the network
-    with tf.device('/gpu:1'):
-        with tf.variable_scope('global_interaction_features') as scope:
-            c3d_0 = network.C3DNET(numOfClasses, frmSize)
-            scope.reuse_variables()
-            c3d_1 = network.C3DNET(numOfClasses, frmSize)
     
     # define session
     config = tf.ConfigProto()
