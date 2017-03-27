@@ -46,6 +46,7 @@ def main(_):
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
     test_x,test_y = ucf_set.loadTest(20) 
     print('initial testing accuracy ',c3d.evaluate(test_x, test_y, sess))
+    ucf_set.runloadTrainAllMP(4)
    
     # ******************************************************
     # Train and test the network 
@@ -55,11 +56,9 @@ def main(_):
     iteration = 20001 
     batchSize = 5 
     best_accuracy = 0
-    q = multiprocessing.Queue()
-    pro_loadTrain = multiprocessing.Process(target=loadTrainBatch,args=(ucf_set,batchSize,q))
     for i in range(iteration):
         start = time.time()
-        train_x,train_y = ucf_set.loadTrainBatchMP(5) 
+        train_x,train_y = ucf_set.loadTrainBatch(batchSize) 
         duration = time.time() - start
         print('time for read dataset is ',duration)
         #if i%int(iteration/200) == 0:

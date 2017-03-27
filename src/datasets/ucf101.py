@@ -29,10 +29,10 @@ class ucf101:
         self._trainFilelist1 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/trainlist01.txt",dtype=bytes).astype(str)
         np.random.shuffle(self._trainFilelist1)
         self._trainFilelist1 = validSet(self._trainFilelist1,self._validLabels)
+        print('The size of trainSet is ',self._trainFilelist1.shape)
         
         self._trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
         self._trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
-        self._numOfTrainSamples = 0
         self._trainFileIndex = 0
         self._trainEpoch = 0
         
@@ -84,7 +84,7 @@ class ucf101:
             self._trainFileIndex = n
             self._trainEpoch += 1
             # shuffle the data
-            perm = np.arange(self._numOfTrainSamples)
+            perm = np.arange(self._trainVideos.shape[0])
             np.random.shuffle(perm)
             self._trainVideos = self._trainVideos[perm]
             self._trainlabels = self._trainlabels[perm]
@@ -111,38 +111,11 @@ class ucf101:
                     break
                 if cntVideos%1 == 0:
                     print(cntVideos,' files are loaded!')
-        self._numOfTrainSamples = self._trainVideos.shape[0]
-        print('training videos are loaded, the shape of loaded videos is ',self._numOfTrainSamples)
         return None
-    
-    def loadTrainBatchMP(self,n):
-        if self._trainFileIndex + n > self._trainFilelist1.shape[0] - 1:
-            start = 0
-            self._trainFileIndex = n
-            self._trainEpoch += 1
-            # shuffle the data
-            np.random.shuffle(self._trainFilelist1)
-            print('current epoch is ',self._trainEpoch)
-        else:
-            start = self._trainFileIndex
-            self._trainFileIndex += n
-        end = self._trainFileIndex
-        
-        trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
-        trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
-        for file,label in self._trainFilelist1[start:end]:
-            labelCode = vpp.int2OneHot(int(label)-1,self._numOfClasses)
-            fileName = self._datasetPath + 'UCF-101/' + file
-            video = vpp.videoProcess(fileName,self._frmSize,RLFlipEn=False)
-            if video is not None:
-                videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
-                trainVideos = np.append(trainVideos,video,axis=0)
-                trainlabels = np.append(trainlabels,videoLabel,axis=0)
-        return [trainVideos,trainlabels]
     
     def loadTrainAllMP(self,q,mp=(1,0)):
         videosPerProcess = int(self._trainFilelist1.shape[0]/mp[0])
-        if mp[1] >= mp[0]:
+        if mp[1] >= mp[0] - 1:
             trainFilelist = self._trainFilelist1[mp[1] * videosPerProcess:]
         else:
             trainFilelist = self._trainFilelist1[mp[1] * videosPerProcess:(mp[1] + 1)*videosPerProcess]
@@ -157,24 +130,37 @@ class ucf101:
                 videoLabel = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
                 trainVideos = np.append(trainVideos,video,axis=0)
                 trainlabels = np.append(trainlabels,videoLabel,axis=0)
+                cntVideos += 1
                 if cntVideos%3 == 0:
                     print(cntVideos,' files are loaded!')
-                cntVideos += 1
         q.put([trainVideos,trainlabels])
+        print('training set was put into queue, the length is ',trainlabels.shape[0])
     
     def runloadTrainAllMP(self,numOfProcesses):
+        trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
+        trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
+        trainSet = [trainVideos, trainlabels]
         processes = []
         queues=[]
+        
         for i in range(numOfProcesses):
             q = mp.Queue()
             p = mp.Process(target=self.loadTrainAllMP,args=(q, (numOfProcesses,i),))
             processes.append(p)
             queues.append(q)
+        
         [x.start() for x in processes]
+        cnt = 0
+        while True:
+            for qg in queues:
+                subTrainSet = qg.get()
+                cnt += 1
+                trainSet = [np.append(i,j,0) for i,j in zip(trainSet,subTrainSet)]
+            if cnt >= numOfProcesses:
+                break
         [x.join() for x in processes]
-        trainSet = [x.get() for x in queues]
-        for ts in trainSet:
-            print(ts[1].shape)
+        self._trainVideos,self._trainlabels = trainSet
+        return None
         
 if __name__ == '__main__':
     frmSize = (112,80,3)
@@ -184,6 +170,3 @@ if __name__ == '__main__':
     print('start time is ',time.ctime())
     ucf.runloadTrainAllMP(numOfProcesses)
     print('end time is ',time.ctime())
-    
-    
-    
