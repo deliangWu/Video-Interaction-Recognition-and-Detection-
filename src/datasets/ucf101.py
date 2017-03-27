@@ -140,7 +140,7 @@ class ucf101:
                 trainlabels = np.append(trainlabels,videoLabel,axis=0)
         return [trainVideos,trainlabels]
     
-    def loadTrainAllMP(self,mp=(1,0),q):
+    def loadTrainAllMP(self,q,mp=(1,0)):
         videosPerProcess = int(self._trainFilelist1.shape[0]/mp[0])
         if mp[1] >= mp[0]:
             trainFilelist = self._trainFilelist1[mp[1] * videosPerProcess:]
@@ -167,7 +167,7 @@ class ucf101:
         queues=[]
         for i in range(numOfProcesses):
             q = mp.Queue()
-            p = mp.Process(target=self.loadTrainAllMP,args=((numOfProcesses,i),q,))
+            p = mp.Process(target=self.loadTrainAllMP,args=(q, (numOfProcesses,i),))
             processes.append(p)
             queues.append(q)
         [x.start() for x in processes]
