@@ -2,6 +2,7 @@ import numpy as np
 import os
 from os.path import isfile, join
 import sys
+import tensorflow as tf
 sys.path.insert(1,'../datasets')
 sys.path.insert(1,'../model')
 sys.path.insert(1,'../common')
@@ -19,7 +20,6 @@ def main(_):
     numOfClasses = 30 
     frmSize = (112,128,3)
     with tf.device('/gpu:0'):
-        import tensorflow as tf
         with tf.variable_scope('atomic_action_features') as scope:
             c3d = network.C3DNET(numOfClasses, frmSize)
     
