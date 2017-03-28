@@ -1,3 +1,4 @@
+from __future__ import print_function
 import numpy as np
 import os
 import tensorflow as tf
@@ -40,7 +41,7 @@ def main(argv):
     # ***********************************************************
     # Train and test the network
     # ***********************************************************
-    seqRange = range(1,2)
+    seqRange = range(1,11)
     logName = 'c3d_train_on_ut_set1.txt'
     common.clearFile(logName)
     iteration = 2001
@@ -57,14 +58,12 @@ def main(argv):
             for i in range(iteration):
                 train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                 if i%int(iteration/100) == 0:
-                    train_accuracy = c3d.evaluate(train_x, train_y, sess)
-                    test_accuracy = c3d.evaluate(test_x, test_y, sess)
-                    test_accuracy1 = c3d.test(test_x, test_y, sess)
+                    train_accuracy = c3d.test(train_x, train_y, sess)
+                    test_accuracy = c3d.test(test_x, test_y, sess)
                     if test_accuracy > best_accuracy:
                         best_accuracy = test_accuracy
                     log = "step %d, training accuracy %g and testing accuracy %g, best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
-                    print('test accuracy1 is ', test_accuracy1)
                     if test_accuracy == 1 or (i > int(iteration * 0.75) and test_accuracy >= best_accuracy):
                         save_path = saver.save(sess,join(common.path.variablePath, 'c3d_train_on_ut_' + str(seq) +'.ckpt'))
                         break
@@ -72,11 +71,10 @@ def main(argv):
             common.pAndWf(logName,' \n')
         else:
             saver.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_' + str(seq) + '.ckpt'))
-        
-        # begin to test
-        test_accuracy = c3d.evaluate(test_x, test_y, sess)
-        log = "Testing accuracy %g \n"%(test_accuracy)
-        common.pAndWf(logName,log)
+            # begin to test
+            test_accuracy = c3d.test(test_x, test_y, sess)
+            log = "Testing accuracy %g \n"%(test_accuracy)
+            common.pAndWf(logName,log)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
