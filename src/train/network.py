@@ -4,8 +4,10 @@ import tensorflow as tf
 import sys
 sys.path.insert(1,'../model')
 sys.path.insert(1,'../datasets')
+sys.path.insert(1,'../common')
 import model
 import ut_interaction as ut
+import common
 
 
 class C3DNET:
@@ -32,10 +34,6 @@ class C3DNET:
         
         correct_predictionT = tf.equal(tf.argmax(self._y_convT,1), tf.argmax(self._y_,1))
         self._accuracyT = tf.reduce_mean(tf.cast(correct_predictionT, tf.float32))
-        if os.name == 'nt':
-            self._devs = ['/cpu:0']
-        else:
-            self._devs = ['/gpu:0']
     
     def train(self, train_x,train_y,sess):
         with sess.as_default():
@@ -49,6 +47,13 @@ class C3DNET:
                 test_accuracy = self._accuracyT.eval(feed_dict={self._featuresT:testF, self._y_:test_y})
             else:
                 test_accuracy = self._accuracy.eval(feed_dict={self._x:test_x, self._y_:test_y, self._keep_prob: 1})
+        return test_accuracy 
+    
+    def test(self, test_x, test_y, sess):
+        if test_x.ndim == 6:
+            test_accuracy = np.mean([self.evaluate(np.reshape(x,common.tupleInsert(x.shape,1,1)),y,sess) for x,y in zip(test_x.transpose(1,0,2,3,4,5),test_y)])
+        else:
+            test_accuracy = np.mean([self.evaluate(x,y,sess) for x,y in zip(test_x,test_y)])
         return test_accuracy 
     
 
@@ -79,10 +84,6 @@ class C3DNET_2F1C:
         
         correct_predictionT = tf.equal(tf.argmax(self._y_convT,1), tf.argmax(self._y_,1))
         self._accuracyT = tf.reduce_mean(tf.cast(correct_predictionT, tf.float32))
-        if os.name == 'nt':
-            self._devs = ['/cpu:0']
-        else:
-            self._devs = ['/gpu:0']
     
     def train(self, train_x0, train_x1, train_y,sess):
         with sess.as_default():

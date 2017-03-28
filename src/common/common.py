@@ -17,6 +17,11 @@ def clearFile(fileName):
     f.close()
     return None
 
+def tupleInsert(tIn,ind,obj):
+    l = list(tIn)
+    l.insert(ind,obj)
+    return tuple(l)
+
 class path:
     if os.name == 'nt':
         projectPath = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/'
@@ -36,3 +41,9 @@ class path:
         
     variablePath = join(projectPath,'variableSave/')
     logPath = join(projectPath,'log/')
+    
+class Vars:
+    if os.name == 'nt':
+        dev = ['/cpu:0']
+    else:
+        dev = ['/gpu:0','/gpu:1']

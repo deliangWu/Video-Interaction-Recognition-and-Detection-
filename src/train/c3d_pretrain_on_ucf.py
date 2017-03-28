@@ -21,9 +21,8 @@ def main(_):
     # ******************************************************
     numOfClasses = 20 
     frmSize = (112,128,3)
-    with tf.device('/gpu:0'):
-        with tf.variable_scope('atomic_action_features') as scope:
-            c3d = network.C3DNET(numOfClasses, frmSize)
+    with tf.variable_scope('atomic_action_features') as scope:
+        c3d = network.C3DNET(numOfClasses, frmSize)
     
     # ******************************************************
     # define session
