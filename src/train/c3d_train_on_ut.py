@@ -13,41 +13,55 @@ import network
 import time
 
 def main(argv):
-    # define the dataset
+    
+    # ***********************************************************
+    # define the network
+    # ***********************************************************
     numOfClasses = 6 
     frmSize = (112,128,3)
+    with tf.device('/gpu:1'):
+        with tf.variable_scope('global_interaction_features') as scope:
+            c3d = network.C3DNET(numOfClasses, frmSize)
+    
+    # ***********************************************************
+    # define session
+    # ***********************************************************
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth=True
+    sess = tf.InteractiveSession(config=config)
+    initVars = tf.global_variables_initializer()
+    with sess.as_default():
+        sess.run(initVars)
+    saver = tf.train.Saver()
+   
+    
+    # ***********************************************************
+    # define the dataset
+    # ***********************************************************
     ut_set = ut.ut_interaction_set1(frmSize)
+    
+    
+    
+    
+    # ***********************************************************
+    # Train and test the network
+    # ***********************************************************
     seqRange = range(1,2)
     logName = 'c3d_train_on_ut_set1.txt'
     common.clearFile(logName)
     iteration = 2001
     batchSize = 15
-    
-    # define the network
-    with tf.device('/gpu:1'):
-        with tf.variable_scope('global_interaction_features') as scope:
-            c3d = network.C3DNET(numOfClasses, frmSize)
-    
-    # define session
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth=True
-    sess = tf.InteractiveSession(config=config)
-    initVars = tf.global_variables_initializer()
-    saver = tf.train.Saver()
-    
     for seq in seqRange:
         log = '**************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
         common.pAndWf(logName,log)
-        with sess.as_default():
-            sess.run(initVars)
         ut_set.splitTrainingTesting(seq)
-        test_x,test_y = ut_set.loadTesting_new()
+        test_x,test_y = ut_set.loadTesting()
         if argv[1] == 'train' or argv[1] == 'Train':
             best_accuracy = 0
             for i in range(iteration):
-                train_x,train_y = ut_set.loadTraining(batchSize)
+                train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                 if i%int(iteration/100) == 0:
                     train_accuracy = c3d.evaluate(train_x, train_y, sess)
                     test_accuracy = c3d.evaluate(test_x, test_y, sess)

@@ -157,6 +157,7 @@ class ucf101:
             if cnt >= numOfProcesses:
                 break
         [x.join() for x in processes]
+        print('Dataset UCF101 is ready!')
         self._trainVideos,self._trainlabels = trainSet
         perm = np.arange(self._trainVideos.shape[0])
         np.random.shuffle(perm)
@@ -171,9 +172,9 @@ if __name__ == '__main__':
     numOfProcesses = int(sys.argv[1])
     print('start time is ',time.ctime())
     ucf.runloadTrainAllMP(numOfProcesses)
+    print('end time is ',time.ctime()) 
     for i in range(10):
         vb,l =ucf.loadTrainBatch(20)    
         for v in vb:
             vpp.videoPlay(v,fps=10)
     
-    print('end time is ',time.ctime())

@@ -16,112 +16,116 @@ def Label(fileName):
     return int(fileName[fileName.index(".") - 1 : fileName.index(".")])
 
 class ut_interaction:
-    def __init__(self,path,frmSize):
-        self._path = path
+    def __init__(self,paths,frmSize):
         self._frmSize = frmSize
-        self._trainingSet = []
-        self._testingSet= []
-        self._videos = np.empty((0,16) + self._frmSize,dtype = np.uint8)
-        self._labels = np.empty((0,6),dtype=np.float32)
-        self._seqs = np.empty((0),dtype=np.int16)
-        self._labs = np.empty((0),dtype=np.int16)
-        self._trainingIndex = []
+        self._filesSet = np.empty((0,3)) 
+        self._trainingFilesSet= []
+        self._testingFilesSet= []
+        self._trainingVideos = np.empty((0,16) + self._frmSize,dtype = np.uint8)
+        self._trainingLabels = np.empty((0,6),dtype=np.float32)
         self._trainingPointer = 0
         self._trainingEpoch = 0
-        files = np.array([f for f in listdir(path) if isfile(join(path,f)) and re.search('.avi',f) is not None])
-        self._filesSet = np.array([[sequence(fileName), fileName, Label(fileName)] for fileName in files])
-        print('loading videos from dataset UT-Interacion.')
-        for i,file in enumerate(self._filesSet):
-            video = vpp.videoProcess(join(path,file[1]),self._frmSize)
-            self._videos = np.append(self._videos,video,axis=0)
-            labelCode = vpp.int2OneHot(int(file[2]),6)
-            label = np.repeat(np.reshape(labelCode,(1,6)),video.shape[0],axis=0)
-            self._labels =  np.append(self._labels,label,axis=0)
-            self._seqs = np.append(self._seqs,np.repeat(int(file[0]),video.shape[0]))
-            self._labs = np.append(self._labs,np.repeat(int(file[2]),video.shape[0]))
-            print(i, '...',end='')
-        print('All videos loaded!')
+        for path in paths:
+            files = np.array([f for f in listdir(path) if isfile(join(path,f)) and re.search('.avi',f) is not None])
+            fs = np.array([[sequence(fileName), join(path,fileName), Label(fileName)] for i,fileName in enumerate(files)])
+            self._filesSet = np.append(self._filesSet,fs,axis = 0)
         
     def splitTrainingTesting(self,n):
-        testingIndex = [i for i,j in enumerate(self._seqs) if int(j) == n]
-        trainingIndex = [i for i,j in enumerate(self._seqs) if int(j) != n]
-        self._trainingSet = [self._videos[trainingIndex], self._labels[trainingIndex]]
-        self._testingSet = [self._videos[testingIndex], self._labels[testingIndex],self._seqs[testingIndex], self._labs[testingIndex]]
-        self._trainingIndex = np.arange(len(trainingIndex))
+        testingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) == n]
+        trainingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) != n]
+        self._trainingFilesSet = self._filesSet[trainingIndex]
+        self._testingFilesSet = self._filesSet[testingIndex]
+        self.loadTrainingAll()
         return None
     
-    def loadTraining(self,batch = 16):
-        if self._trainingPointer + batch >= len(self._trainingIndex):
-            np.random.shuffle(self._trainingIndex)
+    def loadTrainingAll(self):
+        for file in self._trainingFilesSet:
+            video = vpp.videoProcess(file[1],self._frmSize)
+            self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
+            labelCode = vpp.int2OneHot(int(file[2]),6)
+            label = np.repeat(np.reshape(labelCode,(1,6)),video.shape[0],axis=0)
+            self._trainingLabels=  np.append(self._trainingLabels,label,axis=0)
+            print('.',end='')
+        perm = np.arange(self._trainingVideos.shape[0])
+        np.random.shuffle(perm)
+        self._trainingVideos = self._trainingVideos[perm]
+        self._trainingLabels = self._trainingLabels[perm]
+        return None
+    
+    def loadTrainingBatch(self,batch = 16):
+        if self._trainingPointer + batch >= self._trainingVideos.shape[0]:
             start = 0
             self._trainingEpoch += 1
             self._trainingPointer = batch
+            perm = np.arange(self._trainingVideos.shape[0])
+            np.random.shuffle(perm)
+            self._trainingVideos = self._trainingVideos[perm]
+            self._trainingLabels = self._trainingLabels[perm]
         else:
             start = self._trainingPointer
             self._trainingPointer += batch
         end = self._trainingPointer
-        return(self._trainingSet[0][self._trainingIndex][start:end],self._trainingSet[1][self._trainingIndex][start:end])
+        return(self._trainingVideos[start:end],self._trainingLabels[start:end])
     
     def loadTesting(self):
-        testingIndex = np.arange(len(self._testingSet[0]))
-        np.random.shuffle(testingIndex)
-        print(self._testingSet[2][testingIndex])
-        print(self._testingSet[3][testingIndex])
-        return([t[testingIndex] for t in self._testingSet])
-        
-    def loadTesting_new(self):
-        #testingIndex = np.arange(len(self._testingSet[0]))
-        #np.random.shuffle(testingIndex)
-        testingLabs = self._testingSet[3]
-        for i in range(6):
-            iLoc = [l for l,v in enumerate(testingLabs) if v == i]
-            if iLoc == []:
-                continue
-            numOfClips = int(len(iLoc)/2)
-            if numOfClips == 1:
-                index = [iLoc[0],iLoc[0],iLoc[0]]
-            elif numOfClips == 2:
-                index = [iLoc[0],iLoc[1],iLoc[1]]
-            else:
-                index = iLoc[int(numOfClips/2) - 1: int(numOfClips/2) + 2]
-            videosI = self._testingSet[0][index]
-            videosI = vpp.videoNorm(videosI)
-            labelI = self._testingSet[1][iLoc[0]]
-            if videosI is not None:
-                if i == 0:
-                    videos = [videosI]
-                    labels = [labelI]
+        testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
+        testlabels = np.empty((0,6),dtype=np.float32)        
+        for file in self._testingFilesSet:
+            print(file[1])
+            labelCode = vpp.int2OneHot(int(file[2]),6)
+            video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True)
+            if video is not None:
+                numOfClips = video.shape[0]
+                if numOfClips == 1:
+                    index = [0,0,0]
+                elif numOfClips == 2:
+                    index = [0,1,1]
                 else:
-                    videos.append(videosI)
-                    labels.append(labelI)
-        return(np.array(videos).transpose(1,0,2,3,4,5),np.array(labels))
+                    index = range(int(numOfClips/2) - 1, int(numOfClips/2) + 2)
+                video = video[index]
+                video = np.reshape(video,(1,) + video.shape)
+                testVideos = np.append(testVideos,video,axis=0)
+                testlabels = np.append(testlabels,np.reshape(labelCode,(1,6)),axis=0)
+        return (testVideos.transpose(1,0,2,3,4,5),testlabels)    
             
             
             
                 
 class ut_interaction_set1(ut_interaction):
     def __init__(self,frmSize):
-        path = common.path.utSet1Path
+        path = [common.path.utSet1Path]
         ut_interaction.__init__(self,path,frmSize)
+
+class ut_interaction_set1_a(ut_interaction):
+    def __init__(self,frmSize):
+        paths = [common.path.utSet1_a0_Path,common.path.utSet1_a1_Path]
+        ut_interaction.__init__(self,paths,frmSize)
 
 class ut_interaction_set2(ut_interaction):
     def __init__(self,frmSize):
-        path = common.path.utSet2Path
+        path = [common.path.utSet2Path]
         ut_interaction.__init__(self,path,frmSize)
+
+class ut_interaction_set2_a(ut_interaction):
+    def __init__(self,frmSize):
+        paths = [common.path.utSet2_a0_Path,common.path.utSet2_a1_Path]
+        ut_interaction.__init__(self,paths,frmSize)
         
 
 if __name__ == '__main__':
-    set1 = ut_interaction_set1((112,144,3))
-    
-    for seq in range(1,11):
+    utset = ut_interaction_set2_a((112,80,3))
+    seq_bias = 10 
+    for seq in range(seq_bias+1,seq_bias+11):
         print('**************************************************************')
         print('current sequence is ', seq)
         print('**************************************************************')
-        set1.splitTrainingTesting(seq)
-        test = set1.loadTesting_new()
-        for clips in test[0]:
-            for v in clips:
-                vpp.videoPlay(v,25)
+        utset.splitTrainingTesting(seq)
+        train = utset.loadTrainingBatch(16)
+        for v in train[0]:
+            print(v.shape)
+            vpp.videoPlay(v)
+        test = utset.loadTesting()
+        print(test[0].shape)
         print('    ')
         
         

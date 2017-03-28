@@ -92,7 +92,6 @@ class FeatureDescriptor:
             h_pool5_flat = tf.reshape(h_pool5, [-1, int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv5a])
             h_fc6 = tf.nn.relu(tf.matmul(h_pool5_flat, W_fc6) + b_fc6)  
             h_fc6_drop = tf.nn.dropout(h_fc6, drop_var) 
-            h_fc6_l2norm = tf.nn.l2_normalize(h_fc6_drop,dim=1)
     
         # define the full connected layer fc7
         with tf.variable_scope('fc7'):
@@ -101,9 +100,9 @@ class FeatureDescriptor:
             b_fc7 = bias_variable([numOfOutputs_fc7])
             h_fc7 = tf.nn.relu(tf.matmul(h_fc6_drop, W_fc7) + b_fc7)
             h_fc7_drop = tf.nn.dropout(h_fc7, drop_var)
-            h_fc7_l2norm = tf.nn.l2_normalize(h_fc7_drop,dim=1)
+            #h_fc7_l2norm = tf.nn.l2_normalize(h_fc7_drop,dim=1)
         
-        return h_fc7_l2norm
+        return h_fc7_drop
 
 class Classifier:
     @staticmethod

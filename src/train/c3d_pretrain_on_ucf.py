@@ -15,15 +15,11 @@ import common
 import network
 import time
 
-def loadTrainBatch(dataset,n,q):
-    trainSet = dataset.loadTrainBatchMP(n)
-    q.put(trainSet)
-
 def main(_):
     # ******************************************************
     # define the network
     # ******************************************************
-    numOfClasses = 30 
+    numOfClasses = 20 
     frmSize = (112,128,3)
     with tf.device('/gpu:0'):
         with tf.variable_scope('atomic_action_features') as scope:
@@ -44,9 +40,9 @@ def main(_):
     # load the dataset into memory
     # ******************************************************
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
-    test_x,test_y = ucf_set.loadTest(20) 
+    test_x,test_y = ucf_set.loadTest(40) 
     print('initial testing accuracy ',c3d.evaluate(test_x, test_y, sess))
-    ucf_set.runloadTrainAllMP(4)
+    ucf_set.runloadTrainAllMP(8)
    
     # ******************************************************
     # Train and test the network 
@@ -54,7 +50,7 @@ def main(_):
     logName = 'c3d_pretrain_on_ucf.txt'
     common.clearFile(logName)
     iteration = 20001 
-    batchSize = 15 
+    batchSize = 30 
     best_accuracy = 0
     for i in range(iteration):
         train_x,train_y = ucf_set.loadTrainBatch(batchSize) 
