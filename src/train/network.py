@@ -51,9 +51,9 @@ class C3DNET:
     
     def test(self, test_x, test_y, sess):
         if test_x.ndim == 6:
-            test_accuracy = np.mean([self.evaluate(np.reshape(x,common.tupleInsert(x.shape,1,1)),y,sess) for x,y in zip(test_x.transpose(1,0,2,3,4,5),test_y)])
+            test_accuracy = np.mean([self.evaluate(np.reshape(x,common.tupleInsert(x.shape,1,1)),np.reshape(y,(1,)+y.shape),sess) for x,y in zip(test_x.transpose(1,0,2,3,4,5),test_y)])
         else:
-            test_accuracy = np.mean([self.evaluate(x,y,sess) for x,y in zip(test_x,test_y)])
+            test_accuracy = np.mean([self.evaluate(np.reshape(x,(1,)+x.shape),np.reshape(y,(1,)+y.shape),sess) for x,y in zip(test_x,test_y)])
         return test_accuracy 
     
 
