@@ -58,7 +58,7 @@ def main(argv):
                 train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                 if i%int(iteration/100) == 0:
                     train_accuracy = c3d.evaluate(train_x, train_y, sess)
-                    test_accuracy0 = c3d.evaluate(test_x, test_y, sess)
+                    test_accuracy = c3d.evaluate(test_x, test_y, sess)
                     test_accuracy1 = c3d.test(test_x, test_y, sess)
                     if test_accuracy > best_accuracy:
                         best_accuracy = test_accuracy

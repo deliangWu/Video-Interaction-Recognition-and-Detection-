@@ -71,7 +71,6 @@ class ut_interaction:
         testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
         testlabels = np.empty((0,6),dtype=np.float32)        
         for file in self._testingFilesSet:
-            print(file[1])
             labelCode = vpp.int2OneHot(int(file[2]),6)
             video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True)
             if video is not None:
@@ -121,10 +120,10 @@ if __name__ == '__main__':
         print('**************************************************************')
         utset.splitTrainingTesting(seq)
         train = utset.loadTrainingBatch(16)
-        for v in train[0]:
+        test = utset.loadTesting()
+        for v in test[0][:,0]:
             print(v.shape)
             vpp.videoPlay(v)
-        test = utset.loadTesting()
         print(test[0].shape)
         print('    ')
         
