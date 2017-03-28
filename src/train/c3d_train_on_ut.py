@@ -29,9 +29,6 @@ def main(argv):
     config.gpu_options.allow_growth=True
     sess = tf.InteractiveSession(config=config)
     initVars = tf.global_variables_initializer()
-    with sess.as_default():
-        sess.run(initVars)
-    saver = tf.train.Saver()
    
     # ***********************************************************
     # define the dataset
@@ -47,6 +44,9 @@ def main(argv):
     iteration = 2001
     batchSize = 15
     for seq in seqRange:
+        with sess.as_default():
+            sess.run(initVars)
+        saver = tf.train.Saver()
         log = '**************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
