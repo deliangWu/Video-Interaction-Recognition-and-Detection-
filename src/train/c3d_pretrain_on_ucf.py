@@ -39,9 +39,11 @@ def main(_):
     # load the dataset into memory
     # ******************************************************
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
-    test_x,test_y = ucf_set.loadTest(40) 
-    print('initial testing accuracy ',c3d.evaluate(test_x, test_y, sess))
+    test_x,test_y = ucf_set.loadTest() 
+    print('initial testing accuracy ',c3d.test(test_x, test_y, sess))
+    print('Start to loading videos for training..................')
     ucf_set.runloadTrainAllMP(8)
+    print('All training videos loaded! ')
    
     # ******************************************************
     # Train and test the network 
@@ -49,13 +51,13 @@ def main(_):
     logName = 'c3d_pretrain_on_ucf.txt'
     common.clearFile(logName)
     iteration = 20001 
-    batchSize = 30 
+    batchSize = 30
     best_accuracy = 0
     for i in range(iteration):
         train_x,train_y = ucf_set.loadTrainBatch(batchSize) 
         if i%int(iteration/200) == 0:
-            train_accuracy = c3d.evaluate(train_x, train_y, sess)
-            test_accuracy = c3d.evaluate(test_x, test_y, sess)
+            train_accuracy = c3d.test(train_x, train_y, sess)
+            test_accuracy = c3d.test(test_x, test_y, sess)
             if test_accuracy > best_accuracy:
                 best_accuracy = test_accuracy
             log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)

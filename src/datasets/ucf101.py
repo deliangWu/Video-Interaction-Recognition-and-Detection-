@@ -49,7 +49,7 @@ class ucf101:
         #self._testFilelist3 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/testlist03.txt",dtype=bytes).astype(str)
         #np.random.shuffle(self._testFilelist3)
         
-        
+    '''Load samples for test'''    
     def loadTest(self,n = 0):
         testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
         testlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
