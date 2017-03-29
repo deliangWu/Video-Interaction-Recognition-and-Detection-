@@ -32,8 +32,8 @@ class ucf101:
         validLabels = range(1,numOfClasses+1)
         
         self._trainFilelist1 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/trainlist01.txt",dtype=bytes).astype(str)
-        np.random.shuffle(self._trainFilelist1)
         self._trainFilelist1 = validSet(self._trainFilelist1,validLabels)
+        np.random.shuffle(self._trainFilelist1)
         
         self._trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
         self._trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
@@ -115,15 +115,15 @@ class ucf101:
                 break
         [x.join() for x in processes]
         print('Dataset UCF101 for ' + videoType + ' is ready!')
-        videos,labels = videosSet
-        perm = np.arange(videos.shape[0])
-        np.random.shuffle(perm)
-        videos = videos[perm]
-        labels = labels[perm]
-        return [videos,labels]
+        return videosSet
     
     def loadTrainingAll(self,numOfProcesses):
-        self._trainVideos, self._trainlabels = self.runloadVideosAllMP(self._trainFilelist1,numOfProcesses=numOfProcesses,videoType='train')
+        videos,labels = self.runloadVideosAllMP(self._trainFilelist1,numOfProcesses=numOfProcesses,videoType='train')
+        perm = np.arange(videos.shape[0])
+        np.random.shuffle(perm)
+        self._trainVideos = videos[perm]
+        self._trainlabels = labels[perm]
+        return None
         
     def loadTesting(self,numOfProcesses):
         testingVideos, testingLabels = self.runloadVideosAllMP(self._testFilelist1,numOfProcesses=numOfProcesses, videoType='test')
@@ -155,15 +155,15 @@ if __name__ == '__main__':
     frmSize = (112,80,3)
     numOfClasses =int(sys.argv[2])
     ucf = ucf101(frmSize, numOfClasses)    
-    numOfProcesses = int(sys.argv[1])
-    tv,tl = ucf.loadTesting(numOfProcesses)
-    ucf.loadTrainingAll(numOfProcesses)
-    tbv,tbl = ucf.loadTrainBatch(20)
-    print(tbv.shape, '++++++++++++++++',tbl.shape)
-    print(tv.shape,' ------------- ',tl.shape)
-    print(tl)
-    for x in tbv:
-        vpp.videoPlay(x,fps=10)
+    #numOfProcesses = int(sys.argv[1])
+    #tv,tl = ucf.loadTesting(numOfProcesses)
+    #ucf.loadTrainingAll(numOfProcesses)
+    #tbv,tbl = ucf.loadTrainBatch(20)
+    #print(tbv.shape, '++++++++++++++++',tbl.shape)
+    #print(tv.shape,' ------------- ',tl.shape)
+    #print(tl)
+    #for x in tbv:
+    #    vpp.videoPlay(x,fps=10)
     #print('start time is ',time.ctime())
     #ucf.runloadTrainAllMP(numOfProcesses)
     #print('end time is ',time.ctime()) 
