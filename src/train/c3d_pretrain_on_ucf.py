@@ -22,7 +22,7 @@ def main(_):
     numOfClasses = 3
     frmSize = (112,128,3)
     with tf.variable_scope('atomic_action_features') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 64, nof_conv2=128, nof_conv3=256)
+        c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 48, nof_conv2=112, nof_conv3=256)
     
     # ******************************************************
     # define session
