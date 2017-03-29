@@ -88,7 +88,7 @@ class ucf101:
                 if cntVideos%max(1,int(videosPerProcess/20)) == 0:
                     print('Process-' + str(os.getpid()) + ' Loading videos for ' + videoType +' : ' + str(int(float(cntVideos * 100) / videosPerProcess)) +'%')
                     
-        print('Process-' + str(os.getpid()) + 'finished!')
+        print('Process-' + str(os.getpid()) + ' finished!')
         q.put([videos,labels])
     
     def runloadVideosAllMP(self,filelist,numOfProcesses,videoType = 'train'):
