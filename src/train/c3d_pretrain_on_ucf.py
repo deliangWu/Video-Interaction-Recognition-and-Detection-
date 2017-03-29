@@ -19,10 +19,10 @@ def main(_):
     # ******************************************************
     # define the network
     # ******************************************************
-    numOfClasses = 20 
+    numOfClasses = 1 
     frmSize = (112,128,3)
     with tf.variable_scope('atomic_action_features') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize)
+        c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 64, nof_conv2=128, nof_conv3=256)
     
     # ******************************************************
     # define session
@@ -39,16 +39,16 @@ def main(_):
     # load the dataset into memory
     # ******************************************************
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
-    test_x,test_y = ucf_set.loadTesting(8) 
+    test_x,test_y = ucf_set.loadTesting(numOfProcesses = 16) 
     print('initial testing accuracy ',c3d.test(test_x, test_y, sess))
     print('Start to loading videos for training..................')
-    ucf_set.loadTrainingAll(8)
     print('All training videos loaded! ')
    
     # ******************************************************
     # Train and test the network 
     # ******************************************************
     logName = 'c3d_pretrain_on_ucf.txt'
+    variableName = 'c3d_pretrain_on_ucf_0329.ckpt'
     common.clearFile(logName)
     iteration = 20001 
     batchSize = 30
@@ -63,7 +63,7 @@ def main(_):
             log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
             common.pAndWf(logName,log)
             if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
-                save_path = saver.save(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf.ckpt'))
+                save_path = saver.save(sess,join(common.path.variablePath, variableName))
                 break
         c3d.train(train_x, train_y, sess)
 if __name__ == "__main__":

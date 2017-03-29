@@ -11,7 +11,7 @@ import common
 
 
 class C3DNET:
-    def __init__(self, numOfClasses,frmSize):
+    def __init__(self, numOfClasses,frmSize,nof_conv1 = 32, nof_conv2 = 64, nof_conv3 = 128):
         # build the 3D ConvNet
         # define the input and output variables
         self._x = tf.placeholder(tf.float32, (None,16) + frmSize)
@@ -20,7 +20,7 @@ class C3DNET:
         self._keep_prob = tf.placeholder(tf.float32)
         
         with tf.variable_scope('feature_descriptor') as scope:
-            self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob)
+            self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3)
         with tf.variable_scope('classifier') as scope:
             self._y_conv = model.Classifier.softmax(self._features,numOfClasses)
             scope.reuse_variables()
