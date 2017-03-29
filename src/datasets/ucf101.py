@@ -86,7 +86,9 @@ class ucf101:
                 labels = np.append(labels,videoLabel,axis=0)
                 cntVideos += 1
                 if cntVideos%max(1,int(videosPerProcess/20)) == 0:
-                    print('Loading videos for ' + videoType +' : ' + str(int(float(cntVideos * 100) / videosPerProcess)) +'%')
+                    print('Process-' + str(os.getpid()) + ' Loading videos for ' + videoType +' : ' + str(int(float(cntVideos * 100) / videosPerProcess)) +'%')
+                    
+        print('Process-' + str(os.getpid()) + 'finished!')
         q.put([videos,labels])
     
     def runloadVideosAllMP(self,filelist,numOfProcesses,videoType = 'train'):
