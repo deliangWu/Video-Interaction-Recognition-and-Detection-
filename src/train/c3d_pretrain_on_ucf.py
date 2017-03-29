@@ -19,7 +19,7 @@ def main(_):
     # ******************************************************
     # define the network
     # ******************************************************
-    numOfClasses = 3
+    numOfClasses = 20 
     frmSize = (112,128,3)
     with tf.variable_scope('atomic_action_features') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 48, nof_conv2=112, nof_conv3=256)
@@ -47,8 +47,8 @@ def main(_):
     # ******************************************************
     # Train and test the network 
     # ******************************************************
-    logName = 'c3d_pretrain_on_ucf.txt'
-    variableName = 'c3d_pretrain_on_ucf_0329.ckpt'
+    logName = 'c3d_pretrain_on_ucf_' + common.getDateTime() + '.txt'
+    variableName = 'c3d_pretrain_on_ucf_' + common.getDateTime() + '.ckpt'
     common.clearFile(logName)
     iteration = 20001 
     batchSize = 30

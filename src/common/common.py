@@ -3,6 +3,7 @@ import sys
 import os
 from os.path import isfile, join
 import numpy as np
+from datetime import datetime
 
 ''' a method for print input string on terminal and write it to the file at the same time'''
 def pAndWf(fileName, string):
@@ -47,3 +48,10 @@ class Vars:
         dev = ['/cpu:0']
     else:
         dev = ['/gpu:0','/gpu:1']
+        
+def getDateTime():
+    t = str(datetime.now())
+    t = t[5:16]
+    t = t.replace(' ','-')
+    t = t.replace(':','-')
+    return t

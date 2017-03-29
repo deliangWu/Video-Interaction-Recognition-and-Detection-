@@ -39,7 +39,7 @@ def main(argv):
     # Train and test the network
     # ***********************************************************
     seqRange = range(1,11)
-    logName = 'c3d_train_on_ut_set1.txt'
+    logName = 'c3d_train_on_ut_' + common.getDateTime() + '.txt'
     common.clearFile(logName)
     iteration = 2001
     batchSize = 15
@@ -70,7 +70,8 @@ def main(argv):
                 c3d.train(train_x, train_y, sess)
             common.pAndWf(logName,' \n')
         else:
-            saver.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_' + str(seq) + '.ckpt'))
+            variableName = 'c3d_train_on_ut_' + common.getDateTime() + '_' + str(seq) + '.ckpt'
+            saver.restore(sess,join(common.path.variablePath, variableName))
             # begin to test
             test_accuracy = c3d.test(test_x, test_y, sess)
             log = "Testing accuracy %g \n"%(test_accuracy)
