@@ -87,10 +87,7 @@ class ucf101:
                 cntVideos += 1
                 if cntVideos%max(1,int(videosPerProcess/20)) == 0:
                     print('Loading videos for ' + videoType +' : ' + str(int(float(cntVideos * 100) / videosPerProcess)) +'%')
-        if videoType == 'test':        
-            q.put([videos.transpose(1,0,2,3,4,5),labels])
-        else:
-            q.put([videos,labels])
+        q.put([videos,labels])
     
     def runloadVideosAllMP(self,filelist,numOfProcesses,videoType = 'train'):
         videos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
