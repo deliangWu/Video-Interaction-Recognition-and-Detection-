@@ -71,7 +71,7 @@ class ucf101:
             labelCode = vpp.int2OneHot(int(label)-1,self._numOfClasses)
             fileName = self._datasetPath + 'UCF-101/' + file
             video = vpp.videoProcess(fileName,self._frmSize,RLFlipEn=False,NormEn=(videoType=='test'))
-            if video is not None:
+            if video is not None and video.shape[0] >= 1:
                 if videoType == 'test':
                     numOfClips = video.shape[0]
                     if numOfClips == 1:
