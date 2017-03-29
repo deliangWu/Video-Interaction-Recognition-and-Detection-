@@ -101,7 +101,7 @@ class ucf101:
         
         for i in range(numOfProcesses):
             q = mp.Queue()
-            p = mp.Process(target=self.loadVideosAllMP,args=(filelist, q, (numOfProcesses,i),))
+            p = mp.Process(target=self.loadVideosAllMP,args=(filelist, q, (numOfProcesses,i),videoType,))
             processes.append(p)
             queues.append(q)
         
