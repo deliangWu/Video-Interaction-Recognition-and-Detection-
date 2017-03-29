@@ -19,7 +19,7 @@ def main(_):
     # ******************************************************
     # define the network
     # ******************************************************
-    numOfClasses = 1 
+    numOfClasses = 3
     frmSize = (112,128,3)
     with tf.variable_scope('atomic_action_features') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 64, nof_conv2=128, nof_conv3=256)
@@ -42,7 +42,7 @@ def main(_):
     test_x,test_y = ucf_set.loadTesting(numOfProcesses = 16) 
     print('initial testing accuracy ',c3d.test(test_x, test_y, sess))
     print('Start to loading videos for training..................')
-    print('All training videos loaded! ')
+    ucf_set.loadTrainingAll(numOfProcesses = 16)
    
     # ******************************************************
     # Train and test the network 

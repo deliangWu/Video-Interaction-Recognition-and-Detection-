@@ -91,7 +91,7 @@ class ucf101:
         print('Process-' + str(os.getpid()) + ' finished!')
         q.put([videos,labels])
     
-    def runloadVideosAllMP(self,filelist,numOfProcesses,videoType = 'train'):
+    def runloadVideosAllMP(self,filelist,numOfProcesses=8,videoType = 'train'):
         videos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
         labels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         videosSet = [videos, labels]
@@ -130,8 +130,9 @@ class ucf101:
         testingVideos = np.reshape(testingVideos,(int(testingVideos.shape[0]/3),3)+testingVideos.shape[1:])
         testingVideos = testingVideos.transpose(1,0,2,3,4,5)
         testingLabels = np.reshape(testingLabels,(int(testingLabels.shape[0]/3),3)+testingLabels.shape[1:])
-        testingLabels = testingLabels.transpose(1,0,2)[0]
-        return [testingVideos,testingLabels]
+        testingLabels = testingLabels.transpose(1,0,2)
+        assert np.array_equal(testingLabels[0], testingLabels[1]) and np.array_equal(testingLabels[1], testingLabels[2]), 'Error!'
+        return [testingVideos,testingLabels[0]]
     
     def loadTrainBatch(self,n):
         if (self._trainFileIndex + n > self._trainVideos.shape[0]):
@@ -155,8 +156,8 @@ if __name__ == '__main__':
     frmSize = (112,80,3)
     numOfClasses =int(sys.argv[2])
     ucf = ucf101(frmSize, numOfClasses)    
-    #numOfProcesses = int(sys.argv[1])
-    #tv,tl = ucf.loadTesting(numOfProcesses)
+    numOfProcesses = int(sys.argv[1])
+    tv,tl = ucf.loadTesting(numOfProcesses)
     #ucf.loadTrainingAll(numOfProcesses)
     #tbv,tbl = ucf.loadTrainBatch(20)
     #print(tbv.shape, '++++++++++++++++',tbl.shape)
