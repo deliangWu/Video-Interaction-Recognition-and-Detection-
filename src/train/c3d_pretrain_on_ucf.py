@@ -15,14 +15,14 @@ import common
 import network
 import time
 
-def main(_):
+def main(argv):
     # ******************************************************
     # define the network
     # ******************************************************
     numOfClasses = 20 
     frmSize = (112,128,3)
     with tf.variable_scope('atomic_action_features') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 48, nof_conv2=112, nof_conv3=256)
+        c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 32, nof_conv2=64, nof_conv3=128)
     
     # ******************************************************
     # define session
@@ -41,8 +41,6 @@ def main(_):
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
     test_x,test_y = ucf_set.loadTesting(numOfProcesses = 16) 
     print('initial testing accuracy ',c3d.test(test_x, test_y, sess))
-    print('Start to loading videos for training..................')
-    ucf_set.loadTrainingAll(numOfProcesses = 16)
    
     # ******************************************************
     # Train and test the network 
@@ -53,18 +51,28 @@ def main(_):
     iteration = 20001 
     batchSize = 30
     best_accuracy = 0
-    for i in range(iteration):
-        train_x,train_y = ucf_set.loadTrainBatch(batchSize) 
-        if i%int(iteration/200) == 0:
-            train_accuracy = c3d.test(train_x, train_y, sess)
-            test_accuracy = c3d.test(test_x, test_y, sess)
-            if test_accuracy > best_accuracy:
-                best_accuracy = test_accuracy
-            log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
-            common.pAndWf(logName,log)
-            if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
-                save_path = saver.save(sess,join(common.path.variablePath, variableName))
-                break
-        c3d.train(train_x, train_y, sess)
+    if len(argv) < 2 or argv[1] == 'Train' or argv[1] == 'train':
+        print('Start to loading videos for training..................')
+        ucf_set.loadTrainingAll(numOfProcesses = 16)
+        for i in range(iteration):
+            train_x,train_y = ucf_set.loadTrainBatch(batchSize) 
+            if i%int(iteration/200) == 0:
+                train_accuracy = c3d.test(train_x, train_y, sess)
+                test_accuracy = c3d.test(test_x, test_y, sess)
+                if test_accuracy > best_accuracy:
+                    best_accuracy = test_accuracy
+                log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
+                common.pAndWf(logName,log)
+                if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
+                    save_path = saver.save(sess,join(common.path.variablePath, variableName))
+                    break
+            c3d.train(train_x, train_y, sess)
+    else:
+        variableName = 'c3d_pretrain_on_ucf_0329.ckpt'
+        saver.restore(sess,join(common.path.variablePath, variableName))
+        # begin to test
+        test_accuracy = c3d.test(test_x, test_y, sess)
+        log = "Testing accuracy %g \n"%(test_accuracy)
+        common.pAndWf(logName,log)
 if __name__ == "__main__":
-    tf.app.run(main=main)
+    tf.app.run(main=main, argv=sys.argv)
