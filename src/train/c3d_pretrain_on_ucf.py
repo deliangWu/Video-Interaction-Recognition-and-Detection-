@@ -20,7 +20,7 @@ def main(argv):
     # define the network
     # ******************************************************
     numOfClasses = 20 
-    frmSize = (112,128,3)
+    frmSize = (112,80,3)
     with tf.variable_scope('atomic_action_features') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 32, nof_conv2=64, nof_conv3=128)
     
