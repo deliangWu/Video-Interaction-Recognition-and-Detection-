@@ -1,3 +1,4 @@
+
 from __future__ import print_function
 import numpy as np
 import os
@@ -41,7 +42,7 @@ def main(argv):
     seqRange = range(1,11)
     logName = 'c3d_finetune_on_ut_' + common.getDateTime() + '.txt'
     common.clearFile(logName)
-    iteration = 4001
+    iteration = 2001
     batchSize = 15
     for seq in seqRange:
         with sess.as_default():

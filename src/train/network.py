@@ -100,3 +100,16 @@ class C3DNET_2F1C:
             else:
                 test_accuracy = self._accuracy.eval(feed_dict={self._x0:test_x0, self._x1:test_x1, self._y_:test_y, self._keep_prob:1})
         return test_accuracy 
+    
+    def test(self, test_x0, test_x1, test_y, sess):
+        if test_x.ndim == 6:
+            test_accuracy = np.mean([self.evaluate(np.reshape(x0,common.tupleInsert(x0.shape,1,1)), \
+                                                   np.reshape(x1,common.tupleInsert(x1.shape,1,1)), \
+                                                   np.reshape(y,(1,)+y.shape),sess) \
+                                                   for x0,x1,y in zip(test_x0.transpose(1,0,2,3,4,5),test_x1.transpose(1,0,2,3,4,5),test_y)])
+        else:
+            test_accuracy = np.mean([self.evaluate(np.reshape(x0,(1,)+x0.shape),
+                                                   np.reshape(x1,(1,)+x1.shape), \
+                                                   np.reshape(y,(1,)+y.shape),sess) \
+                                                   for x0,x1,y in zip(test_x0,test_x1,test_y)])
+        return test_accuracy 
