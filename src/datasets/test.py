@@ -17,7 +17,7 @@ if __name__ == "__main__":
     print(ph_num_rows)
     
     # Makes a `ph_num_rows x 2` matrix, by tiling `h` along the row dimension.
-    h_tiled = tf.tile(h, tf.pack([ph_num_rows, 1]))
+    h_tiled = tf.tile(h, tf.stack([ph_num_rows, 1]))
     print(h_tiled)
     
     result = tf.concat(1, [ph_input, h_tiled])        
