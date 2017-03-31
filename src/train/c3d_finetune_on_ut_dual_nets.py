@@ -18,16 +18,18 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
+    logName = 'c3d_finetune_on_ut_set1_dual_nets_' + common.getDateTime() + '.txt'
+    common.clearFile(logName)
     numOfClasses = 6 
     frmSize = (112,80,3)
     with tf.variable_scope('atomic_action_features') as scope:
         if len(argv) > 3 and argv[2] == 'unShareFeatureVariable':
-            print('Run the dual-nets model with two independent feature variables ')
+            log = 'Run the dual-nets model with two independent feature variables! '
             c3d = network.C3DNET_2F1C(numOfClasses, frmSize, shareFeatureVariable= True)
         else:
-            print('Run the dual-nets model with sharing feature variables ')
+            log = 'Run the dual-nets model with sharing feature variables! '
             c3d = network.C3DNET_2F1C(numOfClasses, frmSize)
-    
+    common.pAndWf(logName,log)
     # ***********************************************************
     # define session
     # ***********************************************************
@@ -45,8 +47,6 @@ def main(argv):
     # Train and test the network
     # ***********************************************************
     seqRange = range(1,11)
-    logName = 'c3d_finetune_on_ut_dual_nets_' + common.getDateTime() + '.txt'
-    common.clearFile(logName)
     iteration = 4001
     batchSize = 15
     for seq in seqRange:
@@ -74,7 +74,7 @@ def main(argv):
                         save_path = saver.save(sess,join(common.path.variablePath, 'c3d_finetune_on_ut_dual_nets_' + str(seq) +'.ckpt'))
                         break
                 c3d.train(train_x0, train_x1, train_y, sess)
-            common.pAndWf(logName,' \n')
+            common.pAndWf(logName,' The training is finished at ' + time.ctime() + ' \n')
         else:
             variableName = 'c3d_finetune_on_ut_dual_nets_' + str(seq) + '.ckpt'
             saver.restore(sess,join(common.path.variablePath, variableName))
