@@ -21,7 +21,12 @@ def main(argv):
     numOfClasses = 6 
     frmSize = (112,80,3)
     with tf.variable_scope('atomic_action_features') as scope:
-        c3d = network.C3DNET_2F1C(numOfClasses, frmSize)
+        if len(argv) > 3 and argv[2] == 'unShareFeatureVariable':
+            print('Run the dual-nets model with two independent feature variables ')
+            c3d = network.C3DNET_2F1C(numOfClasses, frmSize, shareFeatureVariable= True)
+        else:
+            print('Run the dual-nets model with sharing feature variables ')
+            c3d = network.C3DNET_2F1C(numOfClasses, frmSize)
     
     # ***********************************************************
     # define session

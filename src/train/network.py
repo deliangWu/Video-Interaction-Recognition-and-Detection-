@@ -58,7 +58,7 @@ class C3DNET:
     
 
 class C3DNET_2F1C:
-    def __init__(self, numOfClasses,frmSize):
+    def __init__(self, numOfClasses,frmSize, shareFeatureVariable = True):
         # build the 3D ConvNet
         # define the input and output variables
         self._x0 = tf.placeholder(tf.float32, (None,16) + frmSize)
@@ -67,13 +67,18 @@ class C3DNET_2F1C:
         self._featuresT = tf.placeholder(tf.float32,(None,8192))
         self._keep_prob = tf.placeholder(tf.float32)
         
-        with tf.variable_scope('feature_descriptor') as scope:
-            self._features0 = model.FeatureDescriptor.c3d(self._x0,frmSize,self._keep_prob)
-            scope.reuse_variables()
-            self._features1 = model.FeatureDescriptor.c3d(self._x1,frmSize,self._keep_prob)
+        if shareFeatureVariable == True:
+            with tf.variable_scope('feature_descriptor') as scope:
+                self._features0 = model.FeatureDescriptor.c3d(self._x0,frmSize,self._keep_prob)
+                scope.reuse_variables()
+                self._features1 = model.FeatureDescriptor.c3d(self._x1,frmSize,self._keep_prob)
+        else:
+            with tf.variable_scope('feature_descriptor0') as scope:
+                self._features0 = model.FeatureDescriptor.c3d(self._x0,frmSize,self._keep_prob)
+            with tf.variable_scope('feature_descriptor1') as scope:
+                self._features1 = model.FeatureDescriptor.c3d(self._x1,frmSize,self._keep_prob)
+            
         with tf.variable_scope('classifier_2f1c') as scope:
-            print(self._features0)
-            print(self._features1)
             features = tf.concat([self._features0, self._features1],1)
             self._y_conv = model.Classifier.softmax(features, numOfClasses)
             scope.reuse_variables()
