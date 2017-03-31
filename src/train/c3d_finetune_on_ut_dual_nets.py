@@ -23,9 +23,9 @@ def main(argv):
     numOfClasses = 6 
     frmSize = (112,80,3)
     with tf.variable_scope('atomic_action_features') as scope:
-        if len(argv) > 3 and argv[2] == 'unShareFeatureVariable':
+        if len(argv) >= 3 and argv[2] == 'unShareFeatureVariable':
             log = 'Run the dual-nets model with two independent feature variables! \n '
-            c3d = network.C3DNET_2F1C(numOfClasses, frmSize, shareFeatureVariable= True)
+            c3d = network.C3DNET_2F1C(numOfClasses, frmSize, shareFeatureVariable= False)
         else:
             log = 'Run the dual-nets model with sharing feature variables! \n'
             c3d = network.C3DNET_2F1C(numOfClasses, frmSize)

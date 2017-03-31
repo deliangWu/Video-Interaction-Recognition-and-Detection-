@@ -33,21 +33,23 @@ def main(argv):
     # ***********************************************************
     # define the dataset
     # ***********************************************************
-    ut_set = ut.ut_interaction_set1(frmSize)
+    ut_set = ut.ut_interaction_set2(frmSize)
+    seqRange = range(11,21)
+    logName = 'c3d_train_on_ut_' + common.getDateTime() + '.txt'
+    common.clearFile(logName)
+    log = time.ctime() + 'Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
+    common.pAndWf(logName,log)
     
     # ***********************************************************
     # Train and test the network
     # ***********************************************************
-    seqRange = range(1,11)
-    logName = 'c3d_train_on_ut_' + common.getDateTime() + '.txt'
-    common.clearFile(logName)
     iteration = 2001
     batchSize = 15
     for seq in seqRange:
         with sess.as_default():
             sess.run(initVars)
         saver = tf.train.Saver()
-        log = '**************************************\n' \
+        log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
         common.pAndWf(logName,log)

@@ -188,8 +188,8 @@ class ut_interaction_set2_a(ut_interaction):
         
 
 if __name__ == '__main__':
-    utset = ut_interaction_set1_atomic((112,80,3))
-    seq_bias = 0 
+    utset = ut_interaction_set2_atomic((112,80,3))
+    seq_bias = 10 
     for seq in range(seq_bias+1,seq_bias+11):
         print('**************************************************************')
         print('current sequence is ', seq)

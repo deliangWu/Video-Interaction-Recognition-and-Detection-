@@ -50,7 +50,6 @@ class FeatureDescriptor:
                 h_conv2 = tf.nn.relu(conv3d(h_pool1, W_conv2) + b_conv2)
                 h_pool2 = max_pool3d_2x2x2(h_conv2)    
     
-        with tf.device(common.Vars.dev[-1]):
             # define the 3rd convlutional layer
             with tf.variable_scope('conv3a'):
                 numOfFilters_conv3a = nof_conv3 
@@ -77,6 +76,7 @@ class FeatureDescriptor:
                 h_conv4b = tf.nn.relu(conv3d(h_conv4a, W_conv4b) + b_conv4b)
                 h_pool4 = max_pool3d_2x2x2(h_conv4b)    
         
+        with tf.device(common.Vars.dev[-1]):
             # define the 5rd convlutional layer
             with tf.variable_scope('conv5a'):
                 numOfFilters_conv5a = 512
