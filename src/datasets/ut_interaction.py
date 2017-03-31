@@ -136,7 +136,7 @@ class ut_interaction_atomic:
             start = 0
             self._trainingEpoch += 1
             self._trainingPointer = batch
-            perm = np.arange(self._trainingVideos.shape[0])
+            perm = np.arange(self._trainingSet_a0[0].shape[0])
             np.random.shuffle(perm)
             self._trainingSet_a0 = [self._trainingSet_a0[0][perm],self._trainingSet_a0[1][perm]]
             self._trainingSet_a1 = [self._trainingSet_a1[0][perm],self._trainingSet_a1[1][perm]]
