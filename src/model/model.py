@@ -89,6 +89,7 @@ class FeatureDescriptor:
             #    h_conv5b = tf.nn.relu(conv3d(h_conv5a, W_conv5b) + b_conv5b)
                 h_pool5 = max_pool3d_2x1x1(h_conv5a)    
         
+        with tf.device(common.Vars.dev[-1]):
             # define the full connected layer
             with tf.variable_scope('fc6'):
                 numOfOutputs_fc6 = 4096
