@@ -1,0 +1,14 @@
+step 0, training accuracy 0.166667 and testing accuracy 0.376068 , best accuracy is 0.376068 
+step 100, training accuracy 0.8 and testing accuracy 0.538462 , best accuracy is 0.538462 
+step 200, training accuracy 0.9 and testing accuracy 0.521368 , best accuracy is 0.538462 
+step 300, training accuracy 1 and testing accuracy 0.581197 , best accuracy is 0.581197 
+step 400, training accuracy 0.966667 and testing accuracy 0.564103 , best accuracy is 0.581197 
+step 500, training accuracy 1 and testing accuracy 0.606838 , best accuracy is 0.606838 
+step 600, training accuracy 1 and testing accuracy 0.547009 , best accuracy is 0.606838 
+step 700, training accuracy 1 and testing accuracy 0.589744 , best accuracy is 0.606838 
+step 800, training accuracy 1 and testing accuracy 0.606838 , best accuracy is 0.606838 
+step 900, training accuracy 1 and testing accuracy 0.623932 , best accuracy is 0.623932 
+step 1000, training accuracy 1 and testing accuracy 0.606838 , best accuracy is 0.623932 
+step 1100, training accuracy 1 and testing accuracy 0.598291 , best accuracy is 0.623932 
+step 1200, training accuracy 1 and testing accuracy 0.623932 , best accuracy is 0.623932 
+step 1300, training accuracy 1 and testing accuracy 0.606838 , best accuracy is 0.623932 

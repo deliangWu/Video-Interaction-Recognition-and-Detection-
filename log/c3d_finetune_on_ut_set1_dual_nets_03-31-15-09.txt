@@ -1,0 +1,6 @@
+Run the dual-nets model with two independent feature variables! **************************************
+current sequence is 1
+****************************************
+step 0, training accuracy 0.133333 and testing accuracy 0.166667, best accuracy is 0.166667 
+step 40, training accuracy 0.133333 and testing accuracy 0.166667, best accuracy is 0.166667 
+step 80, training accuracy 0.466667 and testing accuracy 0.333333, best accuracy is 0.333333 
