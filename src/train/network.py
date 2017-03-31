@@ -95,7 +95,7 @@ class C3DNET_2F1C:
     
     def evaluate(self, test_x0, test_x1, test_y, sess):
         with sess.as_default():
-            if test_x.ndim == 6:
+            if test_x0.ndim == 6:
                 testF0 = np.mean([self._features0.eval(feed_dict={self._x0:xT,self._keep_prob: 1}) for xT in test_x0],0)
                 testF1 = np.mean([self._features1.eval(feed_dict={self._x1:xT,self._keep_prob: 1}) for xT in test_x1],0)
                 testF = tf.concat(1,[testF0, testF1])
@@ -105,7 +105,7 @@ class C3DNET_2F1C:
         return test_accuracy 
     
     def test(self, test_x0, test_x1, test_y, sess):
-        if test_x.ndim == 6:
+        if test_x0.ndim == 6:
             test_accuracy = np.mean([self.evaluate(np.reshape(x0,common.tupleInsert(x0.shape,1,1)), \
                                                    np.reshape(x1,common.tupleInsert(x1.shape,1,1)), \
                                                    np.reshape(y,(1,)+y.shape),sess) \
