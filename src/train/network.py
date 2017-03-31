@@ -74,7 +74,7 @@ class C3DNET_2F1C:
         with tf.variable_scope('classifier_2f1c') as scope:
             print(self._features0)
             print(self._features1)
-            features = tf.concat(1,[self._features0, self._features1])
+            features = tf.concat([self._features0, self._features1],1)
             self._y_conv = model.Classifier.softmax(features, numOfClasses)
             scope.reuse_variables()
             self._y_convT = model.Classifier.softmax(self._featuresT,numOfClasses)
