@@ -98,7 +98,7 @@ class C3DNET_2F1C:
             if test_x0.ndim == 6:
                 testF0 = np.mean([self._features0.eval(feed_dict={self._x0:xT,self._keep_prob: 1}) for xT in test_x0],0)
                 testF1 = np.mean([self._features1.eval(feed_dict={self._x1:xT,self._keep_prob: 1}) for xT in test_x1],0)
-                testF = tf.concat([testF0, testF1],1)
+                testF = np.concatenate((testF0, testF1),1)
                 test_accuracy = self._accuracyT.eval(feed_dict={self._featuresT:testF, self._y_:test_y})
             else:
                 test_accuracy = self._accuracy.eval(feed_dict={self._x0:test_x0, self._x1:test_x1, self._y_:test_y, self._keep_prob:1})
