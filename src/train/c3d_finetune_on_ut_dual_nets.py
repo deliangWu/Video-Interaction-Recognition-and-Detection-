@@ -21,7 +21,7 @@ def main(argv):
     numOfClasses = 6 
     frmSize = (112,80,3)
     with tf.variable_scope('atomic_action_features') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize)
+        c3d = network.C3DNET_2F1C(numOfClasses, frmSize)
     
     # ***********************************************************
     # define session
@@ -34,15 +34,15 @@ def main(argv):
     # ***********************************************************
     # define the dataset
     # ***********************************************************
-    ut_set = ut.ut_interaction_set1_a(frmSize)
+    ut_set = ut.ut_interaction_set1_atomic(frmSize)
     
     # ***********************************************************
     # Train and test the network
     # ***********************************************************
     seqRange = range(1,11)
-    logName = 'c3d_finetune_on_ut_' + common.getDateTime() + '.txt'
+    logName = 'c3d_finetune_on_ut_dual_nets_' + common.getDateTime() + '.txt'
     common.clearFile(logName)
-    iteration = 2001
+    iteration = 4001
     batchSize = 15
     for seq in seqRange:
         with sess.as_default():
@@ -53,28 +53,28 @@ def main(argv):
               '****************************************\n'
         common.pAndWf(logName,log)
         ut_set.splitTrainingTesting(seq)
-        test_x,test_y = ut_set.loadTesting()
+        test_x0,test_x1,test_y = ut_set.loadTesting()
         if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
             best_accuracy = 0
             for i in range(iteration):
-                train_x,train_y = ut_set.loadTrainingBatch(batchSize)
+                train_x0,train_x1,train_y = ut_set.loadTrainingBatch(batchSize)
                 if i%int(iteration/100) == 0:
-                    train_accuracy = c3d.test(train_x, train_y, sess)
-                    test_accuracy = c3d.test(test_x, test_y, sess)
+                    train_accuracy = c3d.test(train_x0, train_x1, train_y, sess)
+                    test_accuracy = c3d.test(test_x0, test_x1, test_y, sess)
                     if test_accuracy > best_accuracy:
                         best_accuracy = test_accuracy
                     log = "step %d, training accuracy %g and testing accuracy %g, best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
                     if test_accuracy == 1 or (i > int(iteration * 0.75) and test_accuracy >= best_accuracy):
-                        save_path = saver.save(sess,join(common.path.variablePath, 'c3d_finetune_on_ut_' + str(seq) +'.ckpt'))
+                        save_path = saver.save(sess,join(common.path.variablePath, 'c3d_finetune_on_ut_dual_nets_' + str(seq) +'.ckpt'))
                         break
-                c3d.train(train_x, train_y, sess)
+                c3d.train(train_x0, train_x1, train_y, sess)
             common.pAndWf(logName,' \n')
         else:
-            variableName = 'c3d_finetune_on_ut_' + str(seq) + '.ckpt'
+            variableName = 'c3d_finetune_on_ut_dual_nets_' + str(seq) + '.ckpt'
             saver.restore(sess,join(common.path.variablePath, variableName))
             # begin to test
-            test_accuracy = c3d.test(test_x, test_y, sess)
+            test_accuracy = c3d.test(test_x0, test_x1, test_y, sess)
             log = "Testing accuracy %g \n"%(test_accuracy)
             common.pAndWf(logName,log)
             
