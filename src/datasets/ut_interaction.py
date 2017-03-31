@@ -108,6 +108,7 @@ class ut_interaction_atomic:
         self._ut_a1 = ut_interaction([paths[1]], frmSize)
         fileList0 = self._ut_a0.getFileList()
         fileList1 = self._ut_a1.getFileList()
+        self._trainingEpoch = 0
         assert np.array_equal(fileList0,fileList1), 'Error, input videos from two set is mismatch!'
         self._trainingPointer = 0
     
