@@ -33,7 +33,7 @@ def max_pool3d_4x2x2(x):
 class FeatureDescriptor:
     @staticmethod
     def c3d(x,frmSize,drop_var, nof_conv1 = 32, nof_conv2 = 64, nof_conv3 = 128):
-        with tf.device(common.Vars.dev[0]):
+        with tf.device(common.Vars.dev[-1]):
             # define the first convlutional layer
             with tf.variable_scope('conv1'):
                 numOfFilters_conv1 = nof_conv1 
@@ -98,7 +98,7 @@ class FeatureDescriptor:
                 h_fc6 = tf.nn.relu(tf.matmul(h_pool5_flat, W_fc6) + b_fc6)  
                 h_fc6_drop = tf.nn.dropout(h_fc6, drop_var) 
         
-        with tf.device(common.Vars.dev[-1]):
+        with tf.device(common.Vars.dev[0]):
             # define the full connected layer fc7
             with tf.variable_scope('fc7'):
                 numOfOutputs_fc7 = 4096
@@ -115,7 +115,7 @@ class Classifier:
     def softmax(features,numOfClasses):
         # softmax
         featuresDims = features.get_shape().as_list()[1]
-        with tf.device(common.Vars.dev[-1]):
+        with tf.device(common.Vars.dev[0]):
             features_l2norm = tf.nn.l2_normalize(features,dim=1)
             with tf.variable_scope('sm'):
                 W_sm = weight_variable([featuresDims, numOfClasses])
