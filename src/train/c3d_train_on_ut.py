@@ -67,7 +67,7 @@ def main(argv):
             anvAccuList = np.zeros((10))
             for i in range(iteration):
                 train_x,train_y = ut_set.loadTrainingBatch(batchSize)
-                if i%int(iteration/100) == 0:
+                if i%int(iteration/200) == 0:
                     train_accuracy = c3d.test(train_x, train_y, sess)
                     test_accuracy = c3d.test(test_x, test_y, sess)
                     anvAccuList = np.append(anvAccuList[1:10],test_accuracy)
