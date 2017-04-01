@@ -18,17 +18,19 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
-    logName = 'c3d_finetune_on_ut_set1_dual_nets_' + common.getDateTime() + '.txt'
-    common.clearFile(logName)
     numOfClasses = 6 
     frmSize = (112,80,3)
     with tf.variable_scope('atomic_action_features') as scope:
         if len(argv) >= 3 and argv[2] == 'unShareFeatureVariable':
+            savePrefix = 'c3d_finetune_on_ut_set1_dual_nets_unShareVars_'
             log = 'Run the dual-nets model with two independent feature variables! \n '
             c3d = network.C3DNET_2F1C(numOfClasses, frmSize, shareFeatureVariable= False)
         else:
+            savePrefix = 'c3d_finetune_on_ut_set1_dual_nets_shareVars_'
             log = 'Run the dual-nets model with sharing feature variables! \n'
             c3d = network.C3DNET_2F1C(numOfClasses, frmSize)
+    logName =  savePrefix + common.getDateTime() + '.txt'
+    common.clearFile(logName)
     common.pAndWf(logName,log)
     # ***********************************************************
     # define session
@@ -74,12 +76,12 @@ def main(argv):
                     log = "step %d, training: %g, testing: %g, anv: %g, best %g \n"%(i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        save_path = saver.save(sess,join(common.path.variablePath, 'c3d_finetune_on_ut_dual_nets_' + str(seq) +'.ckpt'))
+                        save_path = saver.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'.ckpt'))
                         break
                 c3d.train(train_x0, train_x1, train_y, sess)
             common.pAndWf(logName,' The training is finished at ' + time.ctime() + ' \n')
         else:
-            variableName = 'c3d_finetune_on_ut_dual_nets_' + str(seq) + '.ckpt'
+            variableName = savePrefix + str(seq) + '.ckpt'
             saver.restore(sess,join(common.path.variablePath, variableName))
             # begin to test
             test_accuracy = c3d.test(test_x0, test_x1, test_y, sess)
