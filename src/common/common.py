@@ -48,7 +48,7 @@ class Vars:
         dev = ['/cpu:0']
     else:
         dev = ['/gpu:0','/gpu:1']
-        
+
 def getDateTime():
     t = str(datetime.now())
     t = t[5:16]
