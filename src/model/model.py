@@ -98,7 +98,7 @@ class FeatureDescriptor:
                 h_fc6 = tf.nn.relu(tf.matmul(h_pool5_flat, W_fc6) + b_fc6)  
                 h_fc6_drop = tf.nn.dropout(h_fc6, drop_var) 
         
-        with tf.device(common.Vars.dev[0]):
+        with tf.device(common.Vars.dev[-1]):
             # define the full connected layer fc7
             with tf.variable_scope('fc7'):
                 numOfOutputs_fc7 = 4096
@@ -115,7 +115,7 @@ class Classifier:
     def softmax(features,numOfClasses):
         # softmax
         featuresDims = features.get_shape().as_list()[1]
-        with tf.device(common.Vars.dev[0]):
+        with tf.device(common.Vars.dev[-1]):
             features_l2norm = tf.nn.l2_normalize(features,dim=1)
             with tf.variable_scope('sm'):
                 W_sm = weight_variable([featuresDims, numOfClasses])
