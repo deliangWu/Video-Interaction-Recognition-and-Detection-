@@ -22,16 +22,13 @@ def main(argv):
     frmSize = (112,80,3)
     with tf.variable_scope('atomic_action_features') as scope:
         if len(argv) >= 3 and argv[2] == 'unShareFeatureVariable':
-            savePrefix = 'c3d_finetune_on_ut_set1_dual_nets_unShareVars_'
-            log = 'Run the dual-nets model with two independent feature variables! \n '
+            savePrefix = 'c3d_finetune_on_ut_dual_nets_unShareVars_'
+            log = time.ctime() + ' Finetune the dual-nets model with two independent feature variables on UT-Interaction '
             c3d = network.C3DNET_2F1C(numOfClasses, frmSize, shareFeatureVariable= False)
         else:
-            savePrefix = 'c3d_finetune_on_ut_set1_dual_nets_shareVars_'
-            log = 'Run the dual-nets model with sharing feature variables! \n'
+            savePrefix = 'c3d_finetune_on_ut_dual_nets_shareVars_'
+            log = time.ctime() + ' Finetune the dual-nets model with two independent feature variables on UT-Interaction '
             c3d = network.C3DNET_2F1C(numOfClasses, frmSize)
-    logName =  savePrefix + common.getDateTime() + '.txt'
-    common.clearFile(logName)
-    common.pAndWf(logName,log)
     # ***********************************************************
     # define session
     # ***********************************************************
@@ -43,12 +40,24 @@ def main(argv):
     # ***********************************************************
     # define the dataset
     # ***********************************************************
-    ut_set = ut.ut_interaction_set1_atomic(frmSize)
+    if len(argv) >= 4 and argv[3] == 'set2':
+        ut_set = ut.ut_interaction_set2_atomic(frmSize)
+        seqRange = range(11,21)
+        savePrefix = savePrefix + 'set2_'
+        log = log + 'set2! \n'
+    else:    
+        ut_set = ut.ut_interaction_set1_atomic(frmSize)
+        seqRange = range(1,11)
+        savePrefix = savePrefix + 'set1_'
+        log = log + 'set1! \n'
+    
+    logName =  savePrefix + common.getDateTime() + '.txt'
+    common.clearFile(logName)
+    common.pAndWf(logName,log)
     
     # ***********************************************************
     # Train and test the network
     # ***********************************************************
-    seqRange = range(1,11)
     iteration = 4001
     batchSize = 15
     for seq in seqRange:

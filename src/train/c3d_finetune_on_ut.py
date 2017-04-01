@@ -33,13 +33,20 @@ def main(argv):
     # ***********************************************************
     # define the dataset
     # ***********************************************************
-    ut_set = ut.ut_interaction_set1_a(frmSize)
+    if len(argv) >= 3 and argv[2] == 'set2':
+        ut_set = ut.ut_interaction_set2_a(frmSize)
+        seqRange = range(11,21)
+        savePrefix = 'c3d_finetune_on_ut_single_net_set2_'
+        log = time.ctime() + ' Finetune the 3D-ConvNet on UT-Interaction dataset set2! \n'
+    else:    
+        ut_set = ut.ut_interaction_set1_a(frmSize)
+        seqRange = range(1,11)
+        savePrefix = 'c3d_finetune_on_ut_single_net_set1_'
+        log = time.ctime() + ' Finetune the 3D-ConvNet on UT-Interaction dataset set1! \n'
     
     # ***********************************************************
     # Train and test the network
     # ***********************************************************
-    seqRange = range(1,11)
-    savePrefix = 'c3d_finetune_on_ut_single_net'
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     iteration = 4001
