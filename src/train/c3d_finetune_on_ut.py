@@ -39,7 +39,8 @@ def main(argv):
     # Train and test the network
     # ***********************************************************
     seqRange = range(1,11)
-    logName = 'c3d_finetune_on_ut_' + common.getDateTime() + '.txt'
+    savePrefix = 'c3d_finetune_on_ut_single_net'
+    logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     iteration = 4001
     batchSize = 15
@@ -47,7 +48,7 @@ def main(argv):
         with sess.as_default():
             sess.run(initVars)
         saver = tf.train.Saver()
-        log = '**************************************\n' \
+        log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
         common.pAndWf(logName,log)
@@ -55,22 +56,25 @@ def main(argv):
         test_x,test_y = ut_set.loadTesting()
         if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
             best_accuracy = 0
+            anvAccuList = np.zeros((10))
             for i in range(iteration):
                 train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                 if i%int(iteration/100) == 0:
                     train_accuracy = c3d.test(train_x, train_y, sess)
                     test_accuracy = c3d.test(test_x, test_y, sess)
-                    if test_accuracy > best_accuracy:
-                        best_accuracy = test_accuracy
-                    log = "step %d, training accuracy %g and testing accuracy %g, best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
+                    anvAccuList = np.append(anvAccuList[1:10],test_accuracy)
+                    anv_accuracy = np.mean(anvAccuList)
+                    if anv_accuracy > best_accuracy:
+                        best_accuracy = anv_accuracy
+                    log = "step %d, training: %g, testing: %g, anv: %g, best %g \n"%(i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
-                    if test_accuracy == 1 or (i > int(iteration * 0.75) and test_accuracy >= best_accuracy):
-                        save_path = saver.save(sess,join(common.path.variablePath, 'c3d_finetune_on_ut_' + str(seq) +'.ckpt'))
+                    if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
+                        save_path = saver.save(sess,join(common.path.variablePath, savePrefix  + str(seq) +'.ckpt'))
                         break
                 c3d.train(train_x, train_y, sess)
             common.pAndWf(logName,' \n')
         else:
-            variableName = 'c3d_finetune_on_ut_' + str(seq) + '.ckpt'
+            variableName = savePrefix + str(seq) + '.ckpt'
             saver.restore(sess,join(common.path.variablePath, variableName))
             # begin to test
             test_accuracy = c3d.test(test_x, test_y, sess)
