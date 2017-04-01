@@ -68,6 +68,7 @@ def main(argv):
                     train_accuracy = c3d.test(train_x0, train_x1, train_y, sess)
                     test_accuracy = c3d.test(test_x0, test_x1, test_y, sess)
                     anvAccuList = np.append(anvAccuList[1:10],test_accuracy)
+                    anv_accuracy = np.mean(anvAccuList)
                     if anv_accuracy > best_accuracy:
                         best_accuracy = anv_accuracy
                     log = "step %d, training: %g, testing: %g, anv: %g, best %g \n"%(i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
