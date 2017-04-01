@@ -1,0 +1,14 @@
+Fri Mar 31 16:48:35 2017Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! 
+****************************************
+current sequence is 11
+****************************************
+step 0, training accuracy 0.133333 and testing accuracy 0.166667, best accuracy is 0.166667 
+step 20, training accuracy 0.2 and testing accuracy 0.166667, best accuracy is 0.166667 
+step 40, training accuracy 0.2 and testing accuracy 0.166667, best accuracy is 0.166667 
+step 60, training accuracy 0.266667 and testing accuracy 0.333333, best accuracy is 0.333333 
+step 80, training accuracy 0.2 and testing accuracy 0.5, best accuracy is 0.5 
+step 100, training accuracy 0.466667 and testing accuracy 0.333333, best accuracy is 0.5 
+step 120, training accuracy 0.466667 and testing accuracy 0.333333, best accuracy is 0.5 
+step 140, training accuracy 0.466667 and testing accuracy 0.333333, best accuracy is 0.5 
+step 160, training accuracy 0.0666667 and testing accuracy 0.333333, best accuracy is 0.5 
+step 180, training accuracy 0.466667 and testing accuracy 0.333333, best accuracy is 0.5 

@@ -1,0 +1,4 @@
+Run the dual-nets model with two independent feature variables! 
+ **************************************
+current sequence is 1
+****************************************
