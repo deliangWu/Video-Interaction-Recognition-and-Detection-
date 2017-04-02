@@ -47,7 +47,7 @@ class Vars:
     if os.name == 'nt':
         dev = ['/cpu:0']
     else:
-        dev = ['/gpu:1','/gpu:1']
+        dev = ['/gpu:0','/gpu:0']
 
 def getDateTime():
     t = str(datetime.now())

@@ -27,7 +27,7 @@ def main(argv):
             c3d = network.C3DNET_2F1C(numOfClasses, frmSize, shareFeatureVariable= False)
         else:
             savePrefix = 'c3d_finetune_on_ut_dual_nets_shareVars_'
-            log = time.ctime() + ' Finetune the dual-nets model with two independent feature variables on UT-Interaction '
+            log = time.ctime() + ' Finetune the dual-nets model with two sharing feature variables on UT-Interaction '
             c3d = network.C3DNET_2F1C(numOfClasses, frmSize)
     # ***********************************************************
     # define session

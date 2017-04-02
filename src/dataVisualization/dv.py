@@ -9,7 +9,7 @@ import sys
 sys.path.insert(1,'../common')
 import common
 
-def readLog(logName):
+def readLog(logName,seqBias = 1):
     with open(logName) as f:
         content = f.readlines()
     stepList = []
@@ -18,7 +18,7 @@ def readLog(logName):
     for line in content:
         line = line.strip()
         if 'current sequence' in line:
-            seq = int(line[line.index('is') + 3:]) - 1
+            seq = int(line[line.index('is') + 3:]) - seqBias 
             stepList.append([])
             accuList.append([])
         elif 'step' in line:
@@ -45,17 +45,25 @@ fname_a_d_s  = common.path.logPath + 'c3d_finetune_on_ut_set1_dual_nets_shareVar
 fname_a_s    = common.path.logPath + 'c3d_finetune_on_ut_single_net04-01-14-01.txt'
 fname_g      = common.path.logPath + 'c3d_train_on_ut_set1_04-01-18-57.txt'
 
+
+fname_set2_g   = common.path.logPath + 'c3d_train_on_ut_set2_04-01-21-44.txt'
+fname_set2_a_s = common.path.logPath + 'c3d_finetune_on_ut_single_net_set2_04-02-05-38.txt'
+
 steps_adus,accus_adus = readLog(fname_a_d_us)
 steps_ads, accus_ads  = readLog(fname_a_d_s)
 steps_as, accus_as    = readLog(fname_a_s)
 steps_g, accus_g      = readLog(fname_g)
 
-plt.plot(steps_ads,accus_ads,'r--', steps_adus,accus_adus,'b-', steps_as, accus_as,'g+', steps_g, accus_g,'r.')
+steps_set2_as, accus_set2_as = readLog(fname_set2_a_s,seqBias=11)
+steps_set2_g,  accus_set2_g  = readLog(fname_set2_g,seqBias=11)
+
+#plt.plot(steps_ads,accus_ads,'r--', steps_adus,accus_adus,'b-', steps_as, accus_as,'g+', steps_g, accus_g,'r.')
+plt.plot(steps_set2_as,accus_set2_as,'r--', steps_set2_g,accus_set2_g,'b-')
     
 plt.xlabel('Training steps')
 plt.ylabel('Classification accuracy')
 ax = plt.gca()
 ax.set_xticks(np.arange(0, 3601, 400))
-ax.set_yticks(np.arange(0, 1.1, 0.1))
+ax.set_yticks(np.arange(0, 1.1, 0.05))
 plt.grid(b=1)
 plt.show()
