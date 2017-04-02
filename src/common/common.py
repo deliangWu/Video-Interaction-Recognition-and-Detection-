@@ -48,7 +48,38 @@ class Vars:
         dev = ['/cpu:0']
     else:
         dev = ['/gpu:0','/gpu:0']
+        
+    feature_g_VarsList = ['top/feature_descriptor_g/conv1/weight:0',  'top/feature_descriptor_g/conv1/bias:0' \
+                          'top/feature_descriptor_g/conv2/weight:0',  'top/feature_descriptor_g/conv2/bias:0' \
+                          'top/feature_descriptor_g/conv3/weight:0',  'top/feature_descriptor_g/conv3/bias:0' \
+                          'top/feature_descriptor_g/conv4a/weight:0', 'top/feature_descriptor_g/conv4a/bias:0' \
+                          'top/feature_descriptor_g/conv4b/weight:0', 'top/feature_descriptor_g/conv4b/bias:0' \
+                          'top/feature_descriptor_g/conv5/weight:0',  'top/feature_descriptor_g/conv5/bias:0' \
+                          'top/feature_descriptor_g/fc6/weight:0',    'top/feature_descriptor_g/fc6/bias:0' \
+                          'top/feature_descriptor_g/fc7/weight:0',    'top/feature_descriptor_g/fc7/bias:0' ]
 
+    feature_a0_VarsList = ['top/feature_descriptor_a0/conv1/weight:0',  'top/feature_descriptor_a0/conv1/bias:0' \
+                           'top/feature_descriptor_a0/conv2/weight:0',  'top/feature_descriptor_a0/conv2/bias:0' \
+                           'top/feature_descriptor_a0/conv3/weight:0',  'top/feature_descriptor_a0/conv3/bias:0' \
+                           'top/feature_descriptor_a0/conv4a/weight:0', 'top/feature_descriptor_a0/conv4a/bias:0' \
+                           'top/feature_descriptor_a0/conv4b/weight:0', 'top/feature_descriptor_a0/conv4b/bias:0' \
+                           'top/feature_descriptor_a0/conv5/weight:0',  'top/feature_descriptor_a0/conv5/bias:0' \
+                           'top/feature_descriptor_a0/fc6/weight:0',    'top/feature_descriptor_a0/fc6/bias:0' \
+                           'top/feature_descriptor_a0/fc7/weight:0',    'top/feature_descriptor_a0/fc7/bias:0' ]
+
+    feature_a1_VarsList = ['top/feature_descriptor_a1/conv1/weight:0',  'top/feature_descriptor_a1/conv1/bias:0' \
+                           'top/feature_descriptor_a1/conv2/weight:0',  'top/feature_descriptor_a1/conv2/bias:0' \
+                           'top/feature_descriptor_a1/conv3/weight:0',  'top/feature_descriptor_a1/conv3/bias:0' \
+                           'top/feature_descriptor_a1/conv4a/weight:0', 'top/feature_descriptor_a1/conv4a/bias:0' \
+                           'top/feature_descriptor_a1/conv4b/weight:0', 'top/feature_descriptor_a1/conv4b/bias:0' \
+                           'top/feature_descriptor_a1/conv5/weight:0',  'top/feature_descriptor_a1/conv5/bias:0' \
+                           'top/feature_descriptor_a1/fc6/weight:0',    'top/feature_descriptor_a1/fc6/bias:0' \
+                           'top/feature_descriptor_a1/fc7/weight:0',    'top/feature_descriptor_a1/fc7/bias:0' ]
+
+    classifier_sm_VarsList      = ['top/classifier/sm/weight:0',  'top/classifier/sm/bias:0'] 
+    classifier_sm_2f1c_VarsList = ['top/classifier_2f1c/sm/weight:0',  'top/classifier_2f1c/sm/bias:0'] 
+    classifier_sm_3f1c_VarsList = ['top/classifier_3f1c/sm/weight:0',  'top/classifier_3f1c/sm/bias:0'] 
+    
 def getDateTime():
     t = str(datetime.now())
     t = t[5:16]

@@ -20,5 +20,5 @@ if __name__ == "__main__":
     h_tiled = tf.tile(h, tf.stack([ph_num_rows, 1]))
     print(h_tiled)
     
-    result = tf.concat([ph_input, h_tiled],1)        
+    result = tf.concat(1,[ph_input, h_tiled,ph_input,ph_input])        
     print(result)

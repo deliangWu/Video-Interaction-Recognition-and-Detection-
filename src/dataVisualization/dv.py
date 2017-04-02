@@ -40,25 +40,33 @@ def readLog(logName,seqBias = 1):
 
     
 
-fname_a_d_us = common.path.logPath + 'c3d_finetune_on_ut_set1_dual_nets_04-01-09-41.txt'
-fname_a_d_s  = common.path.logPath + 'c3d_finetune_on_ut_set1_dual_nets_shareVars_04-01-13-22.txt'
-fname_a_s    = common.path.logPath + 'c3d_finetune_on_ut_single_net04-01-14-01.txt'
-fname_g      = common.path.logPath + 'c3d_train_on_ut_set1_04-01-18-57.txt'
+fname_set1_g      = common.path.logPath + 'c3d_train_on_ut_set1_04-01-18-57.txt'
+fname_set1_a_s    = common.path.logPath + 'c3d_finetune_on_ut_single_net04-01-14-01.txt'
+fname_set1_a_d_s  = common.path.logPath + 'c3d_finetune_on_ut_set1_dual_nets_shareVars_04-01-13-22.txt'
+fname_set1_a_d_us = common.path.logPath + 'c3d_finetune_on_ut_set1_dual_nets_04-01-09-41.txt'
+steps_set1_g, accus_set1_g      = readLog(fname_set1_g)
+steps_set1_as, accus_set1_as    = readLog(fname_set1_a_s)
+steps_set1_ads, accus_set1_ads  = readLog(fname_set1_a_d_s)
+steps_set1_adus,accus_set1_adus = readLog(fname_set1_a_d_us)
 
 
 fname_set2_g   = common.path.logPath + 'c3d_train_on_ut_set2_04-01-21-44.txt'
 fname_set2_a_s = common.path.logPath + 'c3d_finetune_on_ut_single_net_set2_04-02-05-38.txt'
-
-steps_adus,accus_adus = readLog(fname_a_d_us)
-steps_ads, accus_ads  = readLog(fname_a_d_s)
-steps_as, accus_as    = readLog(fname_a_s)
-steps_g, accus_g      = readLog(fname_g)
-
-steps_set2_as, accus_set2_as = readLog(fname_set2_a_s,seqBias=11)
+fname_set2_a_d_s = common.path.logPath + 'c3d_finetune_on_ut_dual_nets_shareVars_set2_04-02-10-25.txt'
+fname_set2_a_d_us = common.path.logPath + 'c3d_finetune_on_ut_dual_nets_unShareVars_set2_04-02-10-44.txt'
 steps_set2_g,  accus_set2_g  = readLog(fname_set2_g,seqBias=11)
+steps_set2_as, accus_set2_as = readLog(fname_set2_a_s,seqBias=11)
+steps_set2_ads,  accus_set2_ads  = readLog(fname_set2_a_d_s,seqBias=11)
+steps_set2_adus,  accus_set2_adus  = readLog(fname_set2_a_d_us,seqBias=11)
 
-#plt.plot(steps_ads,accus_ads,'r--', steps_adus,accus_adus,'b-', steps_as, accus_as,'g+', steps_g, accus_g,'r.')
-plt.plot(steps_set2_as,accus_set2_as,'r--', steps_set2_g,accus_set2_g,'b-')
+plt.plot(steps_set1_g, accus_set1_g,'r--', \
+         steps_set1_as, accus_set1_as,'g--', \
+         steps_set1_ads,accus_set1_ads,'b--', \
+         steps_set1_adus,accus_set1_adus,'c--', )
+plt.plot(steps_set2_g,accus_set2_g,'r-', \
+         steps_set2_as,accus_set2_as,'g-',\
+         steps_set2_ads, accus_set2_ads,'b-',\
+         steps_set2_adus, accus_set2_adus, 'c-')
     
 plt.xlabel('Training steps')
 plt.ylabel('Classification accuracy')
