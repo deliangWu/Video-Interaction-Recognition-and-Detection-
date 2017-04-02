@@ -55,7 +55,7 @@ def main(argv):
         with sess.as_default():
             sess.run(initVars)
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
-        saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_VarsList])
+        saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
