@@ -21,7 +21,6 @@ def main(argv):
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize)
-    
     # ***********************************************************
     # define session
     # ***********************************************************
@@ -55,8 +54,8 @@ def main(argv):
     for seq in seqRange:
         with sess.as_default():
             sess.run(initVars)
-        saver_feature_g = tf.train.Saver(common.Vars.feature_g_VarsList)
-        saver_classifier = tf.train.Saver(common.Vars.classifier_VarsList)
+        saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
+        saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_VarsList])
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
