@@ -22,9 +22,6 @@ def main(argv):
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize)
     
-    Vars_features_g = [tf.get_variable(vName) for vName in common.Vars.feature_g_VarsList]
-    print(Vars_features_g)
-    
     # ***********************************************************
     # define session
     # ***********************************************************
@@ -87,8 +84,8 @@ def main(argv):
                 c3d.train(train_x, train_y, sess)
             common.pAndWf(logName,' \n')
         else:
-            variableName = savePrefix + str(seq) + '.ckpt'
-            saver.restore(sess,join(common.path.variablePath, variableName))
+            saver.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
+            saver.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
             # begin to test
             test_accuracy = c3d.test(test_x, test_y, sess)
             log = "Testing accuracy %g \n"%(test_accuracy)
