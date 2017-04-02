@@ -123,11 +123,13 @@ def batchFormat(videoIn):
         i += 1
     clips = videoBatch.shape[0]
     assert clips > 0, 'The Number of frames of input videos in less than 16'
-    if clips <= 3:
-        return videoBatch
+    if clips == 1:
+        index = [0,0,0]
+    elif clips == 2:
+        index = [0,1,1]
     else:
         index = range(int(clips/2)-1,int(clips/2)+2)
-        return videoBatch[index]
+    return videoBatch[index]
 
 def videoFormat(batchIn):
     return np.reshape(batchIn,((batchIn.shape[0] * batchIn.shape[1]),) + batchIn.shape[2:5])
