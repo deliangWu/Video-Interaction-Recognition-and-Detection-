@@ -20,7 +20,7 @@ def main(argv):
     numOfClasses = 6 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize, var_list=common.Vars.classifier_sm_VarsList)
+        c3d = network.C3DNET(numOfClasses, frmSize, var_list=[tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
     # ***********************************************************
     # define session
     # ***********************************************************
