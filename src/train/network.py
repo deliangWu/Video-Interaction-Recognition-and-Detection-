@@ -11,7 +11,7 @@ import common
 
 
 class C3DNET:
-    def __init__(self, numOfClasses,frmSize,nof_conv1 = 32, nof_conv2 = 64, nof_conv3 = 128,var_list = None):
+    def __init__(self, numOfClasses,frmSize,nof_conv1 = 32, nof_conv2 = 64, nof_conv3 = 128):
         # build the 3D ConvNet
         # define the input and output variables
         self._x = tf.placeholder(tf.float32, (None,16) + frmSize)
@@ -25,7 +25,8 @@ class C3DNET:
             self._y_conv = model.Classifier.softmax(self._features,numOfClasses)
             scope.reuse_variables()
             self._y_convT = model.Classifier.softmax(self._featuresT,numOfClasses)
-        
+            
+    def trainSetup(var_list = None):     
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
             cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
@@ -35,6 +36,7 @@ class C3DNET:
             
             correct_predictionT = tf.equal(tf.argmax(self._y_convT,1), tf.argmax(self._y_,1))
             self._accuracyT = tf.reduce_mean(tf.cast(correct_predictionT, tf.float32))
+        return None
     
     def train(self, train_x,train_y,sess):
         with sess.as_default():
