@@ -21,7 +21,8 @@ def main(argv):
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize)
-        c3d.trainSetup(var_list=[tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
+        #var_list=[tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList]
+        c3d.trainSetup()
     # ***********************************************************
     # define session
     # ***********************************************************

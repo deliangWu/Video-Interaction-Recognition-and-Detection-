@@ -26,7 +26,7 @@ class C3DNET:
             scope.reuse_variables()
             self._y_convT = model.Classifier.softmax(self._featuresT,numOfClasses)
             
-    def trainSetup(var_list = None):     
+    def trainSetup(self, var_list = None):     
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
             cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
