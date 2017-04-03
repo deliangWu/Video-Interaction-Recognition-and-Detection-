@@ -20,7 +20,7 @@ def main(argv):
     numOfClasses = 6 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize)
+        c3d = network.C3DNET(numOfClasses, var_list=frmSize,common.Vars.classifier_sm_VarsList)
     # ***********************************************************
     # define session
     # ***********************************************************
@@ -55,7 +55,8 @@ def main(argv):
         with sess.as_default():
             sess.run(initVars)
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
-        saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
+        #saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
+        saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
@@ -77,8 +78,8 @@ def main(argv):
                     log = "step %d, training: %g, testing: %g, anv: %g, best %g \n"%(i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-                        saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
+                        #saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
+                        #saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
                         break
                 c3d.train(train_x, train_y, sess)
             common.pAndWf(logName,' \n')
