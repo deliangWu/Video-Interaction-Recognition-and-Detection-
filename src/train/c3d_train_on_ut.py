@@ -84,7 +84,7 @@ def main(argv):
             common.pAndWf(logName,' \n')
         else:
             saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-            saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
+            #saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
             # begin to test
             test_accuracy = c3d.test(test_x, test_y, sess)
             log = "Testing accuracy %g \n"%(test_accuracy)
