@@ -149,7 +149,7 @@ class C3DNET_3F1C:
             scope.reuse_variables()
             self._y_convT = model.Classifier.softmax(self._featuresT,numOfClasses)
         
-        with tf.device(common.Vars.dev[-1]):
+        with tf.device(common.Vars.dev[0]):
             # Train and evaluate the model
             cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
             self._train_step = tf.train.AdamOptimizer(learning_rate=1e-4, epsilon=0.01).minimize(cross_entropy)
