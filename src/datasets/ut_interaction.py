@@ -178,8 +178,6 @@ class ut_interaction_ga:
         #assert self._trainingSet_g[0].shape  == self._trainingSet_a0[0].shape and \
         #       self._trainingSet_a0[0].shape == self._trainingSet_a1[0].shape, \
         #       'Error, the shapes of three sets are mismatch!'
-        for lab_g,lab_a0 in zip(self._trainingSet_g[1],self._trainingSet_a0[1]):
-            print(lab_g, ' vs ', lab_a0)
         assert np.array_equal(self._trainingSet_g[1], self._trainingSet_a0[1]) and \
                np.array_equal(self._trainingSet_a0[1],self._trainingSet_a1[1]), \
                'Error, the lables of three sets are mismatch!'
