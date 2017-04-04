@@ -177,6 +177,9 @@ class C3DNET_3F1C:
         return test_accuracy 
     
     def test(self, test_x, test_x0, test_x1, test_y, sess):
+        print('test_x shape ', test_x.shape)
+        print('test_x0 shape ', test_x0.shape)
+        print('test_x1 shape ', test_x1.shape)
         if test_x0.ndim == 6:
             test_accuracy = np.mean([self.evaluate(np.reshape(x, common.tupleInsert(x0.shape,1,1)), \
                                                    np.reshape(x0,common.tupleInsert(x0.shape,1,1)), \
