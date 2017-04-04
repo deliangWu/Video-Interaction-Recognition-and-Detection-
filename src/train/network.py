@@ -26,13 +26,9 @@ class C3DNET:
             scope.reuse_variables()
             self._y_convT = model.Classifier.softmax(self._featuresT,numOfClasses)
             
-    def trainSetup(self, optimizeClassifierOnly = False):     
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
-            if optimizeClassifierOnly == True:
-                cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_convT, labels=self._y_))
-            else:
-                cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
+            cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
             self._train_step = tf.train.AdamOptimizer(learning_rate=1e-4, epsilon=0.01).minimize(cross_entropy)
             correct_prediction = tf.equal(tf.argmax(self._y_conv,1), tf.argmax(self._y_,1))
             self._accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
@@ -43,8 +39,7 @@ class C3DNET:
     
     def train(self, train_x,train_y,sess):
         with sess.as_default():
-            testF = self._features.eval(feed_dict={self._x:train_x,self._keep_prob: 1})
-            self._train_step.run(feed_dict={self._featuresT:testF, self._y_:train_y})
+            self._train_step.run(feed_dict={self._x:train_x, self._y_:train_y, self._keep_prob:0.5})
         return None
     
     def evaluate(self, test_x, test_y, sess):
