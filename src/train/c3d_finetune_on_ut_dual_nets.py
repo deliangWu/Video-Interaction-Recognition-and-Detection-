@@ -66,8 +66,8 @@ def main(argv):
         saver_feature_a0 = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_a0_VarsList])
         saver_feature_a1 = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_a1_VarsList])
         saver_classifier_2f1c = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_2f1c_VarsList])
-        log = '**************************************\n' \
-            + 'current sequence is ' + str(seq)  + '\n' + \
+        log = '****************************************\n' \
+            + 'current sequence is ' + str(seq)  + '\n' +  \
               '****************************************\n'
         common.pAndWf(logName,log)
         ut_set.splitTrainingTesting(seq)
