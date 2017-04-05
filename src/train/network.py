@@ -160,7 +160,7 @@ class C3DNET_3F1C:
             # Train and evaluate the model
             cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
             #self._train_step = tf.train.AdamOptimizer(learning_rate=1e-4, epsilon=0.01).minimize(cross_entropy,var_list=self.getClassifierVars())
-            self._train_step = tf.train.AdamOptimizer(learning_rate=0.01, epsilon=0.01).minimize(cross_entropy,var_list=self.getClassifierVars())
+            self._train_step = tf.train.AdamOptimizer(learning_rate=0.003, epsilon=0.01).minimize(cross_entropy,var_list=self.getClassifierVars())
             correct_prediction = tf.equal(tf.argmax(self._y_conv,1), tf.argmax(self._y_,1))
             self._accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
             
