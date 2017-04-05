@@ -36,6 +36,7 @@ def readLog(logName,seqBias = 1):
     accuList_resize = np.array(accuList_resize)
     assert accuList_resize.shape[0] == 10
     accus = np.mean(accuList_resize,0)
+    print(accus[-1])
     return (steps,accus)
 
     
@@ -59,19 +60,21 @@ steps_set2_as, accus_set2_as = readLog(fname_set2_a_s,seqBias=11)
 steps_set2_ads,  accus_set2_ads  = readLog(fname_set2_a_d_s,seqBias=11)
 steps_set2_adus,  accus_set2_adus  = readLog(fname_set2_a_d_us,seqBias=11)
 
-plt.plot(steps_set1_g, accus_set1_g,'r--', \
-         steps_set1_as, accus_set1_as,'g--', \
-         steps_set1_ads,accus_set1_ads,'b--', \
-         steps_set1_adus,accus_set1_adus,'c--', )
-plt.plot(steps_set2_g,accus_set2_g,'r-', \
-         steps_set2_as,accus_set2_as,'g-',\
-         steps_set2_ads, accus_set2_ads,'b-',\
-         steps_set2_adus, accus_set2_adus, 'c-')
+#plt.plot(steps_set1_g,   accus_set1_g,'r--',    label = 'set1 model #1')
+#plt.plot(steps_set1_as,  accus_set1_as,'g--',   label = 'set1 model #2') 
+#plt.plot(steps_set1_ads, accus_set1_ads,'b--',  label = 'set1 model #3') 
+#plt.plot(steps_set1_adus,accus_set1_adus,'c--', label = 'set1 model #4')
+
+plt.plot(steps_set2_g,   accus_set2_g,'r-',    label = 'set2 model #1')
+plt.plot(steps_set2_as,  accus_set2_as,'g-',   label = 'set2 model #2') 
+plt.plot(steps_set2_ads, accus_set2_ads,'b-',  label = 'set2 model #3') 
+plt.plot(steps_set2_adus,accus_set2_adus,'c-', label = 'set2 model #4')
     
 plt.xlabel('Training steps')
 plt.ylabel('Classification accuracy')
 ax = plt.gca()
 ax.set_xticks(np.arange(0, 3601, 400))
 ax.set_yticks(np.arange(0, 1.1, 0.05))
+plt.legend()
 plt.grid(b=1)
 plt.show()

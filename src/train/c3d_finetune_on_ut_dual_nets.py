@@ -47,7 +47,7 @@ def main(argv):
         log = log + 'set2! \n'
     else:    
         ut_set = ut.ut_interaction_set1_atomic(frmSize)
-        seqRange = range(1,11)
+        seqRange = range(1,2)
         savePrefix = savePrefix + 'set1_'
         log = log + 'set1! \n'
     
