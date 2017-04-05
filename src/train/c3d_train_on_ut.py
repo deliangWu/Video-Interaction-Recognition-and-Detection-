@@ -21,8 +21,6 @@ def main(argv):
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize)
-        classifierVars = c3d.getClassifierVars()
-        print(classifierVars)
     # ***********************************************************
     # define session
     # ***********************************************************
