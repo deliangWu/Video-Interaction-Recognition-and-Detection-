@@ -59,7 +59,7 @@ def main(argv):
     # Train and test the network
     # ***********************************************************
     iteration = 4001
-    batchSize = 20 
+    batchSize = 16 
     for seq in seqRange:
         with sess.as_default():
             sess.run(initVars)
