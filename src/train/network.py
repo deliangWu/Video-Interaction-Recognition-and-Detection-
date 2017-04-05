@@ -149,7 +149,7 @@ class C3DNET_3F1C:
             self._features_a1 = model.FeatureDescriptor.c3d(self._x1,frmSize[1],self._keep_prob)
             
         with tf.variable_scope('classifier_3f1c') as scope:
-            features = tf.concat([self._features_g, self._features0, self._features1],1)
+            features = tf.concat([self._features_g, self._features_a0, self._features_a1],1)
             self._classifier = model.Softmax(features,numOfClasses)
             self._y_conv = self._classifier.y_conv
             scope.reuse_variables()
