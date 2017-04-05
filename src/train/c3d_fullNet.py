@@ -59,8 +59,9 @@ def main(argv):
         saver_feature_a0 = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_a0_VarsList])
         saver_feature_a1 = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_a1_VarsList])
         saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_3f1c_VarsList])
-        #saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-        #saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
+        saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fg.ckpt'))
+        saver_feature_a0.restore(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa0.ckpt'))
+        saver_feature_a1.restore(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa1.ckpt'))
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
@@ -82,12 +83,12 @@ def main(argv):
                     log = "step %d, training: %g, testing: %g, anv: %g, best %g \n"%(i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
+                        saver_classifier.save(sess,join(common.path.varibelPath, savePrefix+str(seq)+'_3f1c.ckpt'))
                         break
+                    
                 c3d.train(train_x, train_x0, train_x1, train_y, sess)
             common.pAndWf(logName,' \n')
         else:
-            saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-            saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
             # begin to test
             test_accuracy = c3d.test(test_x, test_y, sess)
             log = "Testing accuracy %g \n"%(test_accuracy)
