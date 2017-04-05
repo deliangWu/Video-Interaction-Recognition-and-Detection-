@@ -20,7 +20,7 @@ def main(argv):
     # ***********************************************************
     numOfClasses = 6 
     frmSize = (112,80,3)
-    with tf.variable_scope('atomic_action_features') as scope:
+    with tf.variable_scope('top') as scope:
         if len(argv) >= 3 and argv[2] == 'unShareFeatureVariable':
             savePrefix = 'c3d_finetune_on_ut_dual_nets_unShareVars_'
             log = time.ctime() + ' Finetune the dual-nets model with two independent feature variables on UT-Interaction '
