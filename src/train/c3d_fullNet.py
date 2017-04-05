@@ -83,7 +83,7 @@ def main(argv):
                     log = "step %d, training: %g, testing: %g, anv: %g, best %g \n"%(i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        saver_classifier.save(sess,join(common.path.varibelPath, savePrefix+str(seq)+'_3f1c.ckpt'))
+                        saver_classifier.save(sess,join(common.path.variablePath, savePrefix + str(seq) + '_3f1c.ckpt'))
                         break
                     
                 c3d.train(train_x, train_x0, train_x1, train_y, sess)
