@@ -94,8 +94,6 @@ def main(argv):
                 c3d.train(train_x0, train_x1, train_y, sess)
             common.pAndWf(logName,' The training is finished at ' + time.ctime() + ' \n')
         else:
-            variableName = savePrefix + str(seq) + '.ckpt'
-            saver.restore(sess,join(common.path.variablePath, variableName))
             # begin to test
             test_accuracy = c3d.test(test_x0, test_x1, test_y, sess)
             log = "Testing accuracy %g \n"%(test_accuracy)

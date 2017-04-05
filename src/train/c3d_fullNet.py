@@ -59,9 +59,9 @@ def main(argv):
         saver_feature_a0 = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_a0_VarsList])
         saver_feature_a1 = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_a1_VarsList])
         saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_3f1c_VarsList])
-        saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fg.ckpt'))
-        saver_feature_a0.restore(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa0.ckpt'))
-        saver_feature_a1.restore(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa1.ckpt'))
+        saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_'+ str(seq) + '_fg.ckpt'))
+        saver_feature_a0.restore(sess,join(common.path.variablePath, 'c3d_finetune_on_ut_dual_nets_unShareVars_set1_' + str(seq) +'_fa0.ckpt'))
+        saver_feature_a1.restore(sess,join(common.path.variablePath, 'c3d_finetune_on_ut_dual_nets_unShareVars_set1_' + str(seq) +'_fa1.ckpt'))
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
