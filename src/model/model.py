@@ -123,3 +123,15 @@ class Classifier:
                 #y_conv = tf.matmul(features_l2norm, W_sm) + b_sm 
                 y_conv = tf.matmul(features, W_sm) + b_sm 
         return y_conv
+
+class Softmax:
+    def __init__(self,features,numOfClasses):
+        # softmax
+        featuresDims = features.get_shape().as_list()[1]
+        with tf.device(common.Vars.dev[-1]):
+            features_l2norm = tf.nn.l2_normalize(features,dim=1)
+            with tf.variable_scope('sm'):
+                self.W_sm = weight_variable([featuresDims, numOfClasses])
+                self.b_sm = bias_variable([numOfClasses])
+                #y_conv = tf.matmul(features_l2norm, W_sm) + b_sm 
+                self.y_conv = tf.matmul(features, self.W_sm) + self.b_sm 

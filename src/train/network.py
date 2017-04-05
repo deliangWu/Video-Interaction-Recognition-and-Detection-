@@ -22,20 +22,25 @@ class C3DNET:
         with tf.variable_scope('feature_descriptor_g') as scope:
             self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3)
         with tf.variable_scope('classifier') as scope:
-            self._y_conv = model.Classifier.softmax(self._features,numOfClasses)
+            self._classifier = model.Softmax(self._features,numOfClasses)
+            self._y_conv = self._classifier.y_conv
             scope.reuse_variables()
-            self._y_convT = model.Classifier.softmax(self._featuresT,numOfClasses)
+            self._classifierT = model.Softmax(self._featuresT,numOfClasses)
+            self._y_convT = self._classifierT.y_conv 
             
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
             cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
-            self._train_step = tf.train.AdamOptimizer(learning_rate=1e-4, epsilon=0.01).minimize(cross_entropy)
+            self._train_step = tf.train.AdamOptimizer(learning_rate=1e-4, epsilon=0.01).minimize(cross_entropy,self.getClassifierVars)
             correct_prediction = tf.equal(tf.argmax(self._y_conv,1), tf.argmax(self._y_,1))
             self._accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
             
             correct_predictionT = tf.equal(tf.argmax(self._y_convT,1), tf.argmax(self._y_,1))
             self._accuracyT = tf.reduce_mean(tf.cast(correct_predictionT, tf.float32))
         return None
+    
+    def getClassifierVars(self):
+        return([self._classifier.W_sm,self._classifier.b_sm])
     
     def train(self, train_x,train_y,sess):
         with sess.as_default():
@@ -145,9 +150,9 @@ class C3DNET_3F1C:
             
         with tf.variable_scope('classifier_3f1c') as scope:
             features = tf.concat([self._features_g, self._features_a0, self._features_a1],1)
-            self._y_conv = model.Classifier.softmax(features, numOfClasses)
+            self._y_conv = model.Softmax(features, numOfClasses)
             scope.reuse_variables()
-            self._y_convT = model.Classifier.softmax(self._featuresT,numOfClasses)
+            self._y_convT = model.Softmax(self._featuresT,numOfClasses)
         
         with tf.device(common.Vars.dev[0]):
             # Train and evaluate the model
