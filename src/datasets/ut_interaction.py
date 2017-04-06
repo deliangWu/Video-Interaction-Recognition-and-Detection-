@@ -252,30 +252,51 @@ class ut_interaction_set2_a(ut_interaction):
         paths = [common.path.utSet2_a0_Path,common.path.utSet2_a1_Path]
         ut_interaction.__init__(self,paths,frmSize)
 
-        
+
+
+
+# for detection task
+from mmap import mmap, ACCESS_READ
+from xlrd import open_workbook
+import cv2
+
+def labelToString(label):
+    activitys = ['Hand Shaking', 'Hugging', 'Kicking', 'Pointing', 'Punching', 'Pushing']
+    return activitys[label]
+
+def getGroundTruth(setNo, seqNo):
+    workbook = open_workbook('D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_labels_110912.xls')
+    groundTruth = []
+    for sheet in workbook.sheets():
+        if sheet.name == 'Set'+str(setNo):
+            for row in range(62):
+                line = []
+                if sheet.cell(row,0).value == 'seq' + str(seqNo):
+                    for col in range(1,8):
+                        line.append(int(sheet.cell(row,col).value))
+                    groundTruth.append(line)
+    return np.array(groundTruth)
+                         
 
 if __name__ == '__main__':
-    utset = ut_interaction_set1_ga([(112,128,3),(112,80,3)])
-    seq_bias = 0 
-    for seq in range(seq_bias+1,seq_bias+11):
-        print('**************************************************************')
-        print('current sequence is ', seq)
-        print('**************************************************************')
-        utset.splitTrainingTesting(seq)
-        print('Traing samples loaded')
-        train = utset.loadTrainingBatch(16)
-        test = utset.loadTesting()
-        v_g = test[0]
-        v_a0 = test[1]
-        v_a1 = test[2]
-        lable = test[3]
-        for i in range(v_g.shape[1]):
-            for j in range(3):
-                vpp.videoPlay(v_g[j][i],5)
-                vpp.videoPlay(v_a0[j][i],5)
-                vpp.videoPlay(v_a1[j][i],5)
-            
-            
-            
+    print(getGroundTruth(1,8))    
+    videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set1/seq1.avi'
+    gt = getGroundTruth(1, 1)
+    cv2.namedWindow('video player')    
+    cap = cv2.VideoCapture(videoName)
+    ret,frame = cap.read()
+    frmNo = 0
+    gt_i = 0
+    while(ret):
+        if gt_i < gt.shape[0] :
+            if frmNo > gt[gt_i][1] and frmNo < gt[gt_i][2]:
+                cv2.rectangle(frame, (gt[gt_i][3], gt[gt_i][4]), (gt[gt_i][5], gt[gt_i][6]), (gt_i * 40, 255 - gt_i * 40, gt_i * 40), thickness=1)
+            if frmNo > gt[gt_i][2]:
+                gt_i+=1
+        cv2.imshow('video player', frame)
+        ret,frame = cap.read()
+        frmNo +=1
+        if cv2.waitKey(30) == 27:
+            break
         
         
