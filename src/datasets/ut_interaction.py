@@ -279,9 +279,10 @@ def getGroundTruth(setNo, seqNo):
                          
 
 if __name__ == '__main__':
-    print(getGroundTruth(1,8))    
-    videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set1/seq1.avi'
-    gt = getGroundTruth(1, 1)
+    setNo,seqNo = 2,18
+    videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
+    gt = getGroundTruth(setNo, seqNo)
+    print(gt)
     cv2.namedWindow('video player')    
     cap = cv2.VideoCapture(videoName)
     ret,frame = cap.read()
@@ -291,6 +292,7 @@ if __name__ == '__main__':
         if gt_i < gt.shape[0] :
             if frmNo > gt[gt_i][1] and frmNo < gt[gt_i][2]:
                 cv2.rectangle(frame, (gt[gt_i][3], gt[gt_i][4]), (gt[gt_i][5], gt[gt_i][6]), (gt_i * 40, 255 - gt_i * 40, gt_i * 40), thickness=1)
+                cv2.putText(frame, labelToString(gt[gt_i][0]), (gt[gt_i][3],gt[gt_i][4] - 10), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255,0,0), 1, cv2.LINE_AA)
             if frmNo > gt[gt_i][2]:
                 gt_i+=1
         cv2.imshow('video player', frame)

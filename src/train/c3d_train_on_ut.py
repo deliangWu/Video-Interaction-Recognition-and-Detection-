@@ -89,8 +89,10 @@ def main(argv):
             saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
             # begin to test
             test_accuracy = c3d.test(test_x, test_y, sess)
-            log = "Testing accuracy %g \n"%(test_accuracy)
-            common.pAndWf(logName,log)
+            test_prob = c3d.evaluateProb(test_x,sess)
+            print(test_prob, test_y)
+            #log = "Testing accuracy %g \n"%(test_accuracy)
+            #common.pAndWf(logName,log)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
