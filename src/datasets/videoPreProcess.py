@@ -18,10 +18,10 @@ def videoRead(fileName,grayMode=True,downSample = 1):
             else:
                 frame_4d = np.reshape(frame,((1,)+frame.shape))
             if firstFrame:
-                video = frame_4d
+                video = frame_4d[:,0:int(frame_4d.shape[1]/2),0:int(frame_4d.shape[2]/2)]
                 firstFrame = False
             else:
-                video = np.append(video,frame_4d,axis=0)
+                video = np.append(video,frame_4d[:,0:int(frame_4d.shape[1]/2),0:int(frame_4d.shape[2]/2)],axis=0)
         ret,frame = cap.read()
         frmNo += 1
     if firstFrame is True:

@@ -111,7 +111,7 @@ class ut_interaction_atomic:
     def splitTrainingTesting(self,n):
         self._ut_a0.splitTrainingTesting(n,loadTrainingEn=False)
         self._ut_a1.splitTrainingTesting(n,loadTrainingEn=False)
-        self.loadTrainingAll()
+        #self.loadTrainingAll()
         return None
     
     def loadTrainingAll(self):
@@ -252,10 +252,17 @@ class ut_interaction_set2_a(ut_interaction):
         paths = [common.path.utSet2_a0_Path,common.path.utSet2_a1_Path]
         ut_interaction.__init__(self,paths,frmSize)
 
+if __name__ == '__main__':
+    ut_set = ut_interaction_set1((112,128,3))
+    ut_set.splitTrainingTesting(1,loadTrainingEn=False)
+    test_x,test_y = ut_set.loadTesting()
+    for gv in test_x:
+        for v in gv:
+            vpp.videoPlay(v,25)
 
-
-
+# *******************************************************************
 # for detection task
+# *******************************************************************
 from mmap import mmap, ACCESS_READ
 from xlrd import open_workbook
 import cv2
@@ -264,6 +271,7 @@ def labelToString(label):
     activitys = ['Hand Shaking', 'Hugging', 'Kicking', 'Pointing', 'Punching', 'Pushing']
     return activitys[label]
 
+# read ground truth from excel file
 def getGroundTruth(setNo, seqNo):
     workbook = open_workbook('D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_labels_110912.xls')
     groundTruth = []
