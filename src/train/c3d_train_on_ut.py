@@ -62,9 +62,10 @@ def main(argv):
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
         common.pAndWf(logName,log)
-        ut_set.splitTrainingTesting(seq)
+        ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
         test_x,test_y = ut_set.loadTesting()
         if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
+            ut_set.loadTrainingAll()
             best_accuracy = 0
             anvAccuList = np.zeros((10))
             for i in range(iteration):
