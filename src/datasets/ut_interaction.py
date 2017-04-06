@@ -165,7 +165,7 @@ class ut_interaction_ga:
         self._ut_g.splitTrainingTesting(n,loadTrainingEn=False)
         self._ut_a0.splitTrainingTesting(n,loadTrainingEn=False)
         self._ut_a1.splitTrainingTesting(n,loadTrainingEn=False)
-        self.loadTrainingAll()
+        #self.loadTrainingAll()
         return None
     
     def loadTrainingAll(self):
