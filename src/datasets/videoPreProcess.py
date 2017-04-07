@@ -18,10 +18,10 @@ def videoRead(fileName,grayMode=True,downSample = 1):
             else:
                 frame_4d = np.reshape(frame,((1,)+frame.shape))
             if firstFrame:
-                video = frame_4d[:,0:int(frame_4d.shape[1]/2),0:int(frame_4d.shape[2]/2)]
+                video = frame_4d
                 firstFrame = False
             else:
-                video = np.append(video,frame_4d[:,0:int(frame_4d.shape[1]/2),0:int(frame_4d.shape[2]/2)],axis=0)
+                video = np.append(video,frame_4d,axis=0)
         ret,frame = cap.read()
         frmNo += 1
     if firstFrame is True:
@@ -154,15 +154,15 @@ def videoRezise(videoIn,frmSize):
 
 
 def videoProcess(fileName,frmSize,NormEn = False, RLFlipEn = True, batchMode = True):
-    vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=2)
+    vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=1)
     if vIn is not None:
         vRS = videoRezise(vIn,frmSize)
-        vSimp = videoSimplify(vRS)
-        vNorm = videoNorm(vSimp)
+        #vSimp = videoSimplify(vRS)
+        vNorm = videoNorm(vRS)
         if NormEn is True:
             vDS = downSampling(vNorm,8)
         else:
-            vDS = downSampling(vSimp,8)
+            vDS = downSampling(vRS,8)
         vDS_Flipped = videofliplr(vDS)
         if RLFlipEn is True:
             vBatch = np.append(batchFormat(vDS),batchFormat(vDS_Flipped),axis=0)
