@@ -94,8 +94,8 @@ def main(argv):
             print('test_prob is \n', test_prob, '\n \n', \
                   'test_prob_sm is \n', test_prob_sm, '\n \n', \
                   'test_y is \n', test_y)
-            #log = "Testing accuracy %g \n"%(test_accuracy)
-            #common.pAndWf(logName,log)
+            log = "Testing accuracy %g \n"%(test_accuracy)
+            common.pAndWf(logName,log)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
