@@ -16,13 +16,14 @@ def Label(fileName):
     return int(fileName[fileName.index(".") - 1 : fileName.index(".")])
 
 class ut_interaction:
-    def __init__(self,paths,frmSize):
+    def __init__(self,paths,frmSize,numOfClasses = 6):
         self._frmSize = frmSize
+        self._numOfClasses = numOfClasses
         self._filesSet = np.empty((0,3)) 
         self._trainingFilesSet= []
         self._testingFilesSet= []
         self._trainingVideos = np.empty((0,16) + self._frmSize,dtype = np.uint8)
-        self._trainingLabels = np.empty((0,6),dtype=np.float32)
+        self._trainingLabels = np.empty((0,self._numOfClasses),dtype=np.float32)
         self._trainingPointer = 0
         self._trainingEpoch = 0
         for path in paths:
@@ -44,8 +45,8 @@ class ut_interaction:
         for file in self._trainingFilesSet:
             video = vpp.videoProcess(file[1],self._frmSize)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
-            labelCode = vpp.int2OneHot(int(file[2]),6)
-            label = np.repeat(np.reshape(labelCode,(1,6)),video.shape[0],axis=0)
+            labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
+            label = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
             self._trainingLabels=  np.append(self._trainingLabels,label,axis=0)
             cnt_file+=1
             if cnt_file % 10 == 0:
@@ -77,9 +78,9 @@ class ut_interaction:
     
     def loadTesting(self):
         testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
-        testLabels = np.empty((0,6),dtype=np.float32)        
+        testLabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         for file in self._testingFilesSet:
-            labelCode = vpp.int2OneHot(int(file[2]),6)
+            labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
             video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True)
             if video is not None:
                 numOfClips = video.shape[0]
@@ -92,7 +93,7 @@ class ut_interaction:
                 video = video[index]
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
-                testLabels = np.append(testLabels,np.reshape(labelCode,(1,6)),axis=0)
+                testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)
         return (testVideos.transpose(1,0,2,3,4,5),testLabels)    
     
     def getFileList(self):
@@ -218,9 +219,9 @@ class ut_interaction_ga:
         
 
 class ut_interaction_set1(ut_interaction):
-    def __init__(self,frmSize):
+    def __init__(self,frmSize,numOfClasses = 6):
         path = [common.path.utSet1Path]
-        ut_interaction.__init__(self,path,frmSize)
+        ut_interaction.__init__(self,path,frmSize,numOfClasses)
 
 class ut_interaction_set1_a(ut_interaction):
     def __init__(self,frmSize):
@@ -238,9 +239,9 @@ class ut_interaction_set1_ga(ut_interaction_ga):
         ut_interaction_ga.__init__(self,paths,frmSize)
 
 class ut_interaction_set2(ut_interaction):
-    def __init__(self,frmSize):
+    def __init__(self,frmSize,numOfClasses = 6):
         path = [common.path.utSet2Path]
-        ut_interaction.__init__(self,path,frmSize)
+        ut_interaction.__init__(self,path,frmSize,numOfClasses)
 
 class ut_interaction_set2_atomic(ut_interaction_atomic):
     def __init__(self,frmSize):
@@ -252,13 +253,13 @@ class ut_interaction_set2_a(ut_interaction):
         paths = [common.path.utSet2_a0_Path,common.path.utSet2_a1_Path]
         ut_interaction.__init__(self,paths,frmSize)
 
-#if __name__ == '__main__':
-#    ut_set = ut_interaction_set1((112,128,3))
-#    ut_set.splitTrainingTesting(1,loadTrainingEn=False)
-#    test_x,test_y = ut_set.loadTesting()
-#    for gv in test_x:
-#        for v in gv:
-#            vpp.videoPlay(v,25)
+if __name__ == '__main__':
+    ut_set = ut_interaction_set1((112,128,3),numOfClasses=7)
+    ut_set.splitTrainingTesting(1,loadTrainingEn=False)
+    test_x,test_y = ut_set.loadTesting()
+    for gv in test_x:
+        for v in gv:
+            vpp.videoPlay(v,25)
 
 # *******************************************************************
 # for detection task

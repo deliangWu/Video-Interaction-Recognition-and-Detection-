@@ -17,7 +17,7 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
-    numOfClasses = 6 
+    numOfClasses = 7 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize)
@@ -33,12 +33,12 @@ def main(argv):
     # define the dataset
     # ***********************************************************
     if len(argv) >= 3 and argv[2] == 'set2':
-        ut_set = ut.ut_interaction_set2(frmSize)
+        ut_set = ut.ut_interaction_set2(frmSize,numOfClasses)
         seqRange = range(11,21)
         savePrefix = 'c3d_train_on_ut_set2_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:    
-        ut_set = ut.ut_interaction_set1(frmSize)
+        ut_set = ut.ut_interaction_set1(frmSize,numOfClasses)
         seqRange = range(1,11)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
@@ -81,7 +81,7 @@ def main(argv):
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                         #saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-                        #saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
+                        saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
                         break
                 c3d.train(train_x, train_y, sess)
             common.pAndWf(logName,' \n')
