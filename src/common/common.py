@@ -34,10 +34,12 @@ class path:
     utSet1Path = join(projectPath, 'datasets/UT_Interaction/ut-interaction_segmented_set1/segmented_set1/')
     utSet1_a0_Path = join(utSet1Path, 'vOut_0/')
     utSet1_a1_Path = join(utSet1Path, 'vOut_1/')
+    utSet1DetPath = join(projectPath, 'datasets/UT_Interaction/ut-interaction_set1/')
 
     utSet2Path = join(projectPath, 'datasets/UT_Interaction/ut-interaction_segmented_set2/segmented_set2/')
     utSet2_a0_Path = join(utSet2Path, 'vOut_0/')
     utSet2_a1_Path = join(utSet2Path, 'vOut_1/')
+    utSet2DetPath = join(projectPath, 'datasets/UT_Interaction/ut-interaction_set2/')
         
         
     variablePath = join(projectPath,'variableSave/')

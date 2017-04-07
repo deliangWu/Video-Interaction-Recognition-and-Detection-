@@ -253,13 +253,15 @@ class ut_interaction_set2_a(ut_interaction):
         paths = [common.path.utSet2_a0_Path,common.path.utSet2_a1_Path]
         ut_interaction.__init__(self,paths,frmSize)
 
-if __name__ == '__main__':
-    ut_set = ut_interaction_set1((112,128,3),numOfClasses=7)
-    ut_set.splitTrainingTesting(1,loadTrainingEn=False)
-    test_x,test_y = ut_set.loadTesting()
-    for gv in test_x:
-        for v in gv:
-            vpp.videoPlay(v,25)
+#if __name__ == '__main__':
+#    ut_set = ut_interaction_set1((112,128,3),numOfClasses=7)
+#    ut_set.splitTrainingTesting(1,loadTrainingEn=False)
+#    test_x,test_y = ut_set.loadTesting()
+#    for gv in test_x:
+#        for v in gv:
+#            vpp.videoPlay(v,25)
+
+
 
 # *******************************************************************
 # for detection task
@@ -286,35 +288,6 @@ def getGroundTruth(setNo, seqNo):
                     groundTruth.append(line)
     return np.array(groundTruth)
                          
-def genNegativeSamples1(setNo,seqNo,NoBias):
-    videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
-    cap = cv2.VideoCapture(videoName)
-    ret,frame = cap.read()
-    h,w = frame.shape[0],frame.shape[1]
-    regions = []
-    regions.append((0,0,300,260))
-    regions.append((int(w/2) - 150, 0, int(w/2) + 150, 260))
-    regions.append((w - 300, 0, w, 260))
-    regions.append((0,h-260,300,h))
-    regions.append((int(w/2) - 150, h - 260, int(w/2) + 150, h))
-    regions.append((w - 300, h - 260, w, h))
-    frmNo = 0
-    videos = np.empty((0,260,300,3)) 
-    while ret:
-        if frmNo >= 200 and frmNo < 248:
-            videos = np.append(videos, np.array([frame[y0:y1,x0:x1] for x0,y0,x1,y1 in regions]),0)
-        if frmNo == 248:
-            videos = np.reshape(videos,(48,6,260,300,3)).transpose(1,0,2,3,4).astype(np.uint8)
-            for i,video in enumerate(videos):
-                videoName = 'set' + str(setNo) + '/' + str(i+NoBias) + '_' + str(seqNo) + '_6.avi'
-                vpp.videoSave(video, videoName)
-                for img in video:
-                    if cv2.waitKey(30) == 27:
-                        break
-        ret,frame = cap.read()
-        frmNo += 1
-        
-        
 def genNegativeSamples0(setNo,seqNo,NoBias):
     videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
     gt = getGroundTruth(setNo, seqNo)
@@ -345,17 +318,77 @@ def genNegativeSamples0(setNo,seqNo,NoBias):
         frmNo += 1
     return videoCnt
     
+def genNegativeSamples1(setNo,seqNo,NoBias):
+    videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
+    cap = cv2.VideoCapture(videoName)
+    ret,frame = cap.read()
+    h,w = frame.shape[0],frame.shape[1]
+    regions = []
+    regions.append((0,0,300,260))
+    regions.append((int(w/2) - 150, 0, int(w/2) + 150, 260))
+    regions.append((w - 300, 0, w, 260))
+    regions.append((0,h-260,300,h))
+    regions.append((int(w/2) - 150, h - 260, int(w/2) + 150, h))
+    regions.append((w - 300, h - 260, w, h))
+    frmNo = 0
+    videos = np.empty((0,260,300,3)) 
+    while ret:
+        if frmNo >= 200 and frmNo < 248:
+            videos = np.append(videos, np.array([frame[y0:y1,x0:x1] for x0,y0,x1,y1 in regions]),0)
+        if frmNo == 248:
+            videos = np.reshape(videos,(48,6,260,300,3)).transpose(1,0,2,3,4).astype(np.uint8)
+            for i,video in enumerate(videos):
+                videoName = 'set' + str(setNo) + '/' + str(i+NoBias) + '_' + str(seqNo) + '_6.avi'
+                vpp.videoSave(video, videoName)
+                for img in video:
+                    if cv2.waitKey(30) == 27:
+                        break
+        ret,frame = cap.read()
+        frmNo += 1
+        
+def loadVideo(seqNo):
+    if seqNo <= 10:
+        videoName = common.path.utSet1DetPath + '/seq' + str(seqNo) +'.avi'
+    else:
+        videoName = common.path.utSet2DetPath + '/seq' + str(seqNo) +'.avi'
+        
+    video = vpp.videoRead(videoName,grayMode=False)
+    return video
+    
+def genDetectionBBList(videoIn):
+    dMax,yMax,xMax = videoIn.shape[0:3]
+    d0,d1 = 0,64
+    y0,y1 = 0,260
+    x0,x1 = 0,300
+    detectionBBList = []
+    while d1 < dMax:
+        while y1 < yMax:
+            while x1 < xMax:
+                detectionBBList.append([d0,d1,y0,y1,x0,x1])
+                x0 += 32
+                x1 += 32
+            x0,x1 = 0,300
+            y0 += 16 
+            y1 += 16 
+        x0,x1 = 0,300
+        y0,y1 = 0,260
+        d0 += 32 
+        d1 += 32 
+    return detectionBBList
     
 
+
+
 if __name__ == '__main__':
-    for setNo in range(2,3):
-        NoBias = 60
-        for seqNo in range(1+ (setNo-1)*10,11 + (setNo - 1)*10):
-            neg0 = genNegativeSamples0(setNo,seqNo,NoBias)
-            NoBias = NoBias + neg0
-            genNegativeSamples1(setNo, seqNo, NoBias)
-            NoBias = NoBias + 6 
-    
+    video = loadVideo(1)    
+    detBBList = genDetectionBBList(video)
+    print(len(detBBList))
+    for d0,d1,y0,y1,x0,x1 in detBBList[0:100]:
+        vChop = video[d0:d1,y0:y1,x0:x1]
+        vpp.videoPlay(vChop)
+        vChop = vpp.videoProcess(vChop, (112,128,3), downSample = 2, NormEn=True, RLFlipEn=False)
+        vpp.videoPlay(vpp.videoFormat(vChop))
+        
     
     #videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
     #gt = getGroundTruth(setNo, seqNo)

@@ -69,8 +69,7 @@ class C3DNET:
             if test_x.ndim == 6:
                 testF = np.mean([self._features.eval(feed_dict={self._x:xT,self._keep_prob: 1}) for xT in test_x],0)
                 test_prob_sm = self._y_sm.eval(feed_dict={self._featuresT:testF})
-                test_prob = self._y_convT.eval(feed_dict={self._featuresT:testF})
-        return (test_prob_sm, test_prob)
+        return test_prob_sm
     
 
 class C3DNET_2F1C:

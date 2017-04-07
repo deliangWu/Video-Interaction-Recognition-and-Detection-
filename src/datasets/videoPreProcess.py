@@ -7,29 +7,16 @@ import time
 
 def videoRead(fileName,grayMode=True,downSample = 1):
     cap = cv2.VideoCapture(fileName)
-    firstFrame = True
     ret,frame = cap.read()
-    frmNo = 0
+    video = []
     while(ret):
-        if ret:
-            if grayMode == True:
-                gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-                frame_4d = np.reshape(gray,((1,)+gray.shape+(1,)))
-            else:
-                frame_4d = np.reshape(frame,((1,)+frame.shape))
-            if firstFrame:
-                video = frame_4d
-                firstFrame = False
-            else:
-                video = np.append(video,frame_4d,axis=0)
+        if grayMode == True:
+            frame = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+        video.append(frame)
         ret,frame = cap.read()
-        frmNo += 1
-    if firstFrame is True:
-        print('read video file ' + fileName + ' failed!!')
-        return None
-    else:
-        frames = video[range(0,video.shape[0],downSample)]
-        return frames 
+    video = np.array(video)
+    video = video[range(0,video.shape[0],downSample)]
+    return np.array(video) 
     
 def videoNorm(videoIn):
     vmax = np.amax(videoIn)
@@ -153,9 +140,34 @@ def videoRezise(videoIn,frmSize):
     return videoOut
 
 
-def videoProcess(fileName,frmSize,NormEn = False, RLFlipEn = True, batchMode = True):
-    vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=1)
+def videoProcess(fileName,frmSize,downSample = 1, NormEn = False, RLFlipEn = True, batchMode = True):
+    vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=downSample)
     if vIn is not None:
+        vRS = videoRezise(vIn,frmSize)
+        #vSimp = videoSimplify(vRS)
+        vNorm = videoNorm(vRS)
+        if NormEn is True:
+            vDS = downSampling(vNorm,8)
+        else:
+            vDS = downSampling(vRS,8)
+        vDS_Flipped = videofliplr(vDS)
+        if RLFlipEn is True:
+            vBatch = np.append(batchFormat(vDS),batchFormat(vDS_Flipped),axis=0)
+        else:
+            vBatch = batchFormat(vDS)
+        
+        if batchMode is True:
+            return vBatch
+        else:
+            return vDS
+    else:
+        return None
+
+def videoProcess(vIn,frmSize,downSample = 1, NormEn = False, RLFlipEn = True, batchMode = True):
+    if vIn is not None:
+        print(vIn.shape)
+        vIn = vIn[range(0,vIn.shape[0],downSample)]
+        print(vIn.shape)
         vRS = videoRezise(vIn,frmSize)
         #vSimp = videoSimplify(vRS)
         vNorm = videoNorm(vRS)
