@@ -60,13 +60,13 @@ def main(argv):
         pred_yList = []
         for d0,d1,y0,y1,x0,x1 in detBBList:
             vChop = video[d0:d1,y0:y1,x0:x1]
-            vpp.videoPlay(vChop)
             vChop = vpp.videoProcess(vChop, (112,128,3), downSample = 2, NormEn=True, RLFlipEn=False)
-            vpp.videoPlay(vpp.videoFormat(vChop))
-            vChop = np.reshape(vChop,(3,1,16,112,128,3))
-            pred_y = np.argmax(c3d.evaluateProb(vChop, sess))
-            print('The predicted lable is ', pred_y)
+            vChop_det = np.reshape(vChop,(3,1,16,112,128,3))
+            pred_y = np.argmax(c3d.evaluateProb(vChop_det, sess))
             pred_yList.append(pred_y)
+            if pred_y != 6:
+                print('current bb is ', d0, d1, y0, y1, x0, x1, 'predicted lable is ', pred_y)
+                vpp.videoPlay(vpp.videoFormat(vChop))
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)

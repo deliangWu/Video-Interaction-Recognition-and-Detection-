@@ -165,9 +165,7 @@ def videoProcess(fileName,frmSize,downSample = 1, NormEn = False, RLFlipEn = Tru
 
 def videoProcess(vIn,frmSize,downSample = 1, NormEn = False, RLFlipEn = True, batchMode = True):
     if vIn is not None:
-        print(vIn.shape)
         vIn = vIn[range(0,vIn.shape[0],downSample)]
-        print(vIn.shape)
         vRS = videoRezise(vIn,frmSize)
         #vSimp = videoSimplify(vRS)
         vNorm = videoNorm(vRS)
