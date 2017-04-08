@@ -2,6 +2,10 @@
 from __future__ import print_function
 import numpy as np
 import os
+import cv2
+from imutils.object_detection import non_max_suppression
+from imutils import paths
+import imutils
 import tensorflow as tf
 import sys
 from os.path import join 
@@ -14,6 +18,29 @@ import common
 import network
 import videoPreProcess as vpp
 import time
+
+def humanDetector(video, dispBBEn = False):
+    cv2.namedWindow('vp')
+    # initalize the HOG descriptor and person detector
+    hog = cv2.HOGDescriptor()
+    hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+    picks = []
+    vo = []
+    for i,frame in enumerate(video):
+        img = frame
+        if i % 2 == 0:
+            # detect the people in the image
+            (rects,weights) = hog.detectMultiScale(img,winStride=(8,8),padding=(16,16),scale=1.2)
+            # draw the original bounding boxes
+            rects = np.array([[x,y,x+w,y+h] for (x,y,w,h) in rects])
+            pick = non_max_suppression(rects,probs=None,overlapThresh=0.65)
+        if dispBBEn is True: 
+            for (xA,yA,xB,yB) in pick:
+                cv2.rectangle(img,(xA,yA),(xB,yB),(0,255,0),1)
+        picks.append(pick)
+        cv2.imshow('vp',img)
+        cv2.waitKey(30)
+    return (np.array(vo),picks)
 
 def main(argv):
     # ***********************************************************
@@ -47,6 +74,8 @@ def main(argv):
         with sess.as_default():
             sess.run(initVars)
         video = ut.loadVideo(seq)
+        video,picks = humanDetector(video,dispBBEn=True)
+        vpp.videoPlay(video)
         detBBList = ut.genDetectionBBList(video)
 
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])

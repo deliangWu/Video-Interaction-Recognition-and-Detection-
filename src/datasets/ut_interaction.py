@@ -22,10 +22,6 @@ class ut_interaction:
         self._filesSet = np.empty((0,3)) 
         self._trainingFilesSet= []
         self._testingFilesSet= []
-        self._trainingVideos = np.empty((0,16) + self._frmSize,dtype = np.uint8)
-        self._trainingLabels = np.empty((0,self._numOfClasses),dtype=np.float32)
-        self._trainingPointer = 0
-        self._trainingEpoch = 0
         for path in paths:
             self._files = np.array([f for f in listdir(path) if isfile(join(path,f)) and re.search('.avi',f) is not None])
             fs = np.array([[sequence(fileName), join(path,fileName), Label(fileName)] for i,fileName in enumerate(self._files)])
@@ -36,6 +32,11 @@ class ut_interaction:
         trainingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) != n]
         self._trainingFilesSet = self._filesSet[trainingIndex]
         self._testingFilesSet = self._filesSet[testingIndex]
+        # clean training videos 
+        self._trainingVideos = np.empty((0,16) + self._frmSize,dtype = np.uint8)
+        self._trainingLabels = np.empty((0,self._numOfClasses),dtype=np.float32)
+        self._trainingPointer = 0
+        self._trainingEpoch = 0
         if loadTrainingEn == True:
             self.loadTrainingAll()
         return None
@@ -65,6 +66,7 @@ class ut_interaction:
         if self._trainingPointer + batch >= self._trainingVideos.shape[0]:
             start = 0
             self._trainingEpoch += 1
+            print('current epoch is ', self._trainingEpoch)
             self._trainingPointer = batch
             perm = np.arange(self._trainingVideos.shape[0])
             np.random.shuffle(perm)
@@ -302,10 +304,10 @@ def genNegativeSamples0(setNo,seqNo,NoBias):
             gt_line = gt[gt_i]
             if frmNeg == 0:
                 video = np.empty((0, gt_line[6] - gt_line[4], gt_line[5] - gt_line[3], 3)) 
-            if frmNo - frmNeg + 48 < gt_line[1]:
+            if frmNo - frmNeg + 64 < gt_line[1]:
                 frameChop = frame[gt_line[4]:gt_line[6],gt_line[3]:gt_line[5]]
                 video = np.append(video,np.reshape(frameChop,(1,)+frameChop.shape),0)
-                if frmNeg == 47:
+                if frmNeg == 63:
                     frmNeg = 0
                     videoName = 'set' + str(setNo) + '/' + str(videoCnt+NoBias) + '_' + str(seqNo) + '_6.avi'
                     vpp.videoSave(video.astype(np.uint8),videoName)
@@ -333,7 +335,7 @@ def genNegativeSamples1(setNo,seqNo,NoBias):
     frmNo = 0
     videos = np.empty((0,260,300,3)) 
     while ret:
-        if frmNo >= 200 and frmNo < 248:
+        if frmNo >= 200 and frmNo < 263:
             videos = np.append(videos, np.array([frame[y0:y1,x0:x1] for x0,y0,x1,y1 in regions]),0)
         if frmNo == 248:
             videos = np.reshape(videos,(48,6,260,300,3)).transpose(1,0,2,3,4).astype(np.uint8)
@@ -380,15 +382,12 @@ def genDetectionBBList(videoIn):
 
 
 if __name__ == '__main__':
-    video = loadVideo(1)    
-    detBBList = genDetectionBBList(video)
-    print(len(detBBList))
-    for d0,d1,y0,y1,x0,x1 in detBBList[0:100]:
-        vChop = video[d0:d1,y0:y1,x0:x1]
-        vpp.videoPlay(vChop)
-        vChop = vpp.videoProcess(vChop, (112,128,3), downSample = 2, NormEn=True, RLFlipEn=False)
-        vpp.videoPlay(vpp.videoFormat(vChop))
-        
+    for setNo in range(1,3):
+        NoBias = 60
+        videoCnt = 0
+        for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
+            NoBias += videoCnt
+            videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
     
     #videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
     #gt = getGroundTruth(setNo, seqNo)
