@@ -57,7 +57,7 @@ class ut_interaction:
             np.random.shuffle(perm)
             self._trainingVideos = self._trainingVideos[perm]
             self._trainingLabels = self._trainingLabels[perm]
-        return None
+        return None 
     
     def getTrainingSet(self):
         return [self._trainingVideos, self._trainingLabels]
@@ -128,7 +128,7 @@ class ut_interaction_atomic:
         np.random.shuffle(perm)
         self._trainingSet_a0 = [self._trainingSet_a0[0][perm],self._trainingSet_a0[1][perm]]
         self._trainingSet_a1 = [self._trainingSet_a1[0][perm],self._trainingSet_a1[1][perm]]
-        return None
+        return None 
     
     def loadTrainingBatch(self,batch = 16):
         if self._trainingPointer + batch > self._trainingSet_a0[0].shape[0]:
@@ -255,13 +255,15 @@ class ut_interaction_set2_a(ut_interaction):
         paths = [common.path.utSet2_a0_Path,common.path.utSet2_a1_Path]
         ut_interaction.__init__(self,paths,frmSize)
 
-#if __name__ == '__main__':
-#    ut_set = ut_interaction_set1((112,128,3),numOfClasses=7)
-#    ut_set.splitTrainingTesting(1,loadTrainingEn=False)
-#    test_x,test_y = ut_set.loadTesting()
-#    for gv in test_x:
-#        for v in gv:
-#            vpp.videoPlay(v,25)
+if __name__ == '__main__':
+    ut_set = ut_interaction_set1_ga(((112,128,3),(112,80,3)))
+    for seq in range(1,11):
+        print('seq = ',seq)
+        ut_set.splitTrainingTesting(seq)
+        g,a0,a1 = ut_set.loadTrainingAll()
+        print(g[0].shape,a0[0].shape,a1[0].shape)
+        
+    
 
 
 
@@ -381,13 +383,13 @@ def genDetectionBBList(videoIn):
 
 
 
-if __name__ == '__main__':
-    for setNo in range(1,3):
-        NoBias = 60
-        videoCnt = 0
-        for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
-            NoBias += videoCnt
-            videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
+#if __name__ == '__main__':
+#    for setNo in range(1,3):
+#        NoBias = 60
+#        videoCnt = 0
+#        for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
+#            NoBias += videoCnt
+#            videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
     
     #videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
     #gt = getGroundTruth(setNo, seqNo)
