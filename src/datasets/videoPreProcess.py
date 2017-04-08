@@ -163,28 +163,28 @@ def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = Tru
     else:
         return None
 
-def videoProcess(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True):
-    if vIn is not None:
-        vIn = vIn[range(0,vIn.shape[0],downSample)]
-        vRS = videoRezise(vIn,frmSize)
-        #vSimp = videoSimplify(vRS)
-        vNorm = videoNorm(vRS)
-        if NormEn is True:
-            vDS = downSampling(vNorm,8)
-        else:
-            vDS = downSampling(vRS,8)
-        vDS_Flipped = videofliplr(vDS)
-        if RLFlipEn is True:
-            vBatch = np.append(batchFormat(vDS),batchFormat(vDS_Flipped),axis=0)
-        else:
-            vBatch = batchFormat(vDS)
-        
-        if batchMode is True:
-            return vBatch
-        else:
-            return vDS
-    else:
-        return None
+#def videoProcess(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True):
+#    if vIn is not None:
+#        vIn = vIn[range(0,vIn.shape[0],downSample)]
+#        vRS = videoRezise(vIn,frmSize)
+#        #vSimp = videoSimplify(vRS)
+#        vNorm = videoNorm(vRS)
+#        if NormEn is True:
+#            vDS = downSampling(vNorm,8)
+#        else:
+#            vDS = downSampling(vRS,8)
+#        vDS_Flipped = videofliplr(vDS)
+#        if RLFlipEn is True:
+#            vBatch = np.append(batchFormat(vDS),batchFormat(vDS_Flipped),axis=0)
+#        else:
+#            vBatch = batchFormat(vDS)
+#        
+#        if batchMode is True:
+#            return vBatch
+#        else:
+#            return vDS
+#    else:
+#        return None
 
 def int2OneHot(din,range):
     code = np.zeros(range,dtype=np.float32)
