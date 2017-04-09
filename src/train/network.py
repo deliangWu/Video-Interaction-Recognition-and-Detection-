@@ -11,7 +11,7 @@ import common
 
 
 class C3DNET:
-    def __init__(self, numOfClasses,frmSize,nof_conv1 = 32, nof_conv2 = 64, nof_conv3 = 128):
+    def __init__(self, numOfClasses,frmSize,nof_conv1 = 32, nof_conv2 = 128, nof_conv3 = 256):
         # build the 3D ConvNet
         # define the input and output variables
         self._x = tf.placeholder(tf.float32, (None,16) + frmSize)
@@ -33,7 +33,7 @@ class C3DNET:
             # Train and evaluate the model
             cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
             #self._train_step = tf.train.AdamOptimizer(learning_rate=0.05, epsilon=0.01).minimize(cross_entropy,var_list=self.getClassifierVars())
-            self._train_step = tf.train.AdamOptimizer(learning_rate=0.001, epsilon=0.01).minimize(cross_entropy)
+            self._train_step = tf.train.AdamOptimizer(learning_rate=0.005, epsilon=0.01).minimize(cross_entropy)
             correct_prediction = tf.equal(tf.argmax(self._y_conv,1), tf.argmax(self._y_,1))
             self._accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
             
