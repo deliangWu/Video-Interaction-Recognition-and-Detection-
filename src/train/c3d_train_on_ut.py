@@ -18,7 +18,7 @@ def main(argv):
     # define the network
     # ***********************************************************
     numOfClasses = 6 
-    frmSize = (112,128,1)
+    frmSize = (112,144,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize)
     # ***********************************************************
