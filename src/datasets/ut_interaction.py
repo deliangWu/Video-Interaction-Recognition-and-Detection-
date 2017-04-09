@@ -261,7 +261,7 @@ if __name__ == '__main__':
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq)
         vt = ut_set.loadTesting()
-        for vs in vt[0].transpose(1,0,2,3,4,5z):
+        for vs in vt[0].transpose(1,0,2,3,4,5):
             for v in vs:
                 vpp.videoPlay(v)
         
