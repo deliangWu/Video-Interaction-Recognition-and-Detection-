@@ -55,7 +55,7 @@ class Vars:
                           'top/feature_descriptor_g/conv2/weight:0',  'top/feature_descriptor_g/conv2/bias:0', \
                           'top/feature_descriptor_g/conv3a/weight:0',  'top/feature_descriptor_g/conv3a/bias:0', \
                           'top/feature_descriptor_g/conv4a/weight:0', 'top/feature_descriptor_g/conv4a/bias:0', \
-                          'top/feature_descriptor_g/conv4b/weight:0', 'top/feature_descriptor_g/conv4b/bias:0', \
+                          #'top/feature_descriptor_g/conv4b/weight:0', 'top/feature_descriptor_g/conv4b/bias:0', \
                           'top/feature_descriptor_g/conv5a/weight:0',  'top/feature_descriptor_g/conv5a/bias:0', \
                           'top/feature_descriptor_g/fc6/weight:0',    'top/feature_descriptor_g/fc6/bias:0', \
                           'top/feature_descriptor_g/fc7/weight:0',    'top/feature_descriptor_g/fc7/bias:0' ]
@@ -64,7 +64,7 @@ class Vars:
                            'top/feature_descriptor_a0/conv2/weight:0',  'top/feature_descriptor_a0/conv2/bias:0', \
                            'top/feature_descriptor_a0/conv3a/weight:0',  'top/feature_descriptor_a0/conv3a/bias:0', \
                            'top/feature_descriptor_a0/conv4a/weight:0', 'top/feature_descriptor_a0/conv4a/bias:0', \
-                           'top/feature_descriptor_a0/conv4b/weight:0', 'top/feature_descriptor_a0/conv4b/bias:0', \
+                           #'top/feature_descriptor_a0/conv4b/weight:0', 'top/feature_descriptor_a0/conv4b/bias:0', \
                            'top/feature_descriptor_a0/conv5a/weight:0',  'top/feature_descriptor_a0/conv5a/bias:0', \
                            'top/feature_descriptor_a0/fc6/weight:0',    'top/feature_descriptor_a0/fc6/bias:0', \
                            'top/feature_descriptor_a0/fc7/weight:0',    'top/feature_descriptor_a0/fc7/bias:0' ]
@@ -73,7 +73,7 @@ class Vars:
                            'top/feature_descriptor_a1/conv2/weight:0',  'top/feature_descriptor_a1/conv2/bias:0', \
                            'top/feature_descriptor_a1/conv3a/weight:0',  'top/feature_descriptor_a1/conv3a/bias:0', \
                            'top/feature_descriptor_a1/conv4a/weight:0', 'top/feature_descriptor_a1/conv4a/bias:0', \
-                           'top/feature_descriptor_a1/conv4b/weight:0', 'top/feature_descriptor_a1/conv4b/bias:0', \
+                           #'top/feature_descriptor_a1/conv4b/weight:0', 'top/feature_descriptor_a1/conv4b/bias:0', \
                            'top/feature_descriptor_a1/conv5a/weight:0',  'top/feature_descriptor_a1/conv5a/bias:0', \
                            'top/feature_descriptor_a1/fc6/weight:0',    'top/feature_descriptor_a1/fc6/bias:0', \
                            'top/feature_descriptor_a1/fc7/weight:0',    'top/feature_descriptor_a1/fc7/bias:0' ]
