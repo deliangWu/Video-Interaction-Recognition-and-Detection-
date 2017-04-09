@@ -67,13 +67,13 @@ def main(argv):
         if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
             ut_set.loadTrainingAll()
             best_accuracy = 0
-            anvAccuList = np.zeros((10))
+            anvAccuList = np.zeros((3))
             for i in range(iteration):
                 train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                 if i%int(iteration/200) == 0:
                     train_accuracy = c3d.test(train_x, train_y, sess)
                     test_accuracy = c3d.test(test_x, test_y, sess)
-                    anvAccuList = np.append(anvAccuList[1:10],test_accuracy)
+                    anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                     anv_accuracy = np.mean(anvAccuList)
                     if anv_accuracy > best_accuracy:
                         best_accuracy = anv_accuracy
