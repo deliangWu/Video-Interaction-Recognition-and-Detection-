@@ -16,7 +16,7 @@ class C3DNET:
         # define the input and output variables
         self._x = tf.placeholder(tf.float32, (None,16) + frmSize)
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
-        self._featuresT = tf.placeholder(tf.float32,(None,4096))
+        self._featuresT = tf.placeholder(tf.float32,(None,2048))
         self._keep_prob = tf.placeholder(tf.float32)
         
         with tf.variable_scope('feature_descriptor_g') as scope:

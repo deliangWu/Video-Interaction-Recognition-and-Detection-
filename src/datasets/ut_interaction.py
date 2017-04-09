@@ -256,7 +256,7 @@ class ut_interaction_set2_a(ut_interaction):
         ut_interaction.__init__(self,paths,frmSize)
 
 if __name__ == '__main__':
-    ut_set = ut_interaction_set1_ga(((112,128,1),(112,80,3)))
+    ut_set = ut_interaction_set1_ga(((112,144,3),(112,80,3)))
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq)
