@@ -260,8 +260,10 @@ if __name__ == '__main__':
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq)
-        g,a0,a1 = ut_set.loadTrainingAll()
-        print(g[0].shape,a0[0].shape,a1[0].shape)
+        vt = ut_set.loadTesting()
+        for vs in vt[0].transpose(1,0,2,3,4,5z):
+            for v in vs:
+                vpp.videoPlay(v)
         
     
 
