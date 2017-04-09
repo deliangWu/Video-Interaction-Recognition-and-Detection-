@@ -51,7 +51,7 @@ def main(argv):
     common.clearFile(logName)
     common.pAndWf(logName,log)    
     iteration = 1001
-    batchSize = 18
+    batchSize = 25 
     for seq in seqRange:
         with sess.as_default():
             sess.run(initVars)
