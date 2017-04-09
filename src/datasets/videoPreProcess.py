@@ -123,7 +123,11 @@ def videoFormat(batchIn):
 
 def videoRezise(videoIn,frmSize):
     def imgResize(img,frmSize):
-        imgOut = np.reshape(np.array([119,136,153] * frmSize[0] * frmSize[1],dtype=np.uint8), frmSize)
+        bg = np.array([119,136,153] * frmSize[0] *frmSize[1],dtype=np.uint8)
+        imgOut = np.reshape(bg, (frmSize[0],frmSize[1],3))
+        if frmSize[2] ==1:
+            imgOut = cv2.cvtColor(imgOut,cv2.COLOR_BGR2GRAY)
+            
         whRatio = float(img.shape[1]) / img.shape[0]
         refRatio = float(frmSize[1]) / frmSize[0]
         if whRatio < refRatio * 0.8:
@@ -135,6 +139,7 @@ def videoRezise(videoIn,frmSize):
             imgOut = cv2.resize(imgCrop,(frmSize[1], frmSize[0]), interpolation= cv2.INTER_AREA)
         else:
             imgOut = cv2.resize(img,(frmSize[1], frmSize[0]), interpolation= cv2.INTER_AREA)
+        imgOut = np.reshape(imgOut,frmSize)
         return imgOut
     videoOut = np.array([imgResize(image,frmSize) for image in videoIn])
     return videoOut
