@@ -86,7 +86,7 @@ def main(argv):
                         break
                 epoch = ut_set.getEpoch()
                 learning_rate = 0.005 * 10**(-int(epoch/4))
-                c3d.train(learning_rate=learning_rate, train_x, train_y, sess)
+                c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
             common.pAndWf(logName,' \n')
         else:
             saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
