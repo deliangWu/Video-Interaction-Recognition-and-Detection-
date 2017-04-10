@@ -69,7 +69,6 @@ class ut_interaction:
         if self._trainingPointer + batch >= self._trainingVideos.shape[0]:
             start = 0
             self._trainingEpoch += 1
-            print('current epoch is ', self._trainingEpoch)
             self._trainingPointer = batch
             perm = np.arange(self._trainingVideos.shape[0])
             np.random.shuffle(perm)

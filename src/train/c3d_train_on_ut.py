@@ -49,7 +49,7 @@ def main(argv):
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     common.pAndWf(logName,log)    
-    iteration = 2001
+    iteration = 1001
     batchSize = 15 
     for seq in seqRange:
         with sess.as_default():
@@ -70,6 +70,7 @@ def main(argv):
             anvAccuList = np.zeros((3))
             for i in range(iteration):
                 train_x,train_y = ut_set.loadTrainingBatch(batchSize)
+                epoch = ut_set.getEpoch()
                 if i%int(iteration/50) == 0:
                     train_accuracy = c3d.test(train_x, train_y, sess)
                     test_accuracy = c3d.test(test_x, test_y, sess)
@@ -77,14 +78,13 @@ def main(argv):
                     anv_accuracy = np.mean(anvAccuList)
                     if anv_accuracy > best_accuracy:
                         best_accuracy = anv_accuracy
-                    log = "step %d, training: %g, testing: %g, anv: %g, best %g \n"%(i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
+                    log = "epoch: %d, step: %d, training: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                         saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
                         saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
                         break
-                epoch = ut_set.getEpoch()
-                learning_rate = 0.005 * 2**(-int(epoch/6))
+                learning_rate = 0.0005 * 2**(-int(epoch/6))
                 c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
             common.pAndWf(logName,' \n')
         else:

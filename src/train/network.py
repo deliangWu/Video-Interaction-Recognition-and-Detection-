@@ -85,6 +85,7 @@ class C3DNET_2F1C:
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
         self._featuresT = tf.placeholder(tf.float32,(None,8192))
         self._keep_prob = tf.placeholder(tf.float32)
+        self._lr = tf.placeholder(tf.float32)
         
         if shareFeatureVariable == True:
             with tf.variable_scope('feature_descriptor_a0') as scope:
@@ -99,9 +100,11 @@ class C3DNET_2F1C:
             
         with tf.variable_scope('classifier_2f1c') as scope:
             features = tf.concat([self._features0, self._features1],1)
-            self._y_conv = model.Classifier.softmax(features, numOfClasses)
+            self._classifier = model.Softmax(features,numOfClasses)
+            self._y_conv = self._classifier.y_conv
             scope.reuse_variables()
-            self._y_convT = model.Classifier.softmax(self._featuresT,numOfClasses)
+            self._classifierT = model.Softmax(self._featuresT,numOfClasses)
+            self._y_convT = self._classifierT.y_conv
         
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
