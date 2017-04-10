@@ -47,7 +47,7 @@ def main(argv):
         log = log + 'set2! \n'
     else:    
         ut_set = ut.ut_interaction_set1_atomic(frmSize)
-        seqRange = range(1,2)
+        seqRange = range(1,5)
         savePrefix = savePrefix + 'set1_'
         log = log + 'set1! \n'
     
@@ -73,28 +73,28 @@ def main(argv):
         ut_set.splitTrainingTesting(seq)
         test_x0,test_x1,test_y = ut_set.loadTesting()
         if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
+            ut_set.loadTrainingAll()
             best_accuracy = 0
-            anvAccuList = np.zeros((10))
+            anvAccuList = np.zeros((3))
             for i in range(iteration):
                 train_x0,train_x1,train_y = ut_set.loadTrainingBatch(batchSize)
+                epoch = ut_set.getEpoch()
                 if i%int(iteration/200) == 0:
                     train_accuracy = c3d.test(train_x0, train_x1, train_y, sess)
                     test_accuracy = c3d.test(test_x0, test_x1, test_y, sess)
-                    anvAccuList = np.append(anvAccuList[1:10],test_accuracy)
+                    anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                     anv_accuracy = np.mean(anvAccuList)
                     if anv_accuracy > best_accuracy:
                         best_accuracy = anv_accuracy
-                    log = "step %d, training: %g, testing: %g, anv: %g, best %g \n"%(i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
+                    log = "Epoch: %d, step: %d, training: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                         save_path_fa0 = saver_feature_a0.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa0.ckpt'))
                         save_path_fa1 = saver_feature_a1.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa1.ckpt'))
                         save_path_2f1c = saver_classifier_2f1c.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_2f1c.ckpt'))
-                        print(save_path_fa0)
-                        print(save_path_fa1)
-                        print(save_path_2f1c)
                         break
-                c3d.train(train_x0, train_x1, train_y, sess)
+                learning_rate = 0.0005 * 2**(-int(epoch/6))
+                c3d.train(train_x0, train_x1, train_y, sess, learning_rate=learning_rate)
             common.pAndWf(logName,' The training is finished at ' + time.ctime() + ' \n')
         else:
             # begin to test

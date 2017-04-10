@@ -154,6 +154,9 @@ class ut_interaction_atomic:
         assert np.array_equal(testLables_a0, testLables_a1), "Error, the lable between two set is mismatch!"
         return(testVideos_a0, testVideos_a1, testLables_a0)
     
+    def getEpoch(self):
+        return self._ut_a0.getEpoch()
+    
 class ut_interaction_ga:
     def __init__(self,paths,frmSize):
         self._ut_g  = ut_interaction([paths[0]], frmSize[0])

@@ -109,16 +109,17 @@ class C3DNET_2F1C:
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
             cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
-            self._train_step = tf.train.AdamOptimizer(learning_rate=0.0001, epsilon=0.01).minimize(cross_entropy)
+            #self._train_step = tf.train.AdamOptimizer(learning_rate=0.0001, epsilon=0.01).minimize(cross_entropy)
+            self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(cross_entropy)
             correct_prediction = tf.equal(tf.argmax(self._y_conv,1), tf.argmax(self._y_,1))
             self._accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
             
             correct_predictionT = tf.equal(tf.argmax(self._y_convT,1), tf.argmax(self._y_,1))
             self._accuracyT = tf.reduce_mean(tf.cast(correct_predictionT, tf.float32))
     
-    def train(self, train_x0, train_x1, train_y,sess):
+    def train(self, train_x0, train_x1, train_y,sess,learning_rate = 1e-4):
         with sess.as_default():
-            self._train_step.run(feed_dict={self._x0:train_x0, self._x1:train_x1, self._y_:train_y, self._keep_prob:0.5})
+            self._train_step.run(feed_dict={self._lr: learning_rate, self._x0:train_x0, self._x1:train_x1, self._y_:train_y, self._keep_prob:0.5})
         return None
     
     def evaluate(self, test_x0, test_x1, test_y, sess):
