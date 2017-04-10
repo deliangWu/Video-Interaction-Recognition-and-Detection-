@@ -85,7 +85,7 @@ def main(argv):
                         saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
                         break
                 epoch = ut_set.getEpoch()
-                learning_rate = 0.005 * 10**(-int(epoch/4))
+                learning_rate = 0.001 * 5**(-int(epoch/8))
                 c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
             common.pAndWf(logName,' \n')
         else:
