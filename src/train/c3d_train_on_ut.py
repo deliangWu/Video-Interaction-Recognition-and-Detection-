@@ -50,7 +50,7 @@ def main(argv):
     common.clearFile(logName)
     common.pAndWf(logName,log)    
     iteration = 2001
-    batchSize = 20 
+    batchSize = 15 
     for seq in seqRange:
         with sess.as_default():
             sess.run(initVars)
@@ -84,7 +84,7 @@ def main(argv):
                         saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
                         break
                 epoch = ut_set.getEpoch()
-                learning_rate = 0.005 * 5**(-int(epoch/6))
+                learning_rate = 0.005 * 2**(-int(epoch/6))
                 c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
             common.pAndWf(logName,' \n')
         else:
