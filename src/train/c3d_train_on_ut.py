@@ -82,7 +82,7 @@ def main(argv):
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                         break
-                learning_rate = 0.0005 * 2**(-int(epoch/6))
+                learning_rate = 0.0001 * 2**(-int(epoch/6))
                 c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
             saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
             saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))

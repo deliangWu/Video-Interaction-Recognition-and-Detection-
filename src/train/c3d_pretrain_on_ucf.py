@@ -21,7 +21,7 @@ def main(argv):
     # ******************************************************
     numOfClasses = 20 
     frmSize = (112,80,3)
-    with tf.variable_scope('atomic_action_features') as scope:
+    with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 32, nof_conv2=64, nof_conv3=128)
     
     # ******************************************************
@@ -64,9 +64,9 @@ def main(argv):
                 log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
                 common.pAndWf(logName,log)
                 if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
-                    save_path = saver.save(sess,join(common.path.variablePath, variableName))
                     break
             c3d.train(train_x, train_y, sess)
+        save_path = saver.save(sess,join(common.path.variablePath, variableName))
     else:
         variableName = 'c3d_pretrain_on_ucf_0329.ckpt'
         saver.restore(sess,join(common.path.variablePath, variableName))
