@@ -89,12 +89,12 @@ def main(argv):
                     log = "Epoch: %d, step: %d, training: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        save_path_fa0 = saver_feature_a0.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa0.ckpt'))
-                        save_path_fa1 = saver_feature_a1.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa1.ckpt'))
-                        save_path_2f1c = saver_classifier_2f1c.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_2f1c.ckpt'))
                         break
                 learning_rate = 0.0005 * 2**(-int(epoch/6))
                 c3d.train(train_x0, train_x1, train_y, sess, learning_rate=learning_rate)
+            save_path_fa0 = saver_feature_a0.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa0.ckpt'))
+            save_path_fa1 = saver_feature_a1.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa1.ckpt'))
+            save_path_2f1c = saver_classifier_2f1c.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_2f1c.ckpt'))
             common.pAndWf(logName,' The training is finished at ' + time.ctime() + ' \n')
         else:
             # begin to test
