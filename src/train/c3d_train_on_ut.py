@@ -39,8 +39,7 @@ def main(argv):
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:    
         ut_set = ut.ut_interaction_set1(frmSize,numOfClasses)
-        #seqRange = range(1,11)
-        seqRange = (3,4,5,7,8,10)
+        seqRange = range(1,11)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
@@ -50,7 +49,7 @@ def main(argv):
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     common.pAndWf(logName,log)    
-    iteration = 1001
+    iteration = 501
     batchSize = 25 
     for seq in seqRange:
         with sess.as_default():
@@ -71,7 +70,7 @@ def main(argv):
             anvAccuList = np.zeros((3))
             for i in range(iteration):
                 train_x,train_y = ut_set.loadTrainingBatch(batchSize)
-                if i%int(iteration/200) == 0:
+                if i%int(iteration/50) == 0:
                     train_accuracy = c3d.test(train_x, train_y, sess)
                     test_accuracy = c3d.test(test_x, test_y, sess)
                     anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
@@ -85,7 +84,7 @@ def main(argv):
                         saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
                         break
                 epoch = ut_set.getEpoch()
-                learning_rate = 0.001 * 5**(-int(epoch/8))
+                learning_rate = 0.005 * 5**(-int(epoch/6))
                 c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
             common.pAndWf(logName,' \n')
         else:
