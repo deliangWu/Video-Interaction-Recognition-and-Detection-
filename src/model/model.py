@@ -91,7 +91,7 @@ class FeatureDescriptor:
         
             # define the full connected layer
             with tf.variable_scope('fc6'):
-                numOfOutputs_fc6 = 2048 
+                numOfOutputs_fc6 = 4096 
                 W_fc6 = weight_variable([int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv5a, numOfOutputs_fc6])
                 b_fc6 = bias_variable([numOfOutputs_fc6])
                 h_pool5_flat = tf.reshape(h_pool5, [-1, int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv5a])
@@ -101,7 +101,7 @@ class FeatureDescriptor:
         with tf.device(common.Vars.dev[-1]):
             # define the full connected layer fc7
             with tf.variable_scope('fc7'):
-                numOfOutputs_fc7 = 2048 
+                numOfOutputs_fc7 = 4096 
                 W_fc7 = weight_variable([numOfOutputs_fc6, numOfOutputs_fc7])
                 b_fc7 = bias_variable([numOfOutputs_fc7])
                 h_fc7 = tf.nn.relu(tf.matmul(h_fc6_drop, W_fc7) + b_fc7)
