@@ -18,7 +18,7 @@ def main(argv):
     # define the network
     # ***********************************************************
     numOfClasses = 6 
-    frmSize = (112,144,3)
+    frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize)
     # ***********************************************************
@@ -49,8 +49,8 @@ def main(argv):
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     common.pAndWf(logName,log)    
-    iteration = 501
-    batchSize = 25 
+    iteration = 2001
+    batchSize = 20 
     for seq in seqRange:
         with sess.as_default():
             sess.run(initVars)
