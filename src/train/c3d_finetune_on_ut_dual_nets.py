@@ -47,7 +47,7 @@ def main(argv):
         log = log + 'set2! \n'
     else:    
         ut_set = ut.ut_interaction_set1_atomic(frmSize)
-        seqRange = range(1,5)
+        seqRange = range(1,3)
         savePrefix = savePrefix + 'set1_'
         log = log + 'set1! \n'
     
@@ -98,7 +98,13 @@ def main(argv):
             common.pAndWf(logName,' The training is finished at ' + time.ctime() + ' \n')
         else:
             # begin to test
+            saver_feature_a0.restore(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa0.ckpt'))
+            saver_feature_a1.restore(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa1.ckpt'))
+            saver_classifier_2f1c.restore(sess,join(common.path.variablePath, savePrefix + str(seq) +'_2f1c.ckpt'))
             test_accuracy = c3d.test(test_x0, test_x1, test_y, sess)
+            testProb = c3d.evaluateProb(test_x0,test_x1,sess)
+            print(testProb)
+            print(test_y)
             log = "Testing accuracy %g \n"%(test_accuracy)
             common.pAndWf(logName,log)
             

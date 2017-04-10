@@ -109,13 +109,13 @@ class ut_interaction_atomic:
         self._ut_a1 = ut_interaction([paths[1]], frmSize)
         fileList0 = self._ut_a0.getFileList()
         fileList1 = self._ut_a1.getFileList()
-        self._trainingEpoch = 0
         assert np.array_equal(fileList0,fileList1), 'Error, input videos from two set is mismatch!'
-        self._trainingPointer = 0
     
     def splitTrainingTesting(self,n):
         self._ut_a0.splitTrainingTesting(n,loadTrainingEn=False)
         self._ut_a1.splitTrainingTesting(n,loadTrainingEn=False)
+        self._trainingEpoch = 0
+        self._trainingPointer = 0
         #self.loadTrainingAll()
         return None
     
@@ -155,7 +155,7 @@ class ut_interaction_atomic:
         return(testVideos_a0, testVideos_a1, testLables_a0)
     
     def getEpoch(self):
-        return self._ut_a0.getEpoch()
+        return self._trainingEpoch
     
 class ut_interaction_ga:
     def __init__(self,paths,frmSize):
@@ -165,15 +165,14 @@ class ut_interaction_ga:
         fileList_g  = self._ut_g.getFileList()
         fileList_a0 = self._ut_a0.getFileList()
         fileList_a1 = self._ut_a1.getFileList()
-        self._trainingEpoch = 0
-        self._trainingPointer = 0
         assert np.array_equal(fileList_a0,fileList_a1) and np.array_equal(fileList_g, fileList_a0), 'Error, input videos from three sets are mis-match!'
     
     def splitTrainingTesting(self,n):
         self._ut_g.splitTrainingTesting(n,loadTrainingEn=False)
         self._ut_a0.splitTrainingTesting(n,loadTrainingEn=False)
         self._ut_a1.splitTrainingTesting(n,loadTrainingEn=False)
-        #self.loadTrainingAll()
+        self._trainingEpoch = 0
+        self._trainingPointer = 0
         return None
     
     def loadTrainingAll(self):
@@ -223,6 +222,9 @@ class ut_interaction_ga:
                np.array_equal(testLables_a0, testLables_a1), \
                "Error, the lable between three sets are mismatch!"
         return(testVideos_g, testVideos_a0, testVideos_a1, testLables_a0)
+    
+    def getEpoch():
+        return self._trainingEpoch
         
 
 class ut_interaction_set1(ut_interaction):

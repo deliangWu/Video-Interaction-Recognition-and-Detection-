@@ -39,7 +39,7 @@ def main(argv):
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:    
         ut_set = ut.ut_interaction_set1(frmSize,numOfClasses)
-        seqRange = range(1,11)
+        seqRange = range(1,3)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
@@ -92,9 +92,8 @@ def main(argv):
             saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
             # begin to test
             test_accuracy = c3d.test(test_x, test_y, sess)
-            test_prob_sm, test_prob = c3d.evaluateProb(test_x,sess)
+            test_prob = c3d.evaluateProb(test_x,sess)
             print('test_prob is \n', test_prob, '\n \n', \
-                  'test_prob_sm is \n', test_prob_sm, '\n \n', \
                   'test_y is \n', test_y)
             log = "Testing accuracy %g \n"%(test_accuracy)
             common.pAndWf(logName,log)
