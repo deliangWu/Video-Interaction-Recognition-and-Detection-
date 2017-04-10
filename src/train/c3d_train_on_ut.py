@@ -39,7 +39,7 @@ def main(argv):
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:    
         ut_set = ut.ut_interaction_set1(frmSize,numOfClasses)
-        seqRange = range(1,3)
+        seqRange = range(1,4)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
