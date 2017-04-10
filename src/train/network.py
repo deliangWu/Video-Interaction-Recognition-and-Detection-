@@ -70,9 +70,8 @@ class C3DNET:
     
     def evaluateProb(self, test_x, sess):
         with sess.as_default():
-            if test_x.ndim == 6:
-                testF = np.mean([self._features.eval(feed_dict={self._x:xT,self._keep_prob: 1}) for xT in test_x],0)
-                test_prob = self._y_convT.eval(feed_dict={self._featuresT:testF})
+            testF = np.mean([self._features.eval(feed_dict={self._x:xT,self._keep_prob: 1}) for xT in test_x],0)
+            test_prob = self._y_convT.eval(feed_dict={self._featuresT:testF})
         return test_prob
     
 
@@ -148,11 +147,10 @@ class C3DNET_2F1C:
     
     def evaluateProb(self, test_x0, test_x1, sess):
         with sess.as_default():
-            if test_x.ndim == 6:
-                testF0 = np.mean([self._features0.eval(feed_dict={self._x0:xT,self._keep_prob: 1}) for xT in test_x0],0)
-                testF1 = np.mean([self._features1.eval(feed_dict={self._x1:xT,self._keep_prob: 1}) for xT in test_x1],0)
-                testF = np.concatenate((testF0, testF1),1)
-                test_prob = self._y_convT.eval(feed_dict={self._featuresT:testF})
+            testF0 = np.mean([self._features0.eval(feed_dict={self._x0:xT,self._keep_prob: 1}) for xT in test_x0],0)
+            testF1 = np.mean([self._features1.eval(feed_dict={self._x1:xT,self._keep_prob: 1}) for xT in test_x1],0)
+            testF = np.concatenate((testF0, testF1),1)
+            test_prob = self._y_convT.eval(feed_dict={self._featuresT:testF})
         return test_prob
 
 class C3DNET_3F1C:
