@@ -46,7 +46,7 @@ class C3DNET:
     def getClassifierVars(self):
         return([self._classifier.W_sm,self._classifier.b_sm])
     
-    def train(self, learning_rate = 0.005, train_x,train_y,sess):
+    def train(self, train_x,train_y,sess, learning_rate = 0.005):
         with sess.as_default():
             #self._train_step.run(feed_dict={self._x:train_x, self._y_:train_y, self._keep_prob:0.5})
             self._train_step.run(feed_dict={self._lr: learning_rate, self._x:train_x, self._y_:train_y, self._keep_prob:0.5})
