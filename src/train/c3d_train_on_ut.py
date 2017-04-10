@@ -84,7 +84,9 @@ def main(argv):
                         saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
                         saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
                         break
-                c3d.train(train_x, train_y, sess)
+                epoch = ut_set.getEpoch()
+                learning_rate = 0.005 * 10**(-int(epoch/4))
+                c3d.train(learning_rate=learning_rate, train_x, train_y, sess)
             common.pAndWf(logName,' \n')
         else:
             saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))

@@ -18,6 +18,7 @@ class C3DNET:
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
         self._featuresT = tf.placeholder(tf.float32,(None,2048))
         self._keep_prob = tf.placeholder(tf.float32)
+        self._lr = tf.placeholder(tf.float32)
         
         with tf.variable_scope('feature_descriptor_g') as scope:
             self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3)
@@ -33,7 +34,8 @@ class C3DNET:
             # Train and evaluate the model
             cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
             #self._train_step = tf.train.AdamOptimizer(learning_rate=0.05, epsilon=0.01).minimize(cross_entropy,var_list=self.getClassifierVars())
-            self._train_step = tf.train.AdamOptimizer(learning_rate=0.005, epsilon=0.01).minimize(cross_entropy)
+            #self._train_step = tf.train.AdamOptimizer(learning_rate=0.005, epsilon=0.01).minimize(cross_entropy)
+            self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(cross_entropy)
             correct_prediction = tf.equal(tf.argmax(self._y_conv,1), tf.argmax(self._y_,1))
             self._accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
             
@@ -44,9 +46,10 @@ class C3DNET:
     def getClassifierVars(self):
         return([self._classifier.W_sm,self._classifier.b_sm])
     
-    def train(self, train_x,train_y,sess):
+    def train(self, learning_rate = 0.005, train_x,train_y,sess):
         with sess.as_default():
-            self._train_step.run(feed_dict={self._x:train_x, self._y_:train_y, self._keep_prob:0.5})
+            #self._train_step.run(feed_dict={self._x:train_x, self._y_:train_y, self._keep_prob:0.5})
+            self._train_step.run(feed_dict={self._lr: learning_rate, self._x:train_x, self._y_:train_y, self._keep_prob:0.5})
         return None
     
     def evaluate(self, test_x, test_y, sess):
