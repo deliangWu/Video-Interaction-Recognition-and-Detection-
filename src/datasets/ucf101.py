@@ -38,7 +38,7 @@ class ucf101:
         self._trainVideos = np.empty((0,16) + self._frmSize, dtype=np.uint8)        
         self._trainlabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         self._trainFileIndex = 0
-        self._trainEpoch = 0
+        self._trainingEpoch = 0
         
         #self._trainFilelist2 = np.loadtxt(self._datasetPath + "UCF101TrainTestSplits-RecognitionTask/ucfTrainTestlist/trainlist02.txt",dtype=bytes).astype(str)
         #np.random.shuffle(self._trainFilelist2)
@@ -138,7 +138,7 @@ class ucf101:
         if (self._trainFileIndex + n > self._trainVideos.shape[0]):
             start = 0
             self._trainFileIndex = n
-            self._trainEpoch += 1
+            self._trainingEpoch += 1
             # shuffle the data
             perm = np.arange(self._trainVideos.shape[0])
             np.random.shuffle(perm)
@@ -151,6 +151,9 @@ class ucf101:
         
         end = self._trainFileIndex
         return self._trainVideos[start:end],self._trainlabels[start:end]
+    
+    def getTrainingEpoch(self):
+        return self._trainingEpoch
 
 if __name__ == '__main__':
     frmSize = (112,80,3)

@@ -20,9 +20,8 @@ def main(argv):
     # define the network
     # ******************************************************
     numOfClasses = 20 
-    frmSize = (112,80,3)
     with tf.variable_scope('top') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 32, nof_conv2=64, nof_conv3=128)
+        c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 64, nof_conv2=128, nof_conv3=256, nof_conv4= 256, nof_conv5=256)
     
     # ******************************************************
     # define session
@@ -46,7 +45,7 @@ def main(argv):
     # Train and test the network 
     # ******************************************************
     logName = 'c3d_pretrain_on_ucf_' + common.getDateTime() + '.txt'
-    variableName = 'c3d_pretrain_on_ucf_' + common.getDateTime() + '.ckpt'
+    variableName = 'c3d_pretrain_on_ucf.ckpt'
     common.clearFile(logName)
     iteration = 20001 
     batchSize = 30
@@ -65,7 +64,9 @@ def main(argv):
                 common.pAndWf(logName,log)
                 if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
                     break
-            c3d.train(train_x, train_y, sess)
+            epoch = ucf_set.getTrainingEpoch()
+            learning_rate = 0.005 * 10**(-int(epoch/4))
+            c3d.train(train_x, train_y, sess,learning_rate=learning_rate)
         save_path = saver.save(sess,join(common.path.variablePath, variableName))
     else:
         variableName = 'c3d_pretrain_on_ucf_0329.ckpt'
