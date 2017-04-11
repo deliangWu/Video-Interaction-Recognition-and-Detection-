@@ -99,23 +99,28 @@ def videoSimplify(videoIn):
         videoOut = videoIn
     return videoOut
 
-def batchFormat(videoIn):
-    videoBatch = np.empty((0,16) + videoIn.shape[1:4],dtype = np.uint8)
+def batchFormat(videoIn,overlap = 8):
+    #videoBatch = np.empty((0,16) + videoIn.shape[1:4],dtype = np.uint8)
+    videoBatch = []
     i = 0
     while(True):
-        if i*8 + 16 > videoIn.shape[0]:
+        if i*overlap + 16 > videoIn.shape[0]:
             break
-        seq = np.arange(i*8,i*8 + 16)
-        videoBatch = np.append(videoBatch,np.reshape(videoIn[seq],(1,) + videoIn[seq].shape),axis = 0)
+        seq = np.arange(i*overlap,i*overlap + 16)
+        #videoBatch = np.append(videoBatch,np.reshape(videoIn[seq],(1,) + videoIn[seq].shape),axis = 0)
+        videoBatch.append(videoIn[seq])
         i += 1
+    videoBatch = np.array(videoBatch)    
     clips = videoBatch.shape[0]
+    
     assert clips > 0, 'The Number of frames of input videos in less than 16'
     if clips == 1:
         index = [0,0,0]
     elif clips == 2:
         index = [0,1,1]
     else:
-        index = range(int(clips/2)-1,int(clips/2)+2)
+        #index = range(int(clips/2)-1,int(clips/2)+2)
+        index = range(clips)
     return videoBatch[index]
 
 def videoFormat(batchIn):
@@ -145,7 +150,7 @@ def videoRezise(videoIn,frmSize):
     return videoOut
 
 
-def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True):
+def videoProcess(fileName,frmSize,downSample = 1, NormEn = False, RLFlipEn = True, batchMode = True):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=downSample)
     if vIn is not None:
         vRS = videoRezise(vIn,frmSize)
@@ -154,12 +159,12 @@ def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = Tru
         if NormEn is True:
             vDS = downSampling(vNorm,8)
         else:
-            vDS = downSampling(vRS,8)
-        vDS_Flipped = videofliplr(vDS)
+            vDs = np.append(downSampling(vNorm,8), downSampling(vRS,8),axis=0)
         if RLFlipEn is True:
-            vBatch = np.append(batchFormat(vDS),batchFormat(vDS_Flipped),axis=0)
+            vDs_Flipped = videofliplr(vDs)
+            vBatch = np.append(batchFormat(vDs,overlap=4),batchFormat(vDs_Flipped,overlap=4),axis=0)
         else:
-            vBatch = batchFormat(vDS)
+            vBatch = batchFormat(vDS,overlap=8)
         
         if batchMode is True:
             return vBatch

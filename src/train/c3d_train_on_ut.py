@@ -49,7 +49,7 @@ def main(argv):
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     common.pAndWf(logName,log)    
-    iteration = 1001
+    iteration = 6001
     batchSize = 16 
     for seq in seqRange:
         with sess.as_default():
