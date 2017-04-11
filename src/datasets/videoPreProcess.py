@@ -99,30 +99,23 @@ def videoSimplify(videoIn):
         videoOut = videoIn
     return videoOut
 
-def batchFormat(videoIn,overlap = 8):
-    #videoBatch = np.empty((0,16) + videoIn.shape[1:4],dtype = np.uint8)
-    videoBatch = []
+def batchFormat(videoIn):
+    videoBatch = np.empty((0,16) + videoIn.shape[1:4],dtype = np.uint8)
     i = 0
     while(True):
-        if i*overlap + 16 > videoIn.shape[0]:
+        if i*8 + 16 > videoIn.shape[0]:
             break
-        seq = np.arange(i*overlap,i*overlap + 16)
-        #videoBatch = np.append(videoBatch,np.reshape(videoIn[seq],(1,) + videoIn[seq].shape),axis = 0)
-        videoBatch.append(videoIn[seq])
+        seq = np.arange(i*8,i*8 + 16)
+        videoBatch = np.append(videoBatch,np.reshape(videoIn[seq],(1,) + videoIn[seq].shape),axis = 0)
         i += 1
-    videoBatch = np.array(videoBatch)    
     clips = videoBatch.shape[0]
-    
     assert clips > 0, 'The Number of frames of input videos in less than 16'
-    #if clips == 1:
-    #    index = [0,0,0]
-    #elif clips == 2:
-    #    index = [0,1,1]
-    #else:
-    #    #index = range(int(clips/2)-1,int(clips/2)+2)
-    index = range(clips)
-    if clips >= 5:
-        index = index[2:-2]
+    if clips == 1:
+        index = [0,0,0]
+    elif clips == 2:
+        index = [0,1,1]
+    else:
+        index = range(int(clips/2)-1,int(clips/2)+2)
     return videoBatch[index]
 
 def videoFormat(batchIn):
@@ -164,9 +157,9 @@ def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = Tru
             vDs = downSampling(vRS,8) 
         if RLFlipEn is True:
             vDs_Flipped = videofliplr(vDs)
-            vBatch = np.append(batchFormat(vDs,overlap=8),batchFormat(vDs_Flipped,overlap=8),axis=0)
+            vBatch = np.append(batchFormat(vDs),batchFormat(vDs_Flipped),axis=0)
         else:
-            vBatch = batchFormat(vDS,overlap=8)
+            vBatch = batchFormat(vDS)
         
         if batchMode is True:
             return vBatch

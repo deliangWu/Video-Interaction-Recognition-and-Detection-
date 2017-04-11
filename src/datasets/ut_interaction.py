@@ -27,7 +27,7 @@ class ut_interaction:
             fs = np.array([[sequence(fileName), join(path,fileName), Label(fileName)] for i,fileName in enumerate(self._files)])
             self._filesSet = np.append(self._filesSet,fs,axis = 0)
         
-    def splitTrainingTesting(self,n, loadTrainingEn = False):
+    def splitTrainingTesting(self,n, loadTrainingEn = True):
         testingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) == n]
         trainingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) != n]
         self._trainingFilesSet = self._filesSet[trainingIndex]
@@ -52,7 +52,6 @@ class ut_interaction:
             cnt_file+=1
             if cnt_file % 10 == 0:
                 print('Loading training videos: ' + str(int(cnt_file * 100 / self._trainingFilesSet.shape[0])) +'%')
-        print(self._trainingVideos.shape)
         if shuffleEn == True:
             perm = np.arange(self._trainingVideos.shape[0])
             np.random.shuffle(perm)
@@ -82,7 +81,7 @@ class ut_interaction:
         return(self._trainingVideos[start:end],self._trainingLabels[start:end])
     
     def loadTesting(self):
-        testVideos = np.empty((0,5,16) + self._frmSize, dtype=np.uint8)        
+        testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
         testLabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         for file in self._testingFilesSet:
             labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
@@ -90,15 +89,11 @@ class ut_interaction:
             if video is not None:
                 numOfClips = video.shape[0]
                 if numOfClips == 1:
-                    index = [0,0,0,0,0]
+                    index = [0,0,0]
                 elif numOfClips == 2:
-                    index = [0,0,1,1,1]
-                elif numOfClips == 3:
-                    index = [0,1,1,1,2]
-                elif numOfClips == 4:
-                    index = [0,1,2,2,3]
+                    index = [0,1,1]
                 else:
-                    index = range(int(numOfClips/2) - 2, int(numOfClips/2) + 3)
+                    index = range(int(numOfClips/2) - 1, int(numOfClips/2) + 2)
                 video = video[index]
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
@@ -268,10 +263,10 @@ class ut_interaction_set2_a(ut_interaction):
         ut_interaction.__init__(self,paths,frmSize)
 
 if __name__ == '__main__':
-    ut_set = ut_interaction_set1((112,128,3))
+    ut_set = ut_interaction_set1((112,144,3))
     for seq in range(1,11):
         print('seq = ',seq)
-        ut_set.splitTrainingTesting(seq)
+        ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
         ut_set.loadTrainingAll()
         for i in range(10):
             print(i)
