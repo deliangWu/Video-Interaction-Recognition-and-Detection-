@@ -16,9 +16,10 @@ def Label(fileName):
     return int(fileName[fileName.index(".") - 1 : fileName.index(".")])
 
 class ut_interaction:
-    def __init__(self,paths,frmSize,numOfClasses = 6):
+    #def __init__(self,paths,frmSize,numOfClasses = 6):
+    def __init__(self,paths,frmSize):
         self._frmSize = frmSize
-        self._numOfClasses = numOfClasses
+        #self._numOfClasses = numOfClasses
         self._filesSet = np.empty((0,3)) 
         self._trainingFilesSet= []
         self._testingFilesSet= []
@@ -34,7 +35,8 @@ class ut_interaction:
         self._testingFilesSet = self._filesSet[testingIndex]
         # clean training videos 
         self._trainingVideos = np.empty((0,16) + self._frmSize,dtype = np.uint8)
-        self._trainingLabels = np.empty((0,self._numOfClasses),dtype=np.float32)
+        #self._trainingLabels = np.empty((0,self._numOfClasses),dtype=np.float32)
+        self._trainingLabels = np.empty((0,1),dtype=np.float32)
         self._trainingPointer = 0
         self._trainingEpoch = 0
         if loadTrainingEn == True:
@@ -46,8 +48,9 @@ class ut_interaction:
         for file in self._trainingFilesSet:
             video = vpp.videoProcess(file[1],self._frmSize)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
-            labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
-            label = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
+            #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
+            #label = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
+            label = np.repeat(np.reshape(int(file[2]),(1,1)),video.shape[0],axis=0)
             self._trainingLabels=  np.append(self._trainingLabels,label,axis=0)
             cnt_file+=1
             if cnt_file % 10 == 0:
@@ -82,9 +85,10 @@ class ut_interaction:
     
     def loadTesting(self):
         testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
-        testLabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
+        #testLabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
+        testLabels = np.empty((0,1),dtype=np.float32)        
         for file in self._testingFilesSet:
-            labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
+            #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
             video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True)
             if video is not None:
                 numOfClips = video.shape[0]
@@ -97,7 +101,8 @@ class ut_interaction:
                 video = video[index]
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
-                testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)
+                #testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)
+                testLabels = np.append(testLabels,np.reshape(int(file[2]),(1,1)),axis=0)
         return (testVideos.transpose(1,0,2,3,4,5),testLabels)    
     
     def getFileList(self):
@@ -228,9 +233,9 @@ class ut_interaction_ga:
         
 
 class ut_interaction_set1(ut_interaction):
-    def __init__(self,frmSize,numOfClasses = 6):
+    def __init__(self,frmSize):
         path = [common.path.utSet1Path]
-        ut_interaction.__init__(self,path,frmSize,numOfClasses)
+        ut_interaction.__init__(self,path,frmSize)
 
 class ut_interaction_set1_a(ut_interaction):
     def __init__(self,frmSize):
@@ -248,9 +253,9 @@ class ut_interaction_set1_ga(ut_interaction_ga):
         ut_interaction_ga.__init__(self,paths,frmSize)
 
 class ut_interaction_set2(ut_interaction):
-    def __init__(self,frmSize,numOfClasses = 6):
+    def __init__(self,frmSize):
         path = [common.path.utSet2Path]
-        ut_interaction.__init__(self,path,frmSize,numOfClasses)
+        ut_interaction.__init__(self,path,frmSize)
 
 class ut_interaction_set2_atomic(ut_interaction_atomic):
     def __init__(self,frmSize):
@@ -262,19 +267,42 @@ class ut_interaction_set2_a(ut_interaction):
         paths = [common.path.utSet2_a0_Path,common.path.utSet2_a1_Path]
         ut_interaction.__init__(self,paths,frmSize)
 
+def oneVsRest(y,n):
+    y_out = []
+    for y_ in y:
+        if y_ == n:
+            y_ovr = [1,0]
+        else:
+            y_ovr = [0,1]
+        y_out.append(y_ovr)
+    return np.array(y_out)
+
+def oneHot(y,numOfClasses):
+    y_out = []
+    for y_ in y:
+        y_oh = vpp.int2OneHot(y_[0], numOfClasses)
+        y_out.append(y_oh)
+    return np.array(y_out)
+
 if __name__ == '__main__':
     ut_set = ut_interaction_set1((112,144,3))
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
-        ut_set.loadTrainingAll()
-        for i in range(10):
-            print(i)
-            vtr = ut_set.loadTrainingBatch(16)
-            for v in vtr[0]:
-                vpp.videoPlay(v)
+        #ut_set.loadTrainingAll()
+        #for i in range(10):
+        #    print(i)
+        #    vtr = ut_set.loadTrainingBatch(16)
+        #    for v in vtr[0]:
+        #        vpp.videoPlay(v)
         
         vt = ut_set.loadTesting()
+        y = vt[1]
+        print(y)
+        print(oneHot(y,6))
+        for l in range(0,6):
+            y_ovr = oneVsRest(y,l)
+            print(y_ovr)
         for vs in vt[0].transpose(1,0,2,3,4,5):
             for v in vs:
                 vpp.videoPlay(v)

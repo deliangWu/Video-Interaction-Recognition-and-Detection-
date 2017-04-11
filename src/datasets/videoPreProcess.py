@@ -194,5 +194,5 @@ def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = Tru
 
 def int2OneHot(din,range):
     code = np.zeros(range,dtype=np.float32)
-    code[din] = 1
+    code[int(din)] = 1
     return code

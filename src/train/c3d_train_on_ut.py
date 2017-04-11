@@ -17,7 +17,7 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
-    numOfClasses = 6 
+    numOfClasses = 2 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=64, nof_conv2= 128, nof_conv3=256, nof_conv4= 256, nof_conv5=256)
@@ -33,12 +33,12 @@ def main(argv):
     # define the dataset
     # ***********************************************************
     if len(argv) >= 3 and argv[2] == 'set2':
-        ut_set = ut.ut_interaction_set2(frmSize,numOfClasses)
+        ut_set = ut.ut_interaction_set2(frmSize)
         seqRange = range(11,21)
         savePrefix = 'c3d_train_on_ut_set2_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:    
-        ut_set = ut.ut_interaction_set1(frmSize,numOfClasses)
+        ut_set = ut.ut_interaction_set1(frmSize)
         #seqRange = range(1,11)
         seqRange = (1,4,10)
         savePrefix = 'c3d_train_on_ut_set1_'
@@ -65,6 +65,7 @@ def main(argv):
         common.pAndWf(logName,log)
         ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
         test_x,test_y = ut_set.loadTesting()
+        print(test_y)
         if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
             ut_set.loadTrainingAll()
             best_accuracy = 0
