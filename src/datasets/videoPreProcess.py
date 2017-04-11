@@ -120,8 +120,9 @@ def batchFormat(videoIn,overlap = 8):
     #    index = [0,1,1]
     #else:
     #    #index = range(int(clips/2)-1,int(clips/2)+2)
+    index = range(clips)
     if clips >= 5:
-        index = range(clips)[2:-2]
+        index = index[2:-2]
     return videoBatch[index]
 
 def videoFormat(batchIn):
@@ -151,7 +152,7 @@ def videoRezise(videoIn,frmSize):
     return videoOut
 
 
-def videoProcess(fileName,frmSize,downSample = 1, NormEn = False, RLFlipEn = True, batchMode = True):
+def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=downSample)
     if vIn is not None:
         vRS = videoRezise(vIn,frmSize)
