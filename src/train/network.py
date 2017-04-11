@@ -16,7 +16,7 @@ class C3DNET:
         # define the input and output variables
         self._x = tf.placeholder(tf.float32, (None,16) + frmSize)
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
-        self._featuresT = tf.placeholder(tf.float32,(None,4096))
+        self._featuresT = tf.placeholder(tf.float32,(None,2048))
         self._keep_prob = tf.placeholder(tf.float32)
         self._lr = tf.placeholder(tf.float32)
         
@@ -82,7 +82,7 @@ class C3DNET_2F1C:
         self._x0 = tf.placeholder(tf.float32, (None,16) + frmSize)
         self._x1 = tf.placeholder(tf.float32, (None,16) + frmSize)
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
-        self._featuresT = tf.placeholder(tf.float32,(None,8192))
+        self._featuresT = tf.placeholder(tf.float32,(None,2048*2))
         self._keep_prob = tf.placeholder(tf.float32)
         self._lr = tf.placeholder(tf.float32)
         
@@ -161,7 +161,7 @@ class C3DNET_3F1C:
         self._x0 = tf.placeholder(tf.float32, (None,16) + frmSize[1])
         self._x1 = tf.placeholder(tf.float32, (None,16) + frmSize[1])
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
-        self._featuresT = tf.placeholder(tf.float32,(None,4096*3))
+        self._featuresT = tf.placeholder(tf.float32,(None,2048*3))
         self._keep_prob = tf.placeholder(tf.float32)
         
         with tf.variable_scope('feature_descriptor_g') as scope:

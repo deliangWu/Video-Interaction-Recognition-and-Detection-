@@ -32,7 +32,7 @@ def max_pool3d_4x2x2(x):
 
 class FeatureDescriptor:
     @staticmethod
-    def c3d(x,frmSize,drop_var, nof_conv1 = 32, nof_conv2 = 64, nof_conv3 = 128, nof_conv4 = 256, nof_conv5 = 256):
+    def c3d(x,frmSize,drop_var, nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256, nof_conv5 = 256):
         with tf.device(common.Vars.dev[-1]):
             # define the first convlutional layer
             with tf.variable_scope('conv1'):
