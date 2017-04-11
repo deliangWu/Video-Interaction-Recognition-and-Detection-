@@ -100,14 +100,15 @@ def videoSimplify(videoIn):
     return videoOut
 
 def batchFormat(videoIn):
-    videoBatch = np.empty((0,16) + videoIn.shape[1:4],dtype = np.uint8)
+    videoBatch = []
     i = 0
     while(True):
         if i*8 + 16 > videoIn.shape[0]:
             break
         seq = np.arange(i*8,i*8 + 16)
-        videoBatch = np.append(videoBatch,np.reshape(videoIn[seq],(1,) + videoIn[seq].shape),axis = 0)
+        videoBatch.append(videoIn[seq])
         i += 1
+    videoBatch = np.array(videoBatch)
     clips = videoBatch.shape[0]
     assert clips > 0, 'The Number of frames of input videos in less than 16'
     if clips == 1:

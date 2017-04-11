@@ -27,7 +27,7 @@ class ut_interaction:
             fs = np.array([[sequence(fileName), join(path,fileName), Label(fileName)] for i,fileName in enumerate(self._files)])
             self._filesSet = np.append(self._filesSet,fs,axis = 0)
         
-    def splitTrainingTesting(self,n, loadTrainingEn = True):
+    def splitTrainingTesting(self,n, loadTrainingEn = False):
         testingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) == n]
         trainingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) != n]
         self._trainingFilesSet = self._filesSet[trainingIndex]
