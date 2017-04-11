@@ -67,18 +67,20 @@ def main(argv):
         ut_set.loadTrainingAll()
         test_x,test_lable = ut_set.loadTesting()
         for testlabel in range(6):
+            ut_set.resetEpoch()
+            test_y = ut.oneVsRest(test_lable,testlabel)
             with sess.as_default():
                 sess.run(initVars)
             print('test lable ----- ',testlabel)
-            test_y = ut.oneVsRest(test_lable,testlabel)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 best_accuracy = 0
                 anvAccuList = np.zeros((3))
                 for i in range(iteration):
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                     train_y = ut.oneVsRest(train_y,testlabel)
-                    
                     epoch = ut_set.getEpoch()
+                    learning_rate = 0.005 * 2**(-int(epoch/4))
+                    c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
                     if i%int(iteration/50) == 0:
                         train_accuracy = c3d.test(train_x, train_y, sess)
                         test_accuracy = c3d.test(test_x, test_y, sess)
@@ -90,8 +92,6 @@ def main(argv):
                         common.pAndWf(logName,log)
                         if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                             break
-                    learning_rate = 0.005 * 2**(-int(epoch/4))
-                    c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
                 #saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
                 #saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
                 common.pAndWf(logName,' \n')
