@@ -68,6 +68,10 @@ class ut_interaction:
     def getEpoch(self):
         return self._trainingEpoch
     
+    def resetEpoch(self):
+        self._trainingEpoch = 0
+        return None
+    
     def loadTrainingBatch(self,batch = 16):
         if self._trainingPointer + batch >= self._trainingVideos.shape[0]:
             start = 0
