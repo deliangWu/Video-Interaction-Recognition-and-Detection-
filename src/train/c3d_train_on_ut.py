@@ -67,6 +67,8 @@ def main(argv):
         ut_set.loadTrainingAll()
         test_x,test_lable = ut_set.loadTesting()
         for testlabel in range(6):
+            with sess.as_default():
+                sess.run(initVars)
             print('test lable ----- ',testlabel)
             test_y = ut.oneVsRest(test_lable,testlabel)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
