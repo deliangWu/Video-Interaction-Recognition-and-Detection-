@@ -114,13 +114,14 @@ def batchFormat(videoIn,overlap = 8):
     clips = videoBatch.shape[0]
     
     assert clips > 0, 'The Number of frames of input videos in less than 16'
-    if clips == 1:
-        index = [0,0,0]
-    elif clips == 2:
-        index = [0,1,1]
-    else:
-        #index = range(int(clips/2)-1,int(clips/2)+2)
-        index = range(clips)
+    #if clips == 1:
+    #    index = [0,0,0]
+    #elif clips == 2:
+    #    index = [0,1,1]
+    #else:
+    #    #index = range(int(clips/2)-1,int(clips/2)+2)
+    if clips >= 5:
+        index = range(clips)[2:-2]
     return videoBatch[index]
 
 def videoFormat(batchIn):

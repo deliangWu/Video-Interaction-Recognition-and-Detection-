@@ -273,9 +273,11 @@ if __name__ == '__main__':
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq)
         ut_set.loadTrainingAll()
-        vtr = ut_set.loadTrainingBatch(16)
-        for v in vtr[0]:
-            vpp.videoPlay(v)
+        for i in range(10):
+            print(i)
+            vtr = ut_set.loadTrainingBatch(16)
+            for v in vtr[0]:
+                vpp.videoPlay(v)
         
         vt = ut_set.loadTesting()
         for vs in vt[0].transpose(1,0,2,3,4,5):
