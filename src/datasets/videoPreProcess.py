@@ -159,10 +159,10 @@ def videoProcess(fileName,frmSize,downSample = 1, NormEn = False, RLFlipEn = Tru
         if NormEn is True:
             vDS = downSampling(vNorm,8)
         else:
-            vDs = np.append(downSampling(vNorm,8), downSampling(vRS,8),axis=0)
+            vDs = downSampling(vRS,8) 
         if RLFlipEn is True:
             vDs_Flipped = videofliplr(vDs)
-            vBatch = np.append(batchFormat(vDs,overlap=4),batchFormat(vDs_Flipped,overlap=4),axis=0)
+            vBatch = np.append(batchFormat(vDs,overlap=8),batchFormat(vDs_Flipped,overlap=8),axis=0)
         else:
             vBatch = batchFormat(vDS,overlap=8)
         
