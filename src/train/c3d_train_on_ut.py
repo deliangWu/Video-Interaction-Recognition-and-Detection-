@@ -69,14 +69,12 @@ def main(argv):
         for testlabel in range(6):
             print('test lable ----- ',testlabel)
             test_y = ut.oneVsRest(test_lable,testlabel)
-            print(test_y)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 best_accuracy = 0
                 anvAccuList = np.zeros((3))
                 for i in range(iteration):
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                     train_y = ut.oneVsRest(train_y,testlabel)
-                    print(train_y)
                     
                     epoch = ut_set.getEpoch()
                     if i%int(iteration/50) == 0:
