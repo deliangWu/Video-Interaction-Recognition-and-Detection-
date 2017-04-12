@@ -79,7 +79,7 @@ def main(argv):
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                     train_y = ut.oneVsRest(train_y,testlabel)
                     epoch = ut_set.getEpoch()
-                    learning_rate = 0.01 * 2**(-int(epoch/4))
+                    learning_rate = 0.005 * 2**(-int(epoch/4))
                     c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
                     if i%int(iteration/50) == 0:
                         train_accuracy = c3d.test(train_x, train_y, sess)
