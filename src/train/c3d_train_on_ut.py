@@ -149,22 +149,21 @@ def main(argv):
     iteration = 1001
     batchSize = 16 
     for seq in seqRange:
-        with sess.as_default():
-            sess.run(initVars)
         #saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
         #saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
+        with sess.as_default():
+            sess.run(initVars)
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
         common.pAndWf(logName,log)
         ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
-        ut_set.loadTrainingAll()
         test_x,test_y = ut_set.loadTesting()
         test_y = ut.oneHot(test_y,numOfClasses)
         with sess.as_default():
             sess.run(initVars)
-        print('test lable ----- ',testlabel)
         if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
+            ut_set.loadTrainingAll()
             best_accuracy = 0
             anvAccuList = np.zeros((3))
             for i in range(iteration):
