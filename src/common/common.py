@@ -3,7 +3,9 @@ import sys
 import os
 from os.path import isfile, join
 import numpy as np
+from numpy import genfromtxt
 from datetime import datetime
+import csv
 
 ''' a method for print input string on terminal and write it to the file at the same time'''
 def pAndWf(fileName, string):
@@ -18,6 +20,18 @@ def clearFile(fileName):
     f.close()
     return None
 
+def saveList2File(fileName,theList):
+    with open(fileName,'w',newline='') as f:
+        writer = csv.writer(f)
+        writer.writerows(theList)
+    f.close()
+    return None
+
+def readListFromFile(fileName):
+    theList = []
+    theList = genfromtxt(fileName,delimiter=',')
+    return theList
+    
 def tupleInsert(tIn,ind,obj):
     l = list(tIn)
     l.insert(ind,obj)

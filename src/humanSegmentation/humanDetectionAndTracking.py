@@ -155,13 +155,13 @@ def checkLabel(position_pre):
     return position_pre
         
     
-def humanTracking(vIn,picks,frmSize = (112,80,3)):
+def humanTracking(vIn,picks,frmSize = (112,80,3),dispBBEn = True):
     # initialize kalman filter
     global kalman0,kalman1
     kalman0 = cv2.KalmanFilter(4,2)
     kalman0.measurementMatrix = np.array([[1,0,0,0],[0,1,0,0]],np.float32)
     kalman0.transitionMatrix = np.array([[1,0,1,0],[0,1,0,1],[0,0,1,0],[0,0,0,1]],np.float32)
-    kalman0.processNoiseCov = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],np.float32) * 0.005
+    kalman0.processNoiseCov = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],np.float32) * 0.0001
     kalman1 = cv2.KalmanFilter(4,2)
     kalman1.measurementMatrix = np.array([[1,0,0,0],[0,1,0,0]],np.float32)
     kalman1.transitionMatrix = np.array([[1,0,1,0],[0,1,0,1],[0,0,1,0],[0,0,0,1]],np.float32)
@@ -177,6 +177,7 @@ def humanTracking(vIn,picks,frmSize = (112,80,3)):
     position_pre = []
     disp_bb_en_cnt = 0
     vOut_0 = vOut_1 = []
+    bb_out = []
     for i in range(vIn.shape[0]):
         image = vIn[i]
         pick = picks[i]
@@ -217,9 +218,11 @@ def humanTracking(vIn,picks,frmSize = (112,80,3)):
         
         if (len(bb_reshape) >= 2):
             disp_bb_en_cnt += 1
-        
         # crop the video into two separated video volumes which contain one person for each.         
+        if disp_bb_en_cnt == 20:
+            bbInitFrmNo = i
         if disp_bb_en_cnt >= 20:
+            bb_out.append(bb_reshape)
             cropped_images = [frameSegment(image,bb[0],frmSize=frmSize) for bb in bb_reshape]
             
             if vOut_0 == []:
@@ -231,8 +234,8 @@ def humanTracking(vIn,picks,frmSize = (112,80,3)):
                 vOut_1 = np.reshape(cropped_images[1],(1,) + frmSize)
             else:
                 vOut_1 = np.append(vOut_1, np.reshape(cropped_images[1],(1,) + frmSize),axis = 0)
+            if dispBBEn == True: 
+                for bb in bb_reshape:
+                    cv2.rectangle(image,(bb[0][0],bb[0][1]),(bb[0][2],bb[0][3]),colors[bb[1]],1)
             
-            for bb in bb_reshape:
-                cv2.rectangle(image,(bb[0][0],bb[0][1]),(bb[0][2],bb[0][3]),colors[bb[1]],1)
-            
-    return (vIn, vOut_0, vOut_1)    
+    return (vIn, vOut_0, vOut_1,bb_out,bbInitFrmNo)    
