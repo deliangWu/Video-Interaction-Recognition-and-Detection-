@@ -40,7 +40,7 @@ def main_ovo(argv):
     else:    
         ut_set = ut.ut_interaction_set1(frmSize)
         #seqRange = range(1,11)
-        seqRange = (1,4,10)
+        seqRange = (1)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
@@ -57,8 +57,8 @@ def main_ovo(argv):
             sess.run(initVars)
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
         saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
-        #saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-        #saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
+        saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
+        saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
