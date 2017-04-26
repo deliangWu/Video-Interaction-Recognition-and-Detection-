@@ -118,15 +118,13 @@ def main(argv):
         pred_yList = []
         bbStartFrmNo = bbInitFrmNo
         for ibb in ibbList:
-            print(bbStartFrmNo,'+++++++++',ibb)
             vChop = video[bbStartFrmNo:bbStartFrmNo+64,ibb[1]:ibb[3],ibb[0]:ibb[2]]
             vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample = 2, NormEn=True, RLFlipEn=False)
-            for v in vChop:
-                vpp.videoPlay(v)
             vChop_det = np.reshape(vChop,(3,1,16,112,128,3))
             bbStartFrmNo += 8 
             pred_y = np.argmax(c3d.evaluateProb(vChop_det, sess))
             pred_yList.append(pred_y)
+            print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_y)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
