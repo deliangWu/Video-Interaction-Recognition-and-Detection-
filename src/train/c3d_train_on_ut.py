@@ -92,8 +92,8 @@ def main_ovo(argv):
                         common.pAndWf(logName,log)
                         if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                             break
-                #saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-                #saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
+                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
+                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
                 common.pAndWf(logName,' \n')
             else:
                 saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
@@ -134,7 +134,7 @@ def main(argv):
     else:    
         ut_set = ut.ut_interaction_set1(frmSize)
         #seqRange = range(1,11)
-        seqRange = (1,4,10)
+        seqRange = (1)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
@@ -149,8 +149,6 @@ def main(argv):
     iteration = 1001
     batchSize = 16 
     for seq in seqRange:
-        #saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-        #saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
         with sess.as_default():
             sess.run(initVars)
         log = '****************************************\n' \
@@ -183,12 +181,12 @@ def main(argv):
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                         break
-            #saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-            #saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
+            saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
+            saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
             common.pAndWf(logName,' \n')
         else:
             saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-            saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c.ckpt'))
+            saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
             # begin to test
             test_accuracy = c3d.test(test_x, test_y, sess)
             test_prob = c3d.evaluateProb(test_x,sess)
