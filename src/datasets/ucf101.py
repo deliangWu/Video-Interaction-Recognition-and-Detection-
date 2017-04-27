@@ -156,12 +156,14 @@ class ucf101:
         return self._trainingEpoch
 
 if __name__ == '__main__':
-    frmSize = (112,80,3)
-    numOfClasses =int(sys.argv[2])
+    frmSize = (112,128,3)
+    #numOfClasses =int(sys.argv[2])
+    numOfClasses = 10
     ucf = ucf101(frmSize, numOfClasses)    
-    numOfProcesses = int(sys.argv[1])
-    tv,tl = ucf.loadTesting(numOfProcesses)
-    #ucf.loadTrainingAll(numOfProcesses)
+    #numOfProcesses = int(sys.argv[1])
+    numOfProcesses = 4 
+    #tv,tl = ucf.loadTesting(numOfProcesses)
+    ucf.loadTrainingAll(numOfProcesses)
     #tbv,tbl = ucf.loadTrainBatch(20)
     #print(tbv.shape, '++++++++++++++++',tbl.shape)
     #print(tv.shape,' ------------- ',tl.shape)

@@ -16,15 +16,15 @@ def Label(fileName):
     return int(fileName[fileName.index(".") - 1 : fileName.index(".")])
 
 class ut_interaction:
-    #def __init__(self,paths,frmSize,numOfClasses = 6):
-    def __init__(self,paths,frmSize):
+    def __init__(self,paths,frmSize,numOfClasses = 6):
         self._frmSize = frmSize
-        #self._numOfClasses = numOfClasses
         self._filesSet = np.empty((0,3)) 
         self._trainingFilesSet= []
         self._testingFilesSet= []
         for path in paths:
-            self._files = np.array([f for f in listdir(path) if isfile(join(path,f)) and re.search('.avi',f) is not None])
+            self._files = np.array([f for f in listdir(path) if isfile(join(path,f)) and \
+                                                                re.search('.avi',f) is not None and \
+                                                                Label(f) < numOfClasses])
             fs = np.array([[sequence(fileName), join(path,fileName), Label(fileName)] for i,fileName in enumerate(self._files)])
             self._filesSet = np.append(self._filesSet,fs,axis = 0)
         
@@ -35,7 +35,6 @@ class ut_interaction:
         self._testingFilesSet = self._filesSet[testingIndex]
         # clean training videos 
         self._trainingVideos = np.empty((0,16) + self._frmSize,dtype = np.uint8)
-        #self._trainingLabels = np.empty((0,self._numOfClasses),dtype=np.float32)
         self._trainingLabels = np.empty((0,1),dtype=np.float32)
         self._trainingPointer = 0
         self._trainingEpoch = 0
@@ -241,9 +240,9 @@ class ut_interaction_ga:
         
 
 class ut_interaction_set1(ut_interaction):
-    def __init__(self,frmSize):
+    def __init__(self,frmSize,numOfClasses = 6):
         path = [common.path.utSet1Path]
-        ut_interaction.__init__(self,path,frmSize)
+        ut_interaction.__init__(self,path,frmSize, numOfClasses)
 
 class ut_interaction_set1_a(ut_interaction):
     def __init__(self,frmSize):
@@ -261,9 +260,9 @@ class ut_interaction_set1_ga(ut_interaction_ga):
         ut_interaction_ga.__init__(self,paths,frmSize)
 
 class ut_interaction_set2(ut_interaction):
-    def __init__(self,frmSize):
+    def __init__(self,frmSize,numOfClasses=6):
         path = [common.path.utSet2Path]
-        ut_interaction.__init__(self,path,frmSize)
+        ut_interaction.__init__(self,path,frmSize,numOfClasses)
 
 class ut_interaction_set2_atomic(ut_interaction_atomic):
     def __init__(self,frmSize):
@@ -293,7 +292,8 @@ def oneHot(y,numOfClasses):
     return np.array(y_out)
 
 if __name__ == '__main__':
-    ut_set = ut_interaction_set1((112,144,3))
+    numOfClasses = 7
+    ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
@@ -303,14 +303,11 @@ if __name__ == '__main__':
         #    vtr = ut_set.loadTrainingBatch(16)
         #    for v in vtr[0]:
         #        vpp.videoPlay(v)
-        
+#        
         vt = ut_set.loadTesting()
         y = vt[1]
         print(y)
-        print(oneHot(y,6))
-        for l in range(0,6):
-            y_ovr = oneVsRest(y,l)
-            print(y_ovr)
+        print(oneHot(y,numOfClasses))
         for vs in vt[0].transpose(1,0,2,3,4,5):
             for v in vs:
                 vpp.videoPlay(v)
@@ -363,7 +360,9 @@ def genNegativeSamples0(setNo,seqNo,NoBias):
                 video = np.append(video,np.reshape(frameChop,(1,)+frameChop.shape),0)
                 if frmNeg == 63:
                     frmNeg = 0
-                    videoName = 'set' + str(setNo) + '/' + str(videoCnt+NoBias) + '_' + str(seqNo) + '_6.avi'
+                    videoName = common.path.utSet1Path + 'set' + str(setNo) + '/' + str(videoCnt+NoBias) + '_' + str(seqNo) + '_6.avi'
+                    print(videoName)
+                    vpp.videoPlay(video.astype(np.uint8))
                     vpp.videoSave(video.astype(np.uint8),videoName)
                     videoCnt+= 1
                 else:
@@ -435,13 +434,14 @@ def genDetectionBBList(videoIn):
 
 
 
-#if __name__ == '__main__':
-#    for setNo in range(1,3):
-#        NoBias = 60
-#        videoCnt = 0
-#        for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
-#            NoBias += videoCnt
-#            videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
+if __name__ == '__main__':
+    for setNo in (1,):
+        NoBias = 60
+        videoCnt = 0
+        for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
+            NoBias += videoCnt
+            print(setNo,seqNo,NoBias)
+            videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
     
     #videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
     #gt = getGroundTruth(setNo, seqNo)
