@@ -148,6 +148,7 @@ def videoRezise(videoIn,frmSize):
 
 def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=downSample)
+    print(NormEn,RLFlipEn)
     if vIn is not None:
         vRS = videoRezise(vIn,frmSize)
         #vSimp = videoSimplify(vRS)
@@ -155,10 +156,10 @@ def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = Tru
         if NormEn is True:
             vDS = downSampling(vNorm,8)
         else:
-            vDs = downSampling(vRS,8) 
+            vDS = downSampling(vRS,8) 
         if RLFlipEn is True:
-            vDs_Flipped = videofliplr(vDs)
-            vBatch = np.append(batchFormat(vDs),batchFormat(vDs_Flipped),axis=0)
+            vDS_Flipped = videofliplr(vDS)
+            vBatch = np.append(batchFormat(vDS),batchFormat(vDS_Flipped),axis=0)
         else:
             vBatch = batchFormat(vDS)
         
