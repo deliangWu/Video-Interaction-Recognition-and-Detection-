@@ -148,7 +148,6 @@ def videoRezise(videoIn,frmSize):
 
 def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=downSample)
-    print(NormEn,RLFlipEn)
     if vIn is not None:
         vRS = videoRezise(vIn,frmSize)
         #vSimp = videoSimplify(vRS)
