@@ -63,7 +63,7 @@ class Vars:
     if os.name == 'nt':
         dev = ['/cpu:0']
     else:
-        dev = ['/gpu:1','/gpu:1']
+        dev = ['/gpu:0','/gpu:1']
         
     feature_g_VarsList = ['top/feature_descriptor_g/conv1/weight:0',  'top/feature_descriptor_g/conv1/bias:0', \
                           'top/feature_descriptor_g/conv2/weight:0',  'top/feature_descriptor_g/conv2/bias:0', \

@@ -292,18 +292,18 @@ def oneHot(y,numOfClasses):
     return np.array(y_out)
 
 if __name__ == '__main__':
-    numOfClasses = 7
+    numOfClasses = 6
     ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
-        #ut_set.loadTrainingAll()
-        #for i in range(10):
-        #    print(i)
-        #    vtr = ut_set.loadTrainingBatch(16)
-        #    for v in vtr[0]:
-        #        vpp.videoPlay(v)
-#        
+        ut_set.loadTrainingAll()
+        for i in range(10):
+            print(i)
+            vtr = ut_set.loadTrainingBatch(16)
+            for v in vtr[0]:
+                vpp.videoPlay(v)
+        
         vt = ut_set.loadTesting()
         y = vt[1]
         print(y)
