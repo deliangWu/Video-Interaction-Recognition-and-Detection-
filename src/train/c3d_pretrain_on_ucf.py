@@ -39,7 +39,7 @@ def main(argv):
     # load the dataset into memory
     # ******************************************************
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
-    test_x,test_y = ucf_set.loadTesting(numOfProcesses = 16) 
+    test_x,test_y = ucf_set.loadTesting(numOfProcesses = 4) 
     print('initial testing accuracy ',c3d.test(test_x, test_y, sess))
    
     # ******************************************************
@@ -55,7 +55,7 @@ def main(argv):
     best_accuracy = 0
     if len(argv) < 2 or argv[1] == 'Train' or argv[1] == 'train':
         print('Start to loading videos for training..................')
-        ucf_set.loadTrainingAll(numOfProcesses = 16)
+        ucf_set.loadTrainingAll(numOfProcesses = 4)
         for i in range(iteration):
             train_x,train_y = ucf_set.loadTrainBatch(batchSize) 
             if i%int(iteration/200) == 0:
