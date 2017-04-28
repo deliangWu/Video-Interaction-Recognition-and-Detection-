@@ -160,40 +160,41 @@ def main(argv):
         test_y = ut.oneHot(test_y,numOfClasses)
         with sess.as_default():
             sess.run(initVars)
-        if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
-            ut_set.loadTrainingAll()
-            best_accuracy = 0
-            anvAccuList = np.zeros((3))
-            for i in range(iteration):
-                train_x,train_y = ut_set.loadTrainingBatch(batchSize)
-                train_y = ut.oneHot(train_y,numOfClasses)
-                epoch = ut_set.getEpoch()
-                learning_rate = 0.005 * 2**(-int(epoch/4))
-                c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
-                if i%int(iteration/50) == 0:
-                    train_accuracy = c3d.test(train_x, train_y, sess)
-                    test_accuracy = c3d.test(test_x, test_y, sess)
-                    anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
-                    anv_accuracy = np.mean(anvAccuList)
-                    if anv_accuracy > best_accuracy:
-                        best_accuracy = anv_accuracy
-                    log = "epoch: %d, step: %d, training: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
-                    common.pAndWf(logName,log)
-                    if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        break
-            saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-            saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
-            common.pAndWf(logName,' \n')
-        else:
-            saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-            saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
-            # begin to test
-            test_accuracy = c3d.test(test_x, test_y, sess)
-            test_prob = c3d.evaluateProb(test_x,sess)
-            print('test_prob is \n', test_prob, '\n \n', \
-                  'test_y is \n', test_y)
-            log = "Testing accuracy %g \n"%(test_accuracy)
-            common.pAndWf(logName,log)
+            saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf_fg.ckpt'))
+            if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
+                ut_set.loadTrainingAll()
+                best_accuracy = 0
+                anvAccuList = np.zeros((3))
+                for i in range(iteration):
+                    train_x,train_y = ut_set.loadTrainingBatch(batchSize)
+                    train_y = ut.oneHot(train_y,numOfClasses)
+                    epoch = ut_set.getEpoch()
+                    learning_rate = 0.005 * 2**(-int(epoch/4))
+                    c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
+                    if i%int(iteration/50) == 0:
+                        train_accuracy = c3d.test(train_x, train_y, sess)
+                        test_accuracy = c3d.test(test_x, test_y, sess)
+                        anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
+                        anv_accuracy = np.mean(anvAccuList)
+                        if anv_accuracy > best_accuracy:
+                            best_accuracy = anv_accuracy
+                        log = "epoch: %d, step: %d, training: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
+                        common.pAndWf(logName,log)
+                        if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
+                            break
+                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
+                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
+                common.pAndWf(logName,' \n')
+            else:
+                saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
+                saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
+                # begin to test
+                test_accuracy = c3d.test(test_x, test_y, sess)
+                test_prob = c3d.evaluateProb(test_x,sess)
+                print('test_prob is \n', test_prob, '\n \n', \
+                      'test_y is \n', test_y)
+                log = "Testing accuracy %g \n"%(test_accuracy)
+                common.pAndWf(logName,log)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
