@@ -154,12 +154,19 @@ class ucf101:
     
     def getTrainingEpoch(self):
         return self._trainingEpoch
+    
+    def genRandomTrainingBatch(self,n):
+        trainingVideos = np.random.rand(30,16,self._frmSize[0],self._frmSize[1],self._frmSize[2]) * 256
+        trainingVideos = trainingVideos.astype(np.uint8)
+        trainingLabels = self._numOfClasses * np.random.rand(30,1)
+        trainingLabels = np.array([vpp.int2OneHot(int(l),self._numOfClasses) for l in trainingLabels])
+        return (trainingVideos,trainingLabels)
 
 if __name__ == '__main__':
     frmSize = (112,128,3)
     #numOfClasses =int(sys.argv[2])
     numOfClasses = 5 
-    ucf = ucf101(frmSize, numOfClasses)    
+    ucf = ucf101(frmSize, numOfClasses)
     #numOfProcesses = int(sys.argv[1])
     numOfProcesses = 4 
     ucf.loadTrainingAll(numOfProcesses)

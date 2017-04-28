@@ -19,7 +19,7 @@ def main(argv):
     # ******************************************************
     # define the network
     # ******************************************************
-    numOfClasses = 6 
+    numOfClasses = 20 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 32, nof_conv2=128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
@@ -39,6 +39,8 @@ def main(argv):
     # load the dataset into memory
     # ******************************************************
     ucf_set = ucf.ucf101(frmSize,numOfClasses) 
+    tx,ty = ucf_set.genRandomTrainingBatch(30)
+    c3d.train(tx, ty, sess,learning_rate=0.0005)
     test_x,test_y = ucf_set.loadTesting(numOfProcesses = 4) 
     print('initial testing accuracy ',c3d.test(test_x, test_y, sess))
    
@@ -48,7 +50,6 @@ def main(argv):
     saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
     saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
     logName = 'c3d_pretrain_on_ucf_' + common.getDateTime() + '.txt'
-    variableName = 'c3d_pretrain_on_ucf.ckpt'
     common.clearFile(logName)
     iteration = 20001 
     batchSize = 30
