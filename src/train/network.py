@@ -11,17 +11,17 @@ import common
 
 
 class C3DNET:
-    def __init__(self, numOfClasses,frmSize,nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256, nof_conv5 = 256):
+    def __init__(self, numOfClasses,frmSize,nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256, noo_fc6 = 4096, noo_fc7 = 4096):
         # build the 3D ConvNet
         # define the input and output variables
         self._x = tf.placeholder(tf.float32, (None,16) + frmSize)
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
-        self._featuresT = tf.placeholder(tf.float32,(None,2048))
+        self._featuresT = tf.placeholder(tf.float32,(None,noo_fc7))
         self._keep_prob = tf.placeholder(tf.float32)
         self._lr = tf.placeholder(tf.float32)
         
         with tf.variable_scope('feature_descriptor_g') as scope:
-            self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, nof_conv5)
+            self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7)
         with tf.variable_scope('classifier') as scope:
             self._classifier = model.Softmax(self._features,numOfClasses)
             self._y_conv = self._classifier.y_conv
