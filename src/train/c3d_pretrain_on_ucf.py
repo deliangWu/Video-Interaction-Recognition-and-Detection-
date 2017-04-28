@@ -19,7 +19,7 @@ def main(argv):
     # ******************************************************
     # define the network
     # ******************************************************
-    numOfClasses = 20 
+    numOfClasses = 6 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 64, nof_conv2=128, nof_conv3=256, nof_conv4= 256, nof_conv5=256)
@@ -58,6 +58,9 @@ def main(argv):
         ucf_set.loadTrainingAll(numOfProcesses = 4)
         for i in range(iteration):
             train_x,train_y = ucf_set.loadTrainBatch(batchSize) 
+            epoch = ucf_set.getTrainingEpoch()
+            learning_rate = 0.005 * 10**(-int(epoch/4))
+            c3d.train(train_x, train_y, sess,learning_rate=learning_rate)
             if i%int(iteration/200) == 0:
                 train_accuracy = c3d.test(train_x, train_y, sess)
                 test_accuracy = c3d.test(test_x, test_y, sess)
@@ -67,11 +70,9 @@ def main(argv):
                 common.pAndWf(logName,log)
                 if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
                     break
-            epoch = ucf_set.getTrainingEpoch()
-            learning_rate = 0.005 * 10**(-int(epoch/4))
-            c3d.train(train_x, train_y, sess,learning_rate=learning_rate)
-        saver_feature_g.save(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf_fg.ckpt'))
-        saver_classifier.save(sess,join(common.path.variablePath,'c3d_pretrain_on_ucf_c.ckpt'))
+            if i%int(iteration/10) == 0:
+                saver_feature_g.save(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf_fg.ckpt'))
+                saver_classifier.save(sess,join(common.path.variablePath,'c3d_pretrain_on_ucf_c.ckpt'))
     else:
         variableName = 'c3d_pretrain_on_ucf_0329.ckpt'
         saver.restore(sess,join(common.path.variablePath, variableName))

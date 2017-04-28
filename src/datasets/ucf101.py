@@ -158,18 +158,17 @@ class ucf101:
 if __name__ == '__main__':
     frmSize = (112,128,3)
     #numOfClasses =int(sys.argv[2])
-    numOfClasses = 10
+    numOfClasses = 5 
     ucf = ucf101(frmSize, numOfClasses)    
     #numOfProcesses = int(sys.argv[1])
     numOfProcesses = 4 
-    #tv,tl = ucf.loadTesting(numOfProcesses)
     ucf.loadTrainingAll(numOfProcesses)
-    #tbv,tbl = ucf.loadTrainBatch(20)
-    #print(tbv.shape, '++++++++++++++++',tbl.shape)
-    #print(tv.shape,' ------------- ',tl.shape)
-    #print(tl)
-    #for x in tbv:
-    #    vpp.videoPlay(x,fps=10)
+    tbv,tbl = ucf.loadTrainBatch(20)
+    print(tbv.shape, '++++++++++++++++',tbl.shape)
+    for x,y in zip(tbv,tbl):
+        vpp.videoPlay(x,fps=10)
+        print('label is ', y)
+        
     #print('start time is ',time.ctime())
     #ucf.runloadTrainAllMP(numOfProcesses)
     #print('end time is ',time.ctime()) 
