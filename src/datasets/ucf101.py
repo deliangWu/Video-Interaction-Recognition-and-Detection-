@@ -144,7 +144,7 @@ class ucf101:
             np.random.shuffle(perm)
             self._trainVideos = self._trainVideos[perm]
             self._trainlabels = self._trainlabels[perm]
-            print('current epoch is ',self._trainEpoch)
+            print('current epoch is ',self._trainingEpoch)
         else:
             start = self._trainFileIndex
             self._trainFileIndex += n
