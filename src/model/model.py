@@ -93,7 +93,7 @@ class FeatureDescriptor:
                 numOfOutputs_fc6 = noo_fc6
                 W_fc6 = weight_variable([int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv4, numOfOutputs_fc6])
                 b_fc6 = bias_variable([numOfOutputs_fc6])
-                h_pool5_flat = tf.reshape(h_pool4, [-1, int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv4])
+                h_pool4_flat = tf.reshape(h_pool4, [-1, int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv4])
                 h_fc6 = tf.nn.relu(tf.matmul(h_pool4_flat, W_fc6) + b_fc6)  
                 h_fc6_drop = tf.nn.dropout(h_fc6, drop_var) 
         
