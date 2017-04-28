@@ -160,7 +160,7 @@ def main(argv):
         test_y = ut.oneHot(test_y,numOfClasses)
         with sess.as_default():
             sess.run(initVars)
-            saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf_fg.ckpt'))
+            #saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf_fg.ckpt'))
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 ut_set.loadTrainingAll()
                 best_accuracy = 0
