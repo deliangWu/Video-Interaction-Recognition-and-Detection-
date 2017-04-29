@@ -179,8 +179,8 @@ def videoProcessVin(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True,
             vDS = downSampling(vNorm,8)
         else:
             vDS = downSampling(vRS,8)
-        vDS_Flipped = videofliplr(vDS)
         if RLFlipEn is True:
+            vDS_Flipped = videofliplr(vDS)
             vBatch = np.append(batchFormat(vDS),batchFormat(vDS_Flipped),axis=0)
         else:
             vBatch = batchFormat(vDS)
