@@ -121,10 +121,12 @@ def main(argv):
                 vChop = video[bbStartFrmNo:bbStartFrmNo+64,ibb[1]:ibb[3],ibb[0]:ibb[2]]
                 vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample = 2, NormEn=True, RLFlipEn=False)
                 vChop_det = np.reshape(vChop,(3,1,16,112,128,3))
-                pred_y = np.argmax(c3d.evaluateProb(vChop_det, sess))
+                prob = c3d.evaluateProb(vChop_det, sess)
+                pred_y = np.argmax(prob)
                 pred_yList.append(pred_y)
                 if pred_y != 6:
                     print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_y)
+                    print('-------------',prob)
                 bbStartFrmNo += 8 
             
 if __name__ == "__main__":
