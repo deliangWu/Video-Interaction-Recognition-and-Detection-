@@ -124,7 +124,8 @@ def main(argv):
             bbStartFrmNo += 8 
             pred_y = np.argmax(c3d.evaluateProb(vChop_det, sess))
             pred_yList.append(pred_y)
-            print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_y)
+            if pred_y != 6:
+                print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_y)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
