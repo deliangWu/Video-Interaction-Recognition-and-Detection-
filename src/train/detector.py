@@ -128,6 +128,27 @@ def main(argv):
                     pred_yList.append([bbStartFrmNo,ibb,top2y])
                     print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
                 bbStartFrmNo += 8
+               
+            ibbSets = []
+            startingFrameNo = pred_yList[0][0] 
+            ibbList = []
+            yList = []
+            for i in range(len(pred_yList) - 1):
+                endingFrameNo = pred_yList[0] + 63
+                ibbList.append(pred_yList[1])
+                yList.append(pred_yList[2])
+                if pred_yList[i+1][0] - pred_yList[i][0] > 8:
+                    ibbSets.append([[startingFrameNo,endingFrameNo],ibbList,yList])
+                    startingFrameNo = pred_yList[i][0]
+                    ibbList = [pred_yList[1]]
+                    yList = [pred_yList[2]]
+            
+            print(ibbSets)
+                    
+                
+                
+                
+                
                 
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
