@@ -123,7 +123,7 @@ def main(argv):
                 vChop_det = np.reshape(vChop,(3,1,16,112,128,3))
                 prob = c3d.evaluateProb(vChop_det, sess)
                 pred_y = np.argmax(prob)
-                top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
+                top2y = [np.argsort(prob[0])[-1],np.argsort(prob[0])[-2]]
                 if pred_y != 6:
                     pred_yList.append([bbStartFrmNo,ibb,top2y])
                     print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
