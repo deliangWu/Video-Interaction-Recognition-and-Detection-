@@ -99,7 +99,7 @@ def videoSimplify(videoIn):
         videoOut = videoIn
     return videoOut
 
-def batchFormat(videoIn):
+def batchFormat(videoIn,cropEn = True):
     videoBatch = []
     i = 0
     while(True):
@@ -117,7 +117,10 @@ def batchFormat(videoIn):
         index = [0,1,1]
     else:
         index = range(int(clips/2)-1,int(clips/2)+2)
-    return videoBatch[index]
+    if cropEn is True:
+        return videoBatch[index]
+    else:
+        return videoBatch
 
 def videoFormat(batchIn):
     return np.reshape(batchIn,((batchIn.shape[0] * batchIn.shape[1]),) + batchIn.shape[2:5])
@@ -146,7 +149,7 @@ def videoRezise(videoIn,frmSize):
     return videoOut
 
 
-def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True):
+def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=downSample)
     if vIn is not None:
         vRS = videoRezise(vIn,frmSize)
@@ -158,9 +161,9 @@ def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = Tru
             vDS = downSampling(vRS,8) 
         if RLFlipEn is True:
             vDS_Flipped = videofliplr(vDS)
-            vBatch = np.append(batchFormat(vDS),batchFormat(vDS_Flipped),axis=0)
+            vBatch = np.append(batchFormat(vDS,cropEn),batchFormat(vDS_Flipped,cropEn),axis=0)
         else:
-            vBatch = batchFormat(vDS)
+            vBatch = batchFormat(vDS,cropEn)
         
         if batchMode is True:
             return vBatch
@@ -169,7 +172,7 @@ def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = Tru
     else:
         return None
 
-def videoProcessVin(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True):
+def videoProcessVin(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
     if vIn is not None:
         vIn = vIn[range(0,vIn.shape[0],downSample)]
         vRS = videoRezise(vIn,frmSize)
@@ -181,9 +184,9 @@ def videoProcessVin(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True,
             vDS = downSampling(vRS,8)
         if RLFlipEn is True:
             vDS_Flipped = videofliplr(vDS)
-            vBatch = np.append(batchFormat(vDS),batchFormat(vDS_Flipped),axis=0)
+            vBatch = np.append(batchFormat(vDS,cropEn),batchFormat(vDS_Flipped,cropEn),axis=0)
         else:
-            vBatch = batchFormat(vDS)
+            vBatch = batchFormat(vDS,cropEn)
         
         if batchMode is True:
             return vBatch
