@@ -123,11 +123,11 @@ def main(argv):
                 vChop_det = np.reshape(vChop,(3,1,16,112,128,3))
                 prob = c3d.evaluateProb(vChop_det, sess)
                 pred_y = np.argmax(prob)
-                pred_yList.append(pred_y)
+                top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
                 if pred_y != 6:
-                    print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_y)
-                    print('-------------',prob)
-                bbStartFrmNo += 8 
-            
+                    pred_yList.append([bbStartFrmNo,ibb,top2y])
+                    print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
+                bbStartFrmNo += 8
+                
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
