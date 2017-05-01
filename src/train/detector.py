@@ -75,7 +75,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d):
         if pred_y != 6:
             pred_yList.append([bbStartFrmNo,ibb,top2y])
             print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
-    bbStartFrmNo += 8
+        bbStartFrmNo += 8
     return pred_yList
             
 def comb_IBB(pred_yList):           
