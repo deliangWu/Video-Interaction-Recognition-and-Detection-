@@ -167,7 +167,7 @@ def main(argv):
             common.pAndWf(logName,log)
             
             # generate the predicted labels for candidate bounding boxes
-            pred_yList = pred_IBB(ibbList, sess)
+            pred_yList = pred_IBB(ibbList, bbInitFrmNo,sess,c3d)
             
             # combine the temporal-neighbour bounding boxes as a same interaction label
             ibbSets = comb_IBB(pred_yList)
