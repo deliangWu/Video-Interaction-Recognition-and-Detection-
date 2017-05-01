@@ -46,12 +46,12 @@ def genIBB(boundingBoxes):
         bbList = bbs[i:i+64]
         bb0 = np.array([bb[0][0] for bb in bbList],dtype=np.uint16)
         bb1 = np.array([bb[1][0] for bb in bbList],dtype=np.uint16)
-        bb0_mean = np.mean(bb0,axis=0)
-        bb1_mean = np.mean(bb1,axis=0)
+        bb0_mean = np.mean(bb0,axis=0).astype(np.uint16)
+        bb1_mean = np.mean(bb1,axis=0).astype(np.uint16)
         ibb = [int(bb0_mean[0]),int((bb0_mean[1] + bb1_mean[1])/2),int(bb1_mean[2]),int((bb0_mean[3] + bb1_mean[3])/2)]
         ibbList.append([bb0_mean,bb1_mean,ibb])
         i+=8
-    return ibbList
+    return np.array(ibbList)
 
 def dispIBB(vIn,bbInitFrmNo,ibbList):
     bbStartFrmNo = bbInitFrmNo
@@ -165,13 +165,21 @@ def main(argv):
             common.pAndWf(logName,log)
             
             # generate the predicted labels for candidate bounding boxes
-            pred_yList = pred_IBB(video,ibbLists, bbInitFrmNo,sess,c3d)
+            pred_yList_0 = pred_IBB(video,ibbLists[:,0], bbInitFrmNo,sess,c3d)
+            pred_yList_1 = pred_IBB(video,ibbLists[:,1], bbInitFrmNo,sess,c3d)
+            pred_yList = pred_IBB(video,ibbLists[:,2], bbInitFrmNo,sess,c3d)
             
             # combine the temporal-neighbour bounding boxes as a same interaction label
+            ibbSets_0 = comb_IBB(pred_yList_0)
+            ibbSets_1 = comb_IBB(pred_yList_1)
             ibbSets = comb_IBB(pred_yList)
             
             # non-maximum suppression to vote the most possible lables
+            finalPredIBB_0 = NMS_IBB(ibbSets_0)
+            finalPredIBB_1 = NMS_IBB(ibbSets_1)
             finalPredIBB = NMS_IBB(ibbSets)
+            print(finalPredIBB_0)
+            print(finalPredIBB_1)
             print(finalPredIBB)
  
                 
