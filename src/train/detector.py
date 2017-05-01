@@ -66,7 +66,7 @@ def dispIBB(vIn,bbInitFrmNo,ibbList):
         vpp.videoPlay(vplay)
         bbStartFrmNo += 8 
     
-def pred_IBB(ibbList,bbInitFrmNo,sess,c3d): 
+def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d): 
     pred_yList = []
     bbStartFrmNo = bbInitFrmNo
     for ibb in ibbList:
@@ -167,7 +167,7 @@ def main(argv):
             common.pAndWf(logName,log)
             
             # generate the predicted labels for candidate bounding boxes
-            pred_yList = pred_IBB(ibbList, bbInitFrmNo,sess,c3d)
+            pred_yList = pred_IBB(video,ibbList, bbInitFrmNo,sess,c3d)
             
             # combine the temporal-neighbour bounding boxes as a same interaction label
             ibbSets = comb_IBB(pred_yList)
