@@ -87,15 +87,16 @@ def comb_IBB(pred_yList):
     startingFrameNo = pred_yList[0][0] 
     ibbList = []
     yList = []
-    for i in range(len(pred_yList) - 1):
-        endingFrameNo = pred_yList[0] + 63
-        ibbList.append(pred_yList[1])
-        yList.append(pred_yList[2])
-        if pred_yList[i+1][0] - pred_yList[i][0] > 8:
+    for i in range(len(pred_yList)):
+        endingFrameNo = pred_yList[i][0] + 63
+        ibbList.append(pred_yList[i][1])
+        yList.append(pred_yList[i][2])
+        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] > 8 or i == len(pred_yList)-1:
             ibbSets.append([[startingFrameNo,endingFrameNo],ibbList,yList])
-            startingFrameNo = pred_yList[i][0]
-            ibbList = [pred_yList[1]]
-            yList = [pred_yList[2]]
+            if (i < len(pred_yList) - 1):
+                startingFrameNo = pred_yList[i+1][0]
+                ibbList = []
+                yList = []
     print(ibbSets)
     return ibbSets
     
