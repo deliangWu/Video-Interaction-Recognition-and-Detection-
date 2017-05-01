@@ -66,7 +66,7 @@ def dispIBB(vIn,bbInitFrmNo,ibbList):
         vpp.videoPlay(vplay)
         bbStartFrmNo += 8 
     
-def pred_IBB(ibbList,sess): 
+def pred_IBB(ibbList,bbInitFrmNo,sess,c3d): 
     pred_yList = []
     bbStartFrmNo = bbInitFrmNo
     for ibb in ibbList:
@@ -96,8 +96,8 @@ def comb_IBB(pred_yList):
             startingFrameNo = pred_yList[i][0]
             ibbList = [pred_yList[1]]
             yList = [pred_yList[2]]
-    
     print(ibbSets)
+    return ibbSets
     
 def NMS_IBB(ibbSets):
     from collections import Counter
