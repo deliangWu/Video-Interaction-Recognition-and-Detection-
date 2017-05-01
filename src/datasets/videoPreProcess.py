@@ -61,7 +61,7 @@ def downSampling(video,n=8):
     return video[sample]
 
 def videoSave(video,fileName):
-    frmSize = (video.shape[2],)+(video.shape[1],)
+    frmSize = (video.shape[2],video.shape[1])
     if cv2.__version__  == '3.2.0':
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
         out = cv2.VideoWriter(fileName, fourcc, 20.0,frmSize)

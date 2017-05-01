@@ -291,27 +291,27 @@ def oneHot(y,numOfClasses):
         y_out.append(y_oh)
     return np.array(y_out)
 
-if __name__ == '__main__':
-    numOfClasses = 6
-    ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
-    for seq in range(1,11):
-        print('seq = ',seq)
-        ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
-        ut_set.loadTrainingAll()
-        for i in range(10):
-            print(i)
-            vtr = ut_set.loadTrainingBatch(16)
-            for v in vtr[0]:
-                vpp.videoPlay(v)
-        
-        vt = ut_set.loadTesting()
-        y = vt[1]
-        print(y)
-        print(oneHot(y,numOfClasses))
-        for vs in vt[0].transpose(1,0,2,3,4,5):
-            for v in vs:
-                vpp.videoPlay(v)
-        
+#if __name__ == '__main__':
+#    numOfClasses = 6
+#    ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
+#    for seq in range(1,11):
+#        print('seq = ',seq)
+#        ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
+#        ut_set.loadTrainingAll()
+#        for i in range(10):
+#            print(i)
+#            vtr = ut_set.loadTrainingBatch(16)
+#            for v in vtr[0]:
+#                vpp.videoPlay(v)
+#        
+#        vt = ut_set.loadTesting()
+#        y = vt[1]
+#        print(y)
+#        print(oneHot(y,numOfClasses))
+#        for vs in vt[0].transpose(1,0,2,3,4,5):
+#            for v in vs:
+#                vpp.videoPlay(v)
+#        
     
 
 
@@ -432,36 +432,118 @@ def genDetectionBBList(videoIn):
     return detectionBBList
     
 
-
+def procIBB():
+    pred_yList = [[735,[229, 97, 683, 409], [0, 4]], 
+    [743,[232, 97, 679, 409],[0, 4]],
+    [751,[235, 96, 674, 408],[0, 4]],
+    [759,[236, 95, 670, 407],[0, 4]],
+    [767,[236, 95, 666, 407],[0, 4]],
+    [775,[234, 95, 662, 407],[5, 4]],
+    [783,[223, 99, 654, 411],[5, 4]],
+    [791,[202, 100, 647, 412],[5, 4]],
+    [799,[176, 98, 640, 410],[5, 6]],
+    [919,[244, 89, 664, 401],[2, 6]],
+    [927,[242, 93, 649, 405],[2, 4]],
+    [935,[230, 94, 634, 406],[2, 6]],
+    [943,[216, 94, 617, 406],[2, 6]],
+    [951,[202, 97, 600, 409],[2, 0]],
+    [959,[191, 98, 585, 410],[0, 2]],
+    [1047,[226, 100, 671, 412],[0, 6]],
+    [1055,[227, 101, 667, 413],[0, 4]],
+    [1063,[238, 107, 675, 419],[0, 4]],
+    [1071,[252, 111, 678, 423],[4, 0]],
+    [1079,[264, 113, 672, 425],[0, 4]],
+    [1087,[247, 111, 650, 423],[1, 0]],
+    [1095,[217, 106, 626, 418],[1, 5]],
+    [1103,[188, 101, 602, 413],[5, 0]],
+    [1111,[158, 95, 579, 407],[0, 5]],
+    [1119,[126, 87, 560, 399],[0, 6]],
+    [1415,[214, 89, 668, 401],[0, 6]],
+    [1423,[222, 87, 653, 399],[0, 4]],
+    [1431,[229, 86, 640, 398],[0, 6]],
+    [1439,[235, 84, 626, 396],[0, 6]],
+    [1447,[230, 83, 602, 395],[0, 6]],
+    [1575,[244, 96, 705, 408],[0, 4]],
+    [1583,[259, 104, 694, 416],[0, 4]],
+    [1591,[268, 110, 678, 422],[5, 4]],
+    [1599,[266, 114, 663, 426],[5, 4]],
+    [1607,[248, 114, 649, 426],[5, 4]],
+    [1615,[213, 115, 639, 427],[5, 4]],
+    [1623,[178, 113, 631, 425],[5, 2]]]
+        
+    ibbSets = []
+    startingFrameNo = pred_yList[0][0] 
+    ibbList = []
+    yList = []
+    for i in range(len(pred_yList)):
+        endingFrameNo = pred_yList[i][0] + 63
+        ibbList.append(pred_yList[i][1])
+        yList.append(pred_yList[i][2])
+        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] > 8 or i == len(pred_yList)-1:
+            ibbSets.append([[startingFrameNo,endingFrameNo],ibbList,yList])
+            if (i < len(pred_yList) - 1):
+                startingFrameNo = pred_yList[i+1][0]
+                ibbList = []
+                yList = []
+            
+    from collections import Counter
+    ibbs = []
+    for ibbSet in ibbSets:
+        ibb = np.mean(np.array(ibbSet[1]),0).astype(np.uint16)
+        # vote for the most possible label
+        ySel = ibbSet[2][int(len(ibbSet[2])/2) - 1: int(len(ibbSet[2])/2 + 2)]
+        ySet =[]
+        for y in ySel:
+            if y[0] !=6:
+                ySet.append([y[0]]*11)
+            if y[1] !=6:
+                ySet.append([y[1]]*9)
+        ySet = [item for subList in ySet for item in subList]
+        pred_Label = Counter(ySet).most_common(1)[0][0]
+        ibbs.append([pred_Label,ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
+    return np.array(ibbs)    
 
 if __name__ == '__main__':
-    for setNo in (1,):
-        NoBias = 60
-        videoCnt = 0
-        for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
-            NoBias += videoCnt
-            print(setNo,seqNo,NoBias)
-            videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
-    
-    #videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
-    #gt = getGroundTruth(setNo, seqNo)
-    #print(gt)
-    #cv2.namedWindow('video player')    
-    #cap = cv2.VideoCapture(videoName)
-    #ret,frame = cap.read()
-    #frmNo = 0
-    #gt_i = 0
-    #while(ret):
-    #    if gt_i < gt.shape[0] :
-    #        if frmNo > gt[gt_i][1] and frmNo < gt[gt_i][2]:
-    #            cv2.rectangle(frame, (gt[gt_i][3], gt[gt_i][4]), (gt[gt_i][5], gt[gt_i][6]), (gt_i * 40, 255 - gt_i * 40, gt_i * 40), thickness=1)
-    #            cv2.putText(frame, labelToString(gt[gt_i][0]), (gt[gt_i][3],gt[gt_i][4] - 10), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255,0,0), 1, cv2.LINE_AA)
-    #        if frmNo > gt[gt_i][2]:
-    #            gt_i+=1
-    #    cv2.imshow('video player', frame)
-    #    ret,frame = cap.read()
-    #    frmNo +=1
-    #    if cv2.waitKey(30) == 27:
-    #        break
+    #for setNo in (1,):
+    #    NoBias = 60
+    #    videoCnt = 0
+    #    for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
+    #        NoBias += videoCnt
+    #        print(setNo,seqNo,NoBias)
+    #        videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
+    setNo,seqNo = 1,1
+    videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
+    gt = getGroundTruth(setNo, seqNo)
+    pred_ibbs = procIBB()
+    print(gt)
+    print(pred_ibbs)
+    cv2.namedWindow('video player')    
+    cap = cv2.VideoCapture(videoName)
+    ret,frame = cap.read()
+    frmNo = 0
+    gt_i = 0
+    ibbs_i = 0
+    video = []
+    while(ret):
+        if gt_i < gt.shape[0] :
+            if frmNo > gt[gt_i][1] and frmNo < gt[gt_i][2]:
+                cv2.rectangle(frame, (gt[gt_i][3], gt[gt_i][4]), (gt[gt_i][5], gt[gt_i][6]), (0, 255, 0), thickness=1)
+                cv2.putText(frame, labelToString(gt[gt_i][0]), (gt[gt_i][3],gt[gt_i][4] - 10), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0,255,0), 1, cv2.LINE_AA)
+            if frmNo > gt[gt_i][2]:
+                gt_i+=1
+        
+        if ibbs_i < pred_ibbs.shape[0] :
+            if frmNo > pred_ibbs[ibbs_i][1] and frmNo < pred_ibbs[ibbs_i][2]:
+                cv2.rectangle(frame, (pred_ibbs[ibbs_i][3], pred_ibbs[ibbs_i][4]), (pred_ibbs[ibbs_i][5], pred_ibbs[ibbs_i][6]), (0, 0, 255), thickness=1)
+                cv2.putText(frame, labelToString(pred_ibbs[ibbs_i][0]), (pred_ibbs[ibbs_i][5] - 100,pred_ibbs[ibbs_i][4] - 10), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0,0,255), 1, cv2.LINE_AA)
+            if frmNo > pred_ibbs[ibbs_i][2]:
+                ibbs_i+=1
+        print(frame.shape)
+        video.append(frame)
+        ret,frame = cap.read()
+        frmNo +=1
+    video = np.array(video)
+    print(video.shape)
+    vpp.videoSave(video, 'seq_1.avi')
         
         
