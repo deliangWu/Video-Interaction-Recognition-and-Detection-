@@ -44,7 +44,7 @@ def unpool3d_2x2x2(value, name='unpool'):
     dim = len(sh[1:-1])
     out = (tf.reshape(value, [-1] + sh[-dim:]))
     for i in range(dim, 0, -1):
-        out = tf.concat(i, [out, out])
+        out = tf.concat([out, out],i)
     out_size = [-1] + [s * 2 for s in sh[1:-1]] + [sh[-1]]
     out = tf.reshape(out, out_size)
     return out
@@ -62,7 +62,7 @@ def unpool3d_1x2x2(value):
         if i == 1:
             out = out
         else:
-            out = tf.concat(i, [out, out])
+            out = tf.concat([out, out],i)
     out_size = [-1,sh[1]] + [s * 2 for s in sh[2:-1]] + [sh[-1]]
     out = tf.reshape(out, out_size)
     return out
@@ -81,7 +81,7 @@ def unpool3d_4x2x2(value):
             out = tf.concat(i, [out, out])
             out = tf.concat(i, [out, out])
         else:
-            out = tf.concat(i, [out, out])
+            out = tf.concat([out, out],i)
     out_size = [-1,sh[1] * 4] + [s * 2 for s in sh[2:-1]] + [sh[-1]]
     out = tf.reshape(out, out_size)
     return out
