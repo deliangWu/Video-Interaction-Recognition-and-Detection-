@@ -41,7 +41,7 @@ class FeatureDescriptor:
                 b_conv1 = bias_variable([numOfFilters_conv1])
                 h_conv1 = tf.nn.relu(conv3d(x, W_conv1) + b_conv1)
                 h_pool1 = max_pool3d_1x2x2(h_conv1)
-        
+
             # define the second convlutional layer
             with tf.variable_scope('conv2'):
                 numOfFilters_conv2 = nof_conv2 
