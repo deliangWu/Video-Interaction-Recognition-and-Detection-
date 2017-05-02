@@ -85,7 +85,7 @@ def main(argv):
         videoIn = np.reshape(videoIn,(1,)+videoIn.shape)
         visualFeatures = c3d.visualize(videoIn, sess)    
         for visualFeature in visualFeatures:
-            videoShow = tf.concat([videoIn,visualFeature[0].astype(np.uint8)],1)
+            videoShow = tf.concat([videoIn[0],visualFeature[0].astype(np.uint8)],1)
             vpp.videoPlay(videoShow,fps=1)
  
                 
