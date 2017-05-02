@@ -77,7 +77,7 @@ def main(argv):
         ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
         test_x,test_y = ut_set.loadTesting()
         videoIn = test_x[0][0]
-        vpp.videoPlay(videoIn)
+        vpp.videoPlay(videoIn,fps=10)
             
         # load trained network  
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
@@ -85,7 +85,8 @@ def main(argv):
         videoIn = np.reshape(videoIn,(1,)+videoIn.shape)
         visualFeatures = c3d.visualize(videoIn, sess)    
         for visualFeature in visualFeatures:
-            vpp.videoPlay(visualFeature[0],fps=1)
+            videoShow = tf.concat([videoIn,visualFeature[0]],1)
+            vpp.videoPlay(videoShow,fps=1)
  
                 
 if __name__ == "__main__":
