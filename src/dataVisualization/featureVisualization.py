@@ -99,7 +99,7 @@ def main(argv):
         feature2 = c3d_r.getFeature(videoIn, sess)
         print(feature1)
         print(feature2)
-        if feature1 == feature2:
+        if np.array_equal(feature1, feature2):
             print('featue1 is equal to features')
         else:
             print('featue1 is not equal to features')
