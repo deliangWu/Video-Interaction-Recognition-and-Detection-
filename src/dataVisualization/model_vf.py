@@ -93,9 +93,10 @@ def dConv(featureIn,output_shape,frmSize,nof,name):
         b_conv = bias_variable([numOfFilters])
         print(W_conv.name)
         unPool = unpool3d_1x2x2(featureIn)
-        unBias = tf.nn.relu(unPool - b_conv)
+        #unBias = tf.nn.relu(unPool - b_conv)
+        unBias = unPool
         unConv = conv3d_transpose(unBias, W_conv, output_shape=output_shape)
-    return tf.nn.relu(unConv)
+    return unConv
         
     
     
