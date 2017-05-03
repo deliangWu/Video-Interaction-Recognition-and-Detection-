@@ -45,7 +45,7 @@ class C3DNET:
         return None
     
     def getFeature(self,test_x,sess):
-        return self._features.eval(feed_dict={self._x:test_x},session=sess)
+        return self._features.eval(feed_dict={self._x:test_x,self._keep_prob:1},session=sess)
     
     def getClassifierVars(self):
         return([self._classifier.W_sm,self._classifier.b_sm])

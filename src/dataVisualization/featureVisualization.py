@@ -31,13 +31,13 @@ class C3DNET:
         self._lr = tf.placeholder(tf.float32)
         
         with tf.variable_scope('feature_descriptor_g') as scope:
-            self._features = model_vf.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7,rl=1)
+            self._features = model_vf.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7,rl=7)
             scope.reuse_variables()
             self._unConv = model_vf.FeatureDescriptor.c3d_v(self._features1,frmSize, nof_conv1, nof_conv2, nof_conv3, nof_conv4)
         return None
     
     def getFeature(self,test_x,sess):
-        return self._features.eval(feed_dict={self._x:test_x}, session=sess)
+        return self._features.eval(feed_dict={self._x:test_x,self._keep_prob:1}, session=sess)
     
     def visualize(self,test_x,sess):
         with sess.as_default():
