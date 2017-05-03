@@ -88,7 +88,10 @@ def main(argv):
             
         # load trained network  
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
+        saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
         saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg.ckpt'))
+        saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
+        print('Testing accuracy is ',c3d_r.test(test_x,test_y,sess))
         videoIn = np.reshape(videoIn,(1,)+videoIn.shape)
         feature1 = c3d.getFeature(videoIn, sess)
         feature2 = c3d_r.getFeature(videoIn, sess)
