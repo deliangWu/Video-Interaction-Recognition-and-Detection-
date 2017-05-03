@@ -82,7 +82,8 @@ def main(argv):
         with sess.as_default():
             sess.run(initVars)
         ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
-        test_x,test_y = ut_set.loadTesting()
+        test_x,test_lable = ut_set.loadTesting()
+        test_y = ut.oneHot(test_lable,7)
         videoIn = test_x[2][0]
         vpp.videoPlay(videoIn,fps=10)
             
