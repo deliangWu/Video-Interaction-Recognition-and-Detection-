@@ -81,7 +81,7 @@ def main(argv):
             
         # load trained network  
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
-        saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg.ckpt'))
+        #saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg.ckpt'))
         videoIn = np.reshape(videoIn,(1,)+videoIn.shape)
         visualFeatures = c3d.visualize(videoIn, sess)    
         for visualFeature in visualFeatures:
