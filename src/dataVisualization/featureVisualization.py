@@ -7,9 +7,11 @@ import sys
 import model_vf
 sys.path.insert(1,'../datasets')
 sys.path.insert(1,'../common')
+sys.path.insert(1,'../train')
 import ut_interaction as ut
 import common
 import videoPreProcess as vpp
+import network
 
 
 class C3DNET:
@@ -34,6 +36,9 @@ class C3DNET:
             self._unConv = model_vf.FeatureDescriptor.c3d_v(self._features1,frmSize, nof_conv1, nof_conv2, nof_conv3, nof_conv4)
         return None
     
+    def getFeature(self,test_x,sess):
+        return self._features.eval(feed_dict={self._x:test_x}, session=sess)
+    
     def visualize(self,test_x,sess):
         with sess.as_default():
             features_gen = self._features.eval(feed_dict={self._x:test_x})
@@ -53,6 +58,8 @@ def main(argv):
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = C3DNET(frmSize, nof_conv1=32, nof_conv2=128, nof_conv3=256, nof_conv4=512, noo_fc6=4096, noo_fc7=4096)
+        scope.reuse_variables()
+        c3d_r = network.C3DNET(6, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
     # ***********************************************************
     # define session
     # ***********************************************************
@@ -76,13 +83,17 @@ def main(argv):
             sess.run(initVars)
         ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
         test_x,test_y = ut_set.loadTesting()
-        videoIn = test_x[0][0]
+        videoIn = test_x[2][0]
         vpp.videoPlay(videoIn,fps=10)
             
         # load trained network  
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
         saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg.ckpt'))
         videoIn = np.reshape(videoIn,(1,)+videoIn.shape)
+        feature1 = c3d.getFeature(videoIn, sess)
+        feature2 = c3d_r.getFeature(videoIn, sess)
+        print(feature1)
+        print(feature2)
         visualFeatures = c3d.visualize(videoIn, sess)    
         for visualFeature in visualFeatures:
             vf = vpp.videoNorm(visualFeature[0])
