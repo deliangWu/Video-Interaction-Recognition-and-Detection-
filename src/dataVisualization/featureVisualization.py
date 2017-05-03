@@ -57,7 +57,7 @@ def main(argv):
     # ***********************************************************
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
-        c3d_r = network.C3DNET(6, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
+        c3d_r = network.C3DNET(7, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
         scope.reuse_variables()
         c3d = C3DNET(frmSize, nof_conv1=32, nof_conv2=128, nof_conv3=256, nof_conv4=512, noo_fc6=4096, noo_fc7=4096)
     # ***********************************************************
@@ -71,7 +71,7 @@ def main(argv):
     # ***********************************************************
     # define the dataset
     # ***********************************************************
-    ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=6)
+    ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=7)
     
     # ***********************************************************
     # Train and test the network
