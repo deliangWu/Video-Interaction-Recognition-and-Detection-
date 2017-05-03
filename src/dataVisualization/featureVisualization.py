@@ -41,7 +41,7 @@ class C3DNET:
     
     def visualize(self,test_x,sess):
         with sess.as_default():
-            features_gen = self._features.eval(feed_dict={self._x:test_x})
+            features_gen = self._features.eval(feed_dict={self._x:test_x,self._keep_prob:1})
             videoOuts = []
             for i in range(self._nof_conv1):
                 features = features_gen.copy()
