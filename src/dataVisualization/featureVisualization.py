@@ -84,6 +84,7 @@ def main(argv):
         ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
         test_x,test_lable = ut_set.loadTesting()
         test_y = ut.oneHot(test_lable,7)
+        print(test_y.shape)
         videoIn = test_x[2][0]
         vpp.videoPlay(videoIn,fps=10)
             
