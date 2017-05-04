@@ -78,8 +78,8 @@ def unpool3d_4x2x2(value):
     out = (tf.reshape(value, [-1] + sh[-dim:]))
     for i in range(dim, 0, -1):
         if i == 1:
-            out = tf.concat(i, [out, out])
-            out = tf.concat(i, [out, out])
+            out = tf.concat([out, out],i)
+            out = tf.concat([out, out],i)
         else:
             out = tf.concat([out, out],i)
     out_size = [-1,sh[1] * 4] + [s * 2 for s in sh[2:-1]] + [sh[-1]]
@@ -91,7 +91,12 @@ def dConv(featureIn,output_shape,out_channels,in_channels,name):
         W_conv = weight_variable([3,3,3,out_channels,in_channels])
         b_conv = bias_variable([in_channels])
         print(W_conv.name)
-        unPool = unpool3d_1x2x2(featureIn)
+        if name == 'conv1':
+            unPool = unpool3d_1x2x2(featureIn)
+        elif name == 'conv4a':
+            unPool = unpool3d_4x2x2(featureIn)
+        else:
+            unPool = unpool3d_2x2x2(featureIn)
         #unBias = tf.nn.relu(unPool - b_conv)
         unBias = unPool
         unConv = conv3d_transpose(unBias, W_conv, output_shape=output_shape)

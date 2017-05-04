@@ -43,7 +43,7 @@ class C3DNET:
         with sess.as_default():
             features_gen = self._features.eval(feed_dict={self._x:test_x,self._keep_prob:1})
             videoOuts = []
-            for i in range(self._nof_conv1):
+            for i in range(64):
                 features = features_gen.copy()
                 features[:,:,:,:,:i] = 0
                 features[:,:,:,:,i+1:] = 0
@@ -92,15 +92,18 @@ def main(argv):
         # load trained network  
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
         saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
-        #saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg.ckpt'))
-        #saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
+        saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg.ckpt'))
+        saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
         
         videoIn = np.reshape(videoIn,(1,)+videoIn.shape)
         visualFeatures = c3d.visualize(videoIn, sess)    
+        i = 0
         for visualFeature in visualFeatures:
             vf = vpp.videoNorm(visualFeature[0])
             videoShow = np.concatenate([videoIn[0],vf],1)
             vpp.videoPlay(videoShow,fps=1)
+            vpp.videoSave(videoShow,'feature_'+str(i)+'.avi')
+            i+=1
  
                 
 if __name__ == "__main__":
