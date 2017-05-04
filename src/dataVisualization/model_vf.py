@@ -97,9 +97,9 @@ def dConv(featureIn,output_shape,out_channels,in_channels,name):
             unPool = unpool3d_4x2x2(featureIn)
         else:
             unPool = unpool3d_2x2x2(featureIn)
-        unBias = tf.nn.relu(unPool - b_conv)
+        unBias = tf.nn.relu(unPool)
         unConv = conv3d_transpose(unBias, W_conv, output_shape=output_shape)
-    return tf.nn.relu(unConv)
+    return unConv
         
     
     
