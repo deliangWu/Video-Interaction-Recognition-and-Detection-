@@ -31,9 +31,9 @@ class C3DNET:
         self._lr = tf.placeholder(tf.float32)
         
         with tf.variable_scope('feature_descriptor_g') as scope:
-            self._features = model_vf.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7,rl=7)
+            self._features = model_vf.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7,rl=4)
             scope.reuse_variables()
-            self._unConv = model_vf.FeatureDescriptor.c3d_v(self._features1,frmSize, nof_conv1, nof_conv2, nof_conv3, nof_conv4)
+            self._unConv = model_vf.FeatureDescriptor.c3d_v(self._features4,frmSize, nof_conv1, nof_conv2, nof_conv3, nof_conv4)
         return None
     
     def getFeature(self,test_x,sess):
@@ -47,7 +47,8 @@ class C3DNET:
                 features = features_gen.copy()
                 features[:,:,:,:,:i] = 0
                 features[:,:,:,:,i+1:] = 0
-                videoOut = self._unConv.eval(feed_dict={self._features1:features})
+                print(features.shape)
+                videoOut = self._unConv.eval(feed_dict={self._features4:features})
                 videoOuts.append(videoOut)
         return np.array(videoOuts)
 
@@ -91,19 +92,10 @@ def main(argv):
         # load trained network  
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
         saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
-        saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg.ckpt'))
-        saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
-        print('Testing accuracy is ',c3d_r.test(test_x,test_y,sess))
+        #saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg.ckpt'))
+        #saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
+        
         videoIn = np.reshape(videoIn,(1,)+videoIn.shape)
-        feature1 = c3d.getFeature(videoIn, sess)
-        feature2 = c3d_r.getFeature(videoIn, sess)
-        print(feature1)
-        print(feature2)
-        if np.array_equal(feature1, feature2):
-            print('featue1 is equal to features')
-        else:
-            print('featue1 is not equal to features')
-            
         visualFeatures = c3d.visualize(videoIn, sess)    
         for visualFeature in visualFeatures:
             vf = vpp.videoNorm(visualFeature[0])

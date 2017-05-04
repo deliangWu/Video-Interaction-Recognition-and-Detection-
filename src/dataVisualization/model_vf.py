@@ -86,11 +86,10 @@ def unpool3d_4x2x2(value):
     out = tf.reshape(out, out_size)
     return out
 
-def dConv(featureIn,output_shape,frmSize,nof,name):
-    numOfFilters = nof
+def dConv(featureIn,output_shape,out_channels,in_channels,name):
     with tf.variable_scope(name):
-        W_conv = weight_variable([3,3,3,frmSize[2],numOfFilters])
-        b_conv = bias_variable([numOfFilters])
+        W_conv = weight_variable([3,3,3,out_channels,in_channels])
+        b_conv = bias_variable([in_channels])
         print(W_conv.name)
         unPool = unpool3d_1x2x2(featureIn)
         #unBias = tf.nn.relu(unPool - b_conv)
@@ -172,8 +171,20 @@ class FeatureDescriptor:
     def c3d_v(featureIn,frmSize, nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256):
         with tf.device(common.Vars.dev[0]):
             # define the first convlutional layer
-            output_shape = [1,16,frmSize[0],frmSize[1],frmSize[2]]
-            print(output_shape)
-            unConv1 = dConv(featureIn, output_shape, frmSize, nof_conv1, name = 'conv1')
+            featureIn4 = featureIn
+            output_shape4 = [1,4,int(frmSize[0]/8),int(frmSize[1]/8),nof_conv3]
+            unConv4 = dConv(featureIn4, output_shape4, nof_conv3, nof_conv4, name = 'conv4a')
+            
+            featureIn3 = unConv4
+            output_shape3 = [1,8,int(frmSize[0]/4),int(frmSize[1]/4),nof_conv2]
+            unConv3 = dConv(featureIn3, output_shape3, nof_conv2, nof_conv3, name = 'conv3a')
+            
+            featureIn2 = unConv3
+            output_shape2 = [1,16,int(frmSize[0]/2),int(frmSize[1]/2),nof_conv1]
+            unConv2 = dConv(featureIn2, output_shape2, nof_conv1, nof_conv2, name = 'conv2')
+            
+            featureIn1 = unConv2
+            output_shape1 = [1,16,frmSize[0],frmSize[1],frmSize[2]]
+            unConv1 = dConv(featureIn1, output_shape1, frmSize[2], nof_conv1, name = 'conv1')
         return unConv1
         
