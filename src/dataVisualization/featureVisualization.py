@@ -58,8 +58,6 @@ def main(argv):
     # ***********************************************************
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
-        c3d_r = network.C3DNET(7, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
-        scope.reuse_variables()
         c3d = C3DNET(frmSize, nof_conv1=32, nof_conv2=128, nof_conv3=256, nof_conv4=512, noo_fc6=4096, noo_fc7=4096)
     # ***********************************************************
     # define session
@@ -72,28 +70,25 @@ def main(argv):
     # ***********************************************************
     # define the dataset
     # ***********************************************************
-    ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=7)
+    ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=6)
     
     # ***********************************************************
     # Train and test the network
     # ***********************************************************
     seqRange = range(1,2)
-    
     for seq in seqRange:
         with sess.as_default():
             sess.run(initVars)
         ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
         test_x,test_lable = ut_set.loadTesting()
-        test_y = ut.oneHot(test_lable,7)
-        print(test_y.shape)
         videoIn = test_x[2][0]
         vpp.videoPlay(videoIn,fps=10)
             
         # load trained network  
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
-        saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
+        #saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
         saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg.ckpt'))
-        saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
+        #saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
         
         videoIn = np.reshape(videoIn,(1,)+videoIn.shape)
         visualFeatures = c3d.visualize(videoIn, sess)    
