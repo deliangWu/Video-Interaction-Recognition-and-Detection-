@@ -48,7 +48,7 @@ class C3DNET:
         with sess.as_default():
             features_gen = self._features.eval(feed_dict={self._x:test_x,self._keep_prob:1})
             videoOuts = []
-            for i in range(32):
+            for i in range(0,self._nof_conv4,16):
                 features = features_gen.copy()
                 features[:,:,:,:,:i] = 0
                 features[:,:,:,:,i+1:] = 0
@@ -63,7 +63,7 @@ def main(argv):
     # ***********************************************************
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
-        c3d = C3DNET(frmSize, visual_layer=1, nof_conv1=32, nof_conv2=128, nof_conv3=256, nof_conv4=512, noo_fc6=4096, noo_fc7=4096)
+        c3d = C3DNET(frmSize, visual_layer=4, nof_conv1=32, nof_conv2=128, nof_conv3=256, nof_conv4=512, noo_fc6=4096, noo_fc7=4096)
     # ***********************************************************
     # define session
     # ***********************************************************
