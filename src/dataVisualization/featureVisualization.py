@@ -48,7 +48,7 @@ class C3DNET:
         with sess.as_default():
             features_gen = self._features.eval(feed_dict={self._x:test_x,self._keep_prob:1})
             videoOuts = []
-            for i in range(64):
+            for i in range(32):
                 features = features_gen.copy()
                 features[:,:,:,:,:i] = 0
                 features[:,:,:,:,i+1:] = 0
