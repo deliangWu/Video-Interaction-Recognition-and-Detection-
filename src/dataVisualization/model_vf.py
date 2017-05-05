@@ -90,7 +90,6 @@ def dConv(featureIn,output_shape,out_channels,in_channels,name):
     with tf.variable_scope(name):
         W_conv = weight_variable([3,3,3,out_channels,in_channels])
         b_conv = bias_variable([in_channels])
-        print(W_conv.name)
         if name == 'conv1':
             unPool = unpool3d_1x2x2(featureIn)
         elif name == 'conv4a':
@@ -100,9 +99,6 @@ def dConv(featureIn,output_shape,out_channels,in_channels,name):
         unBias = tf.nn.relu(unPool)
         unConv = conv3d_transpose(unBias, W_conv, output_shape=output_shape)
     return unConv
-        
-    
-    
 
 
 class FeatureDescriptor:
@@ -174,7 +170,6 @@ class FeatureDescriptor:
     @staticmethod
     def c3d_v(featureIn,frmSize, nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256,layer=1):
         with tf.device(common.Vars.dev[0]):
-            # define the first convlutional layer
             if layer == 4:
                 featureIn4 = featureIn
                 output_shape4 = [1,4,int(frmSize[0]/8),int(frmSize[1]/8),nof_conv3]
