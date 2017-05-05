@@ -24,13 +24,13 @@ class C3DNET:
         self._nof_conv4 = nof_conv4
         self._x = tf.placeholder(tf.float32, (None,16) + frmSize)
         if visual_layer == 1:
-            self._features_ph = tf.placeholder(tf.float32,(None,16,frmSize[0]/2,frmSize[1]/2,nof_conv1))
+            self._features_ph = tf.placeholder(tf.float32,(None,16,frmSize[0],frmSize[1],nof_conv1))
         elif visual_layer == 2:
-            self._features_ph = tf.placeholder(tf.float32,(None,8, frmSize[0]/4,frmSize[1]/4,nof_conv2))
+            self._features_ph = tf.placeholder(tf.float32,(None,16, frmSize[0]/2,frmSize[1]/2,nof_conv2))
         elif visual_layer == 3:
-            self._features_ph = tf.placeholder(tf.float32,(None,4, frmSize[0]/8,frmSize[1]/8,nof_conv3))
+            self._features_ph = tf.placeholder(tf.float32,(None,8, frmSize[0]/4,frmSize[1]/4,nof_conv3))
         else:
-            self._features_ph = tf.placeholder(tf.float32,(None,1, frmSize[0]/16,frmSize[1]/16,nof_conv4))
+            self._features_ph = tf.placeholder(tf.float32,(None,4, frmSize[0]/8,frmSize[1]/8,nof_conv4))
             
         self._keep_prob = tf.placeholder(tf.float32)
         self._lr = tf.placeholder(tf.float32)
