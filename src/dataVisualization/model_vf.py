@@ -184,7 +184,7 @@ class FeatureDescriptor:
                 featureIn3 = featureIn
             elif layer > 3:
                 featureIn3 = unConv4
-            if layer == 3:
+            if layer >= 3:
                 output_shape3 = [1,8,int(frmSize[0]/4),int(frmSize[1]/4),nof_conv2]
                 unConv3 = dConv(featureIn3, output_shape3, nof_conv2, nof_conv3, name = 'conv3a')
             
@@ -192,7 +192,7 @@ class FeatureDescriptor:
                 featureIn2 = featureIn
             elif layer >2:
                 featureIn2 = unConv3
-            if layer == 2:
+            if layer >= 2:
                 output_shape2 = [1,16,int(frmSize[0]/2),int(frmSize[1]/2),nof_conv1]
                 unConv2 = dConv(featureIn2, output_shape2, nof_conv1, nof_conv2, name = 'conv2')
             
