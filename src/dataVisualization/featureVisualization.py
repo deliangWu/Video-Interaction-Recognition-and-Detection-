@@ -85,8 +85,11 @@ def main(argv):
         with sess.as_default():
             sess.run(initVars)
         ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
+        ut_set.loadTrainingAll()
+        train_x,train_y = ut_set.loadTrainingBatch(10)
         test_x,test_lable = ut_set.loadTesting()
-        videoIn = test_x[2][0]
+        #videoIn = test_x[2][0]
+        videoIn = train_x[2]
         vpp.videoPlay(videoIn,fps=10)
             
         # load trained network  
