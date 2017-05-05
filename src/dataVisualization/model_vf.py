@@ -172,22 +172,34 @@ class FeatureDescriptor:
             return h_fc7_drop
     
     @staticmethod
-    def c3d_v(featureIn,frmSize, nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256):
+    def c3d_v(featureIn,frmSize, nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256,layer=1):
         with tf.device(common.Vars.dev[0]):
             # define the first convlutional layer
-            featureIn4 = featureIn
-            output_shape4 = [1,4,int(frmSize[0]/8),int(frmSize[1]/8),nof_conv3]
-            unConv4 = dConv(featureIn4, output_shape4, nof_conv3, nof_conv4, name = 'conv4a')
+            if layer == 4:
+                featureIn4 = featureIn
+                output_shape4 = [1,4,int(frmSize[0]/8),int(frmSize[1]/8),nof_conv3]
+                unConv4 = dConv(featureIn4, output_shape4, nof_conv3, nof_conv4, name = 'conv4a')
             
-            featureIn3 = unConv4
-            output_shape3 = [1,8,int(frmSize[0]/4),int(frmSize[1]/4),nof_conv2]
-            unConv3 = dConv(featureIn3, output_shape3, nof_conv2, nof_conv3, name = 'conv3a')
+            if layer == 3: 
+                featureIn3 = featureIn
+            elif layer > 3:
+                featureIn3 = unConv4
+            if layer == 3:
+                output_shape3 = [1,8,int(frmSize[0]/4),int(frmSize[1]/4),nof_conv2]
+                unConv3 = dConv(featureIn3, output_shape3, nof_conv2, nof_conv3, name = 'conv3a')
             
-            featureIn2 = unConv3
-            output_shape2 = [1,16,int(frmSize[0]/2),int(frmSize[1]/2),nof_conv1]
-            unConv2 = dConv(featureIn2, output_shape2, nof_conv1, nof_conv2, name = 'conv2')
+            if layer == 2: 
+                featureIn2 = featureIn
+            elif layer >2:
+                featureIn2 = unConv3
+            if layer == 2:
+                output_shape2 = [1,16,int(frmSize[0]/2),int(frmSize[1]/2),nof_conv1]
+                unConv2 = dConv(featureIn2, output_shape2, nof_conv1, nof_conv2, name = 'conv2')
             
-            featureIn1 = unConv2
+            if layer == 1: 
+                featureIn1 = featureIn
+            elif layer > 1:
+                featureIn1 = unConv2
             output_shape1 = [1,16,frmSize[0],frmSize[1],frmSize[2]]
             unConv1 = dConv(featureIn1, output_shape1, frmSize[2], nof_conv1, name = 'conv1')
         return unConv1
