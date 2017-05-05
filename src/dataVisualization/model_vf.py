@@ -86,17 +86,20 @@ def unpool3d_4x2x2(value):
     out = tf.reshape(out, out_size)
     return out
 
-def dConv(featureIn,output_shape,out_channels,in_channels,name):
+def dConv(featureIn,output_shape,out_channels,in_channels,name,unPoolEn = True):
     with tf.variable_scope(name):
         W_conv = weight_variable([3,3,3,out_channels,in_channels])
         b_conv = bias_variable([in_channels])
-        if name == 'conv1':
-            unPool = unpool3d_1x2x2(featureIn)
-        elif name == 'conv4a':
-            unPool = unpool3d_4x2x2(featureIn)
+        if unPoolEn is True:
+            if name == 'conv1':
+                unPool = unpool3d_1x2x2(featureIn)
+            elif name == 'conv4a':
+                unPool = unpool3d_4x2x2(featureIn)
+            else:
+                unPool = unpool3d_2x2x2(featureIn)
+            unBias = tf.nn.relu(unPool)
         else:
-            unPool = unpool3d_2x2x2(featureIn)
-        unBias = tf.nn.relu(unPool)
+            unBias = tf.nn.relu(featureIn)
         unConv = conv3d_transpose(unBias, W_conv, output_shape=output_shape)
     return unConv
 
@@ -157,45 +160,36 @@ class FeatureDescriptor:
                 h_fc7_drop = tf.nn.dropout(h_fc7, drop_var)
                 #h_fc7_l2norm = tf.nn.l2_normalize(h_fc7_drop,dim=1)
         if rl == 1:
-            return h_pool1
+            return h_conv1
         elif rl == 2:
-            return h_pool2
+            return h_conv2
         elif rl == 3:
-            return h_pool3
+            return h_conv3a
         elif rl == 4:
-            return h_pool4
+            return h_conv4a
         else: 
             return h_fc7_drop
     
     @staticmethod
     def c3d_v(featureIn,frmSize, nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256,layer=1):
         with tf.device(common.Vars.dev[0]):
-            if layer == 4:
-                featureIn4 = featureIn
-                output_shape4 = [1,4,int(frmSize[0]/8),int(frmSize[1]/8),nof_conv3]
-                unConv4 = dConv(featureIn4, output_shape4, nof_conv3, nof_conv4, name = 'conv4a')
-            
-            if layer == 3: 
-                featureIn3 = featureIn
-            elif layer > 3:
-                featureIn3 = unConv4
-            if layer >= 3:
-                output_shape3 = [1,8,int(frmSize[0]/4),int(frmSize[1]/4),nof_conv2]
-                unConv3 = dConv(featureIn3, output_shape3, nof_conv2, nof_conv3, name = 'conv3a')
-            
-            if layer == 2: 
-                featureIn2 = featureIn
-            elif layer >2:
-                featureIn2 = unConv3
-            if layer >= 2:
-                output_shape2 = [1,16,int(frmSize[0]/2),int(frmSize[1]/2),nof_conv1]
-                unConv2 = dConv(featureIn2, output_shape2, nof_conv1, nof_conv2, name = 'conv2')
-            
-            if layer == 1: 
-                featureIn1 = featureIn
-            elif layer > 1:
-                featureIn1 = unConv2
+            output_shape4 = [1,4,int(frmSize[0]/8),int(frmSize[1]/8),nof_conv3]
+            output_shape3 = [1,8,int(frmSize[0]/4),int(frmSize[1]/4),nof_conv2]
+            output_shape2 = [1,16,int(frmSize[0]/2),int(frmSize[1]/2),nof_conv1]
             output_shape1 = [1,16,frmSize[0],frmSize[1],frmSize[2]]
-            unConv1 = dConv(featureIn1, output_shape1, frmSize[2], nof_conv1, name = 'conv1')
+            if layer == 4:
+                unConv4 = dConv(featureIn, output_shape4, nof_conv3, nof_conv4, name = 'conv4a', unPoolEn=False)
+                unConv3 = dConv(unConv4, output_shape3, nof_conv2, nof_conv3, name = 'conv3a')
+                unConv2 = dConv(unConv3, output_shape2, nof_conv1, nof_conv2, name = 'conv2')
+                unConv1 = dConv(unConv2, output_shape1, frmSize[2], nof_conv1, name = 'conv1')
+            elif layer == 3:
+                unConv3 = dConv(featureIn, output_shape3, nof_conv2, nof_conv3, name = 'conv3a', unPoolEn=False)
+                unConv2 = dConv(unConv3, output_shape2, nof_conv1, nof_conv2, name = 'conv2')
+                unConv1 = dConv(unConv2, output_shape1, frmSize[2], nof_conv1, name = 'conv1')
+            elif layer == 2:
+                unConv2 = dConv(featureIn, output_shape2, nof_conv1, nof_conv2, name = 'conv2', unPoolEn=False)
+                unConv1 = dConv(unConv2, output_shape1, frmSize[2], nof_conv1, name = 'conv1')
+            else:
+                unConv1 = dConv(featureIn,output_shape1, frmSize[2], nof_conv1, name = 'conv1', unPoolEn=False)
         return unConv1
         
