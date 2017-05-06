@@ -175,6 +175,7 @@ def main(argv):
                     if i%int(iteration/50) == 0:
                         train_accuracy = c3d.test(train_x, train_y, sess)
                         test_accuracy = c3d.test(test_x, test_y, sess)
+                        c3d.obs(test_x, test_y, sess)
                         anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                         anv_accuracy = np.mean(anvAccuList)
                         if anv_accuracy > best_accuracy:
