@@ -111,7 +111,7 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
-    numOfClasses = 7 
+    numOfClasses = 6 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
@@ -164,6 +164,7 @@ def main(argv):
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 ut_set.loadTrainingAll()
                 best_accuracy = 0
+                epoch = 0
                 anvAccuList = np.zeros((3))
                 for i in range(iteration):
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
