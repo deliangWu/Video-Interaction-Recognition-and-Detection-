@@ -81,6 +81,7 @@ class C3DNET:
     def obs(self,test_x,test_y,sess):
         with sess.as_default():
             prob = self.evaluateProb(test_x, sess)
+            print(prob)
             top2y = np.array[np.argsort(prob)[:,-1],np.argsort(prob)[:,-2]]
             top2y = top2y.transpose(1,0) 
             print(top2y,' vs ',test_y)
