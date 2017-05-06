@@ -76,7 +76,7 @@ class C3DNET:
         with sess.as_default():
             testF = np.mean([self._features.eval(feed_dict={self._x:xT,self._keep_prob: 1}) for xT in test_x],0)
             test_prob = self._y_convT.eval(feed_dict={self._featuresT:testF})
-        return test_prob
+        return np.array(test_prob)
     
     def obs(self,test_x,test_y,sess):
         with sess.as_default():
