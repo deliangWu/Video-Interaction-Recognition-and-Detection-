@@ -468,11 +468,11 @@ if __name__ == '__main__':
         NoBias = 60
         videoCnt = 0
         for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
-            NoBias += videoCnt
             print(setNo,seqNo,NoBias)
             videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
             NoBias += videoCnt
-            videoCnt = genNegativeSamples1(setNo,seqNo,NoBias)
+            #NoBias += videoCnt
+            #videoCnt = genNegativeSamples1(setNo,seqNo,NoBias)
     #setNo,seqNo = 1,1
     #videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
     #gt = getGroundTruth(setNo, seqNo)
