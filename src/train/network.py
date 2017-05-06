@@ -83,7 +83,7 @@ class C3DNET:
             probs = np.array([self._y_conv.eval(feed_dict={self._x:x,self._keep_prob:1}) for x in test_x])
             top2y = np.array([[np.argsort(prob)[:,-1],np.argsort(prob)[:,-2]] for prob in probs])
             top2y = top2y.transpose(0,2,1) 
-            print(top2y,' vs ',np.argmax(test_y))
+            print(top2y,' vs ',np.argmax(test_y,1))
         return None
             
     

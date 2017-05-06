@@ -195,8 +195,6 @@ def main(argv):
                 c3d.obs(test_x, test_y, sess)
                 log = "Testing accuracy %g \n"%(test_accuracy)
                 common.pAndWf(logName,log)
-                for y,y_ in zip(test_prob,test_y):
-                    print(np.argmax(y), ' vs ', np.argmax(y_))
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
