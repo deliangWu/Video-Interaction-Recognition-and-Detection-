@@ -192,9 +192,7 @@ def main(argv):
                 saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
                 # begin to test
                 test_accuracy = c3d.test(test_x, test_y, sess)
-                test_prob = c3d.evaluateProb(test_x,sess)
-                print('test_prob is \n', test_prob, '\n \n', \
-                      'test_y is \n', test_y)
+                c3d.obs(test_x, test_y, sess)
                 log = "Testing accuracy %g \n"%(test_accuracy)
                 common.pAndWf(logName,log)
                 for y,y_ in zip(test_prob,test_y):
