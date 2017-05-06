@@ -183,15 +183,15 @@ def main(argv):
                         log = "epoch: %d, step: %d, training: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        if anv_accuracy == 1 or epoch > 20:
+                        if anv_accuracy == 1 or epoch > 60:
                             break
                     i+=1
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
                 saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
                 common.pAndWf(logName,' \n')
             else:
-                saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
-                saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
+                saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
+                saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
                 # begin to test
                 test_accuracy = c3d.test(test_x, test_y, sess)
                 c3d.obs(test_x, test_y, sess)
