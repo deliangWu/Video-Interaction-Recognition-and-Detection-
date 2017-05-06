@@ -166,6 +166,7 @@ def main(argv):
                 best_accuracy = 0
                 epoch = 0
                 anvAccuList = np.zeros((3))
+                i = 0
                 while True:
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                     train_y = ut.oneHot(train_y,numOfClasses)
@@ -185,6 +186,7 @@ def main(argv):
                         #if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                         if anv_accuracy == 1 or epoch > 20:
                             break
+                    i+=1
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg.ckpt'))
                 saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
                 common.pAndWf(logName,' \n')
