@@ -48,7 +48,7 @@ class C3DNET:
         return self._features.eval(feed_dict={self._x:test_x,self._keep_prob:1},session=sess)
     
     def getLoss(self,test_x,test_y,sess):
-        return self._cross_entropy.eval(feed_dict={self._x:test_x,self._y:test_y,self._keep_prob:0.5},session=sess)
+        return self._cross_entropy.eval(feed_dict={self._x:test_x,self._y_:test_y,self._keep_prob:0.5},session=sess)
     
     def getClassifierVars(self):
         return([self._classifier.W_sm,self._classifier.b_sm])
