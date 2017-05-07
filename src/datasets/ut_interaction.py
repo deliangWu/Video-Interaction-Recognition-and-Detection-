@@ -45,7 +45,7 @@ class ut_interaction:
     def loadTrainingAll(self, shuffleEn = True):
         cnt_file = 0
         for file in self._trainingFilesSet:
-            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True)
+            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=False)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
             #label = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
@@ -291,18 +291,19 @@ def oneHot(y,numOfClasses):
         y_out.append(y_oh)
     return np.array(y_out)
 
-#if __name__ == '__main__':
-#    numOfClasses = 6
-#    ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
-#    for seq in range(1,11):
-#        print('seq = ',seq)
-#        ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
-#        ut_set.loadTrainingAll()
-#        for i in range(10):
-#            print(i)
-#            vtr = ut_set.loadTrainingBatch(16)
-#            for v in vtr[0]:
-#                vpp.videoPlay(v)
+if __name__ == '__main__':
+    numOfClasses = 6
+    ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
+    for seq in range(1,11):
+        print('seq = ',seq)
+        ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
+        ut_set.loadTrainingAll()
+        for i in range(10):
+            print(i)
+            vtr = ut_set.loadTrainingBatch(16)
+            for v in vtr[0]:
+                vpp.videoPlay(v)
+                print(v)
 #        
 #        vt = ut_set.loadTesting()
 #        y = vt[1]
