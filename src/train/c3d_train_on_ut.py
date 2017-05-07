@@ -134,7 +134,7 @@ def main(argv):
     else:    
         ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses)
         #seqRange = range(1,11)
-        seqRange = (2,)
+        seqRange = (3,)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
