@@ -22,6 +22,7 @@ def videoNorm(videoIn):
     vmax = np.amax(videoIn)
     vmin = np.amin(videoIn)
     vo = (videoIn.astype(np.float32) - vmin)/max(1,(vmax-vmin)) * 250
+    vo = vo - np.mean(vo)
     return vo
 
 def videoPlay(video,fps = 25):
