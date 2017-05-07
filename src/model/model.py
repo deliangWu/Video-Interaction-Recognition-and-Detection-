@@ -105,9 +105,9 @@ class FeatureDescriptor:
                 b_fc7 = bias_variable([numOfOutputs_fc7])
                 h_fc7 = tf.nn.relu(tf.matmul(h_fc6_drop, W_fc7) + b_fc7)
                 h_fc7_drop = tf.nn.dropout(h_fc7, drop_var)
-                #h_fc7_l2norm = tf.nn.l2_normalize(h_fc7_drop,dim=1)
+                h_fc7_l2norm = tf.nn.l2_normalize(h_fc7_drop,dim=1)
         
-        return h_fc7_drop
+        return h_fc7_l2norm
 
 class Classifier:
     @staticmethod
