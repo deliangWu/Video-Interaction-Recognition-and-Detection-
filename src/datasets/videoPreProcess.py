@@ -21,8 +21,7 @@ def videoRead(fileName,grayMode=True,downSample = 1):
 def videoNorm(videoIn):
     vmax = np.amax(videoIn)
     vmin = np.amin(videoIn)
-    vo = (videoIn.astype(np.float32) - vmin)/max(1,(vmax-vmin)) * 250
-    vo = vo - np.mean(vo)
+    vo = videoIn.astype(np.float32) / 255
     return vo
 
 def videoPlay(video,fps = 25):
