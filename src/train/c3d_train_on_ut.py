@@ -172,8 +172,10 @@ def main(argv):
                     train_y = ut.oneHot(train_y,numOfClasses)
                     epoch = ut_set.getEpoch()
                     #learning_rate = 0.0005 * 2**(-int(epoch/10))
-                    learning_rate = 0.0005
+                    learning_rate = 0.005
                     c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
+                    loss = c3d.getLoss(train_x, train_y, sess)
+                    print('step: %d, loss: %g '%(i,loss))
                     if i%int(iteration/50) == 0:
                         train_accuracy = c3d.test(train_x, train_y, sess)
                         test_accuracy = c3d.test(test_x, test_y, sess)
@@ -182,7 +184,7 @@ def main(argv):
                         anv_accuracy = np.mean(anvAccuList)
                         if anv_accuracy > best_accuracy:
                             best_accuracy = anv_accuracy
-                        log = "epoch: %d, step: %d, training: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
+                        log = "epoch: %d, step: %d, training: %g, loss: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, loss, test_accuracy, anv_accuracy, best_accuracy)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                         if anv_accuracy == 1 or epoch > 60:

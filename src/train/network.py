@@ -33,10 +33,10 @@ class C3DNET:
             
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
-            cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
+            self._cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
             #self._train_step = tf.train.AdamOptimizer(learning_rate=0.05, epsilon=0.01).minimize(cross_entropy,var_list=self.getClassifierVars())
             #self._train_step = tf.train.AdamOptimizer(learning_rate=0.005, epsilon=0.01).minimize(cross_entropy)
-            self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(cross_entropy)
+            self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(self._cross_entropy)
             correct_prediction = tf.equal(tf.argmax(self._y_conv,1), tf.argmax(self._y_,1))
             self._accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
             
@@ -46,6 +46,9 @@ class C3DNET:
     
     def getFeature(self,test_x,sess):
         return self._features.eval(feed_dict={self._x:test_x,self._keep_prob:1},session=sess)
+    
+    def getLoss(self,test_x,test_y,sess):
+        return self._cross_entropy.eval(feed_dict={self._x:test_x,self._y:test_y,self._keep_prob:0.5},session=sess)
     
     def getClassifierVars(self):
         return([self._classifier.W_sm,self._classifier.b_sm])
