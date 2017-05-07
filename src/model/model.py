@@ -107,7 +107,7 @@ class FeatureDescriptor:
                 h_fc7_drop = tf.nn.dropout(h_fc7, drop_var)
                 h_fc7_l2norm = tf.nn.l2_normalize(h_fc7_drop,dim=1)
         
-        return h_fc7_l2norm
+        return h_fc7_drop
 
 class Classifier:
     @staticmethod
