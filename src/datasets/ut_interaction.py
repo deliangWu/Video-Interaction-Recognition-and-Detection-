@@ -59,7 +59,9 @@ class ut_interaction:
             np.random.shuffle(perm)
             self._trainingVideos = self._trainingVideos[perm]
             self._trainingLabels = self._trainingLabels[perm]
-        self._trainingVideos = self._trainingVideos - np.mean(self._trainingVideos,axis=(0))
+        self._trainingMeanVal = np.mean(self._trainingVideos,axis=(0,1,2,3))
+        self._trainingVideos = self._trainingVideos - self._trainingMeanVal 
+        print(self._trainingMeanVal)
         return None 
     
     def getTrainingSet(self):
@@ -108,7 +110,7 @@ class ut_interaction:
                 testVideos = np.append(testVideos,video,axis=0)
                 #testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)
                 testLabels = np.append(testLabels,np.reshape(int(file[2]),(1,1)),axis=0)
-        testVideos = testVideos - np.mean(testVideos,axis=(0,1))
+        testVideos = testVideos - self._trainingMeanVal 
         return (testVideos.transpose(1,0,2,3,4,5),testLabels)    
     
     def getFileList(self):
@@ -300,7 +302,7 @@ if __name__ == '__main__':
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
-        #ut_set.loadTrainingAll()
+        ut_set.loadTrainingAll()
         #for i in range(10):
         #    print(i)
         #    vtr = ut_set.loadTrainingBatch(16)
@@ -314,7 +316,7 @@ if __name__ == '__main__':
         print(oneHot(y,numOfClasses))
         for vs in vt[0].transpose(1,0,2,3,4,5):
             for v in vs:
-                vpp.videoPlay(v)
+                vpp.videoPlay(v+0.35)
         
     
 
