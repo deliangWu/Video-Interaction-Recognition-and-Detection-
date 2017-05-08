@@ -93,7 +93,7 @@ class C3DNET:
         with sess.as_default():
             prob = self.evaluateProb(test_x, sess)
             top2y = np.array([np.argsort(prob)[:,-1],np.argsort(prob)[:,-2]]).transpose(1,0)
-            accuracy = np.mean([int(argmax(y) in t2y) for y,t2y in zip(test_y,top2y)])
+            accuracy = np.mean([int(np.argmax(y) in t2y) for y,t2y in zip(test_y,top2y)])
         return accuracy
            
             
