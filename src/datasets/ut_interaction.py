@@ -59,7 +59,7 @@ class ut_interaction:
             np.random.shuffle(perm)
             self._trainingVideos = self._trainingVideos[perm]
             self._trainingLabels = self._trainingLabels[perm]
-        self._trainingMeanVal = np.mean(self._trainingVideos,axis=(0,1,2,3))
+        self._trainingMeanVal = np.mean(self._trainingVideos)
         self._trainingVideos = self._trainingVideos - self._trainingMeanVal 
         print(self._trainingMeanVal)
         return None 
