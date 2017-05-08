@@ -103,11 +103,12 @@ class ut_interaction:
                 else:
                     index = range(int(numOfClips/2) - 1, int(numOfClips/2) + 2)
                 video = video[index]
+                video = video - np.mean(self._trainingVideos,axis=(0))
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
                 #testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)
                 testLabels = np.append(testLabels,np.reshape(int(file[2]),(1,1)),axis=0)
-        testVideos = testVideos - np.mean(testVideos,axis=(0,1))
+        #testVideos = testVideos - np.mean(testVideos)
         return (testVideos.transpose(1,0,2,3,4,5),testLabels)    
     
     def getFileList(self):
@@ -299,14 +300,14 @@ if __name__ == '__main__':
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
-        #ut_set.loadTrainingAll()
-        for i in range(10):
-            print(i)
-            vtr = ut_set.loadTrainingBatch(16)
-            for v in vtr[0]:
-                vpp.videoPlay(v+0.3)
-                print(v)
-        
+        ut_set.loadTrainingAll()
+        #for i in range(10):
+        #    print(i)
+        #    vtr = ut_set.loadTrainingBatch(16)
+        #    for v in vtr[0]:
+        #        vpp.videoPlay(v+0.3)
+        #        print(v)
+        #
         vt = ut_set.loadTesting()
         y = vt[1]
         print(y)
