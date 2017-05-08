@@ -148,7 +148,7 @@ def videoRezise(videoIn,frmSize):
         h = img.shape[0]
         w = img.shape[1]
         return img[int(h/8):int(7*h/8),int(w/8):int(7*w/8)]
-    videoOut = np.array([imgResize(cropImg(image),frmSize) for image in videoIn])
+    videoOut = np.array([imgResize(image,frmSize) for image in videoIn])
     return videoOut
 
 
