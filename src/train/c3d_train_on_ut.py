@@ -180,6 +180,7 @@ def main(argv):
                         test_accuracy = c3d.test(test_x, test_y, sess)
                         t2y_accu = c3d.top2y_accu(test_x, test_y, sess)
                         c3d.obs(test_x, test_y, sess)
+                        loss = c3d.getLoss(test_x, test_y, sess)
                         anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                         anv_accuracy = np.mean(anvAccuList)
                         if anv_accuracy > best_accuracy:
