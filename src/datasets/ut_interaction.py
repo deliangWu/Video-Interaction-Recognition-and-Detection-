@@ -59,7 +59,7 @@ class ut_interaction:
             np.random.shuffle(perm)
             self._trainingVideos = self._trainingVideos[perm]
             self._trainingLabels = self._trainingLabels[perm]
-        self._trainingVideos = self._trainingVideos - np.mean(self._trainingVideos,axis=(0))
+        #self._trainingVideos = self._trainingVideos - np.mean(self._trainingVideos,axis=(0))
         return None 
     
     def getTrainingSet(self):
@@ -103,7 +103,7 @@ class ut_interaction:
                 else:
                     index = range(int(numOfClips/2) - 1, int(numOfClips/2) + 2)
                 video = video[index]
-                video = video - np.mean(self._trainingVideos,axis=(0))
+                #video = video - np.mean(self._trainingVideos,axis=(0))
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
                 #testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)
