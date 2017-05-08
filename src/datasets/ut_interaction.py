@@ -59,8 +59,8 @@ class ut_interaction:
             np.random.shuffle(perm)
             self._trainingVideos = self._trainingVideos[perm]
             self._trainingLabels = self._trainingLabels[perm]
-        self._trainingMeanVal = np.mean(self._trainingVideos)
-        self._trainingVideos = self._trainingVideos - self._trainingMeanVal 
+        #self._trainingMeanVal = np.mean(self._trainingVideos)
+        #self._trainingVideos = self._trainingVideos - self._trainingMeanVal 
         print(self._trainingMeanVal)
         return None 
     
@@ -105,12 +105,11 @@ class ut_interaction:
                 else:
                     index = range(int(numOfClips/2) - 1, int(numOfClips/2) + 2)
                 video = video[index]
-                #video = video - np.mean(self._trainingVideos,axis=(0))
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
                 #testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)
                 testLabels = np.append(testLabels,np.reshape(int(file[2]),(1,1)),axis=0)
-        testVideos = testVideos - self._trainingMeanVal 
+        #testVideos = testVideos - self._trainingMeanVal 
         return (testVideos.transpose(1,0,2,3,4,5),testLabels)    
     
     def getFileList(self):
