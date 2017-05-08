@@ -157,15 +157,12 @@ def main(argv):
               '****************************************\n'
         common.pAndWf(logName,log)
         ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
-        ut_set.loadTrainingAll()
         test_x,test_y = ut_set.loadTesting()
         test_y = ut.oneHot(test_y,numOfClasses)
         with sess.as_default():
             sess.run(initVars)
-            saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + 'initVars_fg6.ckpt'))
-            saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + 'initVars_c6.ckpt'))
-            #saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf_fg.ckpt'))
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
+                ut_set.loadTrainingAll()
                 best_accuracy = 0
                 epoch = 0
                 anvAccuList = np.zeros((3))
@@ -174,16 +171,15 @@ def main(argv):
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                     train_y = ut.oneHot(train_y,numOfClasses)
                     epoch = ut_set.getEpoch()
-                    #learning_rate = 0.0005 * 2**(-int(epoch/10))
-                    learning_rate = 0.005
+                    learning_rate = 0.005 * 2**(-int(epoch/10))
                     c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
-                    loss = c3d.getLoss(train_x, train_y, sess)
-                    print('step: %d, loss: %g '%(i,loss))
+                    #loss = c3d.getLoss(train_x, train_y, sess)
+                    #print('step: %d, loss: %g '%(i,loss))
                     if i%int(iteration/50) == 0:
                         train_accuracy = c3d.test(train_x, train_y, sess)
                         test_accuracy = c3d.test(test_x, test_y, sess)
-                        c3d.obs(test_x, test_y, sess)
                         t2y_accu = c3d.top2y_accu(test_x, test_y, sess)
+                        c3d.obs(test_x, test_y, sess)
                         anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                         anv_accuracy = np.mean(anvAccuList)
                         if anv_accuracy > best_accuracy:
