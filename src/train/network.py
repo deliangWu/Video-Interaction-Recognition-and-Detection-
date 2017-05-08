@@ -88,6 +88,15 @@ class C3DNET:
             top2y = top2y.transpose(2,1,0) 
             print(top2y,' vs ',np.argmax(test_y,1))
         return None
+    
+    def top2y_accu(self,test_x,test_y,sess):
+        with sess.as_default():
+            prob = self.evaluateProb(test_x, sess)
+            top2y = np.array([np.argsort(prob)[:,-1],np.argsort(prob)[:,-2]]).transpose(1,0)
+            accuracy = np.mean([int(argmax(y) in t2y) for y,t2y in zip(test_y,top2y)])
+        return accuracy
+           
+            
             
     
 

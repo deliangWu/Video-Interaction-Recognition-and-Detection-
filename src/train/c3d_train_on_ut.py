@@ -84,11 +84,12 @@ def main_ovo(argv):
                     if i%int(iteration/50) == 0:
                         train_accuracy = c3d.test(train_x, train_y, sess)
                         test_accuracy = c3d.test(test_x, test_y, sess)
+                        t2y_accu = c3d.top2y_accu(test_x, test_y, sess)
                         anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                         anv_accuracy = np.mean(anvAccuList)
                         if anv_accuracy > best_accuracy:
                             best_accuracy = anv_accuracy
-                        log = "epoch: %d, step: %d, training: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
+                        log = "epoch: %d, step: %d, training: %g, testing: %g, t2y: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, t2y_accu, anv_accuracy, best_accuracy)
                         common.pAndWf(logName,log)
                         if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                             break
@@ -147,7 +148,7 @@ def main(argv):
     common.clearFile(logName)
     common.pAndWf(logName,log)    
     iteration = 1001
-    batchSize = 22 
+    batchSize = 16 
     for seq in seqRange:
         with sess.as_default():
             sess.run(initVars)
@@ -180,11 +181,12 @@ def main(argv):
                         train_accuracy = c3d.test(train_x, train_y, sess)
                         test_accuracy = c3d.test(test_x, test_y, sess)
                         c3d.obs(test_x, test_y, sess)
+                        t2y_accu = c3d.top2y_accu(test_x, test_y, sess)
                         anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                         anv_accuracy = np.mean(anvAccuList)
                         if anv_accuracy > best_accuracy:
                             best_accuracy = anv_accuracy
-                        log = "epoch: %d, step: %d, training: %g, loss: %g, testing: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, loss, test_accuracy, anv_accuracy, best_accuracy)
+                        log = "epoch: %d, step: %d, training: %g, loss: %g, testing: %g, t2y: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, loss, test_accuracy, t2y_accu, anv_accuracy, best_accuracy)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                         if anv_accuracy == 1 or epoch > 100:
