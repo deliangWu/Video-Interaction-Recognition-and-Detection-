@@ -144,10 +144,6 @@ def videoRezise(videoIn,frmSize):
             imgOut = cv2.resize(img,(frmSize[1], frmSize[0]), interpolation= cv2.INTER_AREA)
         imgOut = np.reshape(imgOut,frmSize)
         return imgOut
-    def cropImg(img):
-        h = img.shape[0]
-        w = img.shape[1]
-        return img[int(h/8):int(7*h/8),int(w/8):int(7*w/8)]
     videoOut = np.array([imgResize(image,frmSize) for image in videoIn])
     return videoOut
 

@@ -115,7 +115,7 @@ def main(argv):
     numOfClasses = 6 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=48, nof_conv2= 256, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
+        c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=64, nof_conv2= 256, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
     # ***********************************************************
     # define session
     # ***********************************************************
@@ -162,6 +162,8 @@ def main(argv):
         test_y = ut.oneHot(test_y,numOfClasses)
         with sess.as_default():
             sess.run(initVars)
+            saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + 'initVars_fg6.ckpt'))
+            saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + 'initVars_c6.ckpt'))
             #saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf_fg.ckpt'))
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 best_accuracy = 0
