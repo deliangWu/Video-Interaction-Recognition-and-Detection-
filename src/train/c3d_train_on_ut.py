@@ -177,10 +177,10 @@ def main(argv):
                     #print('step: %d, loss: %g '%(i,loss))
                     if i%int(iteration/50) == 0:
                         train_accuracy = c3d.test(train_x, train_y, sess)
+                        loss = c3d.getLoss(train_x, train_y, sess)
                         test_accuracy = c3d.test(test_x, test_y, sess)
                         t2y_accu = c3d.top2y_accu(test_x, test_y, sess)
                         c3d.obs(test_x, test_y, sess)
-                        loss = c3d.getLoss(test_x, test_y, sess)
                         anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                         anv_accuracy = np.mean(anvAccuList)
                         if anv_accuracy > best_accuracy:
