@@ -6,7 +6,7 @@ import common
 
 
 def weight_variable(shape):
-    return tf.get_variable('weight',shape,initializer=tf.truncated_normal_initializer(stddev=2))
+    return tf.get_variable('weight',shape,initializer=tf.truncated_normal_initializer(stddev=1.1))
 
 def bias_variable(shape):
     return tf.get_variable('bias',shape,initializer=tf.constant_initializer(0.1))
