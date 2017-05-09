@@ -69,6 +69,7 @@ class C3DNET:
                 for single_test_x in test_x:
                     y_conv.append(self._y_conv.eval(feed_dict = {self._x:np.reshape(single_test_x,(1,)+single_test_x.shape), self._keep_prob:1})[0])
             y_conv = np.array(y_conv)
+            print(y_conv)
             top1_accu = np.mean(np.equal(np.argmax(y_conv,1),np.argmax(test_y,1)))
             
             top2y = np.array([np.argsort(y_conv)[:,-1],np.argsort(y_conv)[:,-2]]).transpose(1,0)
