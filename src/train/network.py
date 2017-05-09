@@ -16,32 +16,20 @@ class C3DNET:
         # define the input and output variables
         self._x = tf.placeholder(tf.float32, (None,16) + frmSize)
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
-        self._featuresT = tf.placeholder(tf.float32,(None,noo_fc7))
         self._keep_prob = tf.placeholder(tf.float32)
         self._lr = tf.placeholder(tf.float32)
-        
+       
+        # define feature descriptor and classifier 
         with tf.variable_scope('feature_descriptor_g') as scope:
             self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7)
         with tf.variable_scope('classifier') as scope:
             self._classifier = model.Softmax(self._features,numOfClasses)
             self._y_conv = self._classifier.y_conv
-            scope.reuse_variables()
-            self._classifierT = model.Softmax(self._featuresT,numOfClasses)
-            self._y_convT = self._classifierT.y_conv
-            self._y_sm = tf.nn.softmax(self._y_convT)
             
-            
+        # Train and evaluate the model
         with tf.device(common.Vars.dev[-1]):
-            # Train and evaluate the model
             self._cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
-            #self._train_step = tf.train.AdamOptimizer(learning_rate=0.05, epsilon=0.01).minimize(cross_entropy,var_list=self.getClassifierVars())
-            #self._train_step = tf.train.AdamOptimizer(learning_rate=0.005, epsilon=0.01).minimize(cross_entropy)
             self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(self._cross_entropy)
-            correct_prediction = tf.equal(tf.argmax(self._y_conv,1), tf.argmax(self._y_,1))
-            self._accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-            
-            correct_predictionT = tf.equal(tf.argmax(self._y_convT,1), tf.argmax(self._y_,1))
-            self._accuracyT = tf.reduce_mean(tf.cast(correct_predictionT, tf.float32))
         return None
     
     def getFeature(self,test_x,sess):
@@ -69,8 +57,9 @@ class C3DNET:
                 for single_test_x in test_x:
                     y_conv.append(self._y_conv.eval(feed_dict = {self._x:np.reshape(single_test_x,(1,)+single_test_x.shape), self._keep_prob:1})[0])
             y_conv = np.array(y_conv)
+            # top1 accuracy
             top1_accu = np.mean(np.equal(np.argmax(y_conv,1),np.argmax(test_y,1)))
-            
+            # top2 accuracy 
             top2y = np.array([np.argsort(y_conv)[:,-1],np.argsort(y_conv)[:,-2]]).transpose(1,0)
             top2_accu = np.mean([int(np.argmax(y) in t2y) for y,t2y in zip(test_y,top2y)])
         return(top1_accu,top2_accu)
@@ -90,7 +79,6 @@ class C3DNET_2F1C:
         self._x0 = tf.placeholder(tf.float32, (None,16) + frmSize)
         self._x1 = tf.placeholder(tf.float32, (None,16) + frmSize)
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
-        self._featuresT = tf.placeholder(tf.float32,(None,2048*2))
         self._keep_prob = tf.placeholder(tf.float32)
         self._lr = tf.placeholder(tf.float32)
         
@@ -109,57 +97,40 @@ class C3DNET_2F1C:
             features = tf.concat([self._features0, self._features1],1)
             self._classifier = model.Softmax(features,numOfClasses)
             self._y_conv = self._classifier.y_conv
-            scope.reuse_variables()
-            self._classifierT = model.Softmax(self._featuresT,numOfClasses)
-            self._y_convT = self._classifierT.y_conv
         
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
             cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
             #self._train_step = tf.train.AdamOptimizer(learning_rate=0.0001, epsilon=0.01).minimize(cross_entropy)
             self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(cross_entropy)
-            correct_prediction = tf.equal(tf.argmax(self._y_conv,1), tf.argmax(self._y_,1))
-            self._accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-            
-            correct_predictionT = tf.equal(tf.argmax(self._y_convT,1), tf.argmax(self._y_,1))
-            self._accuracyT = tf.reduce_mean(tf.cast(correct_predictionT, tf.float32))
     
     def train(self, train_x0, train_x1, train_y,sess,learning_rate = 1e-4):
         with sess.as_default():
             self._train_step.run(feed_dict={self._lr: learning_rate, self._x0:train_x0, self._x1:train_x1, self._y_:train_y, self._keep_prob:0.5})
         return None
     
-    def evaluate(self, test_x0, test_x1, test_y, sess):
+    def top2Accu(self, test_x0,test_x1,test_y,sess):
         with sess.as_default():
-            if test_x0.ndim == 6:
-                testF0 = np.mean([self._features0.eval(feed_dict={self._x0:xT,self._keep_prob: 1}) for xT in test_x0],0)
-                testF1 = np.mean([self._features1.eval(feed_dict={self._x1:xT,self._keep_prob: 1}) for xT in test_x1],0)
-                testF = np.concatenate((testF0, testF1),1)
-                test_accuracy = self._accuracyT.eval(feed_dict={self._featuresT:testF, self._y_:test_y})
+            y_conv = []
+            if test_x.ndim == 6:
+                for single_test_x0,single_test_x1 in zip(test_x0.transpose(1,0,2,3,4,5),test_x1.transpose(1,0,2,3,4,5)):
+                    y_conv.append(np.mean([self._y_conv.eval(feed_dict = {self._x0:np.reshape(x0, (1,)+x0.shape), \
+                                                                          self._x1:np.reshape(x1, (1,)+x1.shape), \
+                                                                          self._keep_prob:1})[0]/3 \
+                                           for x0,x1 in zip(single_test_x0,single_test_x1)],0))
             else:
-                test_accuracy = self._accuracy.eval(feed_dict={self._x0:test_x0, self._x1:test_x1, self._y_:test_y, self._keep_prob:1})
-        return test_accuracy 
+                for single_test_x0,single_test_x1 in zip(test_x0,test_x1):
+                    y_conv.append(self._y_conv.eval(feed_dict = {self._x0:np.reshape(single_test_x0,(1,)+single_test_x0.shape), \
+                                                                 self._x1:np.reshape(single_test_x1,(1,)+single_test_x1.shape), \
+                                                                 self._keep_prob:1})[0])
+            y_conv = np.array(y_conv)
+            # top1 accuracy
+            top1_accu = np.mean(np.equal(np.argmax(y_conv,1),np.argmax(test_y,1)))
+            # top2 accuracy 
+            top2y = np.array([np.argsort(y_conv)[:,-1],np.argsort(y_conv)[:,-2]]).transpose(1,0)
+            top2_accu = np.mean([int(np.argmax(y) in t2y) for y,t2y in zip(test_y,top2y)])
+        return(top1_accu,top2_accu)
     
-    def test(self, test_x0, test_x1, test_y, sess):
-        if test_x0.ndim == 6:
-            test_accuracy = np.mean([self.evaluate(np.reshape(x0,common.tupleInsert(x0.shape,1,1)), \
-                                                   np.reshape(x1,common.tupleInsert(x1.shape,1,1)), \
-                                                   np.reshape(y,(1,)+y.shape),sess) \
-                                                   for x0,x1,y in zip(test_x0.transpose(1,0,2,3,4,5),test_x1.transpose(1,0,2,3,4,5),test_y)])
-        else:
-            test_accuracy = np.mean([self.evaluate(np.reshape(x0,(1,)+x0.shape),
-                                                   np.reshape(x1,(1,)+x1.shape), \
-                                                   np.reshape(y,(1,)+y.shape),sess) \
-                                                   for x0,x1,y in zip(test_x0,test_x1,test_y)])
-        return test_accuracy 
-    
-    def evaluateProb(self, test_x0, test_x1, sess):
-        with sess.as_default():
-            testF0 = np.mean([self._features0.eval(feed_dict={self._x0:xT,self._keep_prob: 1}) for xT in test_x0],0)
-            testF1 = np.mean([self._features1.eval(feed_dict={self._x1:xT,self._keep_prob: 1}) for xT in test_x1],0)
-            testF = np.concatenate((testF0, testF1),1)
-            test_prob = self._y_convT.eval(feed_dict={self._featuresT:testF})
-        return test_prob
 
 class C3DNET_3F1C:
     def __init__(self, numOfClasses,frmSize):
