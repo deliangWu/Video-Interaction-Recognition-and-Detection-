@@ -85,9 +85,11 @@ class C3DNET:
     
     def evaluateProb(self, test_x, sess):
         with sess.as_default():
-            testF = np.mean([self._features.eval(feed_dict={self._x:xT,self._keep_prob: 1}) for xT in test_x],0)
-            test_prob = self._y_convT.eval(feed_dict={self._featuresT:testF})
-        return np.array(test_prob)
+            if test_x.ndim == 6:
+                y_conv = np.mean([self._y_conv.eval(feed_dict={self._x:xT,self._keep_prob:1})/3 for xT in test_x],0)
+            else:
+                y_conv = self._y_conv.eval(feed_dict={self._x:test_x,self._keep_prob:1})
+        return np.array(y_conv)
     
     def obs(self,test_x,test_y,sess):
         with sess.as_default():
@@ -99,7 +101,7 @@ class C3DNET:
     
     def top2y_accu(self,test_x,test_y,sess):
         with sess.as_default():
-            prob = self.evaluateProb(test_x, sess)
+            prob = np.arrayself.evaluateProb(test_x, sess)
             top2y = np.array([np.argsort(prob)[:,-1],np.argsort(prob)[:,-2]]).transpose(1,0)
             accuracy = np.mean([int(np.argmax(y) in t2y) for y,t2y in zip(test_y,top2y)])
         return accuracy
