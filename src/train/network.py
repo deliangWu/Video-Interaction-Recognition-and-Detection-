@@ -59,37 +59,22 @@ class C3DNET:
             self._train_step.run(feed_dict={self._lr: learning_rate, self._x:train_x, self._y_:train_y, self._keep_prob:0.55})
         return None
     
-    #def evaluate(self, test_x, test_y, sess):
-    #    with sess.as_default():
-    #        if test_x.ndim == 6:
-    #            testF = np.mean([self._features.eval(feed_dict={self._x:xT,self._keep_prob: 1}) for xT in test_x],0)
-    #            test_accuracy = self._accuracyT.eval(feed_dict={self._featuresT:testF, self._y_:test_y})
-    #        else:
-    #            test_accuracy = self._accuracy.eval(feed_dict={self._x:test_x, self._y_:test_y, self._keep_prob: 1})
-    #    return test_accuracy 
-    def evaluate(self, test_x, test_y,sess):
+    def top2Accu(self, test_x,test_y,sess):
         with sess.as_default():
             if test_x.ndim == 6:
-                y_conv = np.mean([self._y_conv.eval(feed_dict={self._x:xT,self._keep_prob:1})/3 for xT in test_x],0)
+                y_conv = []
+                for single_test_x in test_x.transpose(1,0,2,3,4,5):
+                    y_conv = y_conv.append(np.mean([self._y_conv.eval(feed_dict = {self._x:np.reshape(x,(1,)+x.shape), self._keep_prob:1})/3 for x in single_test_x],0))
             else:
-                y_conv = self._y_conv.eval(feed_dict={self._x:test_x,self._keep_prob:1})
-            accuracy = np.mean(np.equal(np.argmax(y_conv,axis=1),np.argmax(test_y,axis=1)))
-        return accuracy
-    
-    def test(self, test_x, test_y, sess):
-        if test_x.ndim == 6:
-            test_accuracy = np.mean([self.evaluate(np.reshape(x,common.tupleInsert(x.shape,1,1)),np.reshape(y,(1,)+y.shape),sess) for x,y in zip(test_x.transpose(1,0,2,3,4,5),test_y)])
-        else:
-            test_accuracy = np.mean([self.evaluate(np.reshape(x,(1,)+x.shape),np.reshape(y,(1,)+y.shape),sess) for x,y in zip(test_x,test_y)])
-        return test_accuracy 
-    
-    def evaluateProb(self, test_x, sess):
-        with sess.as_default():
-            if test_x.ndim == 6:
-                y_conv = np.mean([self._y_conv.eval(feed_dict={self._x:xT,self._keep_prob:1})/3 for xT in test_x],0)
-            else:
-                y_conv = self._y_conv.eval(feed_dict={self._x:test_x,self._keep_prob:1})
-        return np.array(y_conv)
+                y_conv = []
+                for single_test_x in test_x:
+                    y_conv = y_conv.append(self._y_conv.eval(feed_dict = {self._x:np.reshape(single_test_x,(1,)+single_test_x.shape), self._keep_prob:1})[0])
+            y_conv = np.array(y_conv)
+            top1_accu = np.mean(np.equal(np.argmax(y_conv,1),np.argmax(test_y,1)))
+            
+            top2y = np.array([np.argsort(y_conv)[:,-1],np.argsort(y_conv)[:,-2]]).transpose(1,0)
+            top2_accu = np.mean([int(np.argmax(y) in t2y) for y,t2y in zip(test_y,top2y)])
+        return(top1_accu,top2_accu)
     
     def obs(self,test_x,test_y,sess):
         with sess.as_default():
@@ -99,17 +84,6 @@ class C3DNET:
             print(top2y,' vs ',np.argmax(test_y,1))
         return None
     
-    def top2y_accu(self,test_x,test_y,sess):
-        with sess.as_default():
-            prob = np.arrayself.evaluateProb(test_x, sess)
-            top2y = np.array([np.argsort(prob)[:,-1],np.argsort(prob)[:,-2]]).transpose(1,0)
-            accuracy = np.mean([int(np.argmax(y) in t2y) for y,t2y in zip(test_y,top2y)])
-        return accuracy
-           
-            
-            
-    
-
 class C3DNET_2F1C:
     def __init__(self, numOfClasses,frmSize, shareFeatureVariable = True):
         # build the 3D ConvNet
