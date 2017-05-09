@@ -135,7 +135,7 @@ def main(argv):
     else:    
         ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses)
         #seqRange = range(1,11)
-        seqRange = (3,4,7,8,5,9,10,6,2,1)
+        seqRange = (2,3,4,5,8,10)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
@@ -184,7 +184,7 @@ def main(argv):
                         anv_accuracy = np.mean(anvAccuList)
                         if anv_accuracy > best_accuracy:
                             best_accuracy = anv_accuracy
-                        log = "epoch: %d, step: %d, training: %g, loss: %g, testing: %g, t2y: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, loss, test_accuracy, t2y_accu, anv_accuracy, best_accuracy)
+                        log = "seq: %d, epoch: %d, step: %d, training: %g, loss: %g, testing: %g, t2y: %g, anv: %g, best: %g \n"%(seq, epoch, i, train_accuracy, loss, test_accuracy, t2y_accu, anv_accuracy, best_accuracy)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                         if anv_accuracy == 1 or epoch > 30:
