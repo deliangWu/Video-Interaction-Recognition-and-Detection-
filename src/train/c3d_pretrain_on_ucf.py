@@ -65,11 +65,12 @@ def main(argv):
             if i%int(iteration/200) == 0:
                 train_accuracy = c3d.test(train_x, train_y, sess)
                 test_accuracy = c3d.test(test_x, test_y, sess)
+                top2_accu = c3d.top2y_accu(test_x, test_y, sess)
                 if test_accuracy > best_accuracy:
                     best_accuracy = test_accuracy
-                log = "step %d, training accuracy %g and testing accuracy %g , best accuracy is %g \n"%(i, train_accuracy, test_accuracy, best_accuracy)
+                log = "step %d, epoch: %d, training: %g and testing: %g , top2: %g, best accuracy is %g \n"%(i, epoch, train_accuracy, test_accuracy, top2_accu, best_accuracy)
                 common.pAndWf(logName,log)
-                if (test_accuracy == 1) or (i > int(iteration*0.75) and test_accuracy >= best_accuracy):
+                if (test_accuracy == 1) or epoch > 20:
                     break
             if i%int(iteration/10) == 0:
                 saver_feature_g.save(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf_fg.ckpt'))
