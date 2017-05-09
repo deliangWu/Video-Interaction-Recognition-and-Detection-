@@ -64,7 +64,7 @@ class C3DNET:
             y_conv = []
             if test_x.ndim == 6:
                 for single_test_x in test_x.transpose(1,0,2,3,4,5):
-                    y_conv.append(np.mean([self._y_conv.eval(feed_dict = {self._x:np.reshape(x,(1,)+x.shape), self._keep_prob:1})/3 for x in single_test_x],0))
+                    y_conv.append(np.mean([self._y_conv.eval(feed_dict = {self._x:np.reshape(x,(1,)+x.shape), self._keep_prob:1})[0]/3 for x in single_test_x],0))
             else:
                 for single_test_x in test_x:
                     y_conv.append(self._y_conv.eval(feed_dict = {self._x:np.reshape(single_test_x,(1,)+single_test_x.shape), self._keep_prob:1})[0])
