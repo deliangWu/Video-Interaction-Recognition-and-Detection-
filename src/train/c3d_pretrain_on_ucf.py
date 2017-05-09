@@ -20,7 +20,7 @@ def main(argv):
     # define the network
     # ******************************************************
     numOfClasses = 20 
-    frmSize = (112,128,3)
+    frmSize = (112,80,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 32, nof_conv2=128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
     
@@ -60,7 +60,7 @@ def main(argv):
         for i in range(iteration):
             train_x,train_y = ucf_set.loadTrainBatch(batchSize) 
             epoch = ucf_set.getTrainingEpoch()
-            learning_rate = 0.005 * 10**(-int(epoch/4))
+            learning_rate = 0.001 * 2**(-int(epoch/4))
             c3d.train(train_x, train_y, sess,learning_rate=learning_rate)
             if i%int(iteration/200) == 0:
                 train_accuracy = c3d.test(train_x, train_y, sess)
