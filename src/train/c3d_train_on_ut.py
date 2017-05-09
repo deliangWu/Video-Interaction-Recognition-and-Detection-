@@ -176,7 +176,7 @@ def main(argv):
                     #loss = c3d.getLoss(train_x, train_y, sess)
                     #print('step: %d, loss: %g '%(i,loss))
                     if i%int(iteration/50) == 0:
-                        train_accuracy = c3d.test(train_x, train_y, sess)
+                        train_accuracy,_ = c3d.top2Accu(train_x, train_y, sess)
                         loss = c3d.getLoss(train_x, train_y, sess)
                         test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
                         c3d.obs(test_x, test_y, sess)
@@ -197,7 +197,7 @@ def main(argv):
                 saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
                 saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
                 # begin to test
-                test_accuracy = c3d.test(test_x, test_y, sess)
+                test_accuracy,top2_accu = c3d.top2Accu(test_x, test_y, sess)
                 c3d.obs(test_x, test_y, sess)
                 log = "Testing accuracy %g \n"%(test_accuracy)
                 common.pAndWf(logName,log)
