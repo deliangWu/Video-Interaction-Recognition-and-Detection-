@@ -134,8 +134,7 @@ def main(argv):
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:    
         ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses)
-        #seqRange = range(1,11)
-        seqRange = (2,3,4,5,8,10)
+        seqRange = range(1,11)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
@@ -149,19 +148,22 @@ def main(argv):
     common.pAndWf(logName,log)    
     iteration = 1001
     batchSize = 16 
-    for seq in seqRange:
-        with sess.as_default():
-            sess.run(initVars)
-        log = '****************************************\n' \
-            + 'current sequence is ' + str(seq)  + '\n' + \
-              '****************************************\n'
-        common.pAndWf(logName,log)
-        ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
-        ut_set.loadTrainingAll()
-        test_x,test_y = ut_set.loadTesting()
-        test_y = ut.oneHot(test_y,numOfClasses)
-        with sess.as_default():
-            sess.run(initVars)
+    for run in range(10): 
+        print('-------------------------------------------------------------------------')
+        print('-----------------RUN ',run,' --------------------------------------------')
+        print('-------------------------------------------------------------------------')
+        accuSet = []
+        for seq in seqRange:
+            with sess.as_default():
+                sess.run(initVars)
+            log = '****************************************\n' \
+                + 'current sequence is ' + str(seq)  + '\n' + \
+                  '****************************************\n'
+            common.pAndWf(logName,log)
+            ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
+            ut_set.loadTrainingAll()
+            test_x,test_y = ut_set.loadTesting()
+            test_y = ut.oneHot(test_y,numOfClasses)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 best_accuracy = 0
                 epoch = 0
@@ -193,14 +195,10 @@ def main(argv):
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
                 saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
                 common.pAndWf(logName,' \n')
-            else:
-                saver_feature_g.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
-                saver_classifier.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
-                # begin to test
-                test_accuracy,top2_accu = c3d.top2Accu(test_x, test_y, sess)
-                c3d.obs(test_x, test_y, sess)
-                log = "Testing accuracy %g \n"%(test_accuracy)
-                common.pAndWf(logName,log)
+            accuSet.append(anv_accuracy)
+        print(accuSet)
+        print('__________________________________________________________________________________________________')
+        print('__________________________________________________________________________________________________')
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
