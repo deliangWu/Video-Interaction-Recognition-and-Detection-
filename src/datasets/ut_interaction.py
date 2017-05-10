@@ -296,7 +296,7 @@ def oneHot(y,numOfClasses):
 
 if __name__ == '__main__':
     numOfClasses = 6
-    ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
+    ut_set = ut_interaction_set1((112,128,1),numOfClasses=numOfClasses)
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
@@ -305,8 +305,7 @@ if __name__ == '__main__':
             print(i)
             vtr = ut_set.loadTrainingBatch(16)
             for v in vtr[0]:
-                vpp.videoPlay(v)
-                print(v)
+                vpp.videoPlay(v+0.4)
         
         vt = ut_set.loadTesting()
         y = vt[1]
@@ -314,7 +313,7 @@ if __name__ == '__main__':
         print(oneHot(y,numOfClasses))
         for vs in vt[0].transpose(1,0,2,3,4,5):
             for v in vs:
-                vpp.videoPlay(v)
+                vpp.videoPlay(v+0.4)
         
     
 
