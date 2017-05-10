@@ -5,11 +5,6 @@ import cv2
 from functools import reduce
 import time
 
-def edgeImg(img):
-    filter_kernel = np.array([[-1,-1,-1],[-1,8,-1],[-1,-1,-1]])
-    img_conv2d = cv2.filter2D(img, ddepth=-1, kernel=filter_kernel)
-    return img_conv2d
-
 def videoRead(fileName,grayMode=True,downSample = 1):
     cap = cv2.VideoCapture(fileName)
     ret,frame = cap.read()
@@ -17,7 +12,7 @@ def videoRead(fileName,grayMode=True,downSample = 1):
     while(ret):
         if grayMode == True:
             frame = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-        video.append(edgeImg(frame))
+        video.append(frame)
         ret,frame = cap.read()
     video = np.array(video)
     video = video[range(0,video.shape[0],downSample)]
