@@ -149,10 +149,12 @@ def main(argv):
     iteration = 1001
     batchSize = 16 
     for run in range(10): 
-        print('-------------------------------------------------------------------------')
-        print('-----------------RUN ',run,' --------------------------------------------')
-        print('-------------------------------------------------------------------------')
+        log = '-------------------------------------------------------------------------\n' \
+            + '---------------------------- RUN ' + str(run) + ' ------------------------------\n' \
+            + '-------------------------------------------------------------------------\n'
+        common.pAndWf(logName,log)
         accuSet = []
+        t2accuSet = []
         for seq in seqRange:
             with sess.as_default():
                 sess.run(initVars)
@@ -189,16 +191,19 @@ def main(argv):
                         log = "seq: %d, epoch: %d, step: %d, training: %g, loss: %g, testing: %g, t2y: %g, anv: %g, best: %g \n"%(seq, epoch, i, train_accuracy, loss, test_accuracy, t2y_accu, anv_accuracy, best_accuracy)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        if test_accuracy == 1 or epoch > 25:
+                        if test_accuracy == 1 or epoch >= 30:
                             break
                     i+=1
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
                 saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
                 common.pAndWf(logName,' \n')
-            accuSet.append(anv_accuracy)
-        print(accuSet)
-        print('__________________________________________________________________________________________________')
-        print('__________________________________________________________________________________________________')
+            accuSet.append(test_accuracy)
+            t2accuSet.append(t2y_accu)
+        log = 'The list of Classification Accuracy: ' + str(accuSet) + \
+              '\n ' + str(t2accuSet) + \
+              '\n Mean Classification Accuracy is ' + str(np.mean(accuSet)) + ', and top2 mean accuracy is ' + str(np.mean(t2accuSet)) + '\n' + \
+              '__________________________________________________________________________________________________\n \n'
+        common.pAndWf(logName,log)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
