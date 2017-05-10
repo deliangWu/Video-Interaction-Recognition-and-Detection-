@@ -70,7 +70,7 @@ class FeatureDescriptor:
                 h_conv4a = tf.nn.relu(conv3d(h_pool3, W_conv4a) + b_conv4a)
             with tf.variable_scope('conv4b'):
                 W_conv4b = weight_variable([3,3,3,numOfFilters_conv4,numOfFilters_conv4])
-                b_conv4b = bias_variable([numOfFilters_conv4b])
+                b_conv4b = bias_variable([numOfFilters_conv4])
                 h_conv4b = tf.nn.relu(conv3d(h_conv4a, W_conv4b) + b_conv4b)
                 h_pool4 = max_pool3d_2x2x2(h_conv4b)    
         
