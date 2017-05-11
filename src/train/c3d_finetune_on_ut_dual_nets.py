@@ -86,16 +86,17 @@ def main(argv):
                 train_x0,train_x1,train_y = ut_set.loadTrainingBatch(batchSize)
                 learning_rate = 0.0005 * 2**(-int(epoch/6))
                 c3d.train(train_x0, train_x1, train_y, sess, learning_rate=learning_rate)
-                if i%int(iteration/200) == 0:
+                if i%20 == 0:
                     train_accuracy,_ = c3d.top2Accu(train_x0, train_x1, train_y, sess)
                     test_accuracy,toy2_accu = c3d.top2Accu(test_x0, test_x1, test_y, sess)
+                    loss = c3d.getLoss(test_x0, test_x1, test_y, sess)
                     anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                     anv_accuracy = np.mean(anvAccuList)
                     if anv_accuracy > best_accuracy:
                         best_accuracy = anv_accuracy
-                    log = "Epoch: %d, step: %d, training: %g, testing: %g, top2: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, test_accuracy, toy2_accu, anv_accuracy, best_accuracy)
+                    log = "Epoch: %d, step: %d, training: %g, loss: %g, testing: %g, top2: %g, anv: %g, best: %g \n"%(epoch, i, train_accuracy, loss, test_accuracy, toy2_accu, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
-                    if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
+                    if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy) or epoch >= 30:
                         break
             save_path_fa0 = saver_feature_a0.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa0.ckpt'))
             save_path_fa1 = saver_feature_a1.save(sess,join(common.path.variablePath, savePrefix + str(seq) +'_fa1.ckpt'))

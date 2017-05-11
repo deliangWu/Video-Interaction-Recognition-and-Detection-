@@ -104,12 +104,16 @@ class C3DNET_2F1C:
             #self._train_step = tf.train.AdamOptimizer(learning_rate=0.0001, epsilon=0.01).minimize(cross_entropy)
             self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(cross_entropy)
     
+    
     def train(self, train_x0, train_x1, train_y,sess,learning_rate = 1e-4):
         with sess.as_default():
             self._train_step.run(feed_dict={self._lr: learning_rate, self._x0:train_x0, self._x1:train_x1, self._y_:train_y, self._keep_prob:0.5})
         return None
     
-    def top2Accu(self, test_x0,test_x1,test_y,sess):
+    def getLoss(self,test_x0, test_x1,test_y,sess):
+        return self._cross_entropy.eval(feed_dict={self._x0:test_x0, self._x1:test_x1, self._y_:test_y,self._keep_prob:1},session=sess)
+    
+    def top2Accu(self, test_x0, test_x1,test_y,sess):
         with sess.as_default():
             y_conv = []
             if test_x0.ndim == 6:
