@@ -18,6 +18,7 @@ def Label(fileName):
 class ut_interaction:
     def __init__(self,paths,frmSize,numOfClasses = 6):
         self._frmSize = frmSize
+        self._numOfClasses = numOfClasses
         self._filesSet = np.empty((0,3)) 
         self._trainingFilesSet= []
         self._testingFilesSet= []
@@ -42,7 +43,7 @@ class ut_interaction:
             self.loadTrainingAll()
         return None
     
-    def loadTrainingAll(self, shuffleEn = True):
+    def loadTrainingAll(self, shuffleEn = True,oneHotLabelMode=False):
         cnt_file = 0
         for file in self._trainingFilesSet:
             video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True)
@@ -59,8 +60,8 @@ class ut_interaction:
             np.random.shuffle(perm)
             self._trainingVideos = self._trainingVideos[perm]
             self._trainingLabels = self._trainingLabels[perm]
-        self._trainingMeanVal = np.mean(self._trainingVideos)
-        self._trainingVideos = self._trainingVideos - self._trainingMeanVal 
+        if oneHotLabelMode is True:
+            self._trainingLabels = oneHot(self._trainingLabels, self._numOfClasses)
         return None 
     
     def getTrainingSet(self):
@@ -88,7 +89,7 @@ class ut_interaction:
         end = self._trainingPointer
         return(self._trainingVideos[start:end],self._trainingLabels[start:end])
     
-    def loadTesting(self):
+    def loadTesting(self,oneHotLabelMode = False):
         testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
         #testLabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         testLabels = np.empty((0,1),dtype=np.float32)        
@@ -108,7 +109,8 @@ class ut_interaction:
                 testVideos = np.append(testVideos,video,axis=0)
                 #testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)
                 testLabels = np.append(testLabels,np.reshape(int(file[2]),(1,1)),axis=0)
-        testVideos = testVideos - self._trainingMeanVal 
+        if oneHotLabelMode is True:
+            testLabels = oneHot(testLabels, self._numOfClasses)
         return (testVideos.transpose(1,0,2,3,4,5),testLabels)    
     
     def getFileList(self):
@@ -130,10 +132,10 @@ class ut_interaction_atomic:
         #self.loadTrainingAll()
         return None
     
-    def loadTrainingAll(self):
-        self._ut_a0.loadTrainingAll(shuffleEn=False)
+    def loadTrainingAll(self,oneHotLabelMode=False):
+        self._ut_a0.loadTrainingAll(shuffleEn=False,oneHotLabelMode=oneHotLabelMode)
         self._trainingSet_a0 = self._ut_a0.getTrainingSet()
-        self._ut_a1.loadTrainingAll(shuffleEn=False)
+        self._ut_a1.loadTrainingAll(shuffleEn=False,oneHotLabelMode=oneHotLabelMode)
         self._trainingSet_a1 = self._ut_a1.getTrainingSet()
         assert self._trainingSet_a0[0].shape == self._trainingSet_a1[0].shape, 'Error, the shape of two set is mismatch!'
         assert np.array_equal(self._trainingSet_a0[1],self._trainingSet_a1[1]), 'Error, the lable of two set is mismatch!'
@@ -158,9 +160,9 @@ class ut_interaction_atomic:
         end = self._trainingPointer
         return(self._trainingSet_a0[0][start:end],self._trainingSet_a1[0][start:end],self._trainingSet_a0[1][start:end])
         
-    def loadTesting(self):
-        [testVideos_a0, testLables_a0] = self._ut_a0.loadTesting()
-        [testVideos_a1, testLables_a1] = self._ut_a1.loadTesting()
+    def loadTesting(self,oneHotLabelMode=False):
+        [testVideos_a0, testLables_a0] = self._ut_a0.loadTesting(oneHotLabelMode=oneHotLabelMode)
+        [testVideos_a1, testLables_a1] = self._ut_a1.loadTesting(oneHotLabelMode=oneHotLabelMode)
         assert testVideos_a0.shape == testVideos_a1.shape, 'Error, the video shape between two set is mismatch!'
         assert np.array_equal(testLables_a0, testLables_a1), "Error, the lable between two set is mismatch!"
         return(testVideos_a0, testVideos_a1, testLables_a0)
@@ -296,24 +298,13 @@ def oneHot(y,numOfClasses):
 
 if __name__ == '__main__':
     numOfClasses = 6
-    ut_set = ut_interaction_set1((112,128,1),numOfClasses=numOfClasses)
-    for seq in range(1,11):
+    ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
+    for seq in (1,8):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
-        ut_set.loadTrainingAll()
-        for i in range(10):
-            print(i)
-            vtr = ut_set.loadTrainingBatch(16)
-            for v in vtr[0]:
-                vpp.videoPlay(v+0.4)
-        
-        vt = ut_set.loadTesting()
-        y = vt[1]
-        print(y)
-        print(oneHot(y,numOfClasses))
-        for vs in vt[0].transpose(1,0,2,3,4,5):
-            for v in vs:
-                vpp.videoPlay(v+0.4)
+        tx,ty = ut_set.loadTesting(oneHotLabelMode=True)
+        print(ty)
+        vpp.videoPlay(tx.transpose(1,0,2,3,4,5),fps=2)
         
     
 

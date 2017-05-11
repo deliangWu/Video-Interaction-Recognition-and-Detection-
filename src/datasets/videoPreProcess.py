@@ -26,6 +26,7 @@ def videoNorm(videoIn):
 
 def videoPlay(video,fps = 25):
     cv2.namedWindow('Video Player',cv2.WINDOW_AUTOSIZE)
+    video = np.reshape(video,(-1,)+video.shape[-3:])
     for i,img in enumerate(video):
         img_show = img.copy()
         cv2.putText(img_show, str(i), (20,20), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255,0,0), 1, cv2.LINE_AA)
