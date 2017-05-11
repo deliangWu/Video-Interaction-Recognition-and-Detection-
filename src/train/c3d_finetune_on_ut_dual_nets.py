@@ -32,13 +32,13 @@ def main(argv):
         if len(argv) >= 3 and argv[2] == 'ShareFeatureVariable':
             savePrefix = 'c3d_finetune_on_ut_dual_nets_shareVars_'
             log = time.ctime() + ' Finetune the dual-nets model with two sharing feature variables on UT-Interaction '
-            c3d = network.C3DNET_2F1C(numOfClasses, frmSize,nof_conv1=32, nof_conv2=128, nof_conv3=256, nof_conv4=512,noo_fc6=4096,noo_fc7=8192)
+            c3d = network.C3DNET_2F1C(numOfClasses, frmSize,nof_conv1=32, nof_conv2=128, nof_conv3=256, nof_conv4=512,noo_fc6=4096,noo_fc7=4096)
             saver_feature_a0 = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_a0_VarsList])
             saver_classifier_2f1c = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_2f1c_VarsList])
         else:
             savePrefix = 'c3d_finetune_on_ut_dual_nets_unShareVars_'
             log = time.ctime() + ' Finetune the dual-nets model with two independent feature variables on UT-Interaction '
-            c3d = network.C3DNET_2F1C(numOfClasses, frmSize, nof_conv1=32, nof_conv2=128, nof_conv3=256, nof_conv4=512,noo_fc6=4096,noo_fc7=8192, shareFeatureVariable= False)
+            c3d = network.C3DNET_2F1C(numOfClasses, frmSize, nof_conv1=32, nof_conv2=128, nof_conv3=256, nof_conv4=512,noo_fc6=4096,noo_fc7=4096, shareFeatureVariable= False)
             saver_feature_a0 = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_a0_VarsList])
             saver_feature_a1 = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_a1_VarsList])
             saver_classifier_2f1c = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_2f1c_VarsList])
