@@ -111,7 +111,11 @@ class C3DNET_2F1C:
         return None
     
     def getLoss(self,test_x0, test_x1,test_y,sess):
-        return self._cross_entropy.eval(feed_dict={self._x0:test_x0, self._x1:test_x1, self._y_:test_y,self._keep_prob:1},session=sess)
+        if test_x0.ndim == 6:
+            return self._cross_entropy.eval(feed_dict={self._x0:test_x0[1], self._x1:test_x1[1], self._y_:test_y,self._keep_prob:1},session=sess)
+        else:
+            return self._cross_entropy.eval(feed_dict={self._x0:test_x0, self._x1:test_x1, self._y_:test_y,self._keep_prob:1},session=sess)
+            
     
     def top2Accu(self, test_x0, test_x1,test_y,sess):
         with sess.as_default():
