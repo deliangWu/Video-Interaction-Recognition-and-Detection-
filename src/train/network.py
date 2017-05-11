@@ -73,7 +73,7 @@ class C3DNET:
         return None
     
 class C3DNET_2F1C:
-    def __init__(self, numOfClasses,frmSize, shareFeatureVariable = True, nof_conv1,nof_conv2,nof_conv3,nof_conv4,noo_fc6,noo_fc7):
+    def __init__(self, numOfClasses,frmSize, nof_conv1,nof_conv2,nof_conv3,nof_conv4,noo_fc6,noo_fc7, shareFeatureVariable = True):
         # build the 3D ConvNet
         # define the input and output variables
         self._x0 = tf.placeholder(tf.float32, (None,16) + frmSize)
