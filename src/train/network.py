@@ -73,7 +73,7 @@ class C3DNET:
         return None
     
 class C3DNET_2F1C:
-    def __init__(self, numOfClasses,frmSize, shareFeatureVariable = True):
+    def __init__(self, numOfClasses,frmSize, shareFeatureVariable = True, nof_conv1,nof_conv2,nof_conv3,nof_conv4,noo_fc6,noo_fc7):
         # build the 3D ConvNet
         # define the input and output variables
         self._x0 = tf.placeholder(tf.float32, (None,16) + frmSize)
@@ -84,9 +84,9 @@ class C3DNET_2F1C:
         
         if shareFeatureVariable == True:
             with tf.variable_scope('feature_descriptor_a0') as scope:
-                self._features0 = model.FeatureDescriptor.c3d(self._x0,frmSize,self._keep_prob)
+                self._features0 = model.FeatureDescriptor.c3d(self._x0,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7)
                 scope.reuse_variables()
-                self._features1 = model.FeatureDescriptor.c3d(self._x1,frmSize,self._keep_prob)
+                self._features1 = model.FeatureDescriptor.c3d(self._x1,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7)
         else:
             with tf.variable_scope('feature_descriptor_a0') as scope:
                 self._features0 = model.FeatureDescriptor.c3d(self._x0,frmSize,self._keep_prob)
