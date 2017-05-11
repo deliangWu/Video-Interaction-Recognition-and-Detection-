@@ -134,8 +134,8 @@ def main(argv):
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:    
         ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses)
-        #seqRange = range(1,11)
-        seqRange = (1,8)
+        seqRange = range(1,11)
+        #seqRange = (1,8)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
@@ -176,8 +176,8 @@ def main(argv):
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                     train_y = ut.oneHot(train_y,numOfClasses)
                     epoch = ut_set.getEpoch()
-                    #learning_rate = 0.0001 * 2**(-int(epoch/4))
-                    learning_rate = 0.0001
+                    learning_rate = 0.0001 * 2**(-int(epoch/8))
+                    #learning_rate = 0.0001
                     c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
                     #loss = c3d.getLoss(train_x, train_y, sess)
                     #print('step: %d, loss: %g '%(i,loss))
