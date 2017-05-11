@@ -100,9 +100,9 @@ class C3DNET_2F1C:
         
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
-            cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
+            self._cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
             #self._train_step = tf.train.AdamOptimizer(learning_rate=0.0001, epsilon=0.01).minimize(cross_entropy)
-            self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(cross_entropy)
+            self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(self._cross_entropy)
     
     
     def train(self, train_x0, train_x1, train_y,sess,learning_rate = 1e-4):
