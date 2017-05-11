@@ -112,7 +112,7 @@ class C3DNET_2F1C:
     def top2Accu(self, test_x0,test_x1,test_y,sess):
         with sess.as_default():
             y_conv = []
-            if test_x.ndim == 6:
+            if test_x0.ndim == 6:
                 for single_test_x0,single_test_x1 in zip(test_x0.transpose(1,0,2,3,4,5),test_x1.transpose(1,0,2,3,4,5)):
                     y_conv.append(np.mean([self._y_conv.eval(feed_dict = {self._x0:np.reshape(x0, (1,)+x0.shape), \
                                                                           self._x1:np.reshape(x1, (1,)+x1.shape), \

@@ -84,9 +84,6 @@ def main(argv):
             for i in range(iteration):
                 epoch = ut_set.getEpoch()
                 train_x0,train_x1,train_y = ut_set.loadTrainingBatch(batchSize)
-                print(train_x0.shape)
-                print(train_x1.shape)
-                print(train_y.shape)
                 learning_rate = 0.0005 * 2**(-int(epoch/6))
                 c3d.train(train_x0, train_x1, train_y, sess, learning_rate=learning_rate)
                 if i%int(iteration/200) == 0:
