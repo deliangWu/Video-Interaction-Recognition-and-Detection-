@@ -149,7 +149,7 @@ def videoRezise(videoIn,frmSize):
     return videoOut
 
 
-def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
+def videoProcess(fileName,frmSize,downSample = 1, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=downSample)
     if vIn is not None:
         vRS = videoRezise(vIn,frmSize)
