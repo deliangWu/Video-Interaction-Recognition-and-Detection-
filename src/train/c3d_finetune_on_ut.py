@@ -9,6 +9,7 @@ sys.path.insert(1,'../model')
 sys.path.insert(1,'../common')
 import ut_interaction as ut
 import model
+import videoPreProcess as vpp
 import common
 import network
 import time

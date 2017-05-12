@@ -304,9 +304,9 @@ if __name__ == '__main__':
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
         tx,ty = ut_set.loadTesting(oneHotLabelMode=True)
         print(ty)
-        vpp.videoPlay(tx.transpose(1,0,2,3,4,5),fps=2)
+        vpp.videoPlay(tx.transpose(1,0,2,3,4,5),fps=10)
         
-    
+   
 
 
 

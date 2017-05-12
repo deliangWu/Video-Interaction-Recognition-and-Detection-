@@ -15,7 +15,9 @@ def videoRead(fileName,grayMode=True,downSample = 1):
         video.append(frame)
         ret,frame = cap.read()
     video = np.array(video)
-    video = video[range(0,video.shape[0],downSample)]
+    print(video.shape)
+    if video.shape[0] > 64:
+        video = video[range(0,video.shape[0],downSample)]
     return np.array(video) 
     
 def videoNorm(videoIn):
@@ -149,7 +151,7 @@ def videoRezise(videoIn,frmSize):
     return videoOut
 
 
-def videoProcess(fileName,frmSize,downSample = 1, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
+def videoProcess(fileName,frmSize,downSample = 4, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1,downSample=downSample)
     if vIn is not None:
         vRS = videoRezise(vIn,frmSize)
