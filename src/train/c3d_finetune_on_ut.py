@@ -19,8 +19,8 @@ def main(argv):
     # ***********************************************************
     numOfClasses = 6 
     frmSize = (112,80,3)
-    with tf.variable_scope('atomic_action_features') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize)
+    with tf.variable_scope('top') as scope:
+        c3d = network.C3DNET(numOfClasses, frmSize, nof_conv1= 32, nof_conv2=128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
     
     # ***********************************************************
     # define session
@@ -54,21 +54,25 @@ def main(argv):
     for seq in seqRange:
         with sess.as_default():
             sess.run(initVars)
-        saver = tf.train.Saver()
+        saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
+        saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
+        #saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_pretrain_on_ucf_fg.ckpt'))
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
               '****************************************\n'
         common.pAndWf(logName,log)
         ut_set.splitTrainingTesting(seq)
-        test_x,test_y = ut_set.loadTesting()
+        ut_set.loadTrainingAll(oneHotLabelMode=True)
+        test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True)
         if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
             best_accuracy = 0
             anvAccuList = np.zeros((10))
             for i in range(iteration):
                 train_x,train_y = ut_set.loadTrainingBatch(batchSize)
+                c3d.train(train_x, train_y, sess)
                 if i%int(iteration/200) == 0:
-                    train_accuracy = c3d.test(train_x, train_y, sess)
-                    test_accuracy = c3d.test(test_x, test_y, sess)
+                    train_accuracy,_ = c3d.top2Accu(train_x, train_y, sess)
+                    test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
                     anvAccuList = np.append(anvAccuList[1:10],test_accuracy)
                     anv_accuracy = np.mean(anvAccuList)
                     if anv_accuracy > best_accuracy:
@@ -76,9 +80,8 @@ def main(argv):
                     log = "step %d, training: %g, testing: %g, anv: %g, best %g \n"%(i, train_accuracy, test_accuracy, anv_accuracy, best_accuracy)
                     common.pAndWf(logName,log)
                     if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        save_path = saver.save(sess,join(common.path.variablePath, savePrefix  + str(seq) +'.ckpt'))
                         break
-                c3d.train(train_x, train_y, sess)
+            save_path = saver.save(sess,join(common.path.variablePath, savePrefix  + str(seq) +'.ckpt'))
             common.pAndWf(logName,' \n')
         else:
             variableName = savePrefix + str(seq) + '.ckpt'
