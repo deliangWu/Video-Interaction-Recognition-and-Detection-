@@ -299,7 +299,7 @@ def oneHot(y,numOfClasses):
 if __name__ == '__main__':
     numOfClasses = 6
     ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
-    for seq in (1,8):
+    for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
         tx,ty = ut_set.loadTesting(oneHotLabelMode=True)

@@ -15,9 +15,9 @@ def videoRead(fileName,grayMode=True,downSample = 1):
         video.append(frame)
         ret,frame = cap.read()
     video = np.array(video)
-    print(video.shape)
-    if video.shape[0] > 64:
-        video = video[range(0,video.shape[0],downSample)]
+    video = video[range(0,video.shape[0],int(video.shape[0]/16))]
+    #if video.shape[0] > 64:
+    #    video = video[range(0,video.shape[0],downSample)]
     return np.array(video) 
     
 def videoNorm(videoIn):
