@@ -1,0 +1,25 @@
+\select@language {english}
+\par \penalty \@M \textbf {{\scshape Figure} \hfill Page}\par \penalty \@M 
+\addvspace {10pt}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Illustration of some challenges of video analysis. }}{3}{figure.1.1}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The hierarchical activity recognition model and an example. Reprinted from \cite {choi2012}.}}{6}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces The SIFT descriptor. The left image shows the 2D SIFT descriptor. The center image shows how multiple 2D SIFT descriptor could be used on a video without modification to the original method. The right image shows the 3D SIFT descriptor with its 3D sub-volumes, each sub-volume is accumulated into its own sub-histogram. These histograms are what makes up the final descriptor. Reprinted from \cite {grepory2010}.}}{8}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Overview of 3D-HOG descriptor computation; (a) the support region around a point of interest is divided into a grid of gradient orientation histograms; (b) each histogram is computed over a grid of mean gradients; (c) each gradient orientation is quantized using regular polyhedrons; (d) each mean gradient is computed using integral videos. Reprinted from \cite {alex2008}.}}{9}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Illustration of DT algorithm to extract and characterize dense trajectories. Left: Feature points are densely sampled on a grid for each spatial scale. Middle: Tracking is carried out in the corresponding spatial scale for L frames by median filtering in a dense optical flow field. Right: The trajectory shape is represented by relative point coordinates, and the descriptors (HOG, HOF, MBH) are computed along the trajectory in a \(N * N\) pixels neighbourhood, which is divided into \(n\sigma * n\sigma * n\tau \) cells. Reprinted from \cite {wang2012}.}}{10}{figure.2.4}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces The architecture of a CNN example: LeNet5. Reprinted from \cite {cnn}.}}{12}{figure.2.5}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces The intuitive illustration of convolution over image.}}{12}{figure.2.6}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Explored approaches for fusing information over temporal dimension through the network. Red, green and blue boxes indicate convolutional, normalization and pooling layers respectively. In the Slow Fusion model, the depicted columns share parameters. Reprinted from \cite {karpathy2014}.}}{14}{figure.2.7}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces The architecture of Two Stream ConvNet. Reprinted from \cite {simonyan2014}.}}{14}{figure.2.8}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces 2D and 3D convolution operations. a) Applying 2D convolution on an image results in an image. b) Applying 2D convolution on a video volume (multiple frames as multiple channels) also results in an image. c) Applying 3D convolution on a video volume results in another volume, preserving temporal information of the input signal. Reprinted from \cite {Tran2015}.}}{15}{figure.2.9}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces The architecture of C3D. C3D has 8 convolution, 5 max-pooling, and 2 full connected layers, followed by a softmax output layer. All 3D convolution kernels are \(3 \times 3 \times 3\) with stride 1 in both spatial and temporal dimensions. Number of filters are denoted in each box. The 3D pooling layers are denoted from pool1 to pool5. All pooling kernels are \(2 \times 2 \times 2\) except for pool1 is \(1 \times 2 \times 2\). Each fully connected layer has 4096 output units. Reprinted from \cite {Tran2015}.}}{15}{figure.2.10}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Visualization of C3D model. Interestingly, C3D captures appearance for the first few frames but thereafter only attends to salient motion. Reprinted from \cite {Tran2015}.}}{15}{figure.2.11}
+\addvspace {10pt}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Overall framework. }}{20}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Illustration of Person detection }}{21}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Overall Architecture of 3D-ConvNet. }}{22}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Overall Architecture of Two-Stream ConvNet. }}{23}{figure.3.4}
+\addvspace {10pt}
+\addvspace {10pt}
+\addvspace {10pt}
+\addvspace {10pt}

@@ -1,0 +1,37 @@
+\select@language {english}
+\par \penalty \@M \unhbox \voidb@x \hbox {}\hfill {\nag@@warning@vi \bfseries Page}\par \penalty \@M 
+\contentsline {chapter}{List of Tables}{vii}{section*.3}
+\contentsline {chapter}{List of Figures}{ix}{section*.4}
+\contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Project Goals}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}Contributions}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}Outline}{4}{section.1.4}
+\contentsline {chapter}{\chapternumberline {2}Related Work}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Architectures of Interaction video analysis related works}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Hand-crafted Feature Descriptor}{7}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}3D-SIFT Feature Descriptor}{7}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}3D-HOG Feature descriptor}{8}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Improved Dense Trajectories feature descriptor}{9}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Deep Learning Based Feature Descriptor}{11}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Spatial-Temporal CNNs feature descriptor}{13}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Two-Stream ConvNet feature descriptor}{13}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}3D ConvNet feature descriptor}{14}{subsection.2.3.3}
+\contentsline {section}{\numberline {2.4}Datasets}{16}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}List of human activity video datasets}{16}{subsection.2.4.1}
+\contentsline {chapter}{\chapternumberline {3}Architecture}{19}{chapter.3}
+\contentsline {section}{\numberline {3.1}Overall Framework}{19}{section.3.1}
+\contentsline {section}{\numberline {3.2}Person Detection}{20}{section.3.2}
+\contentsline {section}{\numberline {3.3}Feature Descriptors}{21}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}3D-ConvNet}{22}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Two-Stream ConvNet}{22}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Training}{22}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Train Person Detection Network}{23}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Train 3D-ConvNet}{23}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Train The SVM Classifier}{24}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Testing}{24}{section.3.5}
+\contentsline {chapter}{\chapternumberline {4}Design}{25}{chapter.4}
+\contentsline {chapter}{\chapternumberline {5}Experimental Results}{27}{chapter.5}
+\contentsline {chapter}{\chapternumberline {6}Conclusion}{29}{chapter.6}
+\contentsline {appendix}{\chapternumberline {A}Appendix A}{31}{appendix.A}
+\contentsline {chapter}{Bibliography}{33}{section*.6}

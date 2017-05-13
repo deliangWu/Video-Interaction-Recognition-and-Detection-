@@ -1,0 +1,160 @@
+\begin{thebibliography}{10}
+
+\bibitem{3dcnn_1}
+{\sc M.~Baccouche, F.~Mamalet, C.~Wolf, C.~Garcia, and A.~Baskurt}, {\em
+  Sequential deep learning for human action recognition}, Springer,  (2011),
+  pp.~29 -- 39.
+
+\bibitem{choi2012}
+{\sc W.~Choi and S.~Savarese}, {\em A unified framework for multi-target
+  tracking and collective activity recognition}, ECCV,  (2012).
+
+\bibitem{hog}
+{\sc N.~Dalal and B.~Triggs}, {\em Histograms of oriented gradients for human
+  detection}, CVPR,  (2005).
+
+\bibitem{inria_person}
+{\sc N.~Dalal and B.~Triggs}, {\em Histograms of oriented gradients for human
+  detection}, CVPR,  (2005).
+
+\bibitem{hof}
+{\sc N.~Dalal, B.~Triggs, and C.~Schmid}, {\em Human detection using oriented
+  histograms of flow and appearance}, ECCV,  (2006).
+
+\bibitem{bov}
+{\sc P.~Dollar, V.~Rabaud, G.~Cottrell, and S.~Belongie}, {\em Human detection
+  using oriented histograms of flow and appearance}, VS-PETS,  (2005).
+
+\bibitem{grepory2010}
+{\sc G.~Flitton, T.~Breckon, and N.~Megherbi~Bouallagu}, {\em Object
+  recognition using 3d sift in complex ct volumes}, Proceedings of the British
+  Machine Vision Conference,  (2010), pp.~11.1--11.12.
+
+\bibitem{kaiming}
+{\sc K.~He, X.~Zhang, S.~Ren, and J.~Sun}, {\em Delving deep into rectifiers:
+  Surpassing human-level performance on imagenet classification}, ICCV,
+  (2015), pp.~1026-- 1034.
+
+\bibitem{activitynet200}
+{\sc F.~C. Heilbron, V.~Escorcia, and B.~Ghanem}, {\em Activitynet: A
+  large-scale video benchmark for human activity understanding}, CVPR,  (2015).
+
+\bibitem{Ji2013}
+{\sc S.~Ji, W.~Xu, M.~Yang, and K.~Yu}, {\em 3d convolutional neural networks
+  for human action recognition}, IEEE TPAMI,  (2013).
+
+\bibitem{karpathy2014}
+{\sc A.~Karpathy, G.~Toderici, S.~Shetty, T.~Leung, R.~Sukthankar, and
+  L.~Fei-Fei}, {\em Large-scale video classification with convolutional neural
+  networks}, CVPR,  (2014).
+
+\bibitem{alex2008}
+{\sc A.~Klaser, M.~Marszalek, and C.~Schmid}, {\em A spatio-temporal descriptor
+  based on 3d-gradients}, British Machine Vision Association,  (2008),
+  pp.~275:1--10.
+
+\bibitem{yu}
+{\sc Y.~Kong, Y.~Jia, and Y.~Fu}, {\em Learning human interaction by
+  interactive phrases}, ECCV,  (2012).
+
+\bibitem{kriz2012}
+{\sc A.~Krizhevsky, I.~Sutskever, and G.~E. Hinton}, {\em Imagenet
+  classification with deep convolutional neural networks}, NIPS,  (2012).
+
+\bibitem{cnn}
+{\sc Y.~LeCun, L.~Bottou, Y.~Bengio, and P.~Haffner}, {\em Gradient based
+  learning applied to document recognition}, IEEE,  (1998).
+
+\bibitem{lowe1999}
+{\sc D.~G. Lowe}, {\em Object recognition from local scale-invariant features},
+  ICCV,  (1999).
+
+\bibitem{lowe2004}
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em Distinctive image
+  features from scale-invariant keypoints}, IJCV,  (2004).
+
+\bibitem{marszalek09}
+{\sc M.~Marsza{\l}ek, I.~Laptev, and C.~Schmid}, {\em Actions in context},
+  CVPR,  (2009).
+
+\bibitem{narayan2014}
+{\sc S.~Narayan, M.~S. Kankanhalli, and K.~R. Ramakrishnan}, {\em Action and
+  interaction recognition in first-person videos}, CVPR,  (2014).
+
+\bibitem{Ng2015}
+{\sc J.~Y.-H. Ng, M.~Hausknecht, S.~Vijayanarasimhan, O.~Vinyals, R.~Monga, and
+  G.~Toderici}, {\em Beyond short snippets: Deep networks for video
+  classification}, CVPR,  (2015).
+
+\bibitem{ning2005}
+{\sc F.~Ning, D.~Delhomme, Y.~LeCun, F.~P.~L. Bottou, and P.~E. Barbano}, {\em
+  Toward automatic phenotyping of developing embryos from videos}, IEEE Trans.
+  on Image Processing,  (2005), pp.~1360--1371.
+
+\bibitem{aslan}
+{\sc L.~W. Orit Kliper-Gross, Orit Kliper-Gross}, {\em The action similarity
+  labeling challenge}, IEEE Transactions on Pattern Analysis and Machine
+  Intelligence,  (2012), pp.~615--621.
+
+\bibitem{patron2010}
+{\sc A.~Patron-Perez, M.~Marszalek, A.~Zisserman, and I.~Reid}, {\em High five:
+  Recognising human interactions in tv shows}, BMVC,  (2010).
+
+\bibitem{ut2010}
+{\sc M.~S. Ryoo and J.~K. Aggarwal}, {\em Ut-interaction dataset},  (2010).
+
+\bibitem{kth}
+{\sc C.~Schuldt, I.~Laptev, and B.~Caputo}, {\em Recognizing human actions: A
+  local svm approach}, ICPR,  (2004).
+
+\bibitem{paul2007}
+{\sc P.~Scovanner, S.~Ali, and M.~Shah}, {\em A 3-dimensional sift descriptor
+  and its application to action recognition}, 15th ACM,  (2007), pp.~357--360.
+
+\bibitem{simonyan2014}
+{\sc K.~Simonyan and A.~Zisserman}, {\em Two-stream convolutional networks for
+  action recognition in videos}, CVPR,  (2014).
+
+\bibitem{ucf101}
+{\sc K.~Soomro, A.~R. Zamir, and M.~Shah}, {\em Ucf101: A dataset of 101 human
+  actions classes from videos in the wild}, CRCV-TR,  (2012).
+
+\bibitem{Tran2015}
+{\sc D.~Tran, L.~Bourdev, R.~Fergus, L.~Torresani, and M.~Paluri}, {\em
+  Learning spatiotemporal features with 3d convolutional networks}, ICCV,
+  (2015).
+
+\bibitem{Gemeren2015}
+{\sc C.~van Gemeren, R.~Poppe, and R.~C. Veltkamp}, {\em Spatio-temporal
+  detection of fine-grained dyadic human interactions}, Human Behavior
+  Understanding. HBU 2016. Lecture Notes in Computer Science, vol 9997.
+  Springer, Cham,  (2016).
+
+\bibitem{shakefive2}
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em Spatio-temporal
+  detection of fine-grained dyadic human interactions}, 7th International
+  Workshop on Human Behavior Understanding 2016,  (2016), pp.~116--133.
+
+\bibitem{wang2012}
+{\sc H.~Wang, A.~Klaser, C.~Schmid, and C.-L. Liu}, {\em Dense trajectories and
+  motion boundary descriptors for action recognition}, IJCV,  (2013),
+  pp.~60--79.
+
+\bibitem{wang2013}
+{\sc H.~Wang and C.~Schmid}, {\em Action recognition with improved
+  trajectories}, IEEE International Conference on Computer Vision,  (2013).
+
+\bibitem{m2i_tju}
+{\sc N.~Xu, A.~Liu, W.~Nie, Y.~Wong, F.~Li, and Y.~Su}, {\em Multi-modal \&
+  multi-view \& interactive benchmark dataset for human action recognition},
+  ICME 2015,  (2015).
+
+\bibitem{zeiler2014}
+{\sc M.~D. Zeiler and R.~Fergus}, {\em Visualizing and understanding
+  convolutional networks}, ECCV,  (2014).
+
+\bibitem{yimeng}
+{\sc Y.~Zhang, X.~Liu, M.~Chang, W.~Ge, and T.~Chen}, {\em Spatio-temporal
+  phrases for activity recognition}, ECCV,  (2012).
+
+\end{thebibliography}

@@ -1,0 +1,35 @@
+\BOOKMARK [0][-]{section*.3}{List of Tables}{}% 1
+\BOOKMARK [0][-]{section*.4}{List of Figures}{}% 2
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 3
+\BOOKMARK [1][-]{section.1.1}{Background}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.2}{Project Goals}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.3}{Contributions}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.4}{Outline}{chapter.1}% 7
+\BOOKMARK [0][-]{chapter.2}{Related Work}{}% 8
+\BOOKMARK [1][-]{section.2.1}{Architectures of Interaction video analysis related works}{chapter.2}% 9
+\BOOKMARK [1][-]{section.2.2}{Hand-crafted Feature Descriptor}{chapter.2}% 10
+\BOOKMARK [2][-]{subsection.2.2.1}{3D-SIFT Feature Descriptor}{section.2.2}% 11
+\BOOKMARK [2][-]{subsection.2.2.2}{3D-HOG Feature descriptor}{section.2.2}% 12
+\BOOKMARK [2][-]{subsection.2.2.3}{Improved Dense Trajectories feature descriptor}{section.2.2}% 13
+\BOOKMARK [1][-]{section.2.3}{Deep Learning Based Feature Descriptor}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.3.1}{Spatial-Temporal CNNs feature descriptor}{section.2.3}% 15
+\BOOKMARK [2][-]{subsection.2.3.2}{Two-Stream ConvNet feature descriptor}{section.2.3}% 16
+\BOOKMARK [2][-]{subsection.2.3.3}{3D ConvNet feature descriptor}{section.2.3}% 17
+\BOOKMARK [1][-]{section.2.4}{Datasets}{chapter.2}% 18
+\BOOKMARK [2][-]{subsection.2.4.1}{List of human activity video datasets}{section.2.4}% 19
+\BOOKMARK [0][-]{chapter.3}{Architecture}{}% 20
+\BOOKMARK [1][-]{section.3.1}{Overall Framework}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.2}{Person Detection}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.3}{Feature Descriptors}{chapter.3}% 23
+\BOOKMARK [2][-]{subsection.3.3.1}{3D-ConvNet}{section.3.3}% 24
+\BOOKMARK [2][-]{subsection.3.3.2}{Two-Stream ConvNet}{section.3.3}% 25
+\BOOKMARK [1][-]{section.3.4}{Training}{chapter.3}% 26
+\BOOKMARK [2][-]{subsection.3.4.1}{Train Person Detection Network}{section.3.4}% 27
+\BOOKMARK [2][-]{subsection.3.4.2}{Train 3D-ConvNet}{section.3.4}% 28
+\BOOKMARK [2][-]{subsection.3.4.3}{Train The SVM Classifier}{section.3.4}% 29
+\BOOKMARK [1][-]{section.3.5}{Testing}{chapter.3}% 30
+\BOOKMARK [0][-]{chapter.4}{Design}{}% 31
+\BOOKMARK [0][-]{chapter.5}{Experimental Results}{}% 32
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 33
+\BOOKMARK [0][-]{appendix.A}{Appendix A}{}% 34
+\BOOKMARK [0][-]{section*.6}{Bibliography}{}% 35
