@@ -101,27 +101,29 @@ def videoSimplify(videoIn):
     return videoOut
 
 def batchFormat(videoIn,cropEn = True):
-    videoBatch = []
-    i = 0
-    while(True):
-        if i*8 + 16 > videoIn.shape[0]:
-            break
-        seq = np.arange(i*8,i*8 + 16)
-        videoBatch.append(videoIn[seq])
-        i += 1
-    videoBatch = np.array(videoBatch)
-    clips = videoBatch.shape[0]
-    assert clips > 0, 'The Number of frames of input videos in less than 16'
-    if clips == 1:
-        index = [0,0,0]
-    elif clips == 2:
-        index = [0,1,1]
-    else:
-        index = range(int(clips/2)-1,int(clips/2)+2)
-    if cropEn is True:
-        return videoBatch[index]
-    else:
-        return videoBatch
+    #videoBatch = []
+    #i = 0
+    #while(True):
+    #    if i*8 + 16 > videoIn.shape[0]:
+    #        break
+    #    seq = np.arange(i*8,i*8 + 16)
+    #    videoBatch.append(videoIn[seq])
+    #    i += 1
+    #videoBatch = np.array(videoBatch)
+    #clips = videoBatch.shape[0]
+    #assert clips > 0, 'The Number of frames of input videos in less than 16'
+    #print(clips)
+    #if clips == 1:
+    #    index = [0,0,0]
+    #elif clips == 2:
+    #    index = [0,1,1]
+    #else:
+    #    index = range(int(clips/2)-1,int(clips/2)+2)
+    #if cropEn is True:
+    #    return videoBatch[index]
+    #else:
+    #    return videoBatch
+    return np.array([videoIn])
 
 def videoFormat(batchIn):
     return np.reshape(batchIn,((batchIn.shape[0] * batchIn.shape[1]),) + batchIn.shape[2:5])

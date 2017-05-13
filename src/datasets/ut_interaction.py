@@ -90,21 +90,21 @@ class ut_interaction:
         return(self._trainingVideos[start:end],self._trainingLabels[start:end])
     
     def loadTesting(self,oneHotLabelMode = False):
-        testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
+        testVideos = np.empty((0,1,16) + self._frmSize, dtype=np.uint8)        
         #testLabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         testLabels = np.empty((0,1),dtype=np.float32)        
         for file in self._testingFilesSet:
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
             video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True)
             if video is not None:
-                numOfClips = video.shape[0]
-                if numOfClips == 1:
-                    index = [0,0,0]
-                elif numOfClips == 2:
-                    index = [0,1,1]
-                else:
-                    index = range(int(numOfClips/2) - 1, int(numOfClips/2) + 2)
-                video = video[index]
+                #numOfClips = video.shape[0]
+                #if numOfClips == 1:
+                #    index = [0,0,0]
+                #elif numOfClips == 2:
+                #    index = [0,1,1]
+                #else:
+                #    index = range(int(numOfClips/2) - 1, int(numOfClips/2) + 2)
+                #video = video[index]
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
                 #testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)
@@ -297,11 +297,12 @@ def oneHot(y,numOfClasses):
     return np.array(y_out)
 
 if __name__ == '__main__':
-    numOfClasses = 6
+    numOfClasses = 7
     ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
+        ut_set.loadTrainingAll(oneHotLabelMode=True)
         tx,ty = ut_set.loadTesting(oneHotLabelMode=True)
         print(ty)
         vpp.videoPlay(tx.transpose(1,0,2,3,4,5),fps=10)
