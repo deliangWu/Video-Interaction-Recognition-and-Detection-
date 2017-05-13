@@ -112,7 +112,7 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
-    numOfClasses = 6 
+    numOfClasses = 7 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
@@ -164,9 +164,8 @@ def main(argv):
                   '****************************************\n'
             common.pAndWf(logName,log)
             ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
-            ut_set.loadTrainingAll()
-            test_x,test_y = ut_set.loadTesting()
-            test_y = ut.oneHot(test_y,numOfClasses)
+            ut_set.loadTrainingAll(oneHotLabelMode=True)
+            test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 best_accuracy = 0
                 epoch = 0
@@ -174,7 +173,6 @@ def main(argv):
                 i = 0
                 while True:
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
-                    train_y = ut.oneHot(train_y,numOfClasses)
                     epoch = ut_set.getEpoch()
                     learning_rate = 0.0001 * 2**(-int(epoch/8))
                     #learning_rate = 0.0001
@@ -196,8 +194,8 @@ def main(argv):
                         if test_accuracy == 1 or epoch >= 50:
                             break
                     i+=1
-                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
-                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
+                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg7.ckpt'))
+                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
                 common.pAndWf(logName,' \n')
             accuSet.append(test_accuracy)
             t2accuSet.append(t2y_accu)
