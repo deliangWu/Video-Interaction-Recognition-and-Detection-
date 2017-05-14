@@ -150,18 +150,20 @@ class C3DNET_3F1C:
         self._y_ = tf.placeholder(tf.float32, (None, numOfClasses))
         self._keep_prob = tf.placeholder(tf.float32)
         self._lr = tf.placeholder(tf.float32)
-        
-        with tf.variable_scope('feature_descriptor_g') as scope:
-            self._features_g = model.FeatureDescriptor.c3d(self._x,frmSize[0],self._keep_prob)
-        with tf.variable_scope('feature_descriptor_a0') as scope:
-            self._features_a0 = model.FeatureDescriptor.c3d(self._x0,frmSize[1],self._keep_prob)
-        with tf.variable_scope('feature_descriptor_a1') as scope:
-            self._features_a1 = model.FeatureDescriptor.c3d(self._x1,frmSize[1],self._keep_prob)
+        with tf.device(common.Vars.dev[0]):
+            with tf.variable_scope('feature_descriptor_g') as scope:
+                self._features_g = model.FeatureDescriptor.c3d(self._x,frmSize[0],self._keep_prob)
+        with tf.device(common.Vars.dev[1]):
+            with tf.variable_scope('feature_descriptor_a0') as scope:
+                self._features_a0 = model.FeatureDescriptor.c3d(self._x0,frmSize[1],self._keep_prob)
+            with tf.variable_scope('feature_descriptor_a1') as scope:
+                self._features_a1 = model.FeatureDescriptor.c3d(self._x1,frmSize[1],self._keep_prob)
             
-        with tf.variable_scope('classifier_3f1c') as scope:
-            features = tf.concat([self._features_g, self._features_a0, self._features_a1],1)
-            self._classifier = model.Softmax(features,numOfClasses)
-            self._y_conv = self._classifier.y_conv
+        with tf.device(common.Vars.dev[1]):
+            with tf.variable_scope('classifier_3f1c') as scope:
+                features = tf.concat([self._features_g, self._features_a0, self._features_a1],1)
+                self._classifier = model.Softmax(features,numOfClasses)
+                self._y_conv = self._classifier.y_conv
         
         with tf.device(common.Vars.dev[-1]):
             # Train and evaluate the model
