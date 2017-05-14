@@ -240,7 +240,7 @@ class ut_interaction_ga:
                "Error, the lable between three sets are mismatch!"
         return(testVideos_g, testVideos_a0, testVideos_a1, testLables_a0)
     
-    def getEpoch():
+    def getEpoch(self):
         return self._trainingEpoch
         
 
