@@ -189,14 +189,14 @@ class C3DNET_3F1C:
         with sess.as_default():
             y_conv = []
             if test_x.ndim == 6:
-                for single_teset_x, single_test_x0,single_test_x1 in zip(test_x.transpose(1,0,2,3,4,5), test_x0.transpose(1,0,2,3,4,5),test_x1.transpose(1,0,2,3,4,5)):
+                for single_test_x, single_test_x0,single_test_x1 in zip(test_x.transpose(1,0,2,3,4,5), test_x0.transpose(1,0,2,3,4,5),test_x1.transpose(1,0,2,3,4,5)):
                     y_conv.append(np.mean([self._y_conv.eval(feed_dict = {self._x: np.reshape(x, (1,)+x.shape),
                                                                           self._x0:np.reshape(x0, (1,)+x0.shape),
                                                                           self._x1:np.reshape(x1, (1,)+x1.shape),
                                                                           self._keep_prob:1})[0]/3 \
-                                           for x, x0,x1 in zip(single_teset_x, single_test_x0,single_test_x1)],0))
+                                           for x, x0,x1 in zip(single_test_x, single_test_x0,single_test_x1)],0))
             else:
-                for single_teset_x, single_test_x0,single_test_x1 in zip(test_x, test_x0,test_x1):
+                for single_test_x, single_test_x0,single_test_x1 in zip(test_x, test_x0,test_x1):
                     y_conv.append(self._y_conv.eval(feed_dict = {self._x: np.reshape(single_test_x, (1,)+single_test_x.shape),
                                                                  self._x0:np.reshape(single_test_x0,(1,)+single_test_x0.shape),
                                                                  self._x1:np.reshape(single_test_x1,(1,)+single_test_x1.shape),
