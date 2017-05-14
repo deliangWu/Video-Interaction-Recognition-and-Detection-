@@ -182,7 +182,7 @@ class C3DNET_3F1C:
     
     def getLoss(self,test_x, test_x0, test_x1,test_y,sess):
         if test_x0.ndim == 6:
-            return self._cross_entropy.eval(feed_dict={self._x:test_x[1], self._x0:test_x0[1], self._x1:test_x1[1], self._y_:test_y,self._keep_prob:1},session=sess)
+            return self._cross_entropy.eval(feed_dict={self._x:test_x[0], self._x0:test_x0[0], self._x1:test_x1[0], self._y_:test_y,self._keep_prob:1},session=sess)
         else:
             return self._cross_entropy.eval(feed_dict={self._x:test_x,    self._x0:test_x0,    self._x1:test_x1,    self._y_:test_y,self._keep_prob:1},session=sess)
             
