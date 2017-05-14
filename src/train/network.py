@@ -172,9 +172,9 @@ class C3DNET_3F1C:
     
     def train(self, train_x, train_x0, train_x1, train_y,sess,learning_rate = 1e-4):
         with sess.as_default():
-            self._train_step.run(feed_dict={self._lr: learning_rate, self._x: train_x,  \
-                                                                     self._x0:train_x0, \ 
-                                                                     self._x1:train_x1, \
+            self._train_step.run(feed_dict={self._lr: learning_rate, self._x: train_x,
+                                                                     self._x0:train_x0,
+                                                                     self._x1:train_x1,
                                                                      self._y_:train_y, self._keep_prob:0.5})
         return None
     
@@ -190,16 +190,16 @@ class C3DNET_3F1C:
             y_conv = []
             if test_x.ndim == 6:
                 for single_teset_x, single_test_x0,single_test_x1 in zip(test_x.transpose(1,0,2,3,4,5), test_x0.transpose(1,0,2,3,4,5),test_x1.transpose(1,0,2,3,4,5)):
-                    y_conv.append(np.mean([self._y_conv.eval(feed_dict = {self._x: np.reshape(x, (1,)+x.shape), \
-                                                                          self._x0:np.reshape(x0, (1,)+x0.shape), \
-                                                                          self._x1:np.reshape(x1, (1,)+x1.shape), \
+                    y_conv.append(np.mean([self._y_conv.eval(feed_dict = {self._x: np.reshape(x, (1,)+x.shape),
+                                                                          self._x0:np.reshape(x0, (1,)+x0.shape),
+                                                                          self._x1:np.reshape(x1, (1,)+x1.shape),
                                                                           self._keep_prob:1})[0]/3 \
                                            for x, x0,x1 in zip(single_teset_x, single_test_x0,single_test_x1)],0))
             else:
                 for single_teset_x, single_test_x0,single_test_x1 in zip(test_x, test_x0,test_x1):
-                    y_conv.append(self._y_conv.eval(feed_dict = {self._x: np.reshape(single_test_x, (1,)+single_test_x.shape), \
-                                                                 self._x0:np.reshape(single_test_x0,(1,)+single_test_x0.shape), \
-                                                                 self._x1:np.reshape(single_test_x1,(1,)+single_test_x1.shape), \
+                    y_conv.append(self._y_conv.eval(feed_dict = {self._x: np.reshape(single_test_x, (1,)+single_test_x.shape),
+                                                                 self._x0:np.reshape(single_test_x0,(1,)+single_test_x0.shape),
+                                                                 self._x1:np.reshape(single_test_x1,(1,)+single_test_x1.shape),
                                                                  self._keep_prob:1})[0])
             y_conv = np.array(y_conv)
             # top1 accuracy
