@@ -117,9 +117,9 @@ class ut_interaction:
         return self._files
             
 class ut_interaction_atomic:
-    def __init__(self,paths,frmSize):
-        self._ut_a0 = ut_interaction([paths[0]], frmSize)
-        self._ut_a1 = ut_interaction([paths[1]], frmSize)
+    def __init__(self,paths,frmSize,numOfClasses):
+        self._ut_a0 = ut_interaction([paths[0]], frmSize,numOfClasses=numOfClasses)
+        self._ut_a1 = ut_interaction([paths[1]], frmSize,numOfClasses=numOfClasses)
         fileList0 = self._ut_a0.getFileList()
         fileList1 = self._ut_a1.getFileList()
         assert np.array_equal(fileList0,fileList1), 'Error, input videos from two set is mismatch!'
@@ -175,10 +175,10 @@ class ut_interaction_atomic:
         return None
     
 class ut_interaction_ga:
-    def __init__(self,paths,frmSize):
-        self._ut_g  = ut_interaction([paths[0]], frmSize[0])
-        self._ut_a0 = ut_interaction([paths[1]], frmSize[1])
-        self._ut_a1 = ut_interaction([paths[2]], frmSize[1])
+    def __init__(self,paths,frmSize,numOfClasses):
+        self._ut_g  = ut_interaction([paths[0]], frmSize[0], numOfClasses=numOfClasses)
+        self._ut_a0 = ut_interaction([paths[1]], frmSize[1], numOfClasses=numOfClasses)
+        self._ut_a1 = ut_interaction([paths[2]], frmSize[1], numOfClasses=numOfClasses)
         fileList_g  = self._ut_g.getFileList()
         fileList_a0 = self._ut_a0.getFileList()
         fileList_a1 = self._ut_a1.getFileList()
@@ -192,12 +192,12 @@ class ut_interaction_ga:
         self._trainingPointer = 0
         return None
     
-    def loadTrainingAll(self):
-        self._ut_g.loadTrainingAll(shuffleEn=False)
+    def loadTrainingAll(self,oneHotLabelMode=True):
+        self._ut_g.loadTrainingAll(shuffleEn=False,oneHotLabelMode=oneHotLabelMode)
         self._trainingSet_g = self._ut_g.getTrainingSet()
-        self._ut_a0.loadTrainingAll(shuffleEn=False)
+        self._ut_a0.loadTrainingAll(shuffleEn=False,oneHotLabelMode=oneHotLabelMode)
         self._trainingSet_a0 = self._ut_a0.getTrainingSet()
-        self._ut_a1.loadTrainingAll(shuffleEn=False)
+        self._ut_a1.loadTrainingAll(shuffleEn=False,oneHotLabelMode=oneHotLabelMode)
         self._trainingSet_a1 = self._ut_a1.getTrainingSet()
         #assert self._trainingSet_g[0].shape  == self._trainingSet_a0[0].shape and \
         #       self._trainingSet_a0[0].shape == self._trainingSet_a1[0].shape, \
@@ -228,10 +228,10 @@ class ut_interaction_ga:
         end = self._trainingPointer
         return(self._trainingSet_g[0][start:end],self._trainingSet_a0[0][start:end],self._trainingSet_a1[0][start:end],self._trainingSet_a0[1][start:end])
         
-    def loadTesting(self):
-        [testVideos_g,  testLables_g]  = self._ut_g.loadTesting()
-        [testVideos_a0, testLables_a0] = self._ut_a0.loadTesting()
-        [testVideos_a1, testLables_a1] = self._ut_a1.loadTesting()
+    def loadTesting(self,oneHotLabelMode=True):
+        [testVideos_g,  testLables_g]  = self._ut_g.loadTesting(oneHotLabelMode=oneHotLabelMode)
+        [testVideos_a0, testLables_a0] = self._ut_a0.loadTesting(oneHotLabelMode=oneHotLabelMode)
+        [testVideos_a1, testLables_a1] = self._ut_a1.loadTesting(oneHotLabelMode=oneHotLabelMode)
         #assert testVideos_g.shape == testVideos_a0.shape and \
         #       testVideos_a0.shape == testVideos_a1.shape, \
         #       'Error, the video shape between three sets are mismatch!'
@@ -250,19 +250,19 @@ class ut_interaction_set1(ut_interaction):
         ut_interaction.__init__(self,path,frmSize, numOfClasses)
 
 class ut_interaction_set1_a(ut_interaction):
-    def __init__(self,frmSize):
+    def __init__(self,frmSize,numOfClasses = 6):
         paths = [common.path.utSet1_a0_Path,common.path.utSet1_a1_Path]
-        ut_interaction.__init__(self,paths,frmSize)
+        ut_interaction.__init__(self,paths,frmSize,numOfClasses)
 
 class ut_interaction_set1_atomic(ut_interaction_atomic):
-    def __init__(self,frmSize):
+    def __init__(self,frmSize,numOfClasses = 6):
         paths = [common.path.utSet1_a0_Path,common.path.utSet1_a1_Path]
-        ut_interaction_atomic.__init__(self,paths,frmSize)
+        ut_interaction_atomic.__init__(self,paths,frmSize,numOfClasses=numOfClasses)
 
 class ut_interaction_set1_ga(ut_interaction_ga):
-    def __init__(self,frmSize):
+    def __init__(self,frmSize,numOfClasses = 6):
         paths = [common.path.utSet1Path, common.path.utSet1_a0_Path,common.path.utSet1_a1_Path]
-        ut_interaction_ga.__init__(self,paths,frmSize)
+        ut_interaction_ga.__init__(self,paths,frmSize, numOfClasses= numOfClasses)
 
 class ut_interaction_set2(ut_interaction):
     def __init__(self,frmSize,numOfClasses=6):
@@ -297,15 +297,18 @@ def oneHot(y,numOfClasses):
     return np.array(y_out)
 
 if __name__ == '__main__':
-    numOfClasses = 7
-    ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
+    numOfClasses = 6
+    ut_set = ut_interaction_set1_ga([(112,128,3),(112,80,3)],numOfClasses=numOfClasses)
     for seq in range(1,11):
         print('seq = ',seq)
-        ut_set.splitTrainingTesting(seq,loadTrainingEn=False)
-        ut_set.loadTrainingAll(oneHotLabelMode=True)
-        tx,ty = ut_set.loadTesting(oneHotLabelMode=True)
+        ut_set.splitTrainingTesting(seq)
+        ut_set.loadTrainingAll()
+        tx,tx0,tx1,ty = ut_set.loadTesting()
         print(ty)
-        vpp.videoPlay(tx.transpose(1,0,2,3,4,5),fps=10)
+        for vx,vx0,vx1 in zip(tx,tx0,tx1):
+            vpp.videoPlay(vx)
+            vpp.videoPlay(vx0)
+            vpp.videoPlay(vx1)
         
    
 
