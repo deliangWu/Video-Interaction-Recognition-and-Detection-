@@ -141,7 +141,7 @@ class C3DNET_2F1C:
     
 
 class C3DNET_3F1C:
-    def __init__(self, numOfClasses,frmSize, nof_conv1,nof_conv2,nof_conv3,nof_conv4,noo_fc6,noo_fc7, shareFeatureVariable = True):
+    def __init__(self, numOfClasses,frmSize, nof_conv1,nof_conv2,nof_conv3,nof_conv4,noo_fc6,noo_fc7):
         # build the 3D ConvNet
         # define the input and output variables
         self._x = tf.placeholder(tf.float32, (None,16) + frmSize[0])
@@ -158,7 +158,7 @@ class C3DNET_3F1C:
         with tf.variable_scope('feature_descriptor_a1') as scope:
             self._features_a1 = model.FeatureDescriptor.c3d(self._x1,frmSize[1],self._keep_prob)
             
-        with tf.variable_scope('classifier_2f1c') as scope:
+        with tf.variable_scope('classifier_3f1c') as scope:
             features = tf.concat([self._features_g, self._features_a0, self._features_a1],1)
             self._classifier = model.Softmax(features,numOfClasses)
             self._y_conv = self._classifier.y_conv
