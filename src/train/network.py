@@ -28,7 +28,7 @@ class C3DNET:
                 self._y_conv = self._classifier.y_conv
             
         # Train and evaluate the model
-        with tf.device(common.Vars.dev[-1]):
+        with tf.device(common.Vars.dev[0]):
             self._cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = self._y_conv, labels=self._y_))
             self._train_step = tf.train.AdamOptimizer(learning_rate=self._lr, epsilon=0.01).minimize(self._cross_entropy)
         return None
