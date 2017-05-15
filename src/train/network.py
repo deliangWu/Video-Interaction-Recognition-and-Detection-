@@ -20,11 +20,12 @@ class C3DNET:
         self._lr = tf.placeholder(tf.float32)
        
         # define feature descriptor and classifier 
-        with tf.variable_scope('feature_descriptor_g') as scope:
-            self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7)
-        with tf.variable_scope('classifier') as scope:
-            self._classifier = model.Softmax(self._features,numOfClasses)
-            self._y_conv = self._classifier.y_conv
+        with tf.device(common.Vars.dev[0]):
+            with tf.variable_scope('feature_descriptor_g') as scope:
+                self._features = model.FeatureDescriptor.c3d(self._x,frmSize,self._keep_prob,nof_conv1, nof_conv2, nof_conv3, nof_conv4, noo_fc6, noo_fc7)
+            with tf.variable_scope('classifier') as scope:
+                self._classifier = model.Softmax(self._features,numOfClasses)
+                self._y_conv = self._classifier.y_conv
             
         # Train and evaluate the model
         with tf.device(common.Vars.dev[-1]):
