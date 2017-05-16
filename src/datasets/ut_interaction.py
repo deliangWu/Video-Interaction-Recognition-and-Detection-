@@ -55,6 +55,8 @@ class ut_interaction:
             cnt_file+=1
             if cnt_file % 10 == 0:
                 print('Loading training videos: ' + str(int(cnt_file * 100 / self._trainingFilesSet.shape[0])) +'%')
+        self._trainingVideos = np.concatenate([self._trainingVideos, self._trainingVideos, self._trainingVideos],0)
+        self._trainingLabels = np.concatenate([self._trainingLabels, self._trainingLabels, self._trainingLabels],0)
         if shuffleEn == True:
             perm = np.arange(self._trainingVideos.shape[0])
             np.random.shuffle(perm)
