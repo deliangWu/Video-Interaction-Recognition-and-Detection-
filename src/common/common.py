@@ -23,7 +23,7 @@ def clearFile(fileName):
 
 def saveList2File(fileName,theList):
     with open(fileName,'wb') as f:
-        pickle.dump(theList,f)
+        pickle.dump(theList,f,protocol=2)
     f.close()
     return None
 
