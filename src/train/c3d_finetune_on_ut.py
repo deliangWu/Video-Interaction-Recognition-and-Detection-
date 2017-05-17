@@ -65,34 +65,37 @@ def main(argv):
         ut_set.splitTrainingTesting(seq)
         ut_set.loadTrainingAll(oneHotLabelMode=True)
         test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True)
-        if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
-            best_accuracy = 0
-            anvAccuList = np.zeros((10))
-            for i in range(iteration):
-                train_x,train_y = ut_set.loadTrainingBatch(batchSize)
-                epoch = ut_set.getEpoch()
-                c3d.train(train_x, train_y, sess)
-                if i%int(iteration/200) == 0:
-                    train_accuracy,_ = c3d.top2Accu(train_x, train_y, sess)
-                    test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
-                    loss = c3d.getLoss(test_x[1], test_y, sess)
-                    anvAccuList = np.append(anvAccuList[1:10],test_accuracy)
-                    anv_accuracy = np.mean(anvAccuList)
-                    if anv_accuracy > best_accuracy:
-                        best_accuracy = anv_accuracy
-                    log = "epoch: %d, step %d, training: %g, testing: %g, loss: %g, anv: %g, best %g \n"%(epoch, i, train_accuracy, test_accuracy, loss, anv_accuracy, best_accuracy)
-                    common.pAndWf(logName,log)
-                    if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        break
-            save_path = saver.save(sess,join(common.path.variablePath, savePrefix  + str(seq) +'.ckpt'))
-            common.pAndWf(logName,' \n')
-        else:
-            variableName = savePrefix + str(seq) + '.ckpt'
-            saver.restore(sess,join(common.path.variablePath, variableName))
-            # begin to test
-            test_accuracy = c3d.test(test_x, test_y, sess)
-            log = "Testing accuracy %g \n"%(test_accuracy)
-            common.pAndWf(logName,log)
+        vpp.videoPlay(test_x)
+        print(test_y)
+        #if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
+        #    best_accuracy = 0
+        #    anvAccuList = np.zeros((10))
+        #    for i in range(iteration):
+        #        train_x,train_y = ut_set.loadTrainingBatch(batchSize)
+        #        vpp.videoPlay(train_x)
+        #        epoch = ut_set.getEpoch()
+        #        #c3d.train(train_x, train_y, sess)
+        #        if i%int(iteration/200) == 0:
+        #            train_accuracy,_ = c3d.top2Accu(train_x, train_y, sess)
+        #            test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
+        #            loss = c3d.getLoss(test_x[1], test_y, sess)
+        #            anvAccuList = np.append(anvAccuList[1:10],test_accuracy)
+        #            anv_accuracy = np.mean(anvAccuList)
+        #            if anv_accuracy > best_accuracy:
+        #                best_accuracy = anv_accuracy
+        #            log = "epoch: %d, step %d, training: %g, testing: %g, loss: %g, anv: %g, best %g \n"%(epoch, i, train_accuracy, test_accuracy, loss, anv_accuracy, best_accuracy)
+        #            common.pAndWf(logName,log)
+        #            if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
+        #                break
+        #    save_path = saver.save(sess,join(common.path.variablePath, savePrefix  + str(seq) +'.ckpt'))
+        #    common.pAndWf(logName,' \n')
+        #else:
+        #    variableName = savePrefix + str(seq) + '.ckpt'
+        #    saver.restore(sess,join(common.path.variablePath, variableName))
+        #    # begin to test
+        #    test_accuracy = c3d.test(test_x, test_y, sess)
+        #    log = "Testing accuracy %g \n"%(test_accuracy)
+        #    common.pAndWf(logName,log)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
