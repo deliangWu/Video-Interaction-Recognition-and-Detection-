@@ -180,7 +180,9 @@ def genIBB(boundingBoxes):
         x_center_ibb = int(np.mean([bb0_mean[0],bb1_mean[2]]))
         y_center_ibb = int(np.mean([bb0_mean[1],bb1_mean[1],bb0_mean[3],bb1_mean[3]]))
         h_ibb = int(np.mean([bb0_mean[3],bb1_mean[3]]) - np.mean([bb0_mean[1],bb1_mean[1]]))
-        w_ibb = int(h_ibb * 128/112)
+        w_ibb_min = int(h_ibb * 128/112 * 0.9)
+        w_ibb_max = int(h_ibb * 128/112 * 1.1)
+        w_ibb = min(max(w_ibb_min,int(np.mean([bb1_mean[2],bb0_mean[0]]))),w_ibb_max)
         #ibb = [int(bb0_mean[0]),int((bb0_mean[1] + bb1_mean[1])/2),int(bb1_mean[2]),int((bb0_mean[3] + bb1_mean[3])/2)]
         ibb = [x_center_ibb-int(w_ibb/2),y_center_ibb-int(h_ibb/2),x_center_ibb+int(w_ibb/2),y_center_ibb+int(h_ibb/2)]
         ibbList.append([bb0_mean,bb1_mean,ibb])
@@ -254,8 +256,8 @@ def main(argv):
     # ***********************************************************
     numOfClasses = 7 
     frmSize = (112,128,3)
-    #with tf.variable_scope('top') as scope:
-    #    c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
+    with tf.variable_scope('top') as scope:
+        c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
     # ***********************************************************
     # define session
     # ***********************************************************
@@ -287,8 +289,8 @@ def main(argv):
             #picks = humanDetector(video)
             #common.saveList2File('bbList_seq'+str(seq)+'.txt',picks)
             picks = common.readListFromFile('bbList_seq'+str(seq)+'.txt')
-            picks = normBB(picks,video=video)
-            #picks = normBB(picks)
+            #picks = normBB(picks,video=video)
+            picks = normBB(picks)
             _,_,_,boundingBoxes,bbInitFrmNo = hdt.humanTracking(video,picks,frmSize,dispBBEn = False) 
             
             #vpp.videoSave(video,'seq_'+str(seq)+'.avi')
