@@ -20,7 +20,7 @@ def main(argv):
     numOfClasses = 6 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=2048, noo_fc7=2048)
+        c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
     # ***********************************************************
     # define session
     # ***********************************************************
@@ -33,7 +33,7 @@ def main(argv):
     # define the dataset
     # ***********************************************************
     if len(argv) >= 3 and argv[2] == 'set2':
-        ut_set = ut.ut_interaction_set2(frmSize)
+        ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=numOfClasses)
         seqRange = range(11,21)
         savePrefix = 'c3d_train_on_ut_set2_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
@@ -96,7 +96,7 @@ def main(argv):
                         log = "seq: %d, epoch: %d, step: %d, training: %g, loss: %g, testing: %g, t2y: %g, anv: %g, best: %g \n"%(seq, epoch, i, train_accuracy, loss, test_accuracy, t2y_accu, anv_accuracy, best_accuracy)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        if test_accuracy == 1 or epoch >= 20:
+                        if test_accuracy == 1 or epoch >= 25:
                             break
                     i+=1
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
