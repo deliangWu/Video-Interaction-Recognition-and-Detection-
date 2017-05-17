@@ -205,10 +205,9 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d):
         vChop = video[bbStartFrmNo:bbStartFrmNo+64,ibb[1]:ibb[3],ibb[0]:ibb[2]]
         vChop = vpp.videoProcessVin(vChop, (112,128,3), NormEn=True, RLFlipEn=False)
         vChop_det = np.reshape(vChop,(1,1,16,112,128,3))
-        prob = c3d.evaluateProb(vChop_det, sess)
-        print('prob is ',prob)
+        prob = c3d.evaluateProb(vChop_det, sess)[0][0]
         pred_y = np.argmax(prob)
-        top2y = [np.argsort(prob[0])[-1],np.argsort(prob[0])[-2]]
+        top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
         if pred_y != 6:
             pred_yList.append([bbStartFrmNo,ibb,top2y])
             print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
