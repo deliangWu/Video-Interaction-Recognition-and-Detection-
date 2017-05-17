@@ -171,8 +171,8 @@ def humanTracking(vIn,picks,frmSize = (112,80,3),dispBBEn = True):
     # calculate the average width and height of a person
     widths = [pos[0][2] - pos[0][0] for pos in picks if pos != []]
     heights = [pos[0][3] - pos[0][1] for pos in picks if pos != []]
-    width = int(sum(widths) / len(widths))
-    height = int(sum(heights) / len(heights))
+    width = int(sum(widths) / max(1,len(widths)))
+    height = int(sum(heights) / max(1,len(heights)))
     # the format of position_pre for two bounding boxes is [([xA,yA,xB,yB],label), ([xA,yA,xB,yB],label)]    
     position_pre = []
     disp_bb_en_cnt = 0

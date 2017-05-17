@@ -6,6 +6,7 @@ import numpy as np
 from numpy import genfromtxt
 from datetime import datetime
 import csv
+import pickle
 
 ''' a method for print input string on terminal and write it to the file at the same time'''
 def pAndWf(fileName, string):
@@ -21,15 +22,14 @@ def clearFile(fileName):
     return None
 
 def saveList2File(fileName,theList):
-    with open(fileName,'w',newline='') as f:
-        writer = csv.writer(f)
-        writer.writerows(theList)
+    with open(fileName,'wb') as f:
+        pickle.dump(theList,f)
     f.close()
     return None
 
 def readListFromFile(fileName):
-    theList = []
-    theList = genfromtxt(fileName,delimiter=',')
+    with open(fileName,'rb') as f:
+        theList = pickle.load(f) 
     return theList
     
 def tupleInsert(tIn,ind,obj):
