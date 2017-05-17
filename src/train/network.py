@@ -73,6 +73,11 @@ class C3DNET:
             print(top2y,' vs ',np.argmax(test_y,1))
         return None
     
+    def evaluateProb(self,test_x,sess):
+        with sess.as_default():
+            probs = np.array([self._y_conv.eval(feed_dict={self._x:x,self._keep_prob:1}) for x in test_x])
+        return probs
+    
 class C3DNET_2F1C:
     def __init__(self, numOfClasses,frmSize, nof_conv1,nof_conv2,nof_conv3,nof_conv4,noo_fc6,noo_fc7, shareFeatureVariable = True):
         # build the 3D ConvNet
