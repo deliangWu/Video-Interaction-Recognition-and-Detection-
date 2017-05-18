@@ -179,7 +179,7 @@ def genIBB(boundingBoxes):
         
         x_center_ibb = int(np.mean([bb0_mean[0],bb1_mean[2]]))
         y_center_ibb = int(np.mean([bb0_mean[1],bb1_mean[1],bb0_mean[3],bb1_mean[3]]))
-        h_ibb = int(np.mean([bb0_mean[3],bb1_mean[3]]) - np.mean([bb0_mean[1],bb1_mean[1]]))
+        h_ibb = int((np.mean([bb0_mean[3],bb1_mean[3]]) - np.mean([bb0_mean[1],bb1_mean[1]])) * 1.06)
         w_ibb_min = int(h_ibb * 128/112 * 1)
         w_ibb_max = int(h_ibb * 128/112 * 1.2)
         w_ibb = min(max(w_ibb_min,int(bb1_mean[2] - bb0_mean[0])),w_ibb_max)
@@ -239,13 +239,14 @@ def NMS_IBB(ibbSets):
     for ibbSet in ibbSets:
         ibb = np.mean(np.array(ibbSet[1]),0).astype(np.uint16)
         # vote for the most possible label
-        ySel = ibbSet[2][int(len(ibbSet[2])/2) - 1: int(len(ibbSet[2])/2 + 2)]
+        #ySel = ibbSet[2][int(len(ibbSet[2])/2) - 1: int(len(ibbSet[2])/2 + 2)]
+        ySel = ibbSet[2]
         ySet =[]
         for y in ySel:
             if y[0] !=6:
-                ySet.append([y[0]]*11)
+                ySet.append([y[0]]*4)
             if y[1] !=6:
-                ySet.append([y[1]]*9)
+                ySet.append([y[1]]*1)
         ySet = [item for subList in ySet for item in subList]
         pred_Label = Counter(ySet).most_common(1)[0][0]
         ibbs.append([pred_Label,ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
