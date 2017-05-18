@@ -121,7 +121,7 @@ def batchFormat(videoIn,cropEn = True):
         i += 1
     videoBatch = np.array(videoBatch)
     clips = videoBatch.shape[0]
-    assert clips > 0, 'The Number of frames of input videos in less than 16'
+    assert clips > 0, 'The Number of frames of input videos in less than 16, the size of videoIn is '+ str(videoIn.shape[0])
     if clips == 1:
         index = [0,0,0]
     elif clips == 2:
@@ -167,9 +167,7 @@ def videoProcess(fileName,frmSize,downSample = 4, NormEn = False, RLFlipEn = Tru
     return out
 
 def videoProcessVin(vIn,frmSize,downSample = 4, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
-    if vIn is not None:
-        #vIn = vIn[range(0,vIn.shape[0],int(vIn.shape[0]/16))]
-        vIn = vIn[range(0,vIn.shape[0],downSample)]
+    if vIn.shape[0] >= 16:
         vRS = videoRezise(vIn,frmSize)
         #vSimp = videoSimplify(vRS)
         vNorm = videoNorm(vRS)
