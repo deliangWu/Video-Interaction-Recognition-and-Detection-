@@ -179,7 +179,7 @@ def genIBB(boundingBoxes):
         
         x_center_ibb = int(np.mean([bb0_mean[0],bb1_mean[2]]))
         y_center_ibb = int(np.mean([bb0_mean[1],bb1_mean[1],bb0_mean[3],bb1_mean[3]]))
-        h_ibb = int((np.mean([bb0_mean[3],bb1_mean[3]]) - np.mean([bb0_mean[1],bb1_mean[1]])) * 1.06)
+        h_ibb = int((np.mean([bb0_mean[3],bb1_mean[3]]) - np.mean([bb0_mean[1],bb1_mean[1]])) * 1.0)
         w_ibb_min = int(h_ibb * 128/112 * 1)
         w_ibb_max = int(h_ibb * 128/112 * 1.2)
         w_ibb = min(max(w_ibb_min,int(bb1_mean[2] - bb0_mean[0])),w_ibb_max)
@@ -205,7 +205,6 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d):
         vChop = video[bbStartFrmNo:bbStartFrmNo+64,ibb[1]:ibb[3],ibb[0]:ibb[2]]
         vChop = vpp.videoProcessVin(vChop, (112,128,3), NormEn=True, RLFlipEn=False)
         vChop_det = np.reshape(vChop,(1,1,16,112,128,3))
-        vpp.videoPlay(vChop_det)
         prob = c3d.evaluateProb(vChop_det, sess)[0][0]
         pred_y = np.argmax(prob)
         top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
