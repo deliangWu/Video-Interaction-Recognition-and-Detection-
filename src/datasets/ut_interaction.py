@@ -300,17 +300,16 @@ def oneHot(y,numOfClasses):
 
 if __name__ == '__main__':
     numOfClasses = 6
-    ut_set = ut_interaction_set1_ga([(112,128,3),(112,80,3)],numOfClasses=numOfClasses)
+    #ut_set = ut_interaction_set1_ga([(112,128,3),(112,80,3)],numOfClasses=numOfClasses)
+    ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
     for seq in range(1,11):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq)
-        ut_set.loadTrainingAll()
-        tx,tx0,tx1,ty = ut_set.loadTesting()
+        ut_set.loadTrainingAll(oneHotLabelMode=True)
+        tx,ty = ut_set.loadTesting(oneHotLabelMode=True)
         print(ty)
-        for vx,vx0,vx1 in zip(tx,tx0,tx1):
+        for vx in tx:
             vpp.videoPlay(vx)
-            vpp.videoPlay(vx0)
-            vpp.videoPlay(vx1)
         
    
 
