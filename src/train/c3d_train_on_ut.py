@@ -79,7 +79,8 @@ def main(argv):
                 while True:
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                     epoch = ut_set.getEpoch()
-                    learning_rate = 0.0001 * 2**(-int(epoch/8))
+                    #learning_rate = 0.0001 * 2**(-int(epoch/8))
+                    learning_rate = 0.005 * 2**(-int(epoch/4))
                     #learning_rate = 0.0001
                     c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
                     #loss = c3d.getLoss(train_x, train_y, sess)
@@ -95,8 +96,8 @@ def main(argv):
                             best_accuracy = anv_accuracy
                         log = "seq: %d, epoch: %d, step: %d, training: %g, loss: %g, testing: %g, t2y: %g, anv: %g, best: %g \n"%(seq, epoch, i, train_accuracy, loss, test_accuracy, t2y_accu, anv_accuracy, best_accuracy)
                         common.pAndWf(logName,log)
-                        #if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
-                        if test_accuracy == 1 or epoch >= 25:
+                        if anv_accuracy == 1 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
+                        #if anv_accuracy == 1 or epoch >= 20:
                             break
                     i+=1
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg7.ckpt'))
