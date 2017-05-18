@@ -92,7 +92,7 @@ class ut_interaction:
         return(self._trainingVideos[start:end],self._trainingLabels[start:end])
     
     def loadTesting(self,oneHotLabelMode = False):
-        testVideos = np.empty((0,1,16) + self._frmSize, dtype=np.uint8)        
+        testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
         #testLabels = np.empty((0,self._numOfClasses),dtype=np.float32)        
         testLabels = np.empty((0,1),dtype=np.float32)        
         for file in self._testingFilesSet:
