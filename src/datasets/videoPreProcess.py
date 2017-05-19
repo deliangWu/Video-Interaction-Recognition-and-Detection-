@@ -17,10 +17,13 @@ def videoRead(fileName,grayMode=True):
     video = np.array(video)
     return np.array(video) 
     
-def videoNorm(videoIn):
+def videoNorm(videoIn,normEn = True):
     vmax = np.amax(videoIn)
     vmin = np.amin(videoIn)
-    vo = videoIn.astype(np.float32) / max(vmax-vmin,1) 
+    if normEn == True:
+        vo = videoIn.astype(np.float32) / max(vmax-vmin,1) 
+    else:
+        vo = videoIn.astype(np.float32) / 255 
     return vo
 
 def videoPlay(video,fps = 25):
@@ -168,11 +171,8 @@ def videoProcessVin(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True,
     if vIn.shape[0] >= 16:
         vRS = videoRezise(vIn,frmSize)
         #vSimp = videoSimplify(vRS)
-        vNorm = videoNorm(vRS)
-        if NormEn is True:
-            vDS = downSampling(vNorm,downSample)
-        else:
-            vDS = downSampling(vRS,downSample)
+        vNorm = videoNorm(vRS,NormEn)
+        vDS = downSampling(vNorm,downSample)
         if RLFlipEn is True:
             vDS_Flipped = videofliplr(vDS)
             vBatch = np.append(batchFormat(vDS,cropEn),batchFormat(vDS_Flipped,cropEn),axis=0)

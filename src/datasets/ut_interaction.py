@@ -46,7 +46,7 @@ class ut_interaction:
     def loadTrainingAll(self, shuffleEn = True,oneHotLabelMode=False):
         cnt_file = 0
         for file in self._trainingFilesSet:
-            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True)
+            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=False)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
             #label = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
@@ -306,6 +306,8 @@ if __name__ == '__main__':
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq)
         ut_set.loadTrainingAll(oneHotLabelMode=True)
+        tr_x,tr_y = ut_set.loadTrainingBatch(16)
+        vpp.videoPlay(tr_x) 
         tx,ty = ut_set.loadTesting(oneHotLabelMode=True)
         print(ty)
         for vx in tx:
