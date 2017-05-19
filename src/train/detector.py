@@ -184,7 +184,7 @@ def genIBB(boundingBoxes,vLen=64,stride=8):
         w_ibb_max = int(h_ibb * 128/112 * 1.4)
         w_ibb = min(max(w_ibb_min,int(bb1_mean[2] - bb0_mean[0])),w_ibb_max)
         #ibb = [int(bb0_mean[0]),int((bb0_mean[1] + bb1_mean[1])/2),int(bb1_mean[2]),int((bb0_mean[3] + bb1_mean[3])/2)]
-        ibb = [x_center_ibb-int(w_ibb/2),y_center_ibb-int(h_ibb/2),x_center_ibb+int(w_ibb/2),y_center_ibb+int(h_ibb/2)]
+        ibb = [x_center_ibb-int(w_ibb/2),y_center_ibb-int(h_ibb/2),x_center_ibb+int(w_ibb*1.1/2),y_center_ibb+int(h_ibb/2)]
         ibbList.append([bb0_mean,bb1_mean,ibb])
         i+=stride
     return np.array(ibbList)
