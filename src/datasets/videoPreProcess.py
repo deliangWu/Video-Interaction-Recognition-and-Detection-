@@ -23,7 +23,7 @@ def videoNorm(videoIn,normEn = True):
     if normEn == True:
         vo = videoIn.astype(np.float32) / max(vmax-vmin,1) 
     else:
-        vo = videoIn.astype(np.float32) / 255 
+        vo = videoIn.astype(np.float32) / 255
     return vo
 
 def videoPlay(video,fps = 25):

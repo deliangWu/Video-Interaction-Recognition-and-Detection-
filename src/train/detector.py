@@ -277,7 +277,7 @@ def main(argv):
     savePrefix = 'c3d_detector_'
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
-    seqNo = int(argv[0][3:])
+    seqNo = int(argv[1][3:])
     seqRange = (seqNo,)
     for seq in seqRange:
         log = '****************************************\n' \
