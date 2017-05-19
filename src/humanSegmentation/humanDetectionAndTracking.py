@@ -80,18 +80,18 @@ def bbReShape(boundingBoxes,width,height,frmSize):
         if len(pos_lts) == 1:
             pos_lt_filtered = kalmanFilter(pos_lts[0],kalman0)
             bb_ori = (normBB([int(pos_lt_filtered[0]),int(pos_lt_filtered[1])], width, height, frmSize), boundingBoxes[0][1])
-            bb_reshape = (normBB([move(int(pos_lt_filtered[0]),20),move(int(pos_lt_filtered[1]),20)], int(width * 1.2), height, frmSize), boundingBoxes[0][1])
+            bb_reshape = (normBB([move(int(pos_lt_filtered[0]),20),move(int(pos_lt_filtered[1]),0)], int(width * 1.3), height, frmSize), boundingBoxes[0][1])
             
             bb_ori = [bb_ori]
             bb_reshape = [bb_reshape]
         else:
             pos_lt_filtered = kalmanFilter(pos_lts[0],kalman0)
             bb_ori_0 = (normBB([int(pos_lt_filtered[0]),int(pos_lt_filtered[1])], width, height, frmSize), boundingBoxes[0][1])
-            bb_reshape_0 = (normBB([move(int(pos_lt_filtered[0]),20),move(int(pos_lt_filtered[1]),20)], int(width * 1.3), height, frmSize), boundingBoxes[0][1])
+            bb_reshape_0 = (normBB([move(int(pos_lt_filtered[0]),20),move(int(pos_lt_filtered[1]),0)], int(width * 1.3), height, frmSize), boundingBoxes[0][1])
             
             pos_lt_filtered = kalmanFilter(pos_lts[1],kalman1)
             bb_ori_1 = (normBB([int(pos_lt_filtered[0]),int(pos_lt_filtered[1])], width, height, frmSize), boundingBoxes[1][1])
-            bb_reshape_1 = (normBB([move(int(pos_lt_filtered[0]),20),move(int(pos_lt_filtered[1]),20)], int(width * 1.3), height, frmSize), boundingBoxes[1][1])
+            bb_reshape_1 = (normBB([move(int(pos_lt_filtered[0]),20),move(int(pos_lt_filtered[1]),0)], int(width * 1.3), height, frmSize), boundingBoxes[1][1])
             
             bb_ori = [bb_ori_0, bb_ori_1]
             bb_reshape = [bb_reshape_0, bb_reshape_1]
