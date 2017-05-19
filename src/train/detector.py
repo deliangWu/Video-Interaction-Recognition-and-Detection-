@@ -184,7 +184,7 @@ def genIBB(boundingBoxes,vLen=64,stride=8):
         w_ibb_max = int(h_ibb * 128/112 * 1.4)
         w_ibb = min(max(w_ibb_min,int(bb1_mean[2] - bb0_mean[0])),w_ibb_max)
         #ibb = [int(bb0_mean[0]),int((bb0_mean[1] + bb1_mean[1])/2),int(bb1_mean[2]),int((bb0_mean[3] + bb1_mean[3])/2)]
-        ibb = [x_center_ibb-int(w_ibb/2),y_center_ibb-int(h_ibb/2),x_center_ibb+int(w_ibb*1.1/2),y_center_ibb+int(h_ibb*1.1/2)]
+        ibb = [x_center_ibb-int(w_ibb*1.1/2),y_center_ibb-int(h_ibb/2),x_center_ibb+int(w_ibb*1.1/2),y_center_ibb+int(h_ibb*1.2/2)]
         ibbList.append([bb0_mean,bb1_mean,ibb])
         i+=stride
     return np.array(ibbList)
@@ -220,10 +220,10 @@ def comb_IBB(pred_yList,vLen=64):
     ibbList = []
     yList = []
     for i in range(len(pred_yList)):
-        endingFrameNo = pred_yList[i][0] + vLen 
+        endingFrameNo = pred_yList[i][0] + vLen/2 
         ibbList.append(pred_yList[i][1])
         yList.append(pred_yList[i][2])
-        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= vLen or i == len(pred_yList)-1:
+        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= vLen/2 or i == len(pred_yList)-1:
             ibbSets.append([[startingFrameNo,endingFrameNo],ibbList,yList])
             if (i < len(pred_yList) - 1):
                 startingFrameNo = pred_yList[i+1][0]
