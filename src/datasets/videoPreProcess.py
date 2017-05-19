@@ -5,7 +5,7 @@ import cv2
 from functools import reduce
 import time
 
-def videoRead(fileName,grayMode=True,downSample = 1):
+def videoRead(fileName,grayMode=True):
     cap = cv2.VideoCapture(fileName)
     ret,frame = cap.read()
     video = []
@@ -15,8 +15,6 @@ def videoRead(fileName,grayMode=True,downSample = 1):
         video.append(frame)
         ret,frame = cap.read()
     video = np.array(video)
-    #if video.shape[0] > 64:
-    #    video = video[range(0,video.shape[0],downSample)]
     return np.array(video) 
     
 def videoNorm(videoIn):
@@ -52,7 +50,7 @@ def videofliplr(videoIn):
     videoOut = np.array([np.fliplr(img) for img in videoIn])
     return videoOut
 
-def downSampling(video,n=8):
+def downSampling(video,n=2):
     frameN = video.shape[0]
     #if (frameN > n):
     #    sample = np.sort(np.random.randint(0,frameN,n))
@@ -62,11 +60,11 @@ def downSampling(video,n=8):
         sample = range(0,frameN,int(frameN/16))
     else:
         if frameN >= 64:
-            sample = range(0,frameN,4)
+            sample = range(0,frameN,n)
         elif frameN >=48:
-            sample = range(0,frameN,3)
+            sample = range(0,frameN,n)
         elif frameN >= 32:
-            sample = range(0,frameN,2)
+            sample = range(0,frameN,n)
         else:
             sample = range(0,frameN,1)
     return video[sample]
@@ -114,9 +112,9 @@ def batchFormat(videoIn,cropEn = True):
     videoBatch = []
     i = 0
     while(True):
-        if i*4 + 16 > videoIn.shape[0]:
+        if i*8 + 16 > videoIn.shape[0]:
             break
-        seq = np.arange(i*4,i*4 + 16)
+        seq = np.arange(i*8,i*8 + 16)
         videoBatch.append(videoIn[seq])
         i += 1
     videoBatch = np.array(videoBatch)
@@ -161,20 +159,20 @@ def videoRezise(videoIn,frmSize):
     return videoOut
 
 
-def videoProcess(fileName,frmSize,downSample = 4, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
+def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1)
     out = videoProcessVin(vIn, frmSize, downSample, NormEn, RLFlipEn, batchMode, cropEn)
     return out
 
-def videoProcessVin(vIn,frmSize,downSample = 4, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
+def videoProcessVin(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
     if vIn.shape[0] >= 16:
         vRS = videoRezise(vIn,frmSize)
         #vSimp = videoSimplify(vRS)
         vNorm = videoNorm(vRS)
         if NormEn is True:
-            vDS = downSampling(vNorm,4)
+            vDS = downSampling(vNorm,downSample)
         else:
-            vDS = downSampling(vRS,4)
+            vDS = downSampling(vRS,downSample)
         if RLFlipEn is True:
             vDS_Flipped = videofliplr(vDS)
             vBatch = np.append(batchFormat(vDS,cropEn),batchFormat(vDS_Flipped,cropEn),axis=0)
