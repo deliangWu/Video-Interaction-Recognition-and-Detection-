@@ -62,7 +62,7 @@ class C3DNET:
             top1_accu = np.mean(np.equal(np.argmax(y_conv,1),np.argmax(test_y,1)))
             # top2 accuracy 
             top2y = np.array([np.argsort(y_conv)[:,-1],np.argsort(y_conv)[:,-2]]).transpose(1,0)
-            obs = np.array([np.argsort(y_conv)[:,-1],np.argsort(y_conv)[:,-2],np.argmax(test_y)]).transpose(1,0) 
+            obs = np.array([np.argsort(y_conv)[:,-1],np.argsort(y_conv)[:,-2],np.argmax(test_y,1)]).transpose(1,0) 
             if (top1_accu > 0.9):
                 print(obs)
             top2_accu = np.mean([int(np.argmax(y) in t2y) for y,t2y in zip(test_y,top2y)])
