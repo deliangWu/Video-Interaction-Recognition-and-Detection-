@@ -306,7 +306,7 @@ def main(argv):
         #bbInitFrmNo = 95 
         for vLen in(48,64,80,96):
             for stride in (4,8):
-                print('*********** vLen :',vLen,' stride: ', stride,' **************************')
+                common.pAndWf(logName, '*********** vLen :'+str(vLen)+' stride: '+ str(stride) +' **************************\n')
                 ibbLists= genIBB(boundingBoxes,vLen,stride)
                 #dispIBB(video, bbInitFrmNo, ibbLists[:,2])
                 # generate the predicted labels for candidate bounding boxes
