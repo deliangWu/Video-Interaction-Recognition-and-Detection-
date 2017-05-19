@@ -313,7 +313,7 @@ def main(argv):
             ibbSets = comb_IBB(pred_yList,vLen)
             # non-maximum suppression to vote the most possible lables
             finalPredIBB = NMS_IBB(ibbSets)
-            common.pAndWf(logName,str(finalPredIBB))
+            common.pAndWf(logName,str(finalPredIBB)+'\n')
  
                 
 if __name__ == "__main__":
