@@ -60,16 +60,16 @@ def downSampling(video,n=2):
     #else:
     #    sample = np.sort(np.random.randint(0,frameN,int(frameN/16)*16))
     if n == 0:
-        sample = np.arange(0,frameN,int(frameN/16)) + np.random.randint(int(frameN/16))
+        sample = np.arange(np.random.randint(int(frameN/16)),frameN,int(frameN/16)) 
     else:
         if frameN >= 64:
-            sample = np.arange(0,frameN,n) + np.random.randint(n)
-        elif frameN >=48:
-            sample = np.arange(0,frameN,n) + np.random.randint(n)
+            sample = np.arange(np.random.randint(n),frameN,n) 
+        elif frameN >= 48:
+            sample = np.arange(np.random.randint(n),frameN,n)
         elif frameN >= 32:
-            sample = np.arange(0,frameN,n) + np.random.randint(n)
+            sample = np.arange(np.random.randint(n),frameN,n)
         else:
-            sample = np.arange(0,frameN,1)
+            sample = np.arange(np.random.randint(n),frameN,1)
     return video[sample]
 
 def videoSave(video,fileName):
