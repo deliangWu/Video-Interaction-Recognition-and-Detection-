@@ -17,7 +17,7 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
-    numOfClasses = 7 
+    numOfClasses = 6 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
@@ -110,8 +110,8 @@ def main(argv):
                         if anv_accuracy == 1 or epoch >= 20 or (i > int(iteration * 0.75) and anv_accuracy >= best_accuracy):
                             break
                     i+=1
-                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg7.ckpt'))
-                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
+                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
+                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
                 common.pAndWf(logName,' \n')
             accuSet.append(test_accuracy)
             t2accuSet.append(t2y_accu)

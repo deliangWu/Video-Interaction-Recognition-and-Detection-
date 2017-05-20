@@ -4,6 +4,7 @@ from os import listdir
 from os.path import isfile, join
 import numpy as np
 import re
+import time
 import videoPreProcess as vpp
 import sys
 sys.path.insert(1,'../common')
@@ -46,7 +47,7 @@ class ut_interaction:
     def loadTrainingAll(self, shuffleEn = True,oneHotLabelMode=False):
         cnt_file = 0
         for file in self._trainingFilesSet:
-            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True)
+            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,downSample=0,numOfRandomCrop=4)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
             #label = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
@@ -57,6 +58,7 @@ class ut_interaction:
                 print('Loading training videos: ' + str(int(cnt_file * 100 / self._trainingFilesSet.shape[0])) +'%')
         #self._trainingVideos = np.concatenate([self._trainingVideos, self._trainingVideos, self._trainingVideos],0)
         #self._trainingLabels = np.concatenate([self._trainingLabels, self._trainingLabels, self._trainingLabels],0)
+        print(self._trainingVideos.shape)
         if shuffleEn == True:
             perm = np.arange(self._trainingVideos.shape[0])
             np.random.shuffle(perm)
@@ -97,16 +99,8 @@ class ut_interaction:
         testLabels = np.empty((0,1),dtype=np.float32)        
         for file in self._testingFilesSet:
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
-            video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True)
+            video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True,downSample=0,numOfRandomCrop=1)
             if video is not None:
-                #numOfClips = video.shape[0]
-                #if numOfClips == 1:
-                #    index = [0,0,0]
-                #elif numOfClips == 2:
-                #    index = [0,1,1]
-                #else:
-                #    index = range(int(numOfClips/2) - 1, int(numOfClips/2) + 2)
-                #video = video[index]
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
                 #testLabels = np.append(testLabels,np.reshape(labelCode,(1,self._numOfClasses)),axis=0)

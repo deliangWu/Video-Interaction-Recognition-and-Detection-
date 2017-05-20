@@ -60,16 +60,16 @@ def downSampling(video,n=2):
     #else:
     #    sample = np.sort(np.random.randint(0,frameN,int(frameN/16)*16))
     if n == 0:
-        sample = range(0,frameN,int(frameN/16))
+        sample = np.arange(0,frameN,int(frameN/16)) + np.random.randint(int(frameN/16))
     else:
         if frameN >= 64:
-            sample = range(0,frameN,n)
+            sample = np.arange(0,frameN,n) + np.random.randint(n)
         elif frameN >=48:
-            sample = range(0,frameN,n)
+            sample = np.arange(0,frameN,n) + np.random.randint(n)
         elif frameN >= 32:
-            sample = range(0,frameN,n)
+            sample = np.arange(0,frameN,n) + np.random.randint(n)
         else:
-            sample = range(0,frameN,1)
+            sample = np.arange(0,frameN,1)
     return video[sample]
 
 def videoSave(video,fileName):
@@ -144,7 +144,6 @@ def videoRezise(videoIn,frmSize):
         imgOut = np.reshape(bg, (frmSize[0],frmSize[1],3))
         if frmSize[2] ==1:
             imgOut = cv2.cvtColor(imgOut,cv2.COLOR_BGR2GRAY)
-            
         whRatio = float(img.shape[1]) / img.shape[0]
         refRatio = float(frmSize[1]) / frmSize[0]
         if whRatio < refRatio * 0.8:
@@ -162,25 +161,34 @@ def videoRezise(videoIn,frmSize):
     return videoOut
 
 
-def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
+def videoProcess(fileName,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True,numOfRandomCrop = 1):
     vIn = videoRead(fileName,grayMode=frmSize[2] == 1)
-    out = videoProcessVin(vIn, frmSize, downSample, NormEn, RLFlipEn, batchMode, cropEn)
+    out = videoProcessVin(vIn, frmSize, downSample, NormEn, RLFlipEn, batchMode, cropEn,numOfRandomCrop)
     return out
 
-def videoProcessVin(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True):
+def videoProcessVin(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True, batchMode = True, cropEn = True,numOfRandomCrop = 1):
     if vIn.shape[0] >= 16:
-        vRS = videoRezise(vIn,frmSize)
-        #vSimp = videoSimplify(vRS)
-        vNorm = videoNorm(vRS,NormEn)
-        vDS = downSampling(vNorm,downSample)
-        if RLFlipEn is True:
-            vDS_Flipped = videofliplr(vDS)
-            vBatch = np.append(batchFormat(vDS,cropEn),batchFormat(vDS_Flipped,cropEn),axis=0)
-        else:
-            vBatch = batchFormat(vDS,cropEn)
+        vBatch = []
+        for i in range(numOfRandomCrop):
+            vRS = videoRezise(vIn,(frmSize[0]+16,frmSize[1]+16,frmSize[2]))
+            offset_x = np.random.randint(16) 
+            offset_y = np.random.randint(16) 
+            vRS = vRS[:,offset_x:offset_x+frmSize[0],offset_y:offset_y+frmSize[1]]
+            #vSimp = videoSimplify(vRS)
+            vNorm = videoNorm(vRS,NormEn)
+            vDS = downSampling(vNorm,downSample)
+            if RLFlipEn is True:
+                vDS_Flipped = videofliplr(vDS)
+                #vBatch = np.append(vBatch, batchFormat(vDS,cropEn),axis=0)
+                #vBatch = np.append(vBatch, batchFormat(vDS_Flipped,cropEn),axis=0)
+                vBatch.append(batchFormat(vDS,cropEn))
+                vBatch.append(batchFormat(vDS_Flipped,cropEn))
+            else:
+                #vBatch = np.append(vBatch, batchFormat(vDS,cropEn), axis=0)
+                vBatch.append(batchFormat(vDS,cropEn))
         
         if batchMode is True:
-            return vBatch
+            return np.reshape(np.array(vBatch),(-1,16)+frmSize)
         else:
             return vDS
     else:
