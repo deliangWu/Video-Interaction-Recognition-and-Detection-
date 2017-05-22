@@ -1,0 +1,26 @@
+Sun May 14 09:33:28 2017 Train the 3D-ConvNet full Net on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 1
+****************************************
+epoch 0, step 0, training: 0.3125, testing: 0.166667, top2: 0.333333, anv: 0.0166667, best 0.0166667 
+epoch 3, step 20, training: 0.125, testing: 0.166667, top2: 0.333333, anv: 0.0333333, best 0.0333333 
+epoch 6, step 40, training: 0.375, testing: 0.333333, top2: 0.666667, anv: 0.0666667, best 0.0666667 
+epoch 10, step 60, training: 0.75, testing: 0.5, top2: 0.5, anv: 0.116667, best 0.116667 
+epoch 13, step 80, training: 0.6875, testing: 0.666667, top2: 0.833333, anv: 0.183333, best 0.183333 
+epoch 16, step 100, training: 0.75, testing: 0.666667, top2: 0.666667, anv: 0.25, best 0.25 
+epoch 20, step 120, training: 0.875, testing: 0.5, top2: 0.666667, anv: 0.3, best 0.3 
+epoch 23, step 140, training: 0.9375, testing: 0.833333, top2: 0.833333, anv: 0.383333, best 0.383333 
+epoch 26, step 160, training: 0.9375, testing: 0.833333, top2: 0.833333, anv: 0.466667, best 0.466667 
+epoch 30, step 180, training: 1, testing: 0.833333, top2: 0.833333, anv: 0.55, best 0.55 
+epoch 33, step 200, training: 1, testing: 0.833333, top2: 1, anv: 0.616667, best 0.616667 
+epoch 36, step 220, training: 1, testing: 1, top2: 1, anv: 0.7, best 0.7 
+epoch 40, step 240, training: 1, testing: 1, top2: 1, anv: 0.766667, best 0.766667 
+epoch 43, step 260, training: 1, testing: 1, top2: 1, anv: 0.816667, best 0.816667 
+epoch 46, step 280, training: 1, testing: 0.833333, top2: 1, anv: 0.833333, best 0.833333 
+epoch 50, step 300, training: 1, testing: 0.833333, top2: 0.833333, anv: 0.85, best 0.85 
+epoch 53, step 320, training: 1, testing: 0.833333, top2: 1, anv: 0.883333, best 0.883333 
+epoch 56, step 340, training: 1, testing: 0.833333, top2: 0.833333, anv: 0.883333, best 0.883333 
+epoch 60, step 360, training: 1, testing: 1, top2: 1, anv: 0.9, best 0.9 
+epoch 63, step 380, training: 1, testing: 0.833333, top2: 1, anv: 0.9, best 0.9 
+epoch 66, step 400, training: 1, testing: 0.833333, top2: 1, anv: 0.9, best 0.9 
+epoch 70, step 420, training: 1, testing: 0.833333, top2: 1, anv: 0.883333, best 0.9 

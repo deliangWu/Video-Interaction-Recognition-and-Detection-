@@ -1,0 +1,22 @@
+Mon May  8 10:58:13 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 4
+****************************************
+epoch: 0, step: 0, training: 0.375, loss: 1.28301e+11, testing: 0.166667, t2y: 0.5, anv: 0.0555556, best: 0.0555556 
+epoch: 1, step: 20, training: 0.4375, loss: 2.39807e+10, testing: 0.166667, t2y: 0.666667, anv: 0.111111, best: 0.111111 
+epoch: 2, step: 40, training: 0.625, loss: 2.80015e+09, testing: 0.333333, t2y: 0.666667, anv: 0.222222, best: 0.222222 
+epoch: 3, step: 60, training: 0.4375, loss: 3.87899e+09, testing: 0.333333, t2y: 0.5, anv: 0.277778, best: 0.277778 
+epoch: 4, step: 80, training: 0.75, loss: 9.90322e+08, testing: 0.166667, t2y: 0.333333, anv: 0.277778, best: 0.277778 
+epoch: 5, step: 100, training: 0.625, loss: 1.10709e+09, testing: 0.5, t2y: 0.666667, anv: 0.333333, best: 0.333333 
+epoch: 6, step: 120, training: 0.6875, loss: 5.38503e+08, testing: 0.5, t2y: 0.666667, anv: 0.388889, best: 0.388889 
+epoch: 7, step: 140, training: 0.75, loss: 2.25661e+08, testing: 0.333333, t2y: 0.5, anv: 0.444444, best: 0.444444 
+epoch: 8, step: 160, training: 0.5, loss: 1.72972e+08, testing: 0.333333, t2y: 0.5, anv: 0.388889, best: 0.444444 
+epoch: 9, step: 180, training: 0.75, loss: 8.69993e+07, testing: 0.166667, t2y: 0.333333, anv: 0.277778, best: 0.444444 
+epoch: 10, step: 200, training: 0.75, loss: 1.24828e+08, testing: 0.166667, t2y: 0.5, anv: 0.222222, best: 0.444444 
+epoch: 11, step: 220, training: 0.8125, loss: 3.55781e+07, testing: 0.166667, t2y: 0.5, anv: 0.166667, best: 0.444444 
+epoch: 12, step: 240, training: 0.6875, loss: 5.43917e+07, testing: 0.166667, t2y: 0.5, anv: 0.166667, best: 0.444444 
+epoch: 13, step: 260, training: 0.8125, loss: 1.82154e+07, testing: 0.5, t2y: 0.5, anv: 0.277778, best: 0.444444 
+epoch: 14, step: 280, training: 0.75, loss: 3.93368e+07, testing: 0.166667, t2y: 0.666667, anv: 0.277778, best: 0.444444 
+epoch: 15, step: 300, training: 0.75, loss: 4.81375e+07, testing: 0.333333, t2y: 0.5, anv: 0.333333, best: 0.444444 
+epoch: 16, step: 320, training: 0.875, loss: 2.09797e+07, testing: 0.166667, t2y: 0.333333, anv: 0.222222, best: 0.444444 
+epoch: 17, step: 340, training: 0.625, loss: 7.62434e+06, testing: 0.333333, t2y: 0.333333, anv: 0.277778, best: 0.444444 

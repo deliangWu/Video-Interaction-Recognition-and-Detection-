@@ -1,0 +1,5 @@
+Sat May  6 09:36:45 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 1
+****************************************
+Testing accuracy 0.666667 

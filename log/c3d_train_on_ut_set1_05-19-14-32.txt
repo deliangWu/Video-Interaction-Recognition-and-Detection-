@@ -1,0 +1,22 @@
+Fri May 19 14:32:10 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+-------------------------------------------------------------------------
+---------------------------- RUN 0 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
+seq: 1, epoch: 0, step: 0, training: 0.8125, loss: 6020.2, testing: 0.684211, t2y: 0.736842, anv: 0.22807, best: 0.22807 
+seq: 1, epoch: 0, step: 40, training: 0.8125, loss: 443.617, testing: 0.684211, t2y: 0.736842, anv: 0.45614, best: 0.45614 
+seq: 1, epoch: 1, step: 80, training: 0.875, loss: 696.509, testing: 0.684211, t2y: 0.789474, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 1, step: 120, training: 0.6875, loss: 394.944, testing: 0.684211, t2y: 0.894737, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 2, step: 160, training: 0.625, loss: 472.595, testing: 0.684211, t2y: 0.894737, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 2, step: 200, training: 0.8125, loss: 191.948, testing: 0.684211, t2y: 0.789474, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 3, step: 240, training: 0.75, loss: 287.804, testing: 0.684211, t2y: 0.789474, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 4, step: 280, training: 0.9375, loss: 29.7441, testing: 0.684211, t2y: 0.894737, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 4, step: 320, training: 0.875, loss: 164.511, testing: 0.736842, t2y: 0.842105, anv: 0.701754, best: 0.701754 
+seq: 1, epoch: 5, step: 360, training: 0.8125, loss: 129.54, testing: 0.684211, t2y: 0.947368, anv: 0.701754, best: 0.701754 
+seq: 1, epoch: 5, step: 400, training: 0.75, loss: 59.1348, testing: 0.684211, t2y: 0.894737, anv: 0.701754, best: 0.701754 
+seq: 1, epoch: 6, step: 440, training: 0.9375, loss: 11.259, testing: 0.684211, t2y: 0.789474, anv: 0.684211, best: 0.701754 
+seq: 1, epoch: 7, step: 480, training: 0.875, loss: 108.508, testing: 0.789474, t2y: 0.894737, anv: 0.719298, best: 0.719298 
+seq: 1, epoch: 7, step: 520, training: 0.875, loss: 113.388, testing: 0.684211, t2y: 0.894737, anv: 0.719298, best: 0.719298 
+seq: 1, epoch: 8, step: 560, training: 0.875, loss: 72.7685, testing: 0.684211, t2y: 0.894737, anv: 0.719298, best: 0.719298 

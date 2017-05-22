@@ -1,0 +1,12 @@
+Mon Apr 10 20:11:33 2017 Finetune the dual-nets model with two independent feature variables on UT-Interaction set1! 
+****************************************
+current sequence is 1
+****************************************
+Epoch: 0, step: 0, training: 0.1875, testing: 0.166667, anv: 0.0555556, best: 0.0555556 
+Epoch: 1, step: 20, training: 0.25, testing: 0.333333, anv: 0.166667, best: 0.166667 
+Epoch: 2, step: 40, training: 0.6875, testing: 0.333333, anv: 0.277778, best: 0.277778 
+Epoch: 3, step: 60, training: 0.0625, testing: 0.166667, anv: 0.277778, best: 0.277778 
+Epoch: 4, step: 80, training: 0.6875, testing: 0.166667, anv: 0.222222, best: 0.277778 
+Epoch: 5, step: 100, training: 0.6875, testing: 0.833333, anv: 0.388889, best: 0.388889 
+Epoch: 6, step: 120, training: 0.8125, testing: 0.833333, anv: 0.611111, best: 0.611111 
+Epoch: 7, step: 140, training: 0.5, testing: 0.5, anv: 0.722222, best: 0.722222 

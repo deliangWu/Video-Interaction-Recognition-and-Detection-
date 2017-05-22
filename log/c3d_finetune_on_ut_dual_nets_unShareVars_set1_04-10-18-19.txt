@@ -1,0 +1,17 @@
+Mon Apr 10 18:19:41 2017 Finetune the dual-nets model with two independent feature variables on UT-Interaction set1! 
+****************************************
+current sequence is 1
+****************************************
+Testing accuracy 0.166667 
+****************************************
+current sequence is 2
+****************************************
+Testing accuracy 0 
+****************************************
+current sequence is 3
+****************************************
+Testing accuracy 0.166667 
+****************************************
+current sequence is 4
+****************************************
+Testing accuracy 0 

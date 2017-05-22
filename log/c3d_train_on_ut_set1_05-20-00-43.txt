@@ -1,0 +1,37 @@
+Sat May 20 00:43:35 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+-------------------------------------------------------------------------
+---------------------------- RUN 0 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
+seq: 1, epoch: 0, step: 0, training: 0.625, loss: 7631.77, testing: 0.684211, t2y: 0.736842, anv: 0.22807, best: 0.22807 
+seq: 1, epoch: 0, step: 40, training: 0.75, loss: 2392.05, testing: 0.684211, t2y: 0.736842, anv: 0.45614, best: 0.45614 
+seq: 1, epoch: 1, step: 80, training: 0.5625, loss: 1202.96, testing: 0.684211, t2y: 0.789474, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 1, step: 120, training: 0.8125, loss: 580.026, testing: 0.684211, t2y: 0.736842, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 2, step: 160, training: 0.6875, loss: 320.296, testing: 0.684211, t2y: 0.842105, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 2, step: 200, training: 1, loss: 332.353, testing: 0.736842, t2y: 0.947368, anv: 0.701754, best: 0.701754 
+seq: 1, epoch: 3, step: 240, training: 0.875, loss: 201.99, testing: 0.736842, t2y: 0.842105, anv: 0.719298, best: 0.719298 
+seq: 1, epoch: 4, step: 280, training: 0.5, loss: 327.662, testing: 0.684211, t2y: 0.894737, anv: 0.719298, best: 0.719298 
+seq: 1, epoch: 4, step: 320, training: 0.75, loss: 188.113, testing: 0.736842, t2y: 0.894737, anv: 0.719298, best: 0.719298 
+seq: 1, epoch: 5, step: 360, training: 0.75, loss: 181.88, testing: 0.684211, t2y: 0.842105, anv: 0.701754, best: 0.719298 
+seq: 1, epoch: 5, step: 400, training: 0.8125, loss: 160.081, testing: 0.789474, t2y: 0.894737, anv: 0.736842, best: 0.736842 
+seq: 1, epoch: 6, step: 440, training: 0.8125, loss: 181.056, testing: 0.736842, t2y: 0.842105, anv: 0.736842, best: 0.736842 
+seq: 1, epoch: 7, step: 480, training: 0.875, loss: 76.2746, testing: 0.789474, t2y: 0.947368, anv: 0.77193, best: 0.77193 
+seq: 1, epoch: 7, step: 520, training: 0.8125, loss: 36.4004, testing: 0.789474, t2y: 0.947368, anv: 0.77193, best: 0.77193 
+seq: 1, epoch: 8, step: 560, training: 0.9375, loss: 57.7902, testing: 0.789474, t2y: 0.894737, anv: 0.789474, best: 0.789474 
+seq: 1, epoch: 8, step: 600, training: 0.9375, loss: 47.4845, testing: 0.736842, t2y: 0.894737, anv: 0.77193, best: 0.789474 
+seq: 1, epoch: 9, step: 640, training: 0.875, loss: 54.9955, testing: 0.736842, t2y: 0.947368, anv: 0.754386, best: 0.789474 
+seq: 1, epoch: 10, step: 680, training: 0.9375, loss: 106.18, testing: 0.736842, t2y: 0.894737, anv: 0.736842, best: 0.789474 
+seq: 1, epoch: 10, step: 720, training: 0.875, loss: 47.9392, testing: 0.789474, t2y: 0.894737, anv: 0.754386, best: 0.789474 
+seq: 1, epoch: 11, step: 760, training: 1, loss: 43.5467, testing: 0.894737, t2y: 1, anv: 0.807018, best: 0.807018 
+seq: 1, epoch: 11, step: 800, training: 0.9375, loss: 2.39159e-06, testing: 0.789474, t2y: 0.894737, anv: 0.824561, best: 0.824561 
+seq: 1, epoch: 12, step: 840, training: 0.9375, loss: 55.1569, testing: 0.789474, t2y: 0.894737, anv: 0.824561, best: 0.824561 
+seq: 1, epoch: 12, step: 880, training: 1, loss: 83.1222, testing: 0.842105, t2y: 0.947368, anv: 0.807018, best: 0.824561 
+seq: 1, epoch: 13, step: 920, training: 0.75, loss: 95.1677, testing: 0.789474, t2y: 0.947368, anv: 0.807018, best: 0.824561 
+seq: 1, epoch: 14, step: 960, training: 1, loss: 27.3539, testing: 0.736842, t2y: 0.947368, anv: 0.789474, best: 0.824561 
+seq: 1, epoch: 14, step: 1000, training: 0.9375, loss: 35.6607, testing: 0.842105, t2y: 1, anv: 0.789474, best: 0.824561 
+seq: 1, epoch: 15, step: 1040, training: 0.875, loss: 17.7297, testing: 0.842105, t2y: 0.947368, anv: 0.807018, best: 0.824561 
+seq: 1, epoch: 15, step: 1080, training: 1, loss: 74.888, testing: 0.894737, t2y: 1, anv: 0.859649, best: 0.859649 
+seq: 1, epoch: 16, step: 1120, training: 1, loss: 42.5459, testing: 0.894737, t2y: 1, anv: 0.877193, best: 0.877193 
+seq: 1, epoch: 17, step: 1160, training: 1, loss: 33.7205, testing: 0.84210

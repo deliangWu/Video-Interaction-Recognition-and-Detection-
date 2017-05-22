@@ -1,0 +1,4 @@
+Tue Apr 11 19:52:02 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 1
+****************************************

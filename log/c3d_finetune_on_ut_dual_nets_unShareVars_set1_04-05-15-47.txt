@@ -1,0 +1,24 @@
+Wed Apr  5 15:47:33 2017 Finetune the dual-nets model with two independent feature variables on UT-Interaction set1! 
+****************************************
+current sequence is 1
+****************************************
+step 0, training: 0.15, testing: 0.166667, anv: 0.0166667, best 0.0166667 
+step 20, training: 0.1, testing: 0.166667, anv: 0.0333333, best 0.0333333 
+step 40, training: 0.25, testing: 0.166667, anv: 0.05, best 0.05 
+step 60, training: 0.2, testing: 0.166667, anv: 0.0666667, best 0.0666667 
+step 80, training: 0.25, testing: 0, anv: 0.0666667, best 0.0666667 
+step 100, training: 0.1, testing: 0.166667, anv: 0.0833333, best 0.0833333 
+step 120, training: 0.05, testing: 0.166667, anv: 0.1, best 0.1 
+step 140, training: 0.1, testing: 0.166667, anv: 0.116667, best 0.116667 
+step 160, training: 0.3, testing: 0, anv: 0.116667, best 0.116667 
+step 180, training: 0.2, testing: 0.166667, anv: 0.133333, best 0.133333 
+step 200, training: 0.15, testing: 0.166667, anv: 0.133333, best 0.133333 
+step 220, training: 0.1, testing: 0.166667, anv: 0.133333, best 0.133333 
+step 240, training: 0.2, testing: 0.166667, anv: 0.133333, best 0.133333 
+step 260, training: 0.15, testing: 0.166667, anv: 0.133333, best 0.133333 
+step 280, training: 0.15, testing: 0.166667, anv: 0.15, best 0.15 
+step 300, training: 0.3, testing: 0.166667, anv: 0.15, best 0.15 
+step 320, training: 0.1, testing: 0.166667, anv: 0.15, best 0.15 
+step 340, training: 0.25, testing: 0.166667, anv: 0.15, best 0.15 
+step 360, training: 0.15, testing: 0.166667, anv: 0.166667, best 0.166667 
+step 380, training: 0.25, testing: 0.166667, anv: 0.166667, best 0.166667 

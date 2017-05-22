@@ -1,0 +1,32 @@
+Tue Apr  4 07:44:02 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 1
+****************************************
+step 0, training: 1, testing: 1, anv: 0.1, best 0.1 
+step 20, training: 1, testing: 1, anv: 0.2, best 0.2 
+step 40, training: 1, testing: 1, anv: 0.3, best 0.3 
+step 60, training: 1, testing: 1, anv: 0.4, best 0.4 
+step 80, training: 1, testing: 1, anv: 0.5, best 0.5 
+step 100, training: 1, testing: 1, anv: 0.6, best 0.6 
+step 120, training: 1, testing: 1, anv: 0.7, best 0.7 
+step 140, training: 1, testing: 1, anv: 0.8, best 0.8 
+step 160, training: 1, testing: 1, anv: 0.9, best 0.9 
+step 180, training: 1, testing: 1, anv: 1, best 1 
+ 
+****************************************
+current sequence is 2
+****************************************
+step 0, training: 1, testing: 1, anv: 0.1, best 0.1 
+step 20, training: 0.933333, testing: 1, anv: 0.2, best 0.2 
+step 40, training: 0.933333, testing: 1, anv: 0.3, best 0.3 
+step 60, training: 1, testing: 1, anv: 0.4, best 0.4 
+step 80, training: 0.866667, testing: 1, anv: 0.5, best 0.5 
+step 100, training: 1, testing: 1, anv: 0.6, best 0.6 
+step 120, training: 1, testing: 1, anv: 0.7, best 0.7 
+step 140, training: 1, testing: 1, anv: 0.8, best 0.8 
+step 160, training: 1, testing: 1, anv: 0.9, best 0.9 
+step 180, training: 0.933333, testing: 1, anv: 1, best 1 
+ 
+****************************************
+current sequence is 3
+****************************************

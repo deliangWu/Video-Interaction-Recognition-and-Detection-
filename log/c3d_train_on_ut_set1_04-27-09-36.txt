@@ -1,0 +1,1 @@
+Thu Apr 27 09:36:22 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 

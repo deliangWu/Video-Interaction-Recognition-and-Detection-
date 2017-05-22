@@ -1,0 +1,5 @@
+Sat Apr  8 20:47:53 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 1
+****************************************
+step 0, training: 0.333333, testing: 0.166667, anv: 0.0166667, best 0.0166667 

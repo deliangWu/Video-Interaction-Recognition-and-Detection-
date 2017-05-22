@@ -1,0 +1,20 @@
+Mon Apr  3 17:04:27 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 1
+****************************************
+Testing accuracy 1 
+****************************************
+current sequence is 2
+****************************************
+Testing accuracy 1 
+****************************************
+current sequence is 3
+****************************************
+Testing accuracy 1 
+****************************************
+current sequence is 4
+****************************************
+Testing accuracy 1 
+****************************************
+current sequence is 5
+****************************************

@@ -1,0 +1,21 @@
+Fri Apr 28 23:00:42 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 1
+****************************************
+epoch: 0, step: 0, training: 0.1875, testing: 0.166667, anv: 0.0555556, best: 0.0555556 
+epoch: 1, step: 20, training: 0.4375, testing: 0.333333, anv: 0.166667, best: 0.166667 
+epoch: 2, step: 40, training: 0.5, testing: 0.333333, anv: 0.277778, best: 0.277778 
+epoch: 3, step: 60, training: 0.75, testing: 0.666667, anv: 0.444444, best: 0.444444 
+epoch: 4, step: 80, training: 0.8125, testing: 1, anv: 0.666667, best: 0.666667 
+epoch: 5, step: 100, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 6, step: 120, training: 1, testing: 0.833333, anv: 0.888889, best: 0.888889 
+epoch: 7, step: 140, training: 0.9375, testing: 0.666667, anv: 0.777778, best: 0.888889 
+epoch: 8, step: 160, training: 0.9375, testing: 1, anv: 0.833333, best: 0.888889 
+epoch: 9, step: 180, training: 1, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 10, step: 200, training: 1, testing: 1, anv: 0.944444, best: 0.944444 
+epoch: 11, step: 220, training: 1, testing: 1, anv: 0.944444, best: 0.944444 
+epoch: 12, step: 240, training: 1, testing: 0.833333, anv: 0.944444, best: 0.944444 
+epoch: 13, step: 260, training: 1, testing: 1, anv: 0.944444, best: 0.944444 
+epoch: 14, step: 280, training: 1, testing: 1, anv: 0.944444, best: 0.944444 
+epoch: 15, step: 300, training: 1, testing: 1, anv: 1, best: 1 
+ 

@@ -1,0 +1,84 @@
+Tue Apr 11 18:50:55 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 1
+****************************************
+epoch: 0, step: 0, training: 0.9375, testing: 0.833333, anv: 0.277778, best: 0.277778 
+epoch: 1, step: 20, training: 0.875, testing: 0.833333, anv: 0.555556, best: 0.555556 
+epoch: 2, step: 40, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 3, step: 60, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 4, step: 80, training: 0.625, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 5, step: 100, training: 0.75, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 6, step: 120, training: 0.875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 7, step: 140, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 8, step: 160, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 9, step: 180, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 10, step: 200, training: 1, testing: 1, anv: 0.888889, best: 0.888889 
+epoch: 11, step: 220, training: 0.9375, testing: 1, anv: 0.944444, best: 0.944444 
+epoch: 12, step: 240, training: 1, testing: 1, anv: 1, best: 1 
+ 
+epoch: 12, step: 0, training: 0.1875, testing: 0.166667, anv: 0.0555556, best: 0.0555556 
+epoch: 13, step: 20, training: 0.875, testing: 0.833333, anv: 0.333333, best: 0.333333 
+epoch: 14, step: 40, training: 0.9375, testing: 0.833333, anv: 0.611111, best: 0.611111 
+epoch: 15, step: 60, training: 0.6875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 16, step: 80, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 17, step: 100, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 18, step: 120, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 19, step: 140, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 20, step: 160, training: 0.9375, testing: 1, anv: 0.888889, best: 0.888889 
+epoch: 21, step: 180, training: 0.9375, testing: 0.833333, anv: 0.888889, best: 0.888889 
+epoch: 22, step: 200, training: 0.9375, testing: 0.833333, anv: 0.888889, best: 0.888889 
+epoch: 23, step: 220, training: 1, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 24, step: 240, training: 1, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 25, step: 260, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 26, step: 280, training: 1, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 27, step: 300, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 28, step: 320, training: 1, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 29, step: 340, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 30, step: 360, training: 1, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 31, step: 380, training: 0.875, testing: 0.833333, anv: 0.833333, best: 0.888889 
+epoch: 32, step: 400, training: 0.9375, testing: 1, anv: 0.888889, best: 0.888889 
+epoch: 33, step: 420, training: 1, testing: 1, anv: 0.944444, best: 0.944444 
+epoch: 34, step: 440, training: 1, testing: 1, anv: 1, best: 1 
+ 
+epoch: 34, step: 0, training: 0.125, testing: 0.166667, anv: 0.0555556, best: 0.0555556 
+epoch: 35, step: 20, training: 0.8125, testing: 0.833333, anv: 0.333333, best: 0.333333 
+epoch: 36, step: 40, training: 0.875, testing: 0.833333, anv: 0.611111, best: 0.611111 
+epoch: 37, step: 60, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 38, step: 80, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 39, step: 100, training: 0.875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 40, step: 120, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 41, step: 140, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 42, step: 160, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 43, step: 180, training: 0.75, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 44, step: 200, training: 0.75, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 45, step: 220, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 46, step: 240, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 47, step: 260, training: 0.75, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 48, step: 280, training: 0.875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 49, step: 300, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 50, step: 320, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 51, step: 340, training: 0.6875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 52, step: 360, training: 0.75, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 53, step: 380, training: 0.875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 54, step: 400, training: 0.6875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 55, step: 420, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 56, step: 440, training: 1, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 57, step: 460, training: 0.875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 58, step: 480, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 59, step: 500, training: 0.875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 60, step: 520, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 61, step: 540, training: 0.75, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 62, step: 560, training: 1, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 63, step: 580, training: 0.6875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 64, step: 600, training: 0.875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 65, step: 620, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 66, step: 640, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 67, step: 660, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 68, step: 680, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 69, step: 700, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 70, step: 720, training: 0.9375, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 71, step: 740, training: 0.8125, testing: 0.833333, anv: 0.833333, best: 0.833333 
+epoch: 72, step: 760, training: 0.875, testing: 0.833333, anv: 0.833333, best: 0.833333 
+ 
+epoch: 72, step: 0, training: 0.0625, testing: 0.166667, anv: 0.0555556, best: 0.0555556 
+epoch: 73, step: 20, training: 0.25, testing: 0.166667, anv: 0.111111, best: 0.111111 

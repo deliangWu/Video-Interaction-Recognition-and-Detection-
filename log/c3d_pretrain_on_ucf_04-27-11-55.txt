@@ -1,0 +1,1 @@
+step 0, training accuracy 0.0333333 and testing accuracy 0.0486202 , best accuracy is 0.0486202 

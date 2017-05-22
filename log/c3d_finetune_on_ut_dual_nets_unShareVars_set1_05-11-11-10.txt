@@ -1,0 +1,4 @@
+Thu May 11 11:10:12 2017 Finetune the dual-nets model with two independent feature variables on UT-Interaction set1! 
+****************************************
+current sequence is 1
+****************************************

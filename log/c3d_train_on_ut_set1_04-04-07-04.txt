@@ -1,0 +1,46 @@
+Tue Apr  4 07:04:39 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+****************************************
+current sequence is 1
+****************************************
+step 0, training: 0.266667, testing: 0.166667, anv: 0.0166667, best 0.0166667 
+step 20, training: 0.133333, testing: 0.166667, anv: 0.0333333, best 0.0333333 
+step 40, training: 0.6, testing: 0.5, anv: 0.0833333, best 0.0833333 
+step 60, training: 0.2, testing: 0.166667, anv: 0.1, best 0.1 
+step 80, training: 0.6, testing: 0.833333, anv: 0.183333, best 0.183333 
+step 100, training: 0.6, testing: 0.5, anv: 0.233333, best 0.233333 
+step 120, training: 0.466667, testing: 0.333333, anv: 0.266667, best 0.266667 
+step 140, training: 0.8, testing: 0.666667, anv: 0.333333, best 0.333333 
+step 160, training: 0.733333, testing: 0.5, anv: 0.383333, best 0.383333 
+step 180, training: 0.8, testing: 0.666667, anv: 0.45, best 0.45 
+step 200, training: 0.733333, testing: 0.666667, anv: 0.5, best 0.5 
+step 220, training: 0.933333, testing: 1, anv: 0.583333, best 0.583333 
+step 240, training: 0.8, testing: 1, anv: 0.633333, best 0.633333 
+step 260, training: 1, testing: 1, anv: 0.716667, best 0.716667 
+step 280, training: 0.6, testing: 0.333333, anv: 0.666667, best 0.716667 
+step 300, training: 1, testing: 1, anv: 0.716667, best 0.716667 
+step 320, training: 0.933333, testing: 1, anv: 0.783333, best 0.783333 
+step 340, training: 1, testing: 0.833333, anv: 0.8, best 0.8 
+step 360, training: 1, testing: 1, anv: 0.85, best 0.85 
+step 380, training: 1, testing: 1, anv: 0.883333, best 0.883333 
+step 400, training: 0.933333, testing: 1, anv: 0.916667, best 0.916667 
+step 420, training: 0.933333, testing: 0.833333, anv: 0.9, best 0.916667 
+step 440, training: 0.866667, testing: 0.833333, anv: 0.883333, best 0.916667 
+step 460, training: 1, testing: 1, anv: 0.883333, best 0.916667 
+step 480, training: 1, testing: 0.833333, anv: 0.933333, best 0.933333 
+step 500, training: 1, testing: 1, anv: 0.933333, best 0.933333 
+step 520, training: 0.933333, testing: 1, anv: 0.933333, best 0.933333 
+step 540, training: 0.933333, testing: 0.833333, anv: 0.933333, best 0.933333 
+step 560, training: 0.866667, testing: 1, anv: 0.933333, best 0.933333 
+step 580, training: 1, testing: 1, anv: 0.933333, best 0.933333 
+step 600, training: 1, testing: 1, anv: 0.933333, best 0.933333 
+step 620, training: 1, testing: 1, anv: 0.95, best 0.95 
+step 640, training: 0.933333, testing: 1, anv: 0.966667, best 0.966667 
+step 660, training: 1, testing: 1, anv: 0.966667, best 0.966667 
+step 680, training: 1, testing: 1, anv: 0.983333, best 0.983333 
+step 700, training: 1, testing: 1, anv: 0.983333, best 0.983333 
+step 720, training: 1, testing: 1, anv: 0.983333, best 0.983333 
+step 740, training: 1, testing: 1, anv: 1, best 1 
+ 
+****************************************
+current sequence is 2
+****************************************
