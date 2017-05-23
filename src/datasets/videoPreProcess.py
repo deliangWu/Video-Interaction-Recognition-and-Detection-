@@ -17,14 +17,23 @@ def videoRead(fileName,grayMode=True):
     video = np.array(video)
     return np.array(video) 
     
-def videoNorm(videoIn,normEn = True):
-    vmax = np.amax(videoIn)
-    vmin = np.amin(videoIn)
+def videoNorm(video,normEn = True):
+    vmax = np.amax(video)
+    vmin = np.amin(video)
     if normEn == True:
-        vo = videoIn.astype(np.float32) / max(vmax-vmin,1) 
-    else:
-        vo = videoIn.astype(np.float32) / 255
-    return vo
+        #vo = videoIn.astype(np.float16) / max(vmax-vmin,1) 
+        video = (video - vmin) * 256 / max(vmax-vmin,0.00001)
+    video = video.astype(np.uint8)
+    return video 
+
+def videoNorm1(video,normEn = True):
+    mean = np.mean(video)
+    std = np.std(video)
+    if normEn == True:
+        video = (video - mean) / std
+    #video = video.astype(np.uint8)
+    #video = videoNorm(video)
+    return video 
 
 def videoPlay(video,fps = 25):
     cv2.namedWindow('Video Player',cv2.WINDOW_AUTOSIZE)
@@ -170,25 +179,28 @@ def videoProcessVin(vIn,frmSize,downSample = 2, NormEn = False, RLFlipEn = True,
     if vIn.shape[0] >= 16:
         vBatch = []
         for i in range(numOfRandomCrop):
-            vRS = videoRezise(vIn,(frmSize[0]+16,frmSize[1]+16,frmSize[2]))
+            video = videoRezise(vIn,(frmSize[0]+16,frmSize[1]+16,frmSize[2]))
             offset_x = np.random.randint(16) 
             offset_y = np.random.randint(16) 
-            vRS = vRS[:,offset_x:offset_x+frmSize[0],offset_y:offset_y+frmSize[1]]
+            video = video[:,offset_x:offset_x+frmSize[0],offset_y:offset_y+frmSize[1]]
             #vSimp = videoSimplify(vRS)
-            vNorm = videoNorm(vRS,NormEn)
-            vDS = downSampling(vNorm,downSample)
+            #video = videoNorm1(video,NormEn)
+            video = downSampling(video,downSample)
             if RLFlipEn is True:
-                vDS_Flipped = videofliplr(vDS)
+                video_flipped = videofliplr(video)
                 #vBatch = np.append(vBatch, batchFormat(vDS,cropEn),axis=0)
                 #vBatch = np.append(vBatch, batchFormat(vDS_Flipped,cropEn),axis=0)
-                vBatch.append(batchFormat(vDS,cropEn))
-                vBatch.append(batchFormat(vDS_Flipped,cropEn))
+                vBatch.append(batchFormat(video,cropEn))
+                vBatch.append(batchFormat(video_flipped,cropEn))
             else:
                 #vBatch = np.append(vBatch, batchFormat(vDS,cropEn), axis=0)
-                vBatch.append(batchFormat(vDS,cropEn))
+                vBatch.append(batchFormat(video,cropEn))
+            
+        batchOut = np.reshape(np.array(vBatch),(-1,16)+frmSize)
+        del(vBatch)
         
         if batchMode is True:
-            return np.reshape(np.array(vBatch),(-1,16)+frmSize)
+            return batchOut
         else:
             return vDS
     else:

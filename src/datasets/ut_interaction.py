@@ -9,6 +9,7 @@ import videoPreProcess as vpp
 import sys
 sys.path.insert(1,'../common')
 import common
+from pympler import tracker
 
 def sequence(fileName):
     return int(fileName[fileName.index("_") + 1 : fileName.rindex("_")])
@@ -23,6 +24,7 @@ class ut_interaction:
         self._filesSet = np.empty((0,3)) 
         self._trainingFilesSet= []
         self._testingFilesSet= []
+        self._tr = tracker.SummaryTracker()
         for path in paths:
             self._files = np.array([f for f in listdir(path) if isfile(join(path,f)) and \
                                                                 re.search('.avi',f) is not None and \
@@ -49,6 +51,7 @@ class ut_interaction:
         for file in self._trainingFilesSet:
             video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,downSample=0,numOfRandomCrop=4)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
+            #self._tr.print_diff()
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
             #label = np.repeat(np.reshape(labelCode,(1,self._numOfClasses)),video.shape[0],axis=0)
             label = np.repeat(np.reshape(int(file[2]),(1,1)),video.shape[0],axis=0)
@@ -91,7 +94,7 @@ class ut_interaction:
             start = self._trainingPointer
             self._trainingPointer += batch
         end = self._trainingPointer
-        return(self._trainingVideos[start:end],self._trainingLabels[start:end])
+        return(vpp.videoNorm1(self._trainingVideos[start:end]),self._trainingLabels[start:end])
     
     def loadTesting(self,oneHotLabelMode = False):
         testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
@@ -107,7 +110,7 @@ class ut_interaction:
                 testLabels = np.append(testLabels,np.reshape(int(file[2]),(1,1)),axis=0)
         if oneHotLabelMode is True:
             testLabels = oneHot(testLabels, self._numOfClasses)
-        return (testVideos.transpose(1,0,2,3,4,5),testLabels)    
+        return (vpp.videoNorm1(testVideos.transpose(1,0,2,3,4,5)),testLabels)    
     
     def getFileList(self):
         return self._files
@@ -293,7 +296,7 @@ def oneHot(y,numOfClasses):
     return np.array(y_out)
 
 if __name__ == '__main__':
-    numOfClasses = 6
+    numOfClasses = 7
     #ut_set = ut_interaction_set1_ga([(112,128,3),(112,80,3)],numOfClasses=numOfClasses)
     ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
     for seq in range(1,11):
