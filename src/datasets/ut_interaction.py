@@ -94,7 +94,7 @@ class ut_interaction:
             start = self._trainingPointer
             self._trainingPointer += batch
         end = self._trainingPointer
-        return(vpp.videoNorm1(self._trainingVideos[start:end]),self._trainingLabels[start:end])
+        return(vpp.videoNorm1(self._trainingVideos[start:end],normMode=1),self._trainingLabels[start:end])
     
     def loadTesting(self,oneHotLabelMode = False):
         testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
@@ -110,7 +110,7 @@ class ut_interaction:
                 testLabels = np.append(testLabels,np.reshape(int(file[2]),(1,1)),axis=0)
         if oneHotLabelMode is True:
             testLabels = oneHot(testLabels, self._numOfClasses)
-        return (vpp.videoNorm1(testVideos.transpose(1,0,2,3,4,5)),testLabels)    
+        return (vpp.videoNorm1(testVideos.transpose(1,0,2,3,4,5),normMode=1),testLabels)    
     
     def getFileList(self):
         return self._files
@@ -299,12 +299,12 @@ if __name__ == '__main__':
     numOfClasses = 7
     #ut_set = ut_interaction_set1_ga([(112,128,3),(112,80,3)],numOfClasses=numOfClasses)
     ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
-    for seq in range(1,11):
+    for seq in (8,9):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq)
-        ut_set.loadTrainingAll(oneHotLabelMode=True)
-        tr_x,tr_y = ut_set.loadTrainingBatch(16)
-        vpp.videoPlay(tr_x) 
+        #ut_set.loadTrainingAll(oneHotLabelMode=True)
+        #tr_x,tr_y = ut_set.loadTrainingBatch(16)
+        #vpp.videoPlay(tr_x) 
         tx,ty = ut_set.loadTesting(oneHotLabelMode=True)
         print(ty)
         for vx in tx:

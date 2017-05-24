@@ -1,3 +1,4 @@
+from __future__ import division
 import numpy as np
 import sys
 sys.path.insert(1,'/home/wdl/opencv/lib')
@@ -21,18 +22,19 @@ def videoNorm(video,normEn = True):
     vmax = np.amax(video)
     vmin = np.amin(video)
     if normEn == True:
-        #vo = videoIn.astype(np.float16) / max(vmax-vmin,1) 
-        video = (video - vmin) * 256 / max(vmax-vmin,0.00001)
-    video = video.astype(np.uint8)
+        video = (video - vmin) / max(vmax-vmin,0.00001)
+    else:
+        video = video / 255
     return video 
 
-def videoNorm1(video,normEn = True):
+def videoNorm1(video,normMode = 0):
+    video = videoNorm(video)
     mean = np.mean(video)
     std = np.std(video)
-    if normEn == True:
+    if normMode == 0:
         video = (video - mean) / std
-    #video = video.astype(np.uint8)
-    #video = videoNorm(video)
+    elif normMode == 1:
+        video = video - mean
     return video 
 
 def videoPlay(video,fps = 25):
