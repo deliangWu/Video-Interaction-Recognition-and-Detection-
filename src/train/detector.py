@@ -124,10 +124,7 @@ def normBB(picks,video=None):
         if new_pick.shape[0]>=1:
             new_x = np.mean([(xA+xB)/2 for xA,yA,xB,yB in new_pick])
             x_learnRate = 1 / max(np.sqrt(abs(x_mean - new_x)),1)
-            if (np.std(x_mean_list) > 25):
-                x_learnRate = x_learnRate
-            else:
-                x_learnRate = x_learnRate * max(1,np.std(x_mean_list)) * 4 / 100
+            x_learnRate = x_learnRate * min(1,np.std(x_mean_list)/25)
             x_mean = x_mean + x_learnRate * (new_x - x_mean)
             x_mean_list = np.append(x_mean_list[1:],x_mean)
             #print('x_mean = ',x_mean, ' and new_x = ',new_x)
