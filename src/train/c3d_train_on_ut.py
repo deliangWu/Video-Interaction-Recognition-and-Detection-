@@ -110,8 +110,8 @@ def main(argv):
                         if test_accuracy == 1 or epoch >= 20 or (i > int(iteration * 0.75) and test_accuracy >= best_accuracy):
                             break
                     i+=1
-                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
-                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
+                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg7.ckpt'))
+                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
                 common.pAndWf(logName,' \n')
             accuSet.append(test_accuracy)
             t2accuSet.append(t2y_accu)
