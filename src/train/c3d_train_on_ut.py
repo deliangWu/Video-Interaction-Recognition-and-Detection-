@@ -86,13 +86,14 @@ def main(argv):
                 epoch = 0
                 anvAccuList = np.zeros((3))
                 loss_t_list = np.zeros((5)) + 1e10
+                loss_t_min = 1e10
                 i = 0
                 while True:
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                     epoch = ut_set.getEpoch()
                     #learning_rate = 0.0001 * 2**(-int(epoch/8))
-                    learning_rate = 0.01 * 2**(-int(epoch/4))
-                    #learning_rate = 0.0001
+                    #learning_rate = 0.1 * 2**(-int(epoch/4))
+                    learning_rate = 0.1
                     c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
                     #loss = c3d.getLoss(train_x, train_y, sess)
                     #print('step: %d, loss: %g '%(i,loss))
@@ -101,18 +102,21 @@ def main(argv):
                         loss_tr = c3d.getLoss(train_x, train_y, sess)
                         loss_t = c3d.getLoss(test_x, test_y, sess)
                         test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
+                        anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
+                        anv_accuracy = np.mean(anvAccuList)
                         pre_loss_t_mean = np.mean(loss_t_list)
                         loss_t_list = np.append(loss_t_list[1:],loss_t)
                         loss_t_mean = np.mean(loss_t_list)
                         
-                        #c3d.obs(test_x, test_y, sess)
-                        #anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
-                        #anv_accuracy = np.mean(anvAccuList)
                         #if anv_accuracy > best_accuracy:
                         #    best_accuracy = anv_accuracy
+                        
+                        if loss_t_mean < loss_t_min:
+                            loss_t_min = loss_t_mean
+                        
                         log = "seq: %d, epoch: %d, step: %d, training: %g, loss_tr: %g, loss_t: %g, testing: %g, t2y: %g\n"%(seq, epoch, i, train_accuracy, loss_tr,loss_t, test_accuracy, t2y_accu)
                         common.pAndWf(logName,log)
-                        if test_accuracy == 1 or loss_t_mean - pre_loss_t_mean > 20 or i > 500:
+                        if anv_accuracy == 1 or loss_t_mean / loss_t_min > 1.1 or i > 500:
                             break
                     i+=1
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
