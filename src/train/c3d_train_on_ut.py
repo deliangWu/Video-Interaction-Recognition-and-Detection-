@@ -91,7 +91,7 @@ def main(argv):
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
                     epoch = ut_set.getEpoch()
                     #learning_rate = 0.0001 * 2**(-int(epoch/8))
-                    learning_rate = 0.0001 * 2**(-int(epoch/4))
+                    learning_rate = 0.01 * 2**(-int(epoch/4))
                     #learning_rate = 0.0001
                     c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
                     #loss = c3d.getLoss(train_x, train_y, sess)
