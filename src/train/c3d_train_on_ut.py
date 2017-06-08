@@ -110,10 +110,8 @@ def main(argv):
                         #anv_accuracy = np.mean(anvAccuList)
                         #if anv_accuracy > best_accuracy:
                         #    best_accuracy = anv_accuracy
-                        #log = "seq: %d, epoch: %d, step: %d, training: %g, loss_tr: %g, loss_t: %g, testing: %g, t2y: %g\n"%(seq, epoch, i, train_accuracy, loss_tr,loss_t, test_accuracy, t2y_accu)
-                        #common.pAndWf(logName,log)
-                        #if anv_accuracy == 1 or epoch >= 20:
-                        
+                        log = "seq: %d, epoch: %d, step: %d, training: %g, loss_tr: %g, loss_t: %g, testing: %g, t2y: %g\n"%(seq, epoch, i, train_accuracy, loss_tr,loss_t, test_accuracy, t2y_accu)
+                        common.pAndWf(logName,log)
                         if test_accuracy == 1 or loss_t_mean - pre_loss_t_mean > 20 or i > 500:
                             break
                     i+=1
