@@ -67,7 +67,8 @@ class FeatureDescriptor:
         #    W_conv3b = weight_variable([3,3,3,numOfFilters_conv3a,numOfFilters_conv3b])
         #    b_conv3b = bias_variable([numOfFilters_conv3b])
         #    h_conv3b = tf.nn.relu(conv3d(h_conv3a, W_conv3b) + b_conv3b)
-            h_pool3 = max_pool3d_2x2x2(h_conv3a)    
+            bn_conv3 = tf.contrib.layers.batch_norm(h_conv3a,is_training=is_training)
+            h_pool3 = max_pool3d_2x2x2(bn_conv3)    
     
         # define the 4rd convlutional layer
         with tf.variable_scope('conv4a'):
@@ -80,7 +81,8 @@ class FeatureDescriptor:
         #    W_conv4b = weight_variable([3,3,3,numOfFilters_conv4a,numOfFilters_conv4b])
         #    b_conv4b = bias_variable([numOfFilters_conv4b])
         #    h_conv4b = tf.nn.relu(conv3d(h_conv4a, W_conv4b) + b_conv4b)
-            h_pool4 = max_pool3d_4x2x2(h_conv4a)    
+            bn_conv4 = tf.contrib.layers.batch_norm(h_conv4a,is_training=is_training)
+            h_pool4 = max_pool3d_4x2x2(bn_conv4)    
     
         # define the 5rd convlutional layer
         #with tf.variable_scope('conv5a'):
@@ -101,7 +103,8 @@ class FeatureDescriptor:
             b_fc6 = bias_variable([numOfOutputs_fc6])
             h_pool4_flat = tf.reshape(h_pool4, [-1, int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv4])
             h_fc6 = tf.nn.relu(tf.matmul(h_pool4_flat, W_fc6) + b_fc6)  
-            h_fc6_drop = tf.nn.dropout(h_fc6, drop_var) 
+            bn_fc6 = tf.contrib.layers.batch_norm(h_fc6,is_training=is_training)
+            h_fc6_drop = tf.nn.dropout(bn_fc6, drop_var) 
     
         # define the full connected layer fc7
         with tf.variable_scope('fc7'):
@@ -109,8 +112,8 @@ class FeatureDescriptor:
             W_fc7 = weight_variable([numOfOutputs_fc6, numOfOutputs_fc7])
             b_fc7 = bias_variable([numOfOutputs_fc7])
             h_fc7 = tf.nn.relu(tf.matmul(h_fc6_drop, W_fc7) + b_fc7)
-            h_fc7_drop = tf.nn.dropout(h_fc7, drop_var)
-            h_fc7_l2norm = tf.nn.l2_normalize(h_fc7_drop,dim=1)
+            bn_fc7 = tf.contrib.layers.batch_norm(h_fc7,is_training=is_training)
+            h_fc7_drop = tf.nn.dropout(bn_fc7, drop_var)
         
         return h_fc7_drop
 
