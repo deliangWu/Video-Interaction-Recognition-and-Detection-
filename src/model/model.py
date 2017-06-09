@@ -41,37 +41,31 @@ class FeatureDescriptor:
         # define the first convlutional layer
         with tf.variable_scope('conv1'):
             numOfFilters_conv1 = nof_conv1 
-            bn1_en = True
             W_conv1 = weight_variable([3,3,3,frmSize[2],numOfFilters_conv1])
             b_conv1 = bias_variable([numOfFilters_conv1])
             h_conv1 = conv3d(x, W_conv1) + b_conv1
-            if bn1_en is True:
-                h_bn1 = tf.contrib.layers.batch_norm(h_conv1,is_training=is_training)
-                h_relu1 = tf.nn.relu(h_bn1)
-            else:
-                h_relu1 = tf.nn.relu(h_conv1)
+            h_relu1 = tf.nn.relu(h_conv1)
             h_pool1 = max_pool3d_1x2x2(h_relu1)
+            h_bn1 = tf.contrib.layers.batch_norm(h_pool1,is_training=is_training)
 
         # define the second convlutional layer
         with tf.variable_scope('conv2'):
             numOfFilters_conv2 = nof_conv2 
-            bn2_en = True
             W_conv2 = weight_variable([3,3,3,numOfFilters_conv1,numOfFilters_conv2])
             b_conv2 = bias_variable([numOfFilters_conv2])
-            h_conv2 = conv3d(h_pool1, W_conv2) + b_conv2
-            if bn1_en is True:
-                h_bn2 = tf.contrib.layers.batch_norm(h_conv2,is_training=is_training)
-                h_relu2 = tf.nn.relu(h_bn2)
-            else:
-                h_relu2 = tf.nn.relu(h_conv2)
+            #h_conv2 = conv3d(h_pool1, W_conv2) + b_conv2
+            h_conv2 = conv3d(h_bn1, W_conv2) + b_conv2
+            h_relu2 = tf.nn.relu(h_conv2)
             h_pool2 = max_pool3d_2x2x2(h_relu2)
+            h_bn2 = tf.contrib.layers.batch_norm(h_pool2,is_training=is_training)
     
         # define the 3rd convlutional layer
         with tf.variable_scope('conv3a'):
             numOfFilters_conv3 = nof_conv3 
             W_conv3a = weight_variable([3,3,3,numOfFilters_conv2,numOfFilters_conv3])
             b_conv3a = bias_variable([numOfFilters_conv3])
-            h_conv3a = conv3d(h_pool2, W_conv3a) + b_conv3a
+            #h_conv3a = conv3d(h_pool2, W_conv3a) + b_conv3a
+            h_conv3a = conv3d(h_bn2, W_conv3a) + b_conv3a
             h_relu3a = tf.nn.relu(h_conv3a)
             
         #with tf.variable_scope('conv3b'):
