@@ -6,8 +6,8 @@ import common
 
 
 def weight_variable(shape):
-    #return tf.get_variable('weight',shape,initializer=tf.truncated_normal_initializer(stddev=0.1,seed=1024))
-    return tf.get_variable('weight',shape,initializer=tf.contrib.layers.xavier_initializer())
+    return tf.get_variable('weight',shape,initializer=tf.truncated_normal_initializer(stddev=0.1,seed=1024))
+    #return tf.get_variable('weight',shape,initializer=tf.contrib.layers.xavier_initializer())
 
 def bias_variable(shape):
     return tf.get_variable('bias',shape,initializer=tf.constant_initializer(0.1))
@@ -38,6 +38,7 @@ class FeatureDescriptor:
             is_training = True
         else:
             if_traning = False
+        bn_en = False
         # define the first convlutional layer
         with tf.variable_scope('conv1'):
             numOfFilters_conv1 = nof_conv1 
@@ -46,25 +47,31 @@ class FeatureDescriptor:
             h_conv1 = conv3d(x, W_conv1) + b_conv1
             h_relu1 = tf.nn.relu(h_conv1)
             h_pool1 = max_pool3d_1x2x2(h_relu1)
-            h_bn1 = tf.contrib.layers.batch_norm(h_pool1,is_training=is_training)
+            if bn_en:
+                print('Enable BN')
+                h_bn1 = tf.contrib.layers.batch_norm(h_pool1,is_training=is_training)
+            else:
+                print('Diable BN')
+                h_bn1 = h_pool1
 
         # define the second convlutional layer
         with tf.variable_scope('conv2'):
             numOfFilters_conv2 = nof_conv2 
             W_conv2 = weight_variable([3,3,3,numOfFilters_conv1,numOfFilters_conv2])
             b_conv2 = bias_variable([numOfFilters_conv2])
-            #h_conv2 = conv3d(h_pool1, W_conv2) + b_conv2
             h_conv2 = conv3d(h_bn1, W_conv2) + b_conv2
             h_relu2 = tf.nn.relu(h_conv2)
             h_pool2 = max_pool3d_2x2x2(h_relu2)
-            h_bn2 = tf.contrib.layers.batch_norm(h_pool2,is_training=is_training)
+            if bn_en:
+                h_bn2 = tf.contrib.layers.batch_norm(h_pool2,is_training=is_training)
+            else:
+                h_bn2 = h_pool2
     
         # define the 3rd convlutional layer
         with tf.variable_scope('conv3a'):
             numOfFilters_conv3 = nof_conv3 
             W_conv3a = weight_variable([3,3,3,numOfFilters_conv2,numOfFilters_conv3])
             b_conv3a = bias_variable([numOfFilters_conv3])
-            #h_conv3a = conv3d(h_pool2, W_conv3a) + b_conv3a
             h_conv3a = conv3d(h_bn2, W_conv3a) + b_conv3a
             h_relu3a = tf.nn.relu(h_conv3a)
             
