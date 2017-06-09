@@ -109,7 +109,9 @@ class FeatureDescriptor:
             b_fc6 = bias_variable([numOfOutputs_fc6])
             h_pool4_flat = tf.reshape(h_pool4, [-1, int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv4])
             h_fc6 = tf.nn.relu(tf.matmul(h_pool4_flat, W_fc6) + b_fc6)  
-            h_fc6_drop = tf.nn.dropout(h_fc6, drop_var) 
+            h_fc6_relu = tf.nn.relu(h_fc6)  
+            h_fc6_drop = tf.nn.dropout(h_fc6_relu, drop_var) 
+            h_fc6_bn = tf.contrib.layers.batch_norm(h_fc6_drop,is_training=is_training)
     
         # define the full connected layer fc7
         with tf.variable_scope('fc7'):
@@ -117,11 +119,14 @@ class FeatureDescriptor:
             bn_fc7_en = False
             W_fc7 = weight_variable([numOfOutputs_fc6, numOfOutputs_fc7])
             b_fc7 = bias_variable([numOfOutputs_fc7])
-            h_fc7 = tf.nn.relu(tf.matmul(h_fc6_drop, W_fc7) + b_fc7)
-            h_fc7_drop = tf.nn.dropout(h_fc7, drop_var)
-                
+            #h_fc7 = tf.matmul(h_fc6_drop, W_fc7) + b_fc7
+            h_fc7 = tf.matmul(h_fc6_bn, W_fc7) + b_fc7
+            h_fc7_relu = tf.nn.relu(h_fc7)
+            h_fc7_drop = tf.nn.dropout(h_fc7_relu, drop_var)
+            h_fc7_bn = tf.contrib.layers.batch_norm(h_fc7_drop,is_training=is_training)
         
-        return h_fc7_drop
+        #return h_fc7_drop
+        return h_fc7_bn
 
 class Classifier:
     @staticmethod
