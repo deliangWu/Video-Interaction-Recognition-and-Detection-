@@ -45,12 +45,12 @@ class FeatureDescriptor:
             W_conv1 = weight_variable([3,3,3,frmSize[2],numOfFilters_conv1])
             b_conv1 = bias_variable([numOfFilters_conv1])
             h_conv1 = conv3d(x, W_conv1) + b_conv1
-            h_relu1 = tf.nn.relu(h_conv1)
             if bn1_en is True:
-                h_bn1 = tf.contrib.layers.batch_norm(h_relu1,is_training=is_training)
-                h_pool1 = max_pool3d_1x2x2(h_bn1)
+                h_bn1 = tf.contrib.layers.batch_norm(h_conv1,is_training=is_training)
+                h_relu1 = tf.nn.relu(h_bn1)
             else:
-                h_pool1 = max_pool3d_1x2x2(h_relu1)
+                h_relu1 = tf.nn.relu(h_conv1)
+            h_pool1 = max_pool3d_1x2x2(h_relu1)
 
         # define the second convlutional layer
         with tf.variable_scope('conv2'):
@@ -59,12 +59,12 @@ class FeatureDescriptor:
             W_conv2 = weight_variable([3,3,3,numOfFilters_conv1,numOfFilters_conv2])
             b_conv2 = bias_variable([numOfFilters_conv2])
             h_conv2 = conv3d(h_pool1, W_conv2) + b_conv2
-            h_relu2 = tf.nn.relu(h_conv2)
             if bn1_en is True:
-                h_bn2 = tf.contrib.layers.batch_norm(h_relu2,is_training=is_training)
-                h_pool2 = max_pool3d_2x2x2(h_bn2)
+                h_bn2 = tf.contrib.layers.batch_norm(h_conv2,is_training=is_training)
+                h_relu2 = tf.nn.relu(h_bn2)
             else:
-                h_pool2 = max_pool3d_2x2x2(h_relu2)
+                h_relu2 = tf.nn.relu(h_conv2)
+            h_pool2 = max_pool3d_2x2x2(h_relu2)
     
         # define the 3rd convlutional layer
         with tf.variable_scope('conv3a'):
@@ -125,6 +125,7 @@ class FeatureDescriptor:
             b_fc7 = bias_variable([numOfOutputs_fc7])
             h_fc7 = tf.nn.relu(tf.matmul(h_fc6_drop, W_fc7) + b_fc7)
             h_fc7_drop = tf.nn.dropout(h_fc7, drop_var)
+                
         
         return h_fc7_drop
 
