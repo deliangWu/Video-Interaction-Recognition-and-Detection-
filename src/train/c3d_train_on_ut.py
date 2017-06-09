@@ -122,11 +122,11 @@ def main(argv):
                         if loss_t_mean < loss_t_min:
                             loss_t_min = loss_t_mean
                         
-                        log = "seq%d, epoch%d, step: %d, training: %g, loss_tr: %g, loss_t: %g, testing: %g, t2y: %g\n"%(seq, epoch, i, train_accuracy, loss_tr_mean,loss_t_mean, anv_accuracy, t2y_accu)
+                        log = "seq%d, epoch%d, step: %d, training: %g, loss_tr: %g, loss_t: %g, testing: %g, t2y: %g\n"%(seq, epoch, i, train_accuracy, loss_tr_mean,loss_t_mean, test_accuracy, t2y_accu)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or loss_t_mean / loss_t_min > 1.1 or i > 500:
                         #if i > 500 or loss_t_mean < 0.35 and (test_accuracy == 1  or loss_t_mean / loss_t_min > 1.2):
-                        if i > 500 or anv_accuracy == 1 and i > 200:
+                        if i > 500 or test_accuracy == 1 and i > 200:
                             break
                     i+=1
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
