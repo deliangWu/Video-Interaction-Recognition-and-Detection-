@@ -1,0 +1,71 @@
+Fri Jun  9 23:18:54 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+-------------------------------------------------------------------------
+---------------------------- RUN 0 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
+seq1, epoch0, step: 0, training: 0.25, loss_tr: 5812.9, loss_t: 3632.81, testing: 0.166667, t2y: 0.333333
+seq1, epoch0, step: 10, training: 0.375, loss_tr: 5877.52, loss_t: 3148.21, testing: 0.222222, t2y: 0.666667
+seq1, epoch0, step: 20, training: 0.375, loss_tr: 5050.8, loss_t: 3085.78, testing: 0.277778, t2y: 0.666667
+seq1, epoch0, step: 30, training: 0.25, loss_tr: 4082.31, loss_t: 2399.51, testing: 0.277778, t2y: 0.666667
+seq1, epoch0, step: 40, training: 0.625, loss_tr: 2940.19, loss_t: 1894.94, testing: 0.222222, t2y: 0.5
+seq1, epoch0, step: 50, training: 0.5, loss_tr: 2392.68, loss_t: 990.272, testing: 0.222222, t2y: 0.5
+seq1, epoch0, step: 60, training: 0.5625, loss_tr: 1776.81, loss_t: 744.578, testing: 0.277778, t2y: 0.666667
+seq1, epoch0, step: 70, training: 0.375, loss_tr: 1346.94, loss_t: 770.443, testing: 0.333333, t2y: 0.5
+seq1, epoch1, step: 80, training: 0.625, loss_tr: 1222.42, loss_t: 546.266, testing: 0.5, t2y: 0.833333
+seq1, epoch1, step: 90, training: 0.9375, loss_tr: 1081.83, loss_t: 280.852, testing: 0.611111, t2y: 1
+seq1, epoch1, step: 100, training: 0.5, loss_tr: 1063.5, loss_t: 127.018, testing: 0.666667, t2y: 0.5
+seq1, epoch1, step: 110, training: 0.6875, loss_tr: 748.78, loss_t: 140.071, testing: 0.555556, t2y: 1
+seq1, epoch1, step: 120, training: 0.8125, loss_tr: 753.902, loss_t: 143.749, testing: 0.5, t2y: 1
+seq1, epoch1, step: 130, training: 0.8125, loss_tr: 532.847, loss_t: 156.653, testing: 0.555556, t2y: 0.833333
+seq1, epoch1, step: 140, training: 0.9375, loss_tr: 566.906, loss_t: 123.934, testing: 0.722222, t2y: 1
+seq1, epoch1, step: 150, training: 0.625, loss_tr: 553.261, loss_t: 122.444, testing: 0.777778, t2y: 1
+seq1, epoch2, step: 160, training: 0.9375, loss_tr: 463.54, loss_t: 16.9123, testing: 0.833333, t2y: 1
+seq1, epoch2, step: 170, training: 0.9375, loss_tr: 403.442, loss_t: 16.9123, testing: 0.833333, t2y: 1
+seq1, epoch2, step: 180, training: 0.9375, loss_tr: 266.472, loss_t: 1.16674, testing: 0.944444, t2y: 1
+seq1, epoch2, step: 190, training: 0.9375, loss_tr: 310.333, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch2, step: 200, training: 0.875, loss_tr: 273.919, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch2, step: 210, training: 1, loss_tr: 227.627, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch2, step: 220, training: 1, loss_tr: 134.096, loss_t: 15.5211, testing: 0.888889, t2y: 0.833333
+seq1, epoch2, step: 230, training: 0.875, loss_tr: 134.905, loss_t: 29.8113, testing: 0.833333, t2y: 1
+seq1, epoch3, step: 240, training: 0.875, loss_tr: 198.235, loss_t: 55.4196, testing: 0.777778, t2y: 0.833333
+seq1, epoch3, step: 250, training: 0.9375, loss_tr: 188.779, loss_t: 45.0596, testing: 0.833333, t2y: 1
+seq1, epoch3, step: 260, training: 1, loss_tr: 137.688, loss_t: 30.7693, testing: 0.888889, t2y: 1
+seq1, epoch3, step: 270, training: 1, loss_tr: 83.4238, loss_t: 5.1611, testing: 0.944444, t2y: 1
+seq1, epoch3, step: 280, training: 1, loss_tr: 71.921, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch3, step: 290, training: 1, loss_tr: 83.1572, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch3, step: 300, training: 0.875, loss_tr: 67.6761, loss_t: 3.29601, testing: 0.944444, t2y: 1
+seq1, epoch3, step: 310, training: 1, loss_tr: 57.4332, loss_t: 6.16088, testing: 0.888889, t2y: 1
+seq1, epoch4, step: 320, training: 1, loss_tr: 43.3676, loss_t: 14.0602, testing: 0.833333, t2y: 1
+seq1, epoch4, step: 330, training: 1, loss_tr: 39.8242, loss_t: 15.1636, testing: 0.833333, t2y: 1
+seq1, epoch4, step: 340, training: 1, loss_tr: 84.7196, loss_t: 12.2987, testing: 0.888889, t2y: 1
+seq1, epoch4, step: 350, training: 0.9375, loss_tr: 104.005, loss_t: 4.3994, testing: 0.944444, t2y: 1
+seq1, epoch4, step: 360, training: 1, loss_tr: 136.3, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch4, step: 370, training: 1, loss_tr: 150.918, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch4, step: 380, training: 0.875, loss_tr: 146.906, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch4, step: 390, training: 1, loss_tr: 144.913, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch5, step: 400, training: 1, loss_tr: 109.439, loss_t: 0.466365, testing: 0.944444, t2y: 1
+seq1, epoch5, step: 410, training: 1, loss_tr: 114.286, loss_t: 4.64489, testing: 0.888889, t2y: 1
+seq1, epoch5, step: 420, training: 1, loss_tr: 106.199, loss_t: 4.64489, testing: 0.888889, t2y: 1
+seq1, epoch5, step: 430, training: 0.875, loss_tr: 85.6816, loss_t: 4.17852, testing: 0.944444, t2y: 1
+seq1, epoch5, step: 440, training: 0.9375, loss_tr: 118.639, loss_t: 4.24857, testing: 0.944444, t2y: 1
+seq1, epoch5, step: 450, training: 0.9375, loss_tr: 121.926, loss_t: 4.24857, testing: 0.944444, t2y: 1
+seq1, epoch5, step: 460, training: 1, loss_tr: 106.443, loss_t: 4.24857, testing: 0.944444, t2y: 1
+seq1, epoch5, step: 470, training: 1, loss_tr: 73.7621, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch6, step: 480, training: 1, loss_tr: 52.6017, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch6, step: 490, training: 1, loss_tr: 54.2138, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch6, step: 500, training: 1, loss_tr: 47.6237, loss_t: 0, testing: 1, t2y: 1
+seq1, epoch6, step: 510, training: 1, loss_tr: 56.4473, loss_t: 0, testing: 1, t2y: 1
+ 
+The list of Classification Accuracy: [1.0]
+ [1.0]
+ Mean Classification Accuracy is 1.0, and top2 mean accuracy is 1.0
+__________________________________________________________________________________________________
+ 
+-------------------------------------------------------------------------
+---------------------------- RUN 1 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
