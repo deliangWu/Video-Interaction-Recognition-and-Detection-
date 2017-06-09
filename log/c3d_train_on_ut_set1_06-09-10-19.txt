@@ -89,3 +89,9 @@ current sequence is 3
 seq: 3, epoch: 0, step: 0, training: 0.375, loss_tr: 2.49218, loss_t: 2.14783, testing: 0.166667, t2y: 0.333333
 seq: 3, epoch: 0, step: 10, training: 0.1875, loss_tr: 2.95051, loss_t: 2.08832, testing: 0.166667, t2y: 0.333333
 seq: 3, epoch: 0, step: 20, training: 0.375, loss_tr: 2.42264, loss_t: 1.33469, testing: 0.5, t2y: 0.666667
+seq: 3, epoch: 0, step: 30, training: 0.25, loss_tr: 2.16624, loss_t: 1.4566, testing: 0.166667, t2y: 0.333333
+seq: 3, epoch: 0, step: 40, training: 0.5, loss_tr: 1.32373, loss_t: 1.35484, testing: 0.166667, t2y: 0.666667
+seq: 3, epoch: 0, step: 50, training: 0.4375, loss_tr: 1.78688, loss_t: 1.36742, testing: 0.166667, t2y: 0.5
+seq: 3, epoch: 0, step: 60, training: 0.5, loss_tr: 1.22738, loss_t: 1.45937, testing: 0.166667, t2y: 0.666667
+seq: 3, epoch: 0, step: 70, training: 0.8125, loss_tr: 1.00204, loss_t: 1.24383, testing: 0.333333, t2y: 0.5
+seq: 3, epoch: 1, step: 80, training: 0.9375, loss_tr: 1.02493, loss_t: 0.958415, testing: 0.833333, t2y: 0.833333
