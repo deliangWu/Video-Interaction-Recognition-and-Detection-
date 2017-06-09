@@ -58,7 +58,7 @@ class FeatureDescriptor:
             bn2_en = True
             W_conv2 = weight_variable([3,3,3,numOfFilters_conv1,numOfFilters_conv2])
             b_conv2 = bias_variable([numOfFilters_conv2])
-            h_conv2 = conv3d(x, W_conv2) + b_conv2
+            h_conv2 = conv3d(h_pool1, W_conv2) + b_conv2
             if bn1_en is True:
                 h_bn2 = tf.contrib.layers.batch_norm(h_conv2,is_training=is_training)
                 h_relu2 = tf.nn.relu(h_bn2)
