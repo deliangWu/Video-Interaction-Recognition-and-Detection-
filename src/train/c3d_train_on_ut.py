@@ -117,7 +117,7 @@ def main(argv):
                         log = "seq%d, epoch%d, step: %d, training: %g, loss_tr: %g, loss_t: %g, testing: %g, t2y: %g\n"%(seq, epoch, i, train_accuracy, loss_tr,loss_t, test_accuracy, t2y_accu)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or loss_t_mean / loss_t_min > 1.1 or i > 500:
-                        if anv_accuracy == 1 or i > 1000:
+                        if anv_accuracy == 1 or i > 1000 or loss_t_mean < 0.1:
                             break
                     i+=1
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
