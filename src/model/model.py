@@ -38,7 +38,7 @@ class FeatureDescriptor:
             is_training = True
         else:
             if_traning = False
-        bn_en = False
+        bn_en = True 
         # define the first convlutional layer
         with tf.variable_scope('conv1'):
             numOfFilters_conv1 = nof_conv1 
