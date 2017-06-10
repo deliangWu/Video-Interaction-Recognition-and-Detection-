@@ -103,7 +103,7 @@ class FeatureDescriptor:
             b_conv5a = bias_variable([numOfFilters_conv5])
             h_conv5a = conv3d(h_pool4, W_conv5a) + b_conv5a
             h_relu5a = tf.nn.relu(h_conv5a)
-        #with tf.variable_scope('conv5b'):
+        with tf.variable_scope('conv5b'):
             W_conv5b = weight_variable([3,3,3,numOfFilters_conv5,numOfFilters_conv5])
             b_conv5b = bias_variable([numOfFilters_conv5])
             h_conv5b = tf.nn.relu(conv3d(h_conv5a, W_conv5b) + b_conv5b)
