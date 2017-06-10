@@ -96,7 +96,7 @@ def main(argv):
                     # test1                    
                     #learning_rate = 0.0001 * 2**(-int(epoch/3))
                     
-                    learning_rate = 0.1
+                    learning_rate = 1e-2
                     
                     
                     
