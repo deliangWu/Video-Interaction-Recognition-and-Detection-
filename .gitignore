@@ -4,3 +4,4 @@ src/zm/time.txt
 src/datasets/test.py
 src/datasets/test.py
 datasets/UT_Interaction/ut-interaction_labels_110912.xls
+*.swp
