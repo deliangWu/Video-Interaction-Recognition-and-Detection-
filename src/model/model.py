@@ -42,7 +42,7 @@ class FeatureDescriptor:
         # define the first convlutional layer
         with tf.variable_scope('conv1'):
             numOfFilters_conv1 = nof_conv1 
-            W_conv1 = weight_variable([4,4,4,frmSize[2],numOfFilters_conv1])
+            W_conv1 = weight_variable([3,4,4,frmSize[2],numOfFilters_conv1])
             b_conv1 = bias_variable([numOfFilters_conv1])
             h_conv1 = conv3d(x, W_conv1) + b_conv1
             h_relu1 = tf.nn.relu(h_conv1)
@@ -57,7 +57,7 @@ class FeatureDescriptor:
         # define the second convlutional layer
         with tf.variable_scope('conv2'):
             numOfFilters_conv2 = nof_conv2 
-            W_conv2 = weight_variable([4,4,4,numOfFilters_conv1,numOfFilters_conv2])
+            W_conv2 = weight_variable([3,4,4,numOfFilters_conv1,numOfFilters_conv2])
             b_conv2 = bias_variable([numOfFilters_conv2])
             h_conv2 = conv3d(h_bn1, W_conv2) + b_conv2
             h_relu2 = tf.nn.relu(h_conv2)
@@ -70,7 +70,7 @@ class FeatureDescriptor:
         # define the 3rd convlutional layer
         with tf.variable_scope('conv3a'):
             numOfFilters_conv3 = nof_conv3 
-            W_conv3a = weight_variable([4,4,4,numOfFilters_conv2,numOfFilters_conv3])
+            W_conv3a = weight_variable([3,4,4,numOfFilters_conv2,numOfFilters_conv3])
             b_conv3a = bias_variable([numOfFilters_conv3])
             h_conv3a = conv3d(h_bn2, W_conv3a) + b_conv3a
             h_relu3a = tf.nn.relu(h_conv3a)
@@ -85,7 +85,7 @@ class FeatureDescriptor:
         # define the 4rd convlutional layer
         with tf.variable_scope('conv4a'):
             numOfFilters_conv4 = nof_conv4
-            W_conv4a = weight_variable([4,4,4,numOfFilters_conv3,numOfFilters_conv4])
+            W_conv4a = weight_variable([3,4,4,numOfFilters_conv3,numOfFilters_conv4])
             b_conv4a = bias_variable([numOfFilters_conv4])
             h_conv4a = conv3d(h_pool3, W_conv4a) + b_conv4a
             h_relu4a = tf.nn.relu(h_conv4a)
