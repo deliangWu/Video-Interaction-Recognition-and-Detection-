@@ -94,28 +94,29 @@ class FeatureDescriptor:
         #    W_conv4b = weight_variable([3,3,3,numOfFilters_conv4a,numOfFilters_conv4b])
         #    b_conv4b = bias_variable([numOfFilters_conv4b])
         #    h_conv4b = tf.nn.relu(conv3d(h_conv4a, W_conv4b) + b_conv4b)
-            h_pool4 = max_pool3d_4x2x2(h_relu4a)    
+            h_pool4 = max_pool3d_2x2x2(h_relu4a)    
     
-        # define the 5rd convlutional layer
-        #with tf.variable_scope('conv5a'):
-        #    numOfFilters_conv5 = nof_conv5 
-        #    W_conv5a = weight_variable([3,3,3,numOfFilters_conv4,numOfFilters_conv5])
-        #    b_conv5a = bias_variable([numOfFilters_conv5])
-        #    h_conv5a = tf.nn.relu(conv3d(h_pool4, W_conv5a) + b_conv5a)
+        #define the 5rd convlutional layer
+        with tf.variable_scope('conv5a'):
+            numOfFilters_conv5 = 512 
+            W_conv5a = weight_variable([3,3,3,numOfFilters_conv4,numOfFilters_conv5])
+            b_conv5a = bias_variable([numOfFilters_conv5])
+            h_conv5a = conv3d(h_pool4, W_conv5a) + b_conv5a
+            h_relu5a = tf.nn.relu(h_conv5a)
         #with tf.variable_scope('conv5b'):
         #    W_conv5b = weight_variable([3,3,3,numOfFilters_conv5,numOfFilters_conv5])
         #    b_conv5b = bias_variable([numOfFilters_conv5])
         #    h_conv5b = tf.nn.relu(conv3d(h_conv5a, W_conv5b) + b_conv5b)
-        #    h_pool5 = max_pool3d_2x1x1(h_conv5a)    
+            h_pool5 = max_pool3d_2x1x1(h_relu5a)    
     
         # define the full connected layer
         with tf.variable_scope('fc6'):
             numOfOutputs_fc6 = noo_fc6
             bn_fc6_en = False
-            W_fc6 = weight_variable([int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv4, numOfOutputs_fc6])
+            W_fc6 = weight_variable([int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv5, numOfOutputs_fc6])
             b_fc6 = bias_variable([numOfOutputs_fc6])
-            h_pool4_flat = tf.reshape(h_pool4, [-1, int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv4])
-            h_fc6 = tf.matmul(h_pool4_flat, W_fc6) + b_fc6 
+            h_pool5_flat = tf.reshape(h_pool5, [-1, int(frmSize[0]/16 * frmSize[1]/16) * numOfFilters_conv5])
+            h_fc6 = tf.matmul(h_pool5_flat, W_fc6) + b_fc6 
             #h_fc6_bn = tf.contrib.layers.batch_norm(h_fc6,is_training=is_training)
             h_fc6_relu = tf.nn.relu(h_fc6)  
             h_fc6_drop = tf.nn.dropout(h_fc6_relu, drop_var) 
