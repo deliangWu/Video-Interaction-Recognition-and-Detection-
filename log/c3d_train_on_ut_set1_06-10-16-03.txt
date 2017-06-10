@@ -121,3 +121,6 @@ seq3, epoch0, step: 0, training: 0.375, loss_tr: 7.18147, loss_t: 1.98273, testi
 seq3, epoch0, step: 10, training: 0.5, loss_tr: 5.86736, loss_t: 1.86242, testing: 0.388889, t2y: 0.666667
 seq3, epoch0, step: 20, training: 0.75, loss_tr: 5.15959, loss_t: 1.70539, testing: 0.388889, t2y: 0.5
 seq3, epoch0, step: 30, training: 0.625, loss_tr: 4.61239, loss_t: 1.5884, testing: 0.388889, t2y: 0.666667
+seq3, epoch0, step: 40, training: 0.875, loss_tr: 5.34843, loss_t: 1.38082, testing: 0.277778, t2y: 0.666667
+seq3, epoch0, step: 50, training: 0.875, loss_tr: 5.86957, loss_t: 1.16282, testing: 0.277778, t2y: 0.833333
+seq3, epoch0, step: 60, training: 0.8125, loss_tr: 5.24823, loss_t: 0.82994, testing: 0.444444, t2y: 1
