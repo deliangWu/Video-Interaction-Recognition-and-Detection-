@@ -43,7 +43,7 @@ class C3DNET:
         if test_x.ndim == 6:
             return np.mean([self._cross_entropy.eval(feed_dict={self._x:x,self._y_:test_y,self._keep_prob:1},session=sess) for x in test_x])
         else:
-            return self._cross_entropy.eval(feed_dict={self._x:test_x,self._y_:test_y,self._keep_prob:0.2},session=sess)
+            return self._cross_entropy.eval(feed_dict={self._x:test_x,self._y_:test_y,self._keep_prob:1},session=sess)
     
     def getClassifierVars(self):
         return([self._classifier.W_sm,self._classifier.b_sm])
@@ -51,7 +51,7 @@ class C3DNET:
     def train(self, train_x,train_y,sess, learning_rate = 0.005):
         with sess.as_default():
             #self._train_step.run(feed_dict={self._x:train_x, self._y_:train_y, self._keep_prob:0.5})
-            self._train_step.run(feed_dict={self._lr: learning_rate, self._x:train_x, self._y_:train_y, self._keep_prob:0.8})
+            self._train_step.run(feed_dict={self._lr: learning_rate, self._x:train_x, self._y_:train_y, self._keep_prob:0.2})
         return None
     
     def top2Accu(self, test_x,test_y,sess):
