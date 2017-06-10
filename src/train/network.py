@@ -43,7 +43,7 @@ class C3DNET:
         if test_x.ndim == 6:
             return np.mean([self._cross_entropy.eval(feed_dict={self._x:x,self._y_:test_y,self._keep_prob:1},session=sess) for x in test_x])
         else:
-            return self._cross_entropy.eval(feed_dict={self._x:test_x,self._y_:test_y,self._keep_prob:0.5},session=sess)
+            return self._cross_entropy.eval(feed_dict={self._x:test_x,self._y_:test_y,self._keep_prob:0.2},session=sess)
     
     def getClassifierVars(self):
         return([self._classifier.W_sm,self._classifier.b_sm])
