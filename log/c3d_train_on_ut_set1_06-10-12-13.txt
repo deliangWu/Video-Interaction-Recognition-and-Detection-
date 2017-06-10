@@ -372,3 +372,4 @@ seq1, epoch1, step: 110, training: 0.5, loss_tr: 1.42337, loss_t: 1.17291, testi
 seq1, epoch1, step: 120, training: 0.25, loss_tr: 1.54456, loss_t: 1.19673, testing: 0.388889, t2y: 0.833333
 seq1, epoch1, step: 130, training: 0.6875, loss_tr: 1.65346, loss_t: 1.13482, testing: 0.444444, t2y: 0.833333
 seq1, epoch1, step: 140, training: 0.875, loss_tr: 1.58136, loss_t: 1.03532, testing: 0.444444, t2y: 0.833333
+seq1, epoch1, step: 150, training: 0.6875, loss_tr: 1.38731, loss_t: 0.93345, testing: 0.555556, t2y: 0.833333
