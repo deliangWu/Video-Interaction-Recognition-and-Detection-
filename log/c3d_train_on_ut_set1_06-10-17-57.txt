@@ -344,3 +344,19 @@ seq3, epoch5, step: 470, training: 1, loss_tr: 0.00204292, loss_t: 0.58131, test
 seq3, epoch6, step: 480, training: 1, loss_tr: 0.00171863, loss_t: 0.517454, testing: 0.722222, t2y: 1
 seq3, epoch6, step: 490, training: 1, loss_tr: 0.00254336, loss_t: 0.499738, testing: 0.722222, t2y: 1
 seq3, epoch6, step: 500, training: 1, loss_tr: 0.00282812, loss_t: 0.359251, testing: 0.722222, t2y: 1
+seq3, epoch6, step: 510, training: 1, loss_tr: 0.00506153, loss_t: 0.421452, testing: 0.777778, t2y: 1
+ 
+The list of Classification Accuracy: [1.0, 1.0, 0.83333333333333337]
+ [1.0, 1.0, 1.0]
+ Mean Classification Accuracy is 0.944444444444, and top2 mean accuracy is 1.0
+__________________________________________________________________________________________________
+ 
+-------------------------------------------------------------------------
+---------------------------- RUN 2 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
+seq1, epoch0, step: 0, training: 0.4375, loss_tr: 1.47538, loss_t: 2.03917, testing: 0.166667, t2y: 0.333333
+seq1, epoch0, step: 10, training: 0.5, loss_tr: 1.52988, loss_t: 1.90764, testing: 0.222222, t2y: 0.5
+seq1, epoch0, step: 20, training: 0.4375, loss_tr: 1.42774, loss_t: 1.60394, testing: 0.333333, t2y: 0.5
