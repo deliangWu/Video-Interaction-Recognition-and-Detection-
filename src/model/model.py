@@ -104,10 +104,10 @@ class FeatureDescriptor:
             h_conv5a = conv3d(h_pool4, W_conv5a) + b_conv5a
             h_relu5a = tf.nn.relu(h_conv5a)
         #with tf.variable_scope('conv5b'):
-        #    W_conv5b = weight_variable([3,3,3,numOfFilters_conv5,numOfFilters_conv5])
-        #    b_conv5b = bias_variable([numOfFilters_conv5])
-        #    h_conv5b = tf.nn.relu(conv3d(h_conv5a, W_conv5b) + b_conv5b)
-            h_pool5 = max_pool3d_2x1x1(h_relu5a)    
+            W_conv5b = weight_variable([3,3,3,numOfFilters_conv5,numOfFilters_conv5])
+            b_conv5b = bias_variable([numOfFilters_conv5])
+            h_conv5b = tf.nn.relu(conv3d(h_conv5a, W_conv5b) + b_conv5b)
+            h_pool5 = max_pool3d_2x1x1(h_conv5b)    
     
         # define the full connected layer
         with tf.variable_scope('fc6'):
