@@ -20,7 +20,7 @@ def main(argv):
     numOfClasses = 6 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
-        c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=512, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
+        c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 256, noo_fc6=4096, noo_fc7=4096)
     # ***********************************************************
     # define session
     # ***********************************************************
