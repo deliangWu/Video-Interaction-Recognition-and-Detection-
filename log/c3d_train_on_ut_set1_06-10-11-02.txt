@@ -5,3 +5,181 @@ Sat Jun 10 11:02:22 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 fro
 ****************************************
 current sequence is 1
 ****************************************
+seq1, epoch0, step: 0, training: 0.3125, loss_tr: 1.6973, loss_t: 2.41739, testing: 0.166667, t2y: 0.166667
+seq1, epoch0, step: 10, training: 0.125, loss_tr: 2.02631, loss_t: 2.22837, testing: 0.222222, t2y: 0.5
+seq1, epoch0, step: 20, training: 0.4375, loss_tr: 1.89061, loss_t: 1.81784, testing: 0.388889, t2y: 0.833333
+seq1, epoch0, step: 30, training: 0.6875, loss_tr: 1.87658, loss_t: 1.3337, testing: 0.5, t2y: 1
+seq1, epoch0, step: 40, training: 0.8125, loss_tr: 1.39109, loss_t: 1.0187, testing: 0.611111, t2y: 0.833333
+seq1, epoch0, step: 50, training: 0.625, loss_tr: 1.37138, loss_t: 0.897541, testing: 0.611111, t2y: 1
+seq1, epoch0, step: 60, training: 0.625, loss_tr: 1.47804, loss_t: 0.900888, testing: 0.666667, t2y: 0.666667
+seq1, epoch0, step: 70, training: 0.5, loss_tr: 1.51411, loss_t: 0.840556, testing: 0.611111, t2y: 0.833333
+seq1, epoch1, step: 80, training: 0.75, loss_tr: 1.43566, loss_t: 0.788589, testing: 0.555556, t2y: 1
+seq1, epoch1, step: 90, training: 0.75, loss_tr: 1.02484, loss_t: 0.66884, testing: 0.555556, t2y: 0.833333
+seq1, epoch1, step: 100, training: 0.9375, loss_tr: 0.792723, loss_t: 0.614777, testing: 0.666667, t2y: 1
+seq1, epoch1, step: 110, training: 0.9375, loss_tr: 0.617056, loss_t: 0.523128, testing: 0.722222, t2y: 1
+seq1, epoch1, step: 120, training: 0.8125, loss_tr: 0.52786, loss_t: 0.440776, testing: 0.833333, t2y: 1
+seq1, epoch1, step: 130, training: 0.875, loss_tr: 0.510298, loss_t: 0.337441, testing: 0.888889, t2y: 1
+seq1, epoch1, step: 140, training: 0.8125, loss_tr: 0.650788, loss_t: 0.36601, testing: 0.888889, t2y: 1
+seq1, epoch1, step: 150, training: 0.9375, loss_tr: 0.623416, loss_t: 0.365443, testing: 0.833333, t2y: 1
+seq1, epoch2, step: 160, training: 1, loss_tr: 0.547151, loss_t: 0.394351, testing: 0.722222, t2y: 1
+seq1, epoch2, step: 170, training: 0.9375, loss_tr: 0.411483, loss_t: 0.278866, testing: 0.833333, t2y: 1
+seq1, epoch2, step: 180, training: 1, loss_tr: 0.422592, loss_t: 0.186835, testing: 0.888889, t2y: 1
+seq1, epoch2, step: 190, training: 1, loss_tr: 0.387987, loss_t: 0.102553, testing: 1, t2y: 1
+seq1, epoch2, step: 200, training: 1, loss_tr: 0.331721, loss_t: 0.0989263, testing: 1, t2y: 1
+seq1, epoch2, step: 210, training: 1, loss_tr: 0.260177, loss_t: 0.0973378, testing: 1, t2y: 1
+seq1, epoch2, step: 220, training: 1, loss_tr: 0.248377, loss_t: 0.0866309, testing: 1, t2y: 1
+seq1, epoch2, step: 230, training: 1, loss_tr: 0.265478, loss_t: 0.0628946, testing: 1, t2y: 1
+seq1, epoch3, step: 240, training: 1, loss_tr: 0.213558, loss_t: 0.0458081, testing: 1, t2y: 1
+seq1, epoch3, step: 250, training: 1, loss_tr: 0.16654, loss_t: 0.0445354, testing: 1, t2y: 1
+seq1, epoch3, step: 260, training: 1, loss_tr: 0.0823641, loss_t: 0.0348698, testing: 1, t2y: 1
+seq1, epoch3, step: 270, training: 1, loss_tr: 0.102043, loss_t: 0.0292177, testing: 1, t2y: 1
+seq1, epoch3, step: 280, training: 1, loss_tr: 0.0913395, loss_t: 0.0169823, testing: 1, t2y: 1
+seq1, epoch3, step: 290, training: 1, loss_tr: 0.066905, loss_t: 0.0160338, testing: 1, t2y: 1
+seq1, epoch3, step: 300, training: 1, loss_tr: 0.0702271, loss_t: 0.0138279, testing: 1, t2y: 1
+seq1, epoch3, step: 310, training: 0.9375, loss_tr: 0.0683727, loss_t: 0.0131821, testing: 1, t2y: 1
+seq1, epoch4, step: 320, training: 1, loss_tr: 0.0636849, loss_t: 0.00986088, testing: 1, t2y: 1
+seq1, epoch4, step: 330, training: 1, loss_tr: 0.0599766, loss_t: 0.00871183, testing: 1, t2y: 1
+seq1, epoch4, step: 340, training: 1, loss_tr: 0.0549017, loss_t: 0.0087585, testing: 1, t2y: 1
+seq1, epoch4, step: 350, training: 1, loss_tr: 0.0527543, loss_t: 0.0132809, testing: 1, t2y: 1
+seq1, epoch4, step: 360, training: 1, loss_tr: 0.0694379, loss_t: 0.0124258, testing: 1, t2y: 1
+seq1, epoch4, step: 370, training: 1, loss_tr: 0.0908425, loss_t: 0.0111461, testing: 1, t2y: 1
+seq1, epoch4, step: 380, training: 1, loss_tr: 0.0964867, loss_t: 0.0101092, testing: 1, t2y: 1
+seq1, epoch4, step: 390, training: 1, loss_tr: 0.0764705, loss_t: 0.0101229, testing: 1, t2y: 1
+seq1, epoch5, step: 400, training: 1, loss_tr: 0.0489051, loss_t: 0.0129619, testing: 1, t2y: 1
+seq1, epoch5, step: 410, training: 1, loss_tr: 0.0888916, loss_t: 0.00867874, testing: 1, t2y: 1
+seq1, epoch5, step: 420, training: 1, loss_tr: 0.0571364, loss_t: 0.00965971, testing: 1, t2y: 1
+seq1, epoch5, step: 430, training: 1, loss_tr: 0.0589066, loss_t: 0.00536442, testing: 1, t2y: 1
+seq1, epoch5, step: 440, training: 1, loss_tr: 0.00999291, loss_t: 0.00469435, testing: 1, t2y: 1
+seq1, epoch5, step: 450, training: 1, loss_tr: 0.0135677, loss_t: 0.00365126, testing: 1, t2y: 1
+seq1, epoch5, step: 460, training: 1, loss_tr: 0.0304098, loss_t: 0.00349424, testing: 1, t2y: 1
+seq1, epoch5, step: 470, training: 1, loss_tr: 0.0464918, loss_t: 0.00378135, testing: 1, t2y: 1
+seq1, epoch6, step: 480, training: 1, loss_tr: 0.0600614, loss_t: 0.0025319, testing: 1, t2y: 1
+seq1, epoch6, step: 490, training: 1, loss_tr: 0.0454419, loss_t: 0.00286337, testing: 1, t2y: 1
+seq1, epoch6, step: 500, training: 1, loss_tr: 0.0295324, loss_t: 0.00332036, testing: 1, t2y: 1
+seq1, epoch6, step: 510, training: 1, loss_tr: 0.0590323, loss_t: 0.00338827, testing: 1, t2y: 1
+ 
+****************************************
+current sequence is 2
+****************************************
+seq2, epoch0, step: 0, training: 0.125, loss_tr: 2.89699, loss_t: 2.01189, testing: 0, t2y: 0.166667
+seq2, epoch0, step: 10, training: 0.1875, loss_tr: 3.07113, loss_t: 2.02049, testing: 0.0555556, t2y: 0.5
+seq2, epoch0, step: 20, training: 0.3125, loss_tr: 2.97977, loss_t: 1.92265, testing: 0.166667, t2y: 0.666667
+seq2, epoch0, step: 30, training: 0.375, loss_tr: 2.67896, loss_t: 1.78472, testing: 0.277778, t2y: 0.5
+seq2, epoch0, step: 40, training: 0.625, loss_tr: 2.11115, loss_t: 1.48701, testing: 0.388889, t2y: 0.5
+seq2, epoch0, step: 50, training: 0.6875, loss_tr: 1.72132, loss_t: 1.29925, testing: 0.388889, t2y: 0.666667
+seq2, epoch0, step: 60, training: 0.6875, loss_tr: 1.56471, loss_t: 1.11655, testing: 0.444444, t2y: 0.833333
+seq2, epoch0, step: 70, training: 0.8125, loss_tr: 1.35269, loss_t: 1.09163, testing: 0.444444, t2y: 0.5
+seq2, epoch1, step: 80, training: 0.75, loss_tr: 1.08248, loss_t: 1.02457, testing: 0.444444, t2y: 0.666667
+seq2, epoch1, step: 90, training: 0.6875, loss_tr: 0.899585, loss_t: 0.980487, testing: 0.444444, t2y: 0.5
+seq2, epoch1, step: 100, training: 0.75, loss_tr: 0.788049, loss_t: 0.879739, testing: 0.444444, t2y: 0.833333
+seq2, epoch1, step: 110, training: 0.6875, loss_tr: 0.904572, loss_t: 0.798903, testing: 0.555556, t2y: 0.833333
+seq2, epoch1, step: 120, training: 1, loss_tr: 0.729658, loss_t: 0.750081, testing: 0.5, t2y: 0.833333
+seq2, epoch1, step: 130, training: 0.8125, loss_tr: 0.700491, loss_t: 0.732916, testing: 0.5, t2y: 1
+seq2, epoch1, step: 140, training: 0.9375, loss_tr: 0.615341, loss_t: 0.668657, testing: 0.444444, t2y: 1
+seq2, epoch1, step: 150, training: 1, loss_tr: 0.58431, loss_t: 0.602437, testing: 0.555556, t2y: 0.833333
+seq2, epoch2, step: 160, training: 1, loss_tr: 0.497103, loss_t: 0.525804, testing: 0.611111, t2y: 1
+seq2, epoch2, step: 170, training: 1, loss_tr: 0.371753, loss_t: 0.579107, testing: 0.611111, t2y: 1
+seq2, epoch2, step: 180, training: 1, loss_tr: 0.34885, loss_t: 0.513964, testing: 0.666667, t2y: 0.833333
+seq2, epoch2, step: 190, training: 1, loss_tr: 0.276481, loss_t: 0.543655, testing: 0.666667, t2y: 0.833333
+seq2, epoch2, step: 200, training: 1, loss_tr: 0.241121, loss_t: 0.498362, testing: 0.666667, t2y: 1
+seq2, epoch2, step: 210, training: 1, loss_tr: 0.203872, loss_t: 0.52279, testing: 0.611111, t2y: 1
+seq2, epoch2, step: 220, training: 1, loss_tr: 0.265622, loss_t: 0.509071, testing: 0.611111, t2y: 0.833333
+seq2, epoch2, step: 230, training: 1, loss_tr: 0.207149, loss_t: 0.439062, testing: 0.666667, t2y: 1
+seq2, epoch3, step: 240, training: 1, loss_tr: 0.281068, loss_t: 0.468072, testing: 0.722222, t2y: 0.833333
+seq2, epoch3, step: 250, training: 1, loss_tr: 0.224135, loss_t: 0.413955, testing: 0.777778, t2y: 0.833333
+seq2, epoch3, step: 260, training: 1, loss_tr: 0.260725, loss_t: 0.522015, testing: 0.833333, t2y: 0.833333
+seq2, epoch3, step: 270, training: 0.9375, loss_tr: 0.146405, loss_t: 0.416178, testing: 0.833333, t2y: 1
+seq2, epoch3, step: 280, training: 1, loss_tr: 0.113684, loss_t: 0.461746, testing: 0.833333, t2y: 0.833333
+seq2, epoch3, step: 290, training: 1, loss_tr: 0.0609472, loss_t: 0.354845, testing: 0.833333, t2y: 0.833333
+seq2, epoch3, step: 300, training: 1, loss_tr: 0.0472686, loss_t: 0.361724, testing: 0.833333, t2y: 1
+seq2, epoch3, step: 310, training: 1, loss_tr: 0.0238285, loss_t: 0.315773, testing: 0.833333, t2y: 0.833333
+seq2, epoch4, step: 320, training: 1, loss_tr: 0.0204495, loss_t: 0.349477, testing: 0.777778, t2y: 1
+seq2, epoch4, step: 330, training: 1, loss_tr: 0.0345342, loss_t: 0.340006, testing: 0.777778, t2y: 1
+seq2, epoch4, step: 340, training: 1, loss_tr: 0.032707, loss_t: 0.330387, testing: 0.722222, t2y: 1
+seq2, epoch4, step: 350, training: 1, loss_tr: 0.0617226, loss_t: 0.226258, testing: 0.833333, t2y: 1
+seq2, epoch4, step: 360, training: 1, loss_tr: 0.0595242, loss_t: 0.307259, testing: 0.777778, t2y: 1
+seq2, epoch4, step: 370, training: 1, loss_tr: 0.0614286, loss_t: 0.300961, testing: 0.833333, t2y: 1
+seq2, epoch4, step: 380, training: 1, loss_tr: 0.063553, loss_t: 0.556241, testing: 0.722222, t2y: 1
+seq2, epoch4, step: 390, training: 1, loss_tr: 0.0597776, loss_t: 0.538078, testing: 0.777778, t2y: 0.833333
+seq2, epoch5, step: 400, training: 1, loss_tr: 0.0747222, loss_t: 0.56439, testing: 0.777778, t2y: 1
+seq2, epoch5, step: 410, training: 1, loss_tr: 0.0676602, loss_t: 0.453457, testing: 0.777778, t2y: 1
+seq2, epoch5, step: 420, training: 1, loss_tr: 0.0636663, loss_t: 0.436242, testing: 0.777778, t2y: 1
+seq2, epoch5, step: 430, training: 1, loss_tr: 0.0412273, loss_t: 0.440678, testing: 0.777778, t2y: 1
+seq2, epoch5, step: 440, training: 1, loss_tr: 0.0632024, loss_t: 0.301661, testing: 0.888889, t2y: 1
+seq2, epoch5, step: 450, training: 1, loss_tr: 0.0574819, loss_t: 0.272673, testing: 0.888889, t2y: 1
+seq2, epoch5, step: 460, training: 1, loss_tr: 0.06455, loss_t: 0.273489, testing: 0.888889, t2y: 1
+seq2, epoch5, step: 470, training: 1, loss_tr: 0.017255, loss_t: 0.296496, testing: 0.888889, t2y: 1
+seq2, epoch6, step: 480, training: 1, loss_tr: 0.0271461, loss_t: 0.328418, testing: 0.888889, t2y: 1
+seq2, epoch6, step: 490, training: 1, loss_tr: 0.0320346, loss_t: 0.279073, testing: 0.888889, t2y: 1
+seq2, epoch6, step: 500, training: 1, loss_tr: 0.027084, loss_t: 0.299909, testing: 0.833333, t2y: 1
+seq2, epoch6, step: 510, training: 1, loss_tr: 0.0179995, loss_t: 0.270511, testing: 0.833333, t2y: 1
+ 
+****************************************
+current sequence is 3
+****************************************
+seq3, epoch0, step: 0, training: 0.1875, loss_tr: 2.39574, loss_t: 2.11464, testing: 0.333333, t2y: 0.5
+seq3, epoch0, step: 10, training: 0.625, loss_tr: 2.14325, loss_t: 2.08876, testing: 0.277778, t2y: 0.333333
+seq3, epoch0, step: 20, training: 0.8125, loss_tr: 1.94319, loss_t: 1.81485, testing: 0.277778, t2y: 0.666667
+seq3, epoch0, step: 30, training: 0.625, loss_tr: 1.67529, loss_t: 1.5136, testing: 0.277778, t2y: 0.666667
+seq3, epoch0, step: 40, training: 0.5625, loss_tr: 1.67012, loss_t: 1.30798, testing: 0.277778, t2y: 0.833333
+seq3, epoch0, step: 50, training: 0.625, loss_tr: 1.49504, loss_t: 1.25509, testing: 0.277778, t2y: 0.833333
+seq3, epoch0, step: 60, training: 0.5625, loss_tr: 1.43512, loss_t: 1.24513, testing: 0.333333, t2y: 0.833333
+seq3, epoch0, step: 70, training: 0.625, loss_tr: 1.19839, loss_t: 1.15264, testing: 0.388889, t2y: 0.833333
+seq3, epoch1, step: 80, training: 0.6875, loss_tr: 0.99988, loss_t: 1.17454, testing: 0.388889, t2y: 0.666667
+seq3, epoch1, step: 90, training: 0.5625, loss_tr: 0.900637, loss_t: 1.09398, testing: 0.388889, t2y: 0.666667
+seq3, epoch1, step: 100, training: 0.8125, loss_tr: 0.866276, loss_t: 1.1278, testing: 0.388889, t2y: 0.666667
+seq3, epoch1, step: 110, training: 0.875, loss_tr: 0.916848, loss_t: 1.06924, testing: 0.5, t2y: 0.833333
+seq3, epoch1, step: 120, training: 0.9375, loss_tr: 0.72994, loss_t: 1.04097, testing: 0.5, t2y: 1
+seq3, epoch1, step: 130, training: 0.9375, loss_tr: 0.622975, loss_t: 0.899391, testing: 0.611111, t2y: 0.666667
+seq3, epoch1, step: 140, training: 0.875, loss_tr: 0.553151, loss_t: 0.839161, testing: 0.611111, t2y: 1
+seq3, epoch1, step: 150, training: 0.9375, loss_tr: 0.570685, loss_t: 0.788237, testing: 0.611111, t2y: 1
+seq3, epoch2, step: 160, training: 0.9375, loss_tr: 0.499034, loss_t: 0.801176, testing: 0.611111, t2y: 0.833333
+seq3, epoch2, step: 170, training: 1, loss_tr: 0.422404, loss_t: 0.755587, testing: 0.611111, t2y: 0.833333
+seq3, epoch2, step: 180, training: 0.9375, loss_tr: 0.330651, loss_t: 0.738054, testing: 0.666667, t2y: 0.833333
+seq3, epoch2, step: 190, training: 1, loss_tr: 0.297421, loss_t: 0.639186, testing: 0.666667, t2y: 1
+seq3, epoch2, step: 200, training: 0.875, loss_tr: 0.247726, loss_t: 0.647365, testing: 0.666667, t2y: 1
+seq3, epoch2, step: 210, training: 1, loss_tr: 0.18212, loss_t: 0.676139, testing: 0.666667, t2y: 0.833333
+seq3, epoch2, step: 220, training: 1, loss_tr: 0.224054, loss_t: 0.769768, testing: 0.666667, t2y: 0.833333
+seq3, epoch2, step: 230, training: 1, loss_tr: 0.189106, loss_t: 0.703312, testing: 0.611111, t2y: 1
+seq3, epoch3, step: 240, training: 1, loss_tr: 0.171925, loss_t: 0.732235, testing: 0.611111, t2y: 0.666667
+seq3, epoch3, step: 250, training: 1, loss_tr: 0.0991547, loss_t: 0.602953, testing: 0.666667, t2y: 1
+seq3, epoch3, step: 260, training: 1, loss_tr: 0.123296, loss_t: 0.568001, testing: 0.777778, t2y: 1
+seq3, epoch3, step: 270, training: 1, loss_tr: 0.123081, loss_t: 0.4507, testing: 0.777778, t2y: 1
+seq3, epoch3, step: 280, training: 1, loss_tr: 0.127219, loss_t: 0.438773, testing: 0.722222, t2y: 1
+seq3, epoch3, step: 290, training: 1, loss_tr: 0.0998833, loss_t: 0.445319, testing: 0.722222, t2y: 1
+seq3, epoch3, step: 300, training: 0.9375, loss_tr: 0.180756, loss_t: 0.516403, testing: 0.722222, t2y: 1
+seq3, epoch3, step: 310, training: 1, loss_tr: 0.242838, loss_t: 0.5147, testing: 0.722222, t2y: 1
+seq3, epoch4, step: 320, training: 1, loss_tr: 0.220555, loss_t: 0.514336, testing: 0.666667, t2y: 1
+seq3, epoch4, step: 330, training: 1, loss_tr: 0.125022, loss_t: 0.502912, testing: 0.666667, t2y: 1
+seq3, epoch4, step: 340, training: 1, loss_tr: 0.0525187, loss_t: 0.523943, testing: 0.722222, t2y: 1
+seq3, epoch4, step: 350, training: 1, loss_tr: 0.152113, loss_t: 0.711868, testing: 0.722222, t2y: 0.833333
+seq3, epoch4, step: 360, training: 1, loss_tr: 0.163145, loss_t: 0.716304, testing: 0.722222, t2y: 1
+seq3, epoch4, step: 370, training: 1, loss_tr: 0.157232, loss_t: 0.804014, testing: 0.666667, t2y: 1
+seq3, epoch4, step: 380, training: 1, loss_tr: 0.0403015, loss_t: 0.67357, testing: 0.666667, t2y: 1
+seq3, epoch4, step: 390, training: 1, loss_tr: 0.0648753, loss_t: 0.63446, testing: 0.722222, t2y: 0.833333
+seq3, epoch5, step: 400, training: 1, loss_tr: 0.0545092, loss_t: 0.688577, testing: 0.722222, t2y: 1
+seq3, epoch5, step: 410, training: 1, loss_tr: 0.061814, loss_t: 0.67947, testing: 0.722222, t2y: 1
+seq3, epoch5, step: 420, training: 1, loss_tr: 0.0294311, loss_t: 0.70106, testing: 0.666667, t2y: 1
+seq3, epoch5, step: 430, training: 1, loss_tr: 0.047699, loss_t: 0.648544, testing: 0.666667, t2y: 1
+seq3, epoch5, step: 440, training: 1, loss_tr: 0.051567, loss_t: 0.723128, testing: 0.666667, t2y: 0.833333
+seq3, epoch5, step: 450, training: 1, loss_tr: 0.0430488, loss_t: 0.698436, testing: 0.666667, t2y: 1
+seq3, epoch5, step: 460, training: 1, loss_tr: 0.0474582, loss_t: 0.611852, testing: 0.666667, t2y: 1
+seq3, epoch5, step: 470, training: 1, loss_tr: 0.0510951, loss_t: 0.664426, testing: 0.666667, t2y: 1
+seq3, epoch6, step: 480, training: 1, loss_tr: 0.0633914, loss_t: 0.624463, testing: 0.666667, t2y: 1
+seq3, epoch6, step: 490, training: 1, loss_tr: 0.0388154, loss_t: 0.691089, testing: 0.666667, t2y: 1
+seq3, epoch6, step: 500, training: 1, loss_tr: 0.0259434, loss_t: 0.732242, testing: 0.666667, t2y: 1
+seq3, epoch6, step: 510, training: 1, loss_tr: 0.0107756, loss_t: 0.803085, testing: 0.666667, t2y: 1
+ 
+The list of Classification Accuracy: [1.0, 0.83333333333333337, 0.66666666666666663]
+ [1.0, 1.0, 1.0]
+ Mean Classification Accuracy is 0.833333333333, and top2 mean accuracy is 1.0
+__________________________________________________________________________________________________
+ 
+-------------------------------------------------------------------------
+---------------------------- RUN 1 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
+seq1, epoch0, step: 0, training: 0.4375, loss_tr: 1.98937, loss_t: 2.33775, testing: 0.166667, t2y: 0.333333
+seq1, epoch0, step: 10, training: 0.25, loss_tr: 2.24138, loss_t: 2.15585, testing: 0.166667, t2y: 0.5
