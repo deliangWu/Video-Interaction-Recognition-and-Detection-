@@ -96,9 +96,7 @@ def main(argv):
                     # test1                    
                     #learning_rate = 0.0001 * 2**(-int(epoch/3))
                     
-                    learning_rate = 1e-5
-                    
-                    
+                    learning_rate = 1e-4
                     
                     #learning_rate = 0.1 * 2**(-int(epoch/4))
                     c3d.train(train_x, train_y, sess, learning_rate=learning_rate)

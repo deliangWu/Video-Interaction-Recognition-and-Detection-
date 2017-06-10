@@ -10,7 +10,7 @@ def weight_variable(shape):
     return tf.get_variable('weight',shape,initializer=tf.contrib.layers.xavier_initializer())
 
 def bias_variable(shape):
-    return tf.get_variable('bias',shape,initializer=tf.constant_initializer(0.1))
+    return tf.get_variable('bias',shape,initializer=tf.constant_initializer(0.01))
 
 def conv3d(x, W):
     return tf.nn.conv3d(x, W, strides=[1, 1, 1, 1,1], padding='SAME')
