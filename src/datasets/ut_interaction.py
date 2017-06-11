@@ -49,7 +49,7 @@ class ut_interaction:
     def loadTrainingAll(self, shuffleEn = True,oneHotLabelMode=False):
         cnt_file = 0
         for file in self._trainingFilesSet:
-            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,RLFlipEn=True, downSample=3,numOfRandomCrop=4)
+            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,RLFlipEn=True, downSample=0,numOfRandomCrop=4)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
             #self._tr.print_diff()
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
@@ -94,7 +94,7 @@ class ut_interaction:
             start = self._trainingPointer
             self._trainingPointer += batch
         end = self._trainingPointer
-        return(vpp.videoNorm1(self._trainingVideos[start:end],normMode=1),self._trainingLabels[start:end])
+        return(vpp.videoNorm1(self._trainingVideos[start:end],normMode=0),self._trainingLabels[start:end])
     
     def loadTesting(self,oneHotLabelMode = False):
         testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
@@ -102,7 +102,7 @@ class ut_interaction:
         testLabels = np.empty((0,1),dtype=np.float32)        
         for file in self._testingFilesSet:
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
-            video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True,downSample=3,numOfRandomCrop=1)
+            video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True,downSample=0,numOfRandomCrop=1)
             if video is not None:
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
@@ -110,7 +110,7 @@ class ut_interaction:
                 testLabels = np.append(testLabels,np.reshape(int(file[2]),(1,1)),axis=0)
         if oneHotLabelMode is True:
             testLabels = oneHot(testLabels, self._numOfClasses)
-        return (vpp.videoNorm1(testVideos.transpose(1,0,2,3,4,5),normMode=1),testLabels)    
+        return (vpp.videoNorm1(testVideos.transpose(1,0,2,3,4,5),normMode=0),testLabels)    
     
     def getFileList(self):
         return self._files
