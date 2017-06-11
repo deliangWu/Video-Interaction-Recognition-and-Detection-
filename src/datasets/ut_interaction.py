@@ -94,7 +94,7 @@ class ut_interaction:
             start = self._trainingPointer
             self._trainingPointer += batch
         end = self._trainingPointer
-        return(vpp.videoNorm1(self._trainingVideos[start:end],normMode=0),self._trainingLabels[start:end])
+        return(vpp.videoNorm1(self._trainingVideos[start:end],normMode=2),self._trainingLabels[start:end])
     
     def loadTesting(self,oneHotLabelMode = False):
         testVideos = np.empty((0,3,16) + self._frmSize, dtype=np.uint8)        
@@ -110,7 +110,7 @@ class ut_interaction:
                 testLabels = np.append(testLabels,np.reshape(int(file[2]),(1,1)),axis=0)
         if oneHotLabelMode is True:
             testLabels = oneHot(testLabels, self._numOfClasses)
-        return (vpp.videoNorm1(testVideos.transpose(1,0,2,3,4,5),normMode=0),testLabels)    
+        return (vpp.videoNorm1(testVideos.transpose(1,0,2,3,4,5),normMode=2),testLabels)    
     
     def getFileList(self):
         return self._files
