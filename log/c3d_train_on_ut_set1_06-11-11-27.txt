@@ -597,3 +597,8 @@ seq2, epoch1, step: 40, training: 0.875, loss_tr: 1.04722, loss_t: 1.42487, test
 seq2, epoch1, step: 50, training: 0.375, loss_tr: 0.83898, loss_t: 1.67185, testing: 0.222222, t2y: 0.666667
 seq2, epoch1, step: 60, training: 0.6875, loss_tr: 0.702056, loss_t: 1.51657, testing: 0.277778, t2y: 0.833333
 seq2, epoch1, step: 70, training: 0.875, loss_tr: 0.618057, loss_t: 1.44508, testing: 0.333333, t2y: 0.666667
+seq2, epoch2, step: 80, training: 0.875, loss_tr: 0.501675, loss_t: 1.04572, testing: 0.5, t2y: 1
+seq2, epoch2, step: 90, training: 0.875, loss_tr: 0.305944, loss_t: 0.975033, testing: 0.5, t2y: 0.833333
+seq2, epoch2, step: 100, training: 0.9375, loss_tr: 0.266966, loss_t: 0.909744, testing: 0.611111, t2y: 0.833333
+seq2, epoch2, step: 110, training: 0.9375, loss_tr: 0.273768, loss_t: 0.820458, testing: 0.611111, t2y: 0.833333
+seq2, epoch3, step: 120, training: 0.8125, loss_tr: 0.302926, loss_t: 0.907443, testing: 0.611111, t2y: 0.833333
