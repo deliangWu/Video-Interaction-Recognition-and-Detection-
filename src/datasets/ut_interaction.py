@@ -49,7 +49,7 @@ class ut_interaction:
     def loadTrainingAll(self, shuffleEn = True,oneHotLabelMode=False):
         cnt_file = 0
         for file in self._trainingFilesSet:
-            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,RLFlipEn=False, downSample=0,numOfRandomCrop=4)
+            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,RLFlipEn=True, downSample=0,numOfRandomCrop=1)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
             #self._tr.print_diff()
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
