@@ -1,0 +1,13 @@
+Sun Jun 11 09:05:05 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+-------------------------------------------------------------------------
+---------------------------- RUN 0 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
+seq1, epoch0, step: 0, training: 0.3125, loss_tr: 1.67705, loss_t: 2.01383, testing: 0.166667, t2y: 0.333333
+seq1, epoch0, step: 10, training: 0.4375, loss_tr: 1.62666, loss_t: 1.93277, testing: 0.166667, t2y: 0.333333
+seq1, epoch0, step: 20, training: 0.5625, loss_tr: 1.4481, loss_t: 1.68921, testing: 0.222222, t2y: 0.833333
+seq1, epoch0, step: 30, training: 0.5, loss_tr: 1.31417, loss_t: 1.46763, testing: 0.222222, t2y: 0.5
+seq1, epoch0, step: 40, training: 0.625, loss_tr: 1.12773, loss_t: 1.27304, testing: 0.277778, t2y: 0.666667
+seq1, epoch0, step: 50, training: 0.625, loss_tr: 1.04266, loss_t: 1.2207, testing: 0.222222, t2y: 0.5
