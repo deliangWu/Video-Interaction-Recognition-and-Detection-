@@ -1,0 +1,21 @@
+Sun Jun 11 18:47:12 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+-------------------------------------------------------------------------
+---------------------------- RUN 0 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
+seq1, epoch0, step: 0, training: 0.25, loss_tr: 1.67202, loss_t: 2.01337, testing: 0.166667, t2y: 0.166667
+seq1, epoch0, step: 10, training: 0.125, loss_tr: 1.81704, loss_t: 2.12172, testing: 0.166667, t2y: 0.333333
+seq1, epoch0, step: 20, training: 0.3125, loss_tr: 2.04962, loss_t: 2.13426, testing: 0.166667, t2y: 0.5
+seq1, epoch0, step: 30, training: 0.75, loss_tr: 1.7903, loss_t: 1.87889, testing: 0.277778, t2y: 0.666667
+seq1, epoch0, step: 40, training: 0.5625, loss_tr: 1.50971, loss_t: 1.49899, testing: 0.444444, t2y: 0.666667
+seq1, epoch0, step: 50, training: 0.6875, loss_tr: 1.03293, loss_t: 1.17136, testing: 0.555556, t2y: 0.833333
+seq1, epoch0, step: 60, training: 0.6875, loss_tr: 1.03701, loss_t: 1.06874, testing: 0.555556, t2y: 0.666667
+seq1, epoch0, step: 70, training: 0.6875, loss_tr: 0.966536, loss_t: 0.951556, testing: 0.555556, t2y: 0.833333
+seq1, epoch1, step: 80, training: 0.75, loss_tr: 0.83824, loss_t: 0.82854, testing: 0.611111, t2y: 1
+seq1, epoch1, step: 90, training: 0.5, loss_tr: 0.884114, loss_t: 0.761084, testing: 0.722222, t2y: 0.833333
+seq1, epoch1, step: 100, training: 0.9375, loss_tr: 0.662823, loss_t: 0.671166, testing: 0.833333, t2y: 1
+seq1, epoch1, step: 110, training: 0.9375, loss_tr: 0.612142, loss_t: 0.602593, testing: 0.944444, t2y: 1
+seq1, epoch1, step: 120, training: 0.9375, loss_tr: 0.386706, loss_t: 0.51231, testing: 0.944444, t2y: 0.833333
+seq1, epoch1, step: 130, training: 0.9375, loss_tr: 0.357414, loss_t: 0.454611, testing: 0.888889, t2y: 0.833333
