@@ -79,9 +79,9 @@ def main(argv):
                   '****************************************\n'
             common.pAndWf(logName,log)
             ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
-            ut_set.loadTrainingAll(oneHotLabelMode=True)
             test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
+                ut_set.loadTrainingAll(oneHotLabelMode=True)
                 best_accuracy = 0
                 epoch = 0
                 anvAccuList = np.zeros((3))
