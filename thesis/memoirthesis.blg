@@ -1,5 +1,35 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: memoirthesis.aux
 The style file: siam.bst
 Database file #1: thesisbiblio.bib
+I was expecting a `,' or a `}'---line 262 of file thesisbiblio.bib
+ :  
+ :  Journal = {Neurocomputing: foundations of research}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 270 of file thesisbiblio.bib
+ :  
+ :  Journal = {ICLR2015}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 279 of file thesisbiblio.bib
+ :  
+ :  Journal = {Journal of Machine Learning Research}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 287 of file thesisbiblio.bib
+ :  
+ :  Journal = {Journal of Machine Learning Research}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 295 of file thesisbiblio.bib
+ :  
+ :  Journal = {arXiv:1502.03167}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--empty journal in xavier
+Warning--empty journal in bn
+Warning--empty journal in adam
+Warning--empty journal in bpa
 Warning--empty journal in ut2010
-(There was 1 warning)
+Warning--empty journal in dropout
+(There were 5 error messages)

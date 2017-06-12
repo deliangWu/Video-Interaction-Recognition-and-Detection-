@@ -30,6 +30,10 @@
   recognition using 3d sift in complex ct volumes}, Proceedings of the British
   Machine Vision Conference,  (2010), pp.~11.1--11.12.
 
+\bibitem{xavier}
+{\sc X.~Glorot and Y.~Bengio}, {\em Understanding the difficulty of training
+  deep feedforward neural networks},  (2010).
+
 \bibitem{kaiming}
 {\sc K.~He, X.~Zhang, S.~Ren, and J.~Sun}, {\em Delving deep into rectifiers:
   Surpassing human-level performance on imagenet classification}, ICCV,
@@ -39,6 +43,10 @@
 {\sc F.~C. Heilbron, V.~Escorcia, and B.~Ghanem}, {\em Activitynet: A
   large-scale video benchmark for human activity understanding}, CVPR,  (2015).
 
+\bibitem{bn}
+{\sc S.~Ioffe and C.~Szegedy}, {\em Batch normalization: Accelerating deep
+  network training by reducing internal covariate shift},  (2015).
+
 \bibitem{Ji2013}
 {\sc S.~Ji, W.~Xu, M.~Yang, and K.~Yu}, {\em 3d convolutional neural networks
   for human action recognition}, IEEE TPAMI,  (2013).
@@ -47,6 +55,10 @@
 {\sc A.~Karpathy, G.~Toderici, S.~Shetty, T.~Leung, R.~Sukthankar, and
   L.~Fei-Fei}, {\em Large-scale video classification with convolutional neural
   networks}, CVPR,  (2014).
+
+\bibitem{adam}
+{\sc D.~P. Kingma and J.~Ba}, {\em Adam: A method for stochastic optimization},
+   (2015).
 
 \bibitem{alex2008}
 {\sc A.~Klaser, M.~Marszalek, and C.~Schmid}, {\em A spatio-temporal descriptor
@@ -100,6 +112,10 @@
 {\sc A.~Patron-Perez, M.~Marszalek, A.~Zisserman, and I.~Reid}, {\em High five:
   Recognising human interactions in tv shows}, BMVC,  (2010).
 
+\bibitem{bpa}
+{\sc D.~E. Rumelhart, G.~E. Hinton, and R.~J. Williams}, {\em Learning
+  representations by back-propagating errors},  (1986), pp.~696 -- 699.
+
 \bibitem{ut2010}
 {\sc M.~S. Ryoo and J.~K. Aggarwal}, {\em Ut-interaction dataset},  (2010).
 
@@ -118,6 +134,11 @@
 \bibitem{ucf101}
 {\sc K.~Soomro, A.~R. Zamir, and M.~Shah}, {\em Ucf101: A dataset of 101 human
   actions classes from videos in the wild}, CRCV-TR,  (2012).
+
+\bibitem{dropout}
+{\sc N.~Srivastava, G.~Hinton, A.~Krizhevsky, I.~Sutskever, and
+  R.~Salakhutdinov}, {\em Dropout: A simple way to prevent neural networks from
+  overfitting},  (2014).
 
 \bibitem{Tran2015}
 {\sc D.~Tran, L.~Bourdev, R.~Fergus, L.~Torresani, and M.~Paluri}, {\em

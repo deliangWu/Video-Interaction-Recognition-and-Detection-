@@ -295,6 +295,7 @@
 	\setlength{\belowcaptionskip}{10pt}
 	\ifx \@empty#1 \subcaption{#2}\else \subcaption[#1]{#2}
 }
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
 %
 %An initial of the very first character of the content
 \usepackage{lettrine}
@@ -389,7 +390,7 @@
 \import{chapters/chapter04/}{chap04.tex}
 \clearemptydoublepage
 %
-\import{chapters/chapter05/}{chap05.tex}
+%\import{chapters/chapter05/}{chap05.tex}
 \clearemptydoublepage
 %
 \import{chapters/chapter06/}{chap06.tex}
