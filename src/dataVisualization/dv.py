@@ -252,7 +252,7 @@ def plot1(figPlot,dispEn=True):
     if figPlot == 'set2':
         fname_0 = common.path.logPath + 'c3d_train_on_ut_set2_06-12-08-50.txt'          # base
         label.append('set2')
-        log.append(readLog(fname_0,seqBias=11,start=0,end=1))
+        log.append(readLog(fname_0,seqBias=11,start=1,end=2))
         fig_name = 'D:/Course/Final_Thesis_Project/Thesis/chapters/chapter05/fig01/plot_set2.pdf'
     
     # ************************************************************* 
