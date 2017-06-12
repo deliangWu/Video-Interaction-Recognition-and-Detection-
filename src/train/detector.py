@@ -290,8 +290,8 @@ def main(argv):
         # load trained network  
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
         saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
-        saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7.ckpt'))
-        saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
+        #saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7.ckpt'))
+        #saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
         
         # generate candidate bounding boxe by applying person detection and tracking            
         video = ut.loadVideo(seq)
@@ -299,6 +299,7 @@ def main(argv):
         #common.saveList2File('bbList_seq'+str(seq)+'.txt',picks)
         picks = common.readListFromFile('bbList_seq'+str(seq)+'.txt')
         #picks = normBB(picks,video=video)
+        #_,_,_,boundingBoxes,bbInitFrmNo = hdt.humanTracking(video,picks,frmSize,dispBBEn = True) 
         picks = normBB(picks)
         _,_,_,boundingBoxes,bbInitFrmNo = hdt.humanTracking(video,picks,frmSize,dispBBEn = False) 
         #vpp.videoSave(video,'seq_'+str(seq)+'.avi')
@@ -308,7 +309,7 @@ def main(argv):
             for stride in (4,8):
                 common.pAndWf(logName, '*********** vLen :'+str(vLen)+' stride: '+ str(stride) +' **************************\n')
                 ibbLists= genIBB(boundingBoxes,vLen,stride)
-                #dispIBB(video, bbInitFrmNo, ibbLists[:,2])
+                dispIBB(video, bbInitFrmNo, ibbLists[:,2])
                 # generate the predicted labels for candidate bounding boxes
                 pred_yList = pred_IBB(video,ibbLists[:,2], bbInitFrmNo,sess,c3d,vLen,stride)
                 # combine the temporal-neighbour bounding boxes as a same interaction label

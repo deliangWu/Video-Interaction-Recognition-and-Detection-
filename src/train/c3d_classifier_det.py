@@ -64,7 +64,7 @@ def main(argv):
     common.pAndWf(logName,log)    
     iteration = 2001
     batchSize = 16 
-    for run in range(10): 
+    for run in range(1): 
         log = '-------------------------------------------------------------------------\n' \
             + '---------------------------- RUN ' + str(run) + ' ------------------------------\n' \
             + '-------------------------------------------------------------------------\n'
@@ -113,13 +113,12 @@ def main(argv):
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg7.ckpt'))
                 saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
                 common.pAndWf(logName,' \n')
-            accuSet.append(test_accuracy)
-            t2accuSet.append(t2y_accu)
-        log = 'The list of Classification Accuracy: ' + str(accuSet) + \
-              '\n ' + str(t2accuSet) + \
-              '\n Mean Classification Accuracy is ' + str(np.mean(accuSet)) + ', and top2 mean accuracy is ' + str(np.mean(t2accuSet)) + '\n' + \
-              '__________________________________________________________________________________________________\n \n'
-        common.pAndWf(logName,log)
+            else:
+                saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7.ckpt'))
+                saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
+                test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
+                print('testing accu is: ',test_accuracy, ' and top2 accu is ', t2y_accu)
+                
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
