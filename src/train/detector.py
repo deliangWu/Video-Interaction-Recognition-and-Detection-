@@ -203,7 +203,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
     bbStartFrmNo = bbInitFrmNo
     for ibb in ibbList:
         vChop = video[bbStartFrmNo:bbStartFrmNo+vLen,ibb[1]:ibb[3],ibb[0]:ibb[2]]
-        vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=0, RLFlipEn=False,numOfRandomCrop=4)
+        vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=0, RLFlipEn=True,numOfRandomCrop=4)
         vChop = vpp.videoNorm1(vChop,normMode=1)
         vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
         prob = c3d.evaluateProb(vChop_det, sess)[0]
@@ -242,7 +242,10 @@ def NMS_IBB(ibbSets):
         #ySel = ibbSet[2][int(len(ibbSet[2])/2) - 1: int(len(ibbSet[2])/2 + 2)]
         ySel = ibbSet[2]
         ySet =[]
-        for y in ySel:
+        m = len(ySel)//3
+        s = max(0,m-2)
+        e = min(len(ySel),m+3)
+        for y in ySel[s:e]:
             if y[0] !=6:
                 ySet.append([y[0]]*4)
             if y[1] !=6:
