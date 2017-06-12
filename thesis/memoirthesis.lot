@@ -7,4 +7,8 @@
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}
+\contentsline {table}{\numberline {5.1}{\ignorespaces Default parameters for network and data pre-processing}}{57}{table.5.1}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Parameter, network architecture and training settings for network and data pre-processing.}}{73}{table.5.2}
+\contentsline {table}{\numberline {5.3}{\ignorespaces The experimental results of the three models' classification accuracy, evaluated on UT-Interaction set1}}{75}{table.5.3}
+\addvspace {10pt}
 \addvspace {10pt}

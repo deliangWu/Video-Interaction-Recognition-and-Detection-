@@ -158,14 +158,27 @@ def checkLabel(position_pre):
 def humanTracking(vIn,picks,frmSize = (112,80,3),dispBBEn = True):
     # initialize kalman filter
     global kalman0,kalman1
+    #kalman0 = cv2.KalmanFilter(6,2)
+    #kalman0.measurementMatrix = np.array([[1,0,0,0,0,0],[0,1,0,0,0,0]],np.float32)
+    #kalman0.transitionMatrix = np.array([[1,0,1,0,0.5,0],[0,1,0,1,0,0.5],[0,0,1,0,1,0],[0,0,0,1,0,1],[0,0,0,0,1,0],[0,0,0,0,0,1]],np.float32)
+    #kalman0.processNoiseCov = np.identity(6,np.float32) * 1e-6 
+    #kalman0.measurementNoiseCov = np.identity(2,np.float32) * 1e-2 
+    #kalman1 = cv2.KalmanFilter(6,2)
+    #kalman1.measurementMatrix = np.array([[1,0,0,0,0,0],[0,1,0,0,0,0]],np.float32)
+    #kalman1.transitionMatrix = np.array([[1,0,1,0,0.5,0],[0,1,0,1,0,0.5],[0,0,1,0,1,0],[0,0,0,1,0,1],[0,0,0,0,1,0],[0,0,0,0,0,1]],np.float32)
+    #kalman1.processNoiseCov = np.identity(6,np.float32) * 1e-6 
+    #kalman1.measurementNoiseCov = np.identity(2,np.float32) * 1e-2 
+    
     kalman0 = cv2.KalmanFilter(4,2)
     kalman0.measurementMatrix = np.array([[1,0,0,0],[0,1,0,0]],np.float32)
     kalman0.transitionMatrix = np.array([[1,0,1,0],[0,1,0,1],[0,0,1,0],[0,0,0,1]],np.float32)
-    kalman0.processNoiseCov = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],np.float32) * 0.0001
+    kalman0.processNoiseCov = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],np.float32) * 1e-6 
+    kalman0.measurementNoiseCov = np.identity(2,np.float32) * 1 
     kalman1 = cv2.KalmanFilter(4,2)
     kalman1.measurementMatrix = np.array([[1,0,0,0],[0,1,0,0]],np.float32)
     kalman1.transitionMatrix = np.array([[1,0,1,0],[0,1,0,1],[0,0,1,0],[0,0,0,1]],np.float32)
-    kalman1.processNoiseCov = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],np.float32) * 0.0001
+    kalman1.processNoiseCov = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],np.float32) * 1e-6
+    kalman1.measurementNoiseCov = np.identity(2,np.float32) * 1 
     
     colors = [(0,255,0),(0,255,255)]
     # calculate the average width and height of a person

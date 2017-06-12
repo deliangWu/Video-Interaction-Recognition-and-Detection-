@@ -43,4 +43,21 @@
 \contentsline {figure}{\numberline {4.14}{\ignorespaces The illustration of temporally sliding the 3D windows which are used to generate candidates of interaction video clips.}}{52}{figure.4.14}
 \contentsline {figure}{\numberline {4.15}{\ignorespaces A diagram of temporally combining of interaction video clips }}{53}{figure.4.15}
 \addvspace {10pt}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The architecture of the singleNet}}{56}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between "Xavier" and normal distribution initialization.}}{58}{figure.5.2}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between different initial biases.}}{59}{figure.5.3}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks with different learning rate.}}{60}{figure.5.4}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between different keep probabilities in the dropout layers.}}{61}{figure.5.5}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks with and without batch normalization layers.}}{62}{figure.5.6}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces The structures and parameters of the three 3DConvNets which have different number of convolutional layers.}}{63}{figure.5.7}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks with different convolutional layers.}}{64}{figure.5.8}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks with different sizes of the convolutional kernels.}}{65}{figure.5.9}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks with different number of filters in each convolutional layer.}}{66}{figure.5.10}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks with different number of output neurons in each fully connected layer.}}{67}{figure.5.11}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks trained on the data with and without horizontal flipping.}}{68}{figure.5.12}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks trained on training data with different random cropping configurations.}}{69}{figure.5.13}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks trained on training data with different temporal down-sampling strides.}}{70}{figure.5.14}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks trained on training data with different normalization methods.}}{71}{figure.5.15}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Sample frames of the results of interacting people detection}}{74}{figure.5.16}
+\addvspace {10pt}
 \addvspace {10pt}

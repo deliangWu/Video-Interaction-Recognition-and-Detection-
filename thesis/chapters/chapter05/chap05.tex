@@ -340,8 +340,8 @@ In this step, we train the fullNet on UT-Interaction dataset from scratch. We fa
 			\multicolumn{3}{|l|}{\textbf{Network}}  \\ \hline
 			
 			1 & Initial values of the network parameters, see Section \ref{Initialization}. & \tabincell{l} 
-			{\(weights = N(0,\sigma^2)\), \(\sigma = 0.01\) \\ 
-				\(biases = 0 \)} \\ \hline
+			{ \(weights\) : "Xavier" initialization \\ 
+				\(biases\) : constant 0.1} \\ \hline
 			
 			2 & Dynamic adjusting of the learning rate, see Section \ref{learning_rate}. & \(Learning\ rate = 1e^{-4} \)	\\ \hline
 			
@@ -349,21 +349,21 @@ In this step, we train the fullNet on UT-Interaction dataset from scratch. We fa
 			
 			4 & Batch normalization layers, see Section \ref{bn} &  Yes  \\ \hline
 			
-			5 & The number of convolutional layers, see Section \ref{3dconv_layers} & 4\\ \hline
+			5 & The number of convolutional layers, see Section \ref{3dconv_layers} & 5\\ \hline
 			
 			6 & The size of convolutional kernels, see Section \ref{3dconv_filters} & \(3 \times 3 \times 3\) \\ \hline
 			
 			7 & The sizes of the pooling kernels, see Section \ref{3dconv_filters} & \tabincell{l}
 			{L1: \(1 \times 2 \times 2 \) \\ 
-				L2, L3: \(2 \times 2 \times 2 \) \\
-				L4: \(4 \times 2 \times 2 \)}   \\ \hline
+				L2, L3, L4: \(2 \times 2 \times 2 \) \\
+				L5: \(2 \times 1 \times 1 \)}   \\ \hline
 			
 			8 &  The number of filters for each convolutional layer, see Section \ref{3dconv_filters} &  \tabincell{l}
 			{nof\_conv1 = 32 \\ 
-				nof\_conv2 = 128  \\
-				nof\_conv3 = 256  \\
-				nof\_conv4 = 512} \\
-			    nof\_conv5 = 512  \\ \hline}
+			nof\_conv2 = 128  \\
+			nof\_conv3 = 256  \\
+			nof\_conv4 = 512 \\
+			nof\_conv5 = 512}  \\ \hline
 			
 			9 &  The number of output neurons for each fully connected layer, see Section \ref{fc} & \(\text{noo\_fc}_*\) = 4096 \\ \hline \hline                           
 			
@@ -396,13 +396,7 @@ The classification accuracy for these three models are illustrated in Table \ref
 \end{table}
 
 \section{The experimental results of of the interaction detection}
-The goal of interaction detection in UT-Interaction is to locate interactions spatially and temporally in a given un-segmented video which contains 6 interactions in each single video. Figure \ref{fig:unseg_v} illustrates some frames sampled from the un-segmented videos. Generally, there are two methods to detect interaction in a video. a). we can directly use a cube with variable size \(d \times h \times w\), slide the cube spatially and temporally and then predict the interaction label for each cube, b). we can first apply a person detector to spatially locate the positions of people who are interacting, then only slide the window temporally to locate the temporal position of each interaction. We employ method \(b\) in our project since it cost less computation resource and run time. The performance of interaction detection is then highly dependent on the quality of  the interaction people detection. So, we fist introduce the results of the interacting people detection, then the detail performance of the interaction detection.     
-
-\begin{figure}
-	\includegraphics[trim=2cm 25.5cm 0cm 1cm]{fig01/det_v.pdf}
-	\caption{frames sampled from un-segmented videos of UT-Interaction Dataset}
-	\label{fig:unseg_v}
-\end{figure}
+The goal of interaction detection in UT-Interaction is to locate interactions spatially and temporally in a given un-segmented video which contains 6 interactions in each single video. Since the performance of interaction detection is highly dependent on the quality of  the interacting people detection. So, we fist introduce the results of the interacting people detection, then the detail performance of the interaction detection.     
 
 \subsection{The results of the interacting people detection}
 We don't have the ground truth to report the precision-recall graph directly for the results of interacting people detection. The results are illustrated in Figure \ref{fig:int_det} with bounding boxes annotated for set1. The sequences 1 to 4 are easy since there are only two interacting people appear in the scene, but it is more challenge to locate the positions of interacting people for sequences 5 to 10, because both interacting people and irrelevant pedestrians are present in scene. We adopt the method mentioned in the previous chapter \ref{locate_interacting_people} to exclude the irrelevant people. From the results in Figure \ref{fig:int_det}, we successfully locate the spatial positions of interacting people for all videos except the sequence 9, because the relative position between the irrelevant people are very close to the target interacting people and they execute the activities simultaneously.  

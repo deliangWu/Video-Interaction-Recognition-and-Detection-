@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.1.11)  12 JUN 2017 11:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.1.11)  12 JUN 2017 15:10
 entering extended mode
 **./memoirthesis.tex
 (memoirthesis.tex
@@ -1691,18 +1691,6 @@ Loading lettrine.cfg
 \c@resu=\count361
 
 (memoirthesis.aux)
-Runaway argument?
-{\contentsline {paragraph}{Experimental results and analysis}{67}{s 
-! File ended while scanning use of \@writefile.
-<inserted text> 
-                \par 
-l.332 \begin{document}
-                      
-I suspect you have forgotten a `}', causing me
-to read past where you wanted me to stop.
-I'll try to recover; but if the error is serious,
-you'd better type `E' or `X' now and fix your file.
-
 \openout1 = `memoirthesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 332.
@@ -1720,15 +1708,14 @@ LaTeX Font Info:    ... okay on input line 332.
 LaTeX Font Info:    Checking defaults for FML/fncmi/m/it on input line 332.
 LaTeX Font Info:    Try loading font information for FML+fncmi on input line 33
 2.
-("C:\Program Files\MiKTeX 2.9\tex\latex\fouriernc\fmlfncmi.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\fouriernc\fmlfncmi.fd"
 File: fmlfncmi.fd 2005/12/20 Fontinst v1.928 font definitions for FML/fncmi.
 )
 LaTeX Font Info:    ... okay on input line 332.
 LaTeX Font Info:    Checking defaults for FMS/fncm/m/n on input line 332.
 LaTeX Font Info:    Try loading font information for FMS+fncm on input line 332
 .
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\fouriernc\fmsfncm.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\fouriernc\fmsfncm.fd"
 File: fmsfncm.fd 2005/12/20 Fontinst v1.928 font definitions for FMS/fncm.
 )
 LaTeX Font Info:    ... okay on input line 332.
@@ -1846,13 +1833,13 @@ LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
 (Font)              scaled to size 11.15991pt on input line 30.
 LaTeX Font Info:    Font shape `T1/fnc/m/sc' will be
 (Font)              scaled to size 11.15991pt on input line 32.
- <logos/uu.png, id=6, 289.83281pt x 95.6072pt>
+ <logos/uu.png, id=250, 289.83281pt x 95.6072pt>
 File: logos/uu.png Graphic file (type png)
 
 <use logos/uu.png>
 Package pdftex.def Info: logos/uu.png used on input line 34.
 (pdftex.def)             Requested size: 231.86655pt x 76.48584pt.
- <logos/whu_2.png, id=8, 359.3425pt x 96.36pt>
+ <logos/whu_2.png, id=252, 359.3425pt x 96.36pt>
 File: logos/whu_2.png Graphic file (type png)
 
 <use logos/whu_2.png>
@@ -1987,54 +1974,13 @@ LaTeX Font Info:    Font shape `T1/fnc/b/sc' will be
 ] [8
 
 ] (memoirthesis.lof
-
-Package natbib Warning: Citation `choi2012' on page ix undefined on input line 
-6.
-
-
-Package natbib Warning: Citation `grepory2010' on page ix undefined on input li
-ne 7.
-
-
-Package natbib Warning: Citation `alex2008' on page ix undefined on input line 
-8.
-
-
-Package natbib Warning: Citation `wang2012' on page ix undefined on input line 
-9.
-
-
-Package natbib Warning: Citation `cnn' on page ix undefined on input line 10.
-
-
-Package natbib Warning: Citation `karpathy2014' on page ix undefined on input l
-ine 12.
-
-
-Package natbib Warning: Citation `simonyan2014' on page ix undefined on input l
-ine 13.
-
-
-Package natbib Warning: Citation `Tran2015' on page ix undefined on input line 
-14.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9]
-
-Package natbib Warning: Citation `Tran2015' on page x undefined on input line 1
-5.
-
-
-Package natbib Warning: Citation `Tran2015' on page x undefined on input line 1
-6.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10]
-[11]) [12] (chapters/chapter01/chap01.tex
+ [10])
+[11] [12] (chapters/chapter01/chap01.tex
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
 (Font)              scaled to size 36.3328pt on input line 10.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
@@ -2049,7 +1995,7 @@ LaTeX Font Info:    Font shape `T1/fnc/m/sc' will be
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter01/fig01/challenges.pdf): 
 PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter01/fig01/challenges.pdf, id=371, 597.55246pt x 845.07724pt>
+<chapters/chapter01/fig01/challenges.pdf, id=570, 597.55246pt x 845.07724pt>
 File: chapters/chapter01/fig01/challenges.pdf Graphic file (type pdf)
 
 <use chapters/chapter01/fig01/challenges.pdf>
@@ -2061,109 +2007,12 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 33--34
 [][] 
  []
 
-
-Package natbib Warning: Citation `patron2010' on page 2 undefined on input line
- 38.
-
-
-Package natbib Warning: Citation `Gemeren2015' on page 2 undefined on input lin
-e 38.
-
-
-Package natbib Warning: Citation `narayan2014' on page 2 undefined on input lin
-e 38.
-
-
-Package natbib Warning: Citation `choi2012' on page 2 undefined on input line 3
-8.
-
-
-Package natbib Warning: Citation `patron2010' on page 2 undefined on input line
- 38.
-
-
-Package natbib Warning: Citation `Gemeren2015' on page 2 undefined on input lin
-e 38.
-
-
-Package natbib Warning: Citation `hog' on page 2 undefined on input line 38.
-
-
-Package natbib Warning: Citation `hof' on page 2 undefined on input line 38.
-
-
-Package natbib Warning: Citation `narayan2014' on page 2 undefined on input lin
-e 38.
-
-
-Package natbib Warning: Citation `choi2012' on page 2 undefined on input line 3
-8.
-
-
-Package natbib Warning: Citation `bov' on page 2 undefined on input line 38.
-
 [2] [3 <./chapters/chapter01/fig01/challenges.pdf>]) [4]
 (chapters/chapter02/chap02.tex
 
-Package natbib Warning: Citation `patron2010' on page 5 undefined on input line
- 10.
-
-
-Package natbib Warning: Citation `Gemeren2015' on page 5 undefined on input lin
-e 10.
-
-
-Package natbib Warning: Citation `narayan2014' on page 5 undefined on input lin
-e 10.
-
-
-Package natbib Warning: Citation `choi2012' on page 5 undefined on input line 1
-0.
-
-
-Package natbib Warning: Citation `Ji2013' on page 5 undefined on input line 10.
-
-
-
-Package natbib Warning: Citation `Ng2015' on page 5 undefined on input line 10.
-
-
-
-Package natbib Warning: Citation `Tran2015' on page 5 undefined on input line 1
-0.
-
-
-Package natbib Warning: Citation `alex2008' on page 5 undefined on input line 1
-0.
-
-
-Package natbib Warning: Citation `grepory2010' on page 5 undefined on input lin
-e 10.
-
-
-Package natbib Warning: Citation `karpathy2014' on page 5 undefined on input li
-ne 10.
-
-
-Package natbib Warning: Citation `simonyan2014' on page 5 undefined on input li
-ne 10.
-
-
-Package natbib Warning: Citation `choi2012' on page 5 undefined on input line 1
-5.
-
-
-Package natbib Warning: Citation `choi2012' on page 5 undefined on input line 1
-5.
-
-
-Package natbib Warning: Citation `bov' on page 5 undefined on input line 15.
-
-
-
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/hier.pdf): PDF inc
 lusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter02/figs/hier.pdf, id=411, 597.55246pt x 845.07724pt>
+<chapters/chapter02/figs/hier.pdf, id=641, 597.55246pt x 845.07724pt>
 File: chapters/chapter02/figs/hier.pdf Graphic file (type pdf)
 
 <use chapters/chapter02/figs/hier.pdf>
@@ -2175,93 +2024,19 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 17--18
 [][] 
  []
 
-
-Package natbib Warning: Citation `choi2012' on page 5 undefined on input line 1
-8.
-
-
-Package natbib Warning: Citation `choi2012' on page 5 undefined on input line 1
-8.
-
 [5
 
 
 ]
-
-Package natbib Warning: Citation `Gemeren2015' on page 6 undefined on input lin
-e 22.
-
-
-Package natbib Warning: Citation `patron2010' on page 6 undefined on input line
- 24.
-
-
-Package natbib Warning: Citation `Gemeren2015' on page 6 undefined on input lin
-e 24.
-
-
-Package natbib Warning: Citation `yimeng' on page 6 undefined on input line 26.
-
-
-
-Package natbib Warning: Citation `yu' on page 6 undefined on input line 26.
-
-
-Package natbib Warning: Citation `lowe1999' on page 6 undefined on input line 3
-1.
-
-
-Package natbib Warning: Citation `lowe2004' on page 6 undefined on input line 3
-1.
-
-
-Package natbib Warning: Citation `hog' on page 6 undefined on input line 31.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6 <./chapters/chapter02/figs/hier.pdf>]
-
-Package natbib Warning: Citation `grepory2010' on page 7 undefined on input lin
-e 37.
-
-
-Package natbib Warning: Citation `paul2007' on page 7 undefined on input line 3
-7.
-
-
-Package natbib Warning: Citation `alex2008' on page 7 undefined on input line 3
-7.
-
-
-Package natbib Warning: Citation `wang2012' on page 7 undefined on input line 3
-7.
-
-
-Package natbib Warning: Citation `wang2013' on page 7 undefined on input line 3
-7.
-
 LaTeX Font Info:    Font shape `T1/fnc/bx/n' in size <12> not available
 (Font)              Font shape `T1/fnc/b/n' tried instead on input line 39.
 LaTeX Font Info:    Font shape `T1/fnc/b/n' will be
 (Font)              scaled to size 11.15991pt on input line 39.
-
-Package natbib Warning: Citation `lowe1999' on page 7 undefined on input line 4
-1.
-
-
-Package natbib Warning: Citation `lowe2004' on page 7 undefined on input line 4
-1.
-
-
-Package natbib Warning: Citation `grepory2010' on page 7 undefined on input lin
-e 41.
-
-
-Package natbib Warning: Citation `paul2007' on page 7 undefined on input line 4
-1.
-
-[7] <chapters/chapter02/figs/3D_SIFT.png, id=435, 426.09187pt x 225.84375pt>
+ [7]
+<chapters/chapter02/figs/3D_SIFT.png, id=692, 426.09187pt x 225.84375pt>
 File: chapters/chapter02/figs/3D_SIFT.png Graphic file (type png)
 
 <use chapters/chapter02/figs/3D_SIFT.png>
@@ -2269,96 +2044,27 @@ Package pdftex.def Info: chapters/chapter02/figs/3D_SIFT.png used on input line
  46.
 (pdftex.def)             Requested size: 448.0pt x 237.47029pt.
 
-
-Package natbib Warning: Citation `grepory2010' on page 8 undefined on input lin
-e 47.
-
-
-Package natbib Warning: Citation `grepory2010' on page 8 undefined on input lin
-e 47.
-
-
-Package natbib Warning: Citation `alex2008' on page 8 undefined on input line 5
-6.
-
-<chapters/chapter02/figs/3D_HOG.png, id=438, 507.39563pt x 205.5178pt>
+<chapters/chapter02/figs/3D_HOG.png, id=698, 507.39563pt x 205.5178pt>
 File: chapters/chapter02/figs/3D_HOG.png Graphic file (type png)
 
 <use chapters/chapter02/figs/3D_HOG.png>
 Package pdftex.def Info: chapters/chapter02/figs/3D_HOG.png used on input line 
 58.
 (pdftex.def)             Requested size: 448.0pt x 181.4646pt.
-
-
-Package natbib Warning: Citation `alex2008' on page 8 undefined on input line 6
-2.
-
-
-Package natbib Warning: Citation `alex2008' on page 8 undefined on input line 6
-2.
-
-[8 <./chapters/chapter02/figs/3D_SIFT.png>]
-
-Package natbib Warning: Citation `wang2012' on page 9 undefined on input line 7
-2.
-
-
-Package natbib Warning: Citation `wang2013' on page 9 undefined on input line 7
-2.
-
-
-Package natbib Warning: Citation `wang2012' on page 9 undefined on input line 7
-2.
-
-
-Package natbib Warning: Citation `wang2013' on page 9 undefined on input line 7
-2.
-
-[9 <./chapters/chapter02/figs/3D_HOG.png>]
-
-Package natbib Warning: Citation `hog' on page 10 undefined on input line 80.
-
-
-Package natbib Warning: Citation `hof' on page 10 undefined on input line 80.
-
-
-Package natbib Warning: Citation `hof' on page 10 undefined on input line 80.
-
-<chapters/chapter02/figs/DT.png, id=451, 419.31656pt x 132.495pt>
+ [8 <./chapters/chapter02/figs/3D_SIFT.png>] [9 <./chapters/chapter02/figs/3D_H
+OG.png>]
+<chapters/chapter02/figs/DT.png, id=720, 419.31656pt x 132.495pt>
 File: chapters/chapter02/figs/DT.png Graphic file (type png)
 
 <use chapters/chapter02/figs/DT.png>
 Package pdftex.def Info: chapters/chapter02/figs/DT.png used on input line 83.
 (pdftex.def)             Requested size: 448.0pt x 141.55797pt.
-
-
-Package natbib Warning: Citation `wang2012' on page 10 undefined on input line 
-88.
-
-
-Package natbib Warning: Citation `wang2012' on page 10 undefined on input line 
-88.
-
-
-Package natbib Warning: Citation `wang2013' on page 10 undefined on input line 
-93.
-
-[10 <./chapters/chapter02/figs/DT.png>]
-
-Package natbib Warning: Citation `cnn' on page 11 undefined on input line 98.
-
-
-Package natbib Warning: Citation `kaiming' on page 11 undefined on input line 9
-8.
-
-
-Package natbib Warning: Citation `cnn' on page 11 undefined on input line 100.
-
+ [10 <./chapters/chapter02/figs/DT.png>]
 [11]
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/cnn.pdf): PDF incl
 usion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter02/figs/cnn.pdf, id=464, 597.55246pt x 845.07724pt>
+<chapters/chapter02/figs/cnn.pdf, id=740, 597.55246pt x 845.07724pt>
 File: chapters/chapter02/figs/cnn.pdf Graphic file (type pdf)
 
 <use chapters/chapter02/figs/cnn.pdf>
@@ -2371,16 +2077,10 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 103--104
  []
 
 
-Package natbib Warning: Citation `cnn' on page 12 undefined on input line 104.
-
-
-Package natbib Warning: Citation `cnn' on page 12 undefined on input line 104.
-
-
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/conv.pdf): PDF inc
 lusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter02/figs/conv.pdf, id=465, 597.55246pt x 845.07724pt>
+<chapters/chapter02/figs/conv.pdf, id=743, 597.55246pt x 845.07724pt>
 File: chapters/chapter02/figs/conv.pdf Graphic file (type pdf)
 
 <use chapters/chapter02/figs/conv.pdf>
@@ -2392,52 +2092,11 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 109--110
 [][] 
  []
 
-
-Package natbib Warning: Citation `ning2005' on page 12 undefined on input line 
-115.
-
-
-Package natbib Warning: Citation `karpathy2014' on page 12 undefined on input l
-ine 115.
-
-
-Package natbib Warning: Citation `simonyan2014' on page 12 undefined on input l
-ine 115.
-
-
-Package natbib Warning: Citation `3dcnn_1' on page 12 undefined on input line 1
-15.
-
-
-Package natbib Warning: Citation `Ji2013' on page 12 undefined on input line 11
-5.
-
-
-Package natbib Warning: Citation `Tran2015' on page 12 undefined on input line 
-115.
-
 [12 <./chapters/chapter02/figs/cnn.pdf> <./chapters/chapter02/figs/conv.pdf>]
-
-Package natbib Warning: Citation `karpathy2014' on page 13 undefined on input l
-ine 120.
-
-
-Package natbib Warning: Citation `karpathy2014' on page 13 undefined on input l
-ine 122.
-
-
-Package natbib Warning: Citation `kriz2012' on page 13 undefined on input line 
-122.
-
-
-Package natbib Warning: Citation `karpathy2014' on page 13 undefined on input l
-ine 126.
-
-
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/STCNNs.pdf): PDF i
 nclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter02/figs/STCNNs.pdf, id=499, 597.55246pt x 845.07724pt>
+<chapters/chapter02/figs/STCNNs.pdf, id=788, 597.55246pt x 845.07724pt>
 File: chapters/chapter02/figs/STCNNs.pdf Graphic file (type pdf)
 
 <use chapters/chapter02/figs/STCNNs.pdf>
@@ -2450,26 +2109,10 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 131--136
  []
 
 
-Package natbib Warning: Citation `karpathy2014' on page 13 undefined on input l
-ine 136.
-
-
-Package natbib Warning: Citation `karpathy2014' on page 13 undefined on input l
-ine 136.
-
-
-Package natbib Warning: Citation `simonyan2014' on page 13 undefined on input l
-ine 142.
-
-
-Package natbib Warning: Citation `karpathy2014' on page 13 undefined on input l
-ine 142.
-
-
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/tsconvnet.pdf): PD
 F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter02/figs/tsconvnet.pdf, id=501, 597.55246pt x 845.07724pt>
+<chapters/chapter02/figs/tsconvnet.pdf, id=794, 597.55246pt x 845.07724pt>
 File: chapters/chapter02/figs/tsconvnet.pdf Graphic file (type pdf)
 
 <use chapters/chapter02/figs/tsconvnet.pdf>
@@ -2481,37 +2124,12 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 145--146
 [][] 
  []
 
-
-Package natbib Warning: Citation `simonyan2014' on page 13 undefined on input l
-ine 146.
-
-
-Package natbib Warning: Citation `simonyan2014' on page 13 undefined on input l
-ine 146.
-
-
-Package natbib Warning: Citation `Ji2013' on page 13 undefined on input line 15
-3.
-
-
-Package natbib Warning: Citation `Tran2015' on page 13 undefined on input line 
-153.
-
 [13]
-
-Package natbib Warning: Citation `Tran2015' on page 14 undefined on input line 
-155.
-
-
 Underfull \vbox (badness 1694) has occurred while \output is active []
 
  [14 <./chapters/chapter02/figs/STCNNs.pdf> <./chapters/chapter02/figs/tsconvne
 t.pdf>]
-
-Package natbib Warning: Citation `zeiler2014' on page 15 undefined on input lin
-e 157.
-
-<chapters/chapter02/figs/3DConv.png, id=525, 853.68938pt x 113.67468pt>
+<chapters/chapter02/figs/3DConv.png, id=826, 853.68938pt x 113.67468pt>
 File: chapters/chapter02/figs/3DConv.png Graphic file (type png)
 
 <use chapters/chapter02/figs/3DConv.png>
@@ -2519,15 +2137,7 @@ Package pdftex.def Info: chapters/chapter02/figs/3DConv.png used on input line
 160.
 (pdftex.def)             Requested size: 448.0pt x 59.6558pt.
 
-
-Package natbib Warning: Citation `Tran2015' on page 15 undefined on input line 
-163.
-
-
-Package natbib Warning: Citation `Tran2015' on page 15 undefined on input line 
-163.
-
-<chapters/chapter02/figs/3DConvNet.png, id=526, 894.34125pt x 59.47218pt>
+<chapters/chapter02/figs/3DConvNet.png, id=829, 894.34125pt x 59.47218pt>
 File: chapters/chapter02/figs/3DConvNet.png Graphic file (type png)
 
 <use chapters/chapter02/figs/3DConvNet.png>
@@ -2535,51 +2145,15 @@ Package pdftex.def Info: chapters/chapter02/figs/3DConvNet.png used on input li
 ne 168.
 (pdftex.def)             Requested size: 448.0pt x 29.79137pt.
 
-
-Package natbib Warning: Citation `Tran2015' on page 15 undefined on input line 
-169.
-
-
-Package natbib Warning: Citation `Tran2015' on page 15 undefined on input line 
-169.
-
-<chapters/chapter02/figs/3DConvNetV.png, id=527, 940.26282pt x 225.09094pt>
+<chapters/chapter02/figs/3DConvNetV.png, id=832, 940.26282pt x 225.09094pt>
 File: chapters/chapter02/figs/3DConvNetV.png Graphic file (type png)
 
 <use chapters/chapter02/figs/3DConvNetV.png>
 Package pdftex.def Info: chapters/chapter02/figs/3DConvNetV.png used on input l
 ine 174.
 (pdftex.def)             Requested size: 448.0pt x 107.24559pt.
-
-
-Package natbib Warning: Citation `Tran2015' on page 15 undefined on input line 
-175.
-
-
-Package natbib Warning: Citation `Tran2015' on page 15 undefined on input line 
-175.
-
-
-Package natbib Warning: Citation `kth' on page 15 undefined on input line 182.
-
-[15 <./chapters/chapter02/figs/3DConv.png> <./chapters/chapter02/figs/3DConvNet
-.png> <./chapters/chapter02/figs/3DConvNetV.png>]
-
-Package natbib Warning: Citation `ucf101' on page 16 undefined on input line 18
-4.
-
-
-Package natbib Warning: Citation `aslan' on page 16 undefined on input line 184
-.
-
-
-Package natbib Warning: Citation `activitynet200' on page 16 undefined on input
- line 185.
-
-
-Package natbib Warning: Citation `kth' on page 16 undefined on input line 201.
-
-
+ [15 <./chapters/chapter02/figs/3DConv.png> <./chapters/chapter02/figs/3DConvNe
+t.png> <./chapters/chapter02/figs/3DConvNetV.png>]
 Underfull \hbox (badness 2334) in paragraph at lines 203--204
 []|\T1/fnc/m/n/10.95 (+20) 6 ac-tion
  []
@@ -2601,8 +2175,9 @@ Underfull \hbox (badness 2762) in paragraph at lines 216--217
  []
 
 
-Package natbib Warning: Citation `marszalek09' on page 16 undefined on input li
-ne 230.
+Overfull \hbox (0.8084pt too wide) in paragraph at lines 230--231
+[]|\T1/fnc/m/n/10.95 (-20) Hollywood2[[]]| 
+ []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 232--233
@@ -2623,10 +2198,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 232--233
 Underfull \hbox (badness 10000) in paragraph at lines 257--258
 []\T1/fnc/m/n/10.95 (+20) Realistic sce-nar-ios
  []
-
-
-Package natbib Warning: Citation `ucf101' on page 16 undefined on input line 26
-5.
 
 
 Underfull \hbox (badness 7944) in paragraph at lines 267--268
@@ -2677,10 +2248,6 @@ Underfull \hbox (badness 6808) in paragraph at lines 285--286
 Underfull \hbox (badness 10000) in paragraph at lines 285--286
 \T1/fnc/m/n/10.95 (+20) na-tion con-di-tions,
  []
-
-
-Package natbib Warning: Citation `activitynet200' on page 16 undefined on input
- line 293.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 293--294
@@ -2750,17 +2317,8 @@ Overfull \hbox (41.19127pt too wide) in paragraph at lines 195--321
 LaTeX Warning: Float too large for page by 5.64499pt on input line 322.
 
 
-Package natbib Warning: Citation `ut2010' on page 16 undefined on input line 33
-4.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 334--335
 []|\T1/fnc/m/n/10.95 (+20) UT-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 334--335
-\T1/fnc/m/n/10.95 (+20) Interaction[\T1/fnc/b/n/10.95 ?
  []
 
 
@@ -2799,8 +2357,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 357--358
  []
 
 
-Package natbib Warning: Citation `shakefive2' on page 16 undefined on input lin
-e 364.
+Overfull \hbox (1.27534pt too wide) in paragraph at lines 364--365
+[]|\T1/fnc/m/n/10.95 (-20) ShakeFive2[[]]| 
+ []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 366--367
@@ -2823,12 +2382,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 384--385
  []
 
 
-Package natbib Warning: Citation `m2i_tju' on page 16 undefined on input line 3
-92.
+Underfull \hbox (badness 10000) in paragraph at lines 392--393
+[]|\T1/fnc/m/n/10.95 (+20) Multi-modal
+ []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 392--393
-\T1/fnc/m/n/10.95 (+20) Multi-view &
+\T1/fnc/m/n/10.95 (+20) & Multi-view
+ []
+
+
+Underfull \hbox (badness 6927) in paragraph at lines 392--393
+\T1/fnc/m/n/10.95 (+20) & In-ter-ac-tive
  []
 
 
@@ -2896,14 +2461,10 @@ Overfull \hbox (12.73851pt too wide) in paragraph at lines 327--421
  []
 
 
-Package natbib Warning: Citation `ut2010' on page 16 undefined on input line 42
-6.
-
-
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/ut_6classes.pdf): 
 PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter02/figs/ut_6classes.pdf, id=538, 597.55246pt x 845.07724pt>
+<chapters/chapter02/figs/ut_6classes.pdf, id=858, 597.55246pt x 845.07724pt>
 File: chapters/chapter02/figs/ut_6classes.pdf Graphic file (type pdf)
 
 <use chapters/chapter02/figs/ut_6classes.pdf>
@@ -2919,7 +2480,7 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 431--432
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/ut_2sets.pdf): PDF
  inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter02/figs/ut_2sets.pdf, id=540, 597.55246pt x 845.07724pt>
+<chapters/chapter02/figs/ut_2sets.pdf, id=860, 597.55246pt x 845.07724pt>
 File: chapters/chapter02/figs/ut_2sets.pdf Graphic file (type pdf)
 
 <use chapters/chapter02/figs/ut_2sets.pdf>
@@ -2935,7 +2496,7 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 439--440
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/ut_segments.pdf): 
 PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter02/figs/ut_segments.pdf, id=560, 597.55246pt x 845.07724pt>
+<chapters/chapter02/figs/ut_segments.pdf, id=888, 597.55246pt x 845.07724pt>
 File: chapters/chapter02/figs/ut_segments.pdf Graphic file (type pdf)
 
 <use chapters/chapter02/figs/ut_segments.pdf>
@@ -2951,7 +2512,7 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 453--454
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/ut_det.pdf): PDF i
 nclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter02/figs/ut_det.pdf, id=562, 597.55246pt x 845.07724pt>
+<chapters/chapter02/figs/ut_det.pdf, id=890, 597.55246pt x 845.07724pt>
 File: chapters/chapter02/figs/ut_det.pdf Graphic file (type pdf)
 
 <use chapters/chapter02/figs/ut_det.pdf>
@@ -2969,7 +2530,7 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 464--465
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/ut_challenges_1.pd
 f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<chapters/chapter02/figs/ut_challenges_1.pdf, id=623, 597.55246pt x 845.07724pt
+<chapters/chapter02/figs/ut_challenges_1.pdf, id=951, 597.55246pt x 845.07724pt
 >
 File: chapters/chapter02/figs/ut_challenges_1.pdf Graphic file (type pdf)
  <use chapters/chapter02/figs/ut_challenges_1.pdf>
@@ -2986,7 +2547,7 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 488--489
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter02/figs/ut_challenges_2.pd
 f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<chapters/chapter02/figs/ut_challenges_2.pdf, id=626, 597.55246pt x 845.07724pt
+<chapters/chapter02/figs/ut_challenges_2.pdf, id=954, 597.55246pt x 845.07724pt
 >
 File: chapters/chapter02/figs/ut_challenges_2.pdf Graphic file (type pdf)
  <use chapters/chapter02/figs/ut_challenges_2.pdf>
@@ -3000,109 +2561,16 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 499--500
 
 ) [21 <./chapters/chapter02/figs/ut_det.pdf>] [22 <./chapters/chapter02/figs/ut
 _challenges_1.pdf> <./chapters/chapter02/figs/ut_challenges_2.pdf>]
-(chapters/chapter03/chap03.tex
-
-Package natbib Warning: Citation `patron2010' on page 23 undefined on input lin
-e 9.
-
-
-Package natbib Warning: Citation `narayan2014' on page 23 undefined on input li
-ne 9.
-
-
-Package natbib Warning: Citation `choi2012' on page 23 undefined on input line 
-9.
-
-
-Package natbib Warning: Citation `narayan2014' on page 23 undefined on input li
-ne 9.
-
-
-Package natbib Warning: Citation `patron2010' on page 23 undefined on input lin
-e 9.
-
-
-Package natbib Warning: Citation `choi2012' on page 23 undefined on input line 
-9.
-
-
-Package natbib Warning: Citation `patron2010' on page 23 undefined on input lin
-e 9.
-
-
-Package natbib Warning: Citation `Ji2013' on page 23 undefined on input line 9.
-
-
-
-Package natbib Warning: Citation `Tran2015' on page 23 undefined on input line 
-9.
-
-
-Package natbib Warning: Citation `simonyan2014' on page 23 undefined on input l
-ine 9.
-
-
-Package natbib Warning: Citation `Ng2015' on page 23 undefined on input line 9.
-
-
-
-Package natbib Warning: Citation `grepory2010' on page 23 undefined on input li
-ne 9.
-
-
-Package natbib Warning: Citation `alex2008' on page 23 undefined on input line 
-9.
-
-
-Package natbib Warning: Citation `paul2007' on page 23 undefined on input line 
-9.
-
-
-Package natbib Warning: Citation `wang2012' on page 23 undefined on input line 
-9.
-
-
-Package natbib Warning: Citation `wang2013' on page 23 undefined on input line 
-9.
-
-
-Package natbib Warning: Citation `choi2012' on page 23 undefined on input line 
-16.
-
-
-Package natbib Warning: Citation `patron2010' on page 23 undefined on input lin
-e 16.
-
-
-Package natbib Warning: Citation `choi2012' on page 23 undefined on input line 
-16.
-
-
-Package natbib Warning: Citation `patron2010' on page 23 undefined on input lin
-e 16.
-
-
-Package natbib Warning: Citation `hog' on page 23 undefined on input line 16.
-
-
-Package natbib Warning: Citation `bov' on page 23 undefined on input line 16.
-
-[23
+(chapters/chapter03/chap03.tex [23
 
 
 ]
 
-Package natbib Warning: Citation `ucf101' on page 24 undefined on input line 18
-.
-
-
-
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter03/fig01/architecture.pdf)
 : PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<chapters/chapter03/fig01/architecture.pdf, id=711, 597.55246pt x 845.07724pt>
+<chapters/chapter03/fig01/architecture.pdf, id=1062, 597.55246pt x 845.07724pt>
 File: chapters/chapter03/fig01/architecture.pdf Graphic file (type pdf)
-
 <use chapters/chapter03/fig01/architecture.pdf>
 Package pdftex.def Info: chapters/chapter03/fig01/architecture.pdf used on inpu
 t line 25.
@@ -3116,7 +2584,7 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 25--26
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter03/fig01/arch_det.pdf): PD
 F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter03/fig01/arch_det.pdf, id=714, 597.55246pt x 845.07724pt>
+<chapters/chapter03/fig01/arch_det.pdf, id=1065, 597.55246pt x 845.07724pt>
 File: chapters/chapter03/fig01/arch_det.pdf Graphic file (type pdf)
 
 <use chapters/chapter03/fig01/arch_det.pdf>
@@ -3128,19 +2596,15 @@ Overfull \hbox (78.4193pt too wide) in paragraph at lines 33--34
 [][] 
  []
 
-[24 <./chapters/chapter03/fig01/architecture.pdf>]
-
-Package natbib Warning: Citation `inria_person' on page 25 undefined on input l
-ine 42.
-
-[25 <./chapters/chapter03/fig01/arch_det.pdf>]
+[24 <./chapters/chapter03/fig01/architecture.pdf>] [25 <./chapters/chapter03/fi
+g01/arch_det.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter03/fig01/person_detection.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
 
-<chapters/chapter03/fig01/person_detection.pdf, id=767, 597.55246pt x 845.07724
-pt>
+<chapters/chapter03/fig01/person_detection.pdf, id=1119, 597.55246pt x 845.0772
+4pt>
 File: chapters/chapter03/fig01/person_detection.pdf Graphic file (type pdf)
  <use chapters/chapter03/fig01/person_detection.pdf>
 Package pdftex.def Info: chapters/chapter03/fig01/person_detection.pdf used on 
@@ -3155,7 +2619,7 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 45--46
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter03/fig01/ip_det.pdf): PDF 
 inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter03/fig01/ip_det.pdf, id=771, 597.55246pt x 845.07724pt>
+<chapters/chapter03/fig01/ip_det.pdf, id=1123, 597.55246pt x 845.07724pt>
 File: chapters/chapter03/fig01/ip_det.pdf Graphic file (type pdf)
 
 <use chapters/chapter03/fig01/ip_det.pdf>
@@ -3169,18 +2633,9 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 53--54
 
 [26 <./chapters/chapter03/fig01/person_detection.pdf>]
 
-Package natbib Warning: Citation `Tran2015' on page 27 undefined on input line 
-62.
-
-
-Package natbib Warning: Citation `Tran2015' on page 27 undefined on input line 
-62.
-
-
-
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter03/fig01/3dConvNet.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter03/fig01/3dConvNet.pdf, id=802, 597.55246pt x 845.07724pt>
+<chapters/chapter03/fig01/3dConvNet.pdf, id=1157, 597.55246pt x 845.07724pt>
 File: chapters/chapter03/fig01/3dConvNet.pdf Graphic file (type pdf)
 
 <use chapters/chapter03/fig01/3dConvNet.pdf>
@@ -3192,20 +2647,12 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 64--65
 [][] 
  []
 
-
-Package natbib Warning: Citation `inria_person' on page 27 undefined on input l
-ine 74.
-
 [27 <./chapters/chapter03/fig01/ip_det.pdf> <./chapters/chapter03/fig01/3dConvN
 et.pdf>]
 Overfull \hbox (4.84435pt too wide) in paragraph at lines 82--83
 []\T1/fnc/m/n/10.95 (-20) For the global fea-ture de-scrip-tor, we train it di-
 rectly on the train-ing data of the \T1/fnc/b/n/10.95 UT-Interaction
  []
-
-
-Package natbib Warning: Citation `ucf101' on page 28 undefined on input line 84
-.
 
 ) [28] [29] [30
 
@@ -3215,8 +2662,8 @@ pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/dataflow_classifi
 er.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
 wed
 
-<chapters/chapter04/fig01/dataflow_classifier.pdf, id=851, 597.55246pt x 845.07
-724pt>
+<chapters/chapter04/fig01/dataflow_classifier.pdf, id=1208, 597.55246pt x 845.0
+7724pt>
 File: chapters/chapter04/fig01/dataflow_classifier.pdf Graphic file (type pdf)
  <use chapters/chapter04/fig01/dataflow_classifier.pdf>
 Package pdftex.def Info: chapters/chapter04/fig01/dataflow_classifier.pdf used 
@@ -3233,7 +2680,7 @@ Overfull \hbox (121.09833pt too wide) in paragraph at lines 18--19
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/vpp.pdf): PDF inc
 lusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter04/fig01/vpp.pdf, id=857, 597.55246pt x 845.07724pt>
+<chapters/chapter04/fig01/vpp.pdf, id=1214, 597.55246pt x 845.07724pt>
 File: chapters/chapter04/fig01/vpp.pdf Graphic file (type pdf)
 
 <use chapters/chapter04/fig01/vpp.pdf>
@@ -3245,20 +2692,12 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 28--29
 [][] 
  []
 
-
-Package natbib Warning: Citation `hog' on page 32 undefined on input line 35.
-
 [32 <./chapters/chapter04/fig01/dataflow_classifier.pdf>]
 
 Package nag Warning: Environment eqnarray is obsolete. 
 (nag)                Use amsmath's align instead on input line 42.
 
-[33 <./chapters/chapter04/fig01/vpp.pdf>]
-
-Package natbib Warning: Citation `inria_person' on page 34 undefined on input l
-ine 62.
-
-[34]
+[33 <./chapters/chapter04/fig01/vpp.pdf>] [34]
 
 Package nag Warning: Environment eqnarray is obsolete. 
 (nag)                Use amsmath's align instead on input line 80.
@@ -3277,7 +2716,7 @@ Package nag Warning: Environment eqnarray is obsolete.
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/flip.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter04/fig01/flip.pdf, id=972, 597.55246pt x 845.07724pt>
+<chapters/chapter04/fig01/flip.pdf, id=1331, 597.55246pt x 845.07724pt>
 File: chapters/chapter04/fig01/flip.pdf Graphic file (type pdf)
 
 <use chapters/chapter04/fig01/flip.pdf>
@@ -3293,7 +2732,7 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 205--206
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/cropping.pdf): PD
 F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter04/fig01/cropping.pdf, id=973, 597.55246pt x 845.07724pt>
+<chapters/chapter04/fig01/cropping.pdf, id=1332, 597.55246pt x 845.07724pt>
 File: chapters/chapter04/fig01/cropping.pdf Graphic file (type pdf)
 
 <use chapters/chapter04/fig01/cropping.pdf>
@@ -3311,8 +2750,8 @@ pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/feature_descripto
 r.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allow
 ed
 
-<chapters/chapter04/fig01/feature_descriptor.pdf, id=976, 597.55246pt x 845.077
-24pt>
+<chapters/chapter04/fig01/feature_descriptor.pdf, id=1335, 597.55246pt x 845.07
+724pt>
 File: chapters/chapter04/fig01/feature_descriptor.pdf Graphic file (type pdf)
  <use chapters/chapter04/fig01/feature_descriptor.pdf>
 Package pdftex.def Info: chapters/chapter04/fig01/feature_descriptor.pdf used o
@@ -3327,7 +2766,7 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 221--222
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/3DConvNet.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter04/fig01/3DConvNet.pdf, id=977, 597.55246pt x 845.07724pt>
+<chapters/chapter04/fig01/3DConvNet.pdf, id=1336, 597.55246pt x 845.07724pt>
 File: chapters/chapter04/fig01/3DConvNet.pdf Graphic file (type pdf)
 
 <use chapters/chapter04/fig01/3DConvNet.pdf>
@@ -3340,16 +2779,12 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 226--227
  []
 
 [38 <./chapters/chapter04/fig01/flip.pdf> <./chapters/chapter04/fig01/cropping.
-pdf>]
-
-Package natbib Warning: Citation `bn' on page 39 undefined on input line 232.
-
-[39 <./chapters/chapter04/fig01/feature_descriptor.pdf> <./chapters/chapter04/f
-ig01/3DConvNet.pdf>]
+pdf>] [39 <./chapters/chapter04/fig01/feature_descriptor.pdf> <./chapters/chapt
+er04/fig01/3DConvNet.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/relu.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter04/fig01/relu.pdf, id=1035, 597.55246pt x 845.07724pt>
+<chapters/chapter04/fig01/relu.pdf, id=1396, 597.55246pt x 845.07724pt>
 File: chapters/chapter04/fig01/relu.pdf Graphic file (type pdf)
 
 <use chapters/chapter04/fig01/relu.pdf>
@@ -3368,24 +2803,11 @@ Package nag Warning: Environment eqnarray is obsolete.
 
 Underfull \vbox (badness 3849) has occurred while \output is active []
 
- [40 <./chapters/chapter04/fig01/relu.pdf>]
-
-Package natbib Warning: Citation `Tran2015' on page 41 undefined on input line 
-281.
-
-
-Package natbib Warning: Citation `3dcnn_1' on page 41 undefined on input line 2
-81.
-
-
-Package natbib Warning: Citation `dropout' on page 41 undefined on input line 2
-88.
-
-[41]
+ [40 <./chapters/chapter04/fig01/relu.pdf>] [41]
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/softmax.pdf): PDF
  inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter04/fig01/softmax.pdf, id=1067, 597.55246pt x 845.07724pt>
+<chapters/chapter04/fig01/softmax.pdf, id=1432, 597.55246pt x 845.07724pt>
 File: chapters/chapter04/fig01/softmax.pdf Graphic file (type pdf)
 
 <use chapters/chapter04/fig01/softmax.pdf>
@@ -3397,21 +2819,13 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 329--330
 [][] 
  []
 
-
-Package natbib Warning: Citation `adam' on page 42 undefined on input line 341.
-
-
-[42]
-
-Package natbib Warning: Citation `bpa' on page 43 undefined on input line 350.
-
-[43 <./chapters/chapter04/fig01/softmax.pdf>] [44]
+[42] [43 <./chapters/chapter04/fig01/softmax.pdf>] [44]
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/interaction_detec
 tion.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
 lowed
 
-<chapters/chapter04/fig01/interaction_detection.pdf, id=1116, 597.55246pt x 845
+<chapters/chapter04/fig01/interaction_detection.pdf, id=1485, 597.55246pt x 845
 .07724pt>
 File: chapters/chapter04/fig01/interaction_detection.pdf Graphic file (type pdf
 )
@@ -3434,7 +2848,7 @@ Package nag Warning: Environment eqnarray is obsolete.
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/bb_notations.pdf)
 : PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<chapters/chapter04/fig01/bb_notations.pdf, id=1142, 597.55246pt x 845.07724pt>
+<chapters/chapter04/fig01/bb_notations.pdf, id=1511, 597.55246pt x 845.07724pt>
 File: chapters/chapter04/fig01/bb_notations.pdf Graphic file (type pdf)
 <use chapters/chapter04/fig01/bb_notations.pdf>
 Package pdftex.def Info: chapters/chapter04/fig01/bb_notations.pdf used on inpu
@@ -3463,7 +2877,7 @@ pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/interacting_peopl
 e.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allow
 ed
 
-<chapters/chapter04/fig01/interacting_people.pdf, id=1169, 597.55246pt x 845.07
+<chapters/chapter04/fig01/interacting_people.pdf, id=1538, 597.55246pt x 845.07
 724pt>
 File: chapters/chapter04/fig01/interacting_people.pdf Graphic file (type pdf)
  <use chapters/chapter04/fig01/interacting_people.pdf>
@@ -3495,7 +2909,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/y_mean.pdf): PDF 
 inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter04/fig01/y_mean.pdf, id=1192, 597.55246pt x 845.07724pt>
+<chapters/chapter04/fig01/y_mean.pdf, id=1561, 597.55246pt x 845.07724pt>
 File: chapters/chapter04/fig01/y_mean.pdf Graphic file (type pdf)
 
 <use chapters/chapter04/fig01/y_mean.pdf>
@@ -3518,7 +2932,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/x_mean.pdf): PDF 
 inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<chapters/chapter04/fig01/x_mean.pdf, id=1208, 597.55246pt x 845.07724pt>
+<chapters/chapter04/fig01/x_mean.pdf, id=1577, 597.55246pt x 845.07724pt>
 File: chapters/chapter04/fig01/x_mean.pdf Graphic file (type pdf)
 
 <use chapters/chapter04/fig01/x_mean.pdf>
@@ -3539,7 +2953,7 @@ Package nag Warning: Environment eqnarray is obsolete.
 pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/sliding_window.pd
 f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<chapters/chapter04/fig01/sliding_window.pdf, id=1210, 597.55246pt x 845.07724p
+<chapters/chapter04/fig01/sliding_window.pdf, id=1579, 597.55246pt x 845.07724p
 t>
 File: chapters/chapter04/fig01/sliding_window.pdf Graphic file (type pdf)
  <use chapters/chapter04/fig01/sliding_window.pdf>
@@ -3557,7 +2971,7 @@ pdfTeX warning: pdflatex.exe (file ./chapters/chapter04/fig01/temporal_combinat
 ion.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> all
 owed
 
-<chapters/chapter04/fig01/temporal_combination.pdf, id=1233, 597.55246pt x 845.
+<chapters/chapter04/fig01/temporal_combination.pdf, id=1602, 597.55246pt x 845.
 07724pt>
 File: chapters/chapter04/fig01/temporal_combination.pdf Graphic file (type pdf)
 
@@ -3573,23 +2987,294 @@ Overfull \hbox (92.64565pt too wide) in paragraph at lines 515--516
 ) [52 <./chapters/chapter04/fig01/sliding_window.pdf>] [53 <./chapters/chapter0
 4/fig01/temporal_combination.pdf>] [54
 
-] (chapters/chapter06/chap06.tex)
+] (chapters/chapter05/chap05.tex
+
+pdfTeX warning: pdflatex.exe (file ./chapters/chapter05/fig01/arch_eval.pdf): P
+DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<chapters/chapter05/fig01/arch_eval.pdf, id=1640, 597.55246pt x 845.07724pt>
+File: chapters/chapter05/fig01/arch_eval.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/arch_eval.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/arch_eval.pdf used on input l
+ine 17.
+(pdftex.def)             Requested size: 540.64565pt x 62.62634pt.
+
+Overfull \hbox (92.64565pt too wide) in paragraph at lines 17--18
+[][] 
+ []
+
 [55
 
+]
 
-] [56
+Package nag Warning: `center' environment in table.
+(nag)                Maybe you want \centering instead on input line 71.
 
-] (chapters/appendices/app0A.tex) [57
 
-] [58
+Overfull \hbox (2.67807pt too wide) in paragraph at lines 86--87
+[]\T1/fnc/b/n/10.95 Experimental re-sults and anal-y-sis[] \T1/fnc/m/n/10.95 (-
+20) The ex-per-i-men-tal re-sults of com-par-i-son be-tween "Xavier"
+ []
+
+
+
+pdfTeX warning: pdflatex.exe (file ./chapters/chapter05/fig01/plot_xavier_vs_no
+rmal.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
+lowed
+
+<chapters/chapter05/fig01/plot_xavier_vs_normal.pdf, id=1668, 597.55246pt x 845
+.07724pt>
+File: chapters/chapter05/fig01/plot_xavier_vs_normal.pdf Graphic file (type pdf
+)
+ <use chapters/chapter05/fig01/plot_xavier_vs_normal.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_xavier_vs_normal.pdf use
+d on input line 89.
+(pdftex.def)             Requested size: 512.19295pt x 190.66344pt.
+
+Overfull \hbox (64.19295pt too wide) in paragraph at lines 89--90
+[][] 
+ []
+
+<chapters/chapter05/fig01/plot_biases.pdf, id=1669, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_biases.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_biases.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_biases.pdf used on input
+ line 95.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 95--96
+[][] 
+ []
+
+[56 <./chapters/chapter05/fig01/arch_eval.pdf>] [57]
+<chapters/chapter05/fig01/plot_lr.pdf, id=1696, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_lr.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_lr.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_lr.pdf used on input lin
+e 117.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 117--118
+[][] 
+ []
+
+[58 <./chapters/chapter05/fig01/plot_xavier_vs_normal.pdf>]
+<chapters/chapter05/fig01/plot_dropout.pdf, id=1712, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_dropout.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_dropout.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_dropout.pdf used on inpu
+t line 139.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 139--140
+[][] 
+ []
+
+[59 <./chapters/chapter05/fig01/plot_biases.pdf>] [60 <./chapters/chapter05/fig
+01/plot_lr.pdf>]
+
+pdfTeX warning: pdflatex.exe (file ./chapters/chapter05/fig01/plot_bn_en.pdf): 
+PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<chapters/chapter05/fig01/plot_bn_en.pdf, id=1816, 597.55246pt x 845.07724pt>
+File: chapters/chapter05/fig01/plot_bn_en.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_bn_en.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_bn_en.pdf used on input 
+line 162.
+(pdftex.def)             Requested size: 526.4193pt x 176.43707pt.
+
+Overfull \hbox (78.4193pt too wide) in paragraph at lines 162--163
+[][] 
+ []
+
+[61 <./chapters/chapter05/fig01/plot_dropout.pdf>]
+
+pdfTeX warning: pdflatex.exe (file ./chapters/chapter05/fig01/cnn_layers.pdf): 
+PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<chapters/chapter05/fig01/cnn_layers.pdf, id=1867, 597.55246pt x 845.07724pt>
+File: chapters/chapter05/fig01/cnn_layers.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/cnn_layers.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/cnn_layers.pdf used on input 
+line 181.
+(pdftex.def)             Requested size: 569.09833pt x 247.56879pt.
+
+Overfull \hbox (121.09833pt too wide) in paragraph at lines 181--182
+[][] 
+ []
+
+<chapters/chapter05/fig01/plot_layers.pdf, id=1869, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_layers.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_layers.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_layers.pdf used on input
+ line 192.
+(pdftex.def)             Requested size: 476.98083pt x 332.89644pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 192--193
+[][] 
+ []
+
+[62 <./chapters/chapter05/fig01/plot_bn_en.pdf>]
+<chapters/chapter05/fig01/plot_cnn_kernel.pdf, id=1885, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_cnn_kernel.pdf Graphic file (type pdf)
+<use chapters/chapter05/fig01/plot_cnn_kernel.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_cnn_kernel.pdf used on i
+nput line 210.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 210--211
+[][] 
+ []
+
+
+Underfull \vbox (badness 1694) has occurred while \output is active []
+
+ [63 <./chapters/chapter05/fig01/cnn_layers.pdf>]
+<chapters/chapter05/fig01/plot_nof.pdf, id=1905, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_nof.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_nof.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_nof.pdf used on input li
+ne 229.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 229--230
+[][] 
+ []
+
+[64 <./chapters/chapter05/fig01/plot_layers.pdf>]
+<chapters/chapter05/fig01/plot_noo.pdf, id=1954, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_noo.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_noo.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_noo.pdf used on input li
+ne 252.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 252--253
+[][] 
+ []
+
+[65 <./chapters/chapter05/fig01/plot_cnn_kernel.pdf>]
+<chapters/chapter05/fig01/plot_rlf.pdf, id=2007, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_rlf.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_rlf.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_rlf.pdf used on input li
+ne 268.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 268--269
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [66 <./chapters/chapter05/fig01/plot_nof.pdf>]
+<chapters/chapter05/fig01/plot_rc.pdf, id=2060, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_rc.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_rc.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_rc.pdf used on input lin
+e 284.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 284--285
+[][] 
+ []
+
+[67 <./chapters/chapter05/fig01/plot_noo.pdf>]
+<chapters/chapter05/fig01/plot_tds.pdf, id=2113, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_tds.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_tds.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_tds.pdf used on input li
+ne 300.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 300--301
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [68 <./chapters/chapter05/fig01/plot_rlf.pdf>]
+<chapters/chapter05/fig01/plot_dnm.pdf, id=2166, 476.98201pt x 361.35pt>
+File: chapters/chapter05/fig01/plot_dnm.pdf Graphic file (type pdf)
+
+<use chapters/chapter05/fig01/plot_dnm.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/plot_dnm.pdf used on input li
+ne 315.
+(pdftex.def)             Requested size: 476.98083pt x 361.34912pt.
+
+Overfull \hbox (28.98083pt too wide) in paragraph at lines 315--316
+[][] 
+ []
+
+
+Underfull \vbox (badness 4353) has occurred while \output is active []
+
+ [69 <./chapters/chapter05/fig01/plot_rc.pdf>] [70 <./chapters/chapter05/fig01/
+plot_tds.pdf>] [71 <./chapters/chapter05/fig01/plot_dnm.pdf>]
+
+Package nag Warning: `center' environment in table.
+(nag)                Maybe you want \centering instead on input line 379.
+
+
+Package nag Warning: `center' environment in table.
+(nag)                Maybe you want \centering instead on input line 395.
+
+
+
+pdfTeX warning: pdflatex.exe (file ./chapters/chapter05/fig01/interacting_perso
+n_det.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> a
+llowed
+
+<chapters/chapter05/fig01/interacting_person_det.pdf, id=2341, 597.55246pt x 84
+5.07724pt>
+File: chapters/chapter05/fig01/interacting_person_det.pdf Graphic file (type pd
+f)
+ <use chapters/chapter05/fig01/interacting_person_det.pdf>
+Package pdftex.def Info: chapters/chapter05/fig01/interacting_person_det.pdf us
+ed on input line 404.
+(pdftex.def)             Requested size: 540.64565pt x 517.86931pt.
+
+Overfull \hbox (92.64565pt too wide) in paragraph at lines 404--405
+[][] 
+ []
+
+LaTeX Font Info:    Font shape `T1/fnc/m/it' will be
+(Font)              scaled to size 10.18341pt on input line 412.
+LaTeX Font Info:    Font shape `T1/fnc/m/it' will be
+(Font)              scaled to size 11.15991pt on input line 412.
+
+Underfull \hbox (badness 10000) in paragraph at lines 412--414
+
+ []
+
+) [72] [73] [74 <./chapters/chapter05/fig01/interacting_person_det.pdf>]
+[75] [76
+
+] (chapters/chapter06/chap06.tex) [77
+
+] [78
+
+]
+(chapters/appendices/app0A.tex) [79
+
+] [80
 
 ] (memoirthesis.bbl
 
 Package nag Warning: Command \sc is an old LaTeX 2.09 command. 
 (nag)                Use \scshape or \textsc instead on input line 4.
 
-LaTeX Font Info:    Font shape `T1/fnc/m/it' will be
-(Font)              scaled to size 10.18341pt on input line 4.
 
 Package nag Warning: Command \sc is an old LaTeX 2.09 command. 
 (nag)                Use \scshape or \textsc instead on input line 9.
@@ -3638,7 +3323,7 @@ Package nag Warning: Command \sc is an old LaTeX 2.09 command.
 Package nag Warning: Command \sc is an old LaTeX 2.09 command. 
 (nag)                Use \scshape or \textsc instead on input line 55.
 
-[59
+[81
 
 
 ]
@@ -3706,7 +3391,7 @@ Package nag Warning: Command \sc is an old LaTeX 2.09 command.
 Package nag Warning: Command \sc is an old LaTeX 2.09 command. 
 (nag)                Use \scshape or \textsc instead on input line 127.
 
-[60]
+[82]
 
 Package nag Warning: Command \sc is an old LaTeX 2.09 command. 
 (nag)                Use \scshape or \textsc instead on input line 131.
@@ -3747,14 +3432,11 @@ Package nag Warning: Command \sc is an old LaTeX 2.09 command.
 Package nag Warning: Command \sc is an old LaTeX 2.09 command. 
 (nag)                Use \scshape or \textsc instead on input line 178.
 
-) [61] [62
+) [83] [84
 
 ]
 
-Package natbib Warning: There were undefined citations.
-
-
-Package nag Warning: 54 complaints in total.
+Package nag Warning: 57 complaints in total.
 
 \tf@toc=\write7
 \openout7 = `memoirthesis.toc'.
@@ -3767,143 +3449,29 @@ Package nag Warning: 54 complaints in total.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 420.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 420.
-(memoirthesis.aux
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
+(memoirthesis.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 420.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 420.
-
-
-Package rerunfilecheck Warning: File `memoirthesis.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `memoirthesis.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  14F583802B90E2435E5DB7579E5A20F8;3586.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package rerunfilecheck Info: File `memoirthesis.out' has not changed.
+(rerunfilecheck)             Checksum: D6416EB934F64C79712C2CEEAAFDEC2E;4602.
  ) 
 Here is how much of TeX's memory you used:
- 30458 strings out of 493333
- 561564 string characters out of 3139177
- 862215 words of memory out of 3000000
- 32625 multiletter control sequences out of 15000+200000
- 94003 words of font info for 278 fonts, out of 3000000 for 9000
+ 30700 strings out of 493333
+ 566780 string characters out of 3139177
+ 864896 words of memory out of 3000000
+ 32762 multiletter control sequences out of 15000+200000
+ 96854 words of font info for 284 fonts, out of 3000000 for 9000
  1146 hyphenation exceptions out of 8191
- 52i,13n,80p,2015b,626s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{figure.5.17} has been referenced but does not exi
-st, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.16} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.15} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.14} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.13} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.12} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.11} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.10} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.9} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.8} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.7} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.6} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.5} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.4} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.3} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.2} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.5.1} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{table.5.3} has been referenced but does not exist, 
-replaced by a fixed one
-
-pdfTeX warning (dest): name{table.5.2} has been referenced but does not exist, 
-replaced by a fixed one
-
-pdfTeX warning (dest): name{table.5.1} has been referenced but does not exist, 
-replaced by a fixed one
-
-pdfTeX warning (dest): name{section*.62} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{chapter.6} has been referenced but does not exist, 
-replaced by a fixed one
-
-pdfTeX warning (dest): name{section.5.4} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.5.3.2} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.5.3.1} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.5.3} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.5.2.1} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.5.2} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.5.1.4} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.5.1.3} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.5.1.2} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.5.1.1} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.5.1} has been referenced but does not exist
-, replaced by a fixed one
-
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/fourier/fourier-mex.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/fourier/fourier-mlit.pfb><C:/Program Files/MiKTeX 2.9/fonts/
-type1/public/fourier/fourier-ms.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/ur
-w/ncntrsbk/uncb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ncntrsbk/unc
-r8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ncntrsbk/uncri8a.pfb>
-Output written on memoirthesis.pdf (76 pages, 8086319 bytes).
+ 52i,21n,80p,2007b,656s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/fourier/fourier-mex.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/fourier/fourier-mlit.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/fourier/fourier-ms.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+urw/ncntrsbk/uncb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ncntrsbk/u
+ncr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ncntrsbk/uncri8a.pfb>
+Output written on memoirthesis.pdf (98 pages, 9327308 bytes).
 PDF statistics:
- 1443 PDF objects out of 1728 (max. 8388607)
- 357 named destinations out of 1000 (max. 500000)
- 37589 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 2531 PDF objects out of 2984 (max. 8388607)
+ 432 named destinations out of 1000 (max. 500000)
+ 42253 words of extra memory for PDF output out of 42996 (max. 10000000)
 

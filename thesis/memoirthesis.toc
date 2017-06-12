@@ -46,6 +46,54 @@
 \contentsline {subsection}{\numberline {4.2.4}Generate candidates of interaction video clips}{50}{subsection.4.2.4}
 \contentsline {subsection}{\numberline {4.2.5}Classification of interaction video clips}{52}{subsection.4.2.5}
 \contentsline {subsection}{\numberline {4.2.6}Temporal combination}{52}{subsection.4.2.6}
-\contentsline {chapter}{\chapternumberline {5}Conclusion}{55}{chapter.5}
-\contentsline {appendix}{\chapternumberline {A}Appendix A}{57}{appendix.A}
-\contentsline {chapter}{Bibliography}{59}{section*.36}
+\contentsline {chapter}{\chapternumberline {5}Experimental Results}{55}{chapter.5}
+\contentsline {section}{\numberline {5.1}Searching of the optimal parameters}{55}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Model}{55}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Assumptions and Factors and the default parameter setting}{56}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Experiments}{56}{subsection.5.1.3}
+\contentsline {subsubsection}{\numberline {5.1.3.1}Initialization of the network parameters}{56}{subsubsection.5.1.3.1}
+\contentsline {paragraph}{Experimental scheme}{56}{section*.35}
+\contentsline {paragraph}{Experimental results and analysis}{56}{section*.36}
+\contentsline {subsubsection}{\numberline {5.1.3.2}Learning Rate}{58}{subsubsection.5.1.3.2}
+\contentsline {paragraph}{Experimental scheme}{58}{section*.37}
+\contentsline {paragraph}{Experimental results and analysis}{58}{section*.38}
+\contentsline {subsubsection}{\numberline {5.1.3.3}Dropout layer}{59}{subsubsection.5.1.3.3}
+\contentsline {paragraph}{Experimental scheme}{59}{section*.39}
+\contentsline {paragraph}{Experimental results and analysis}{60}{section*.40}
+\contentsline {subsubsection}{\numberline {5.1.3.4}Batch normalization layer}{61}{subsubsection.5.1.3.4}
+\contentsline {paragraph}{Experimental scheme}{61}{section*.41}
+\contentsline {paragraph}{Experimental results and analysis}{61}{section*.42}
+\contentsline {subsubsection}{\numberline {5.1.3.5}The number of the convolutional layers}{62}{subsubsection.5.1.3.5}
+\contentsline {paragraph}{Experimental scheme}{62}{section*.43}
+\contentsline {paragraph}{Experimental results and analysis}{62}{section*.44}
+\contentsline {subsubsection}{\numberline {5.1.3.6}The size of the convolutional kernel}{63}{subsubsection.5.1.3.6}
+\contentsline {paragraph}{Experimental scheme}{63}{section*.45}
+\contentsline {paragraph}{Experimental results and analysis}{63}{section*.46}
+\contentsline {subsubsection}{\numberline {5.1.3.7}The number of filters of each convolutional layer}{63}{subsubsection.5.1.3.7}
+\contentsline {paragraph}{Experimental scheme}{63}{section*.47}
+\contentsline {paragraph}{Experimental results and analysis}{64}{section*.48}
+\contentsline {subsubsection}{\numberline {5.1.3.8}The number of neurons of each fully connected layer}{64}{subsubsection.5.1.3.8}
+\contentsline {paragraph}{Experimental scheme}{64}{section*.49}
+\contentsline {paragraph}{Experimental results and analysis}{65}{section*.50}
+\contentsline {subsubsection}{\numberline {5.1.3.9}Data augmentation: horizontal flipping}{66}{subsubsection.5.1.3.9}
+\contentsline {paragraph}{Experimental scheme}{66}{section*.51}
+\contentsline {paragraph}{Experimental results and analysis}{66}{section*.52}
+\contentsline {subsubsection}{\numberline {5.1.3.10}Data augmentation: random cropping}{67}{subsubsection.5.1.3.10}
+\contentsline {paragraph}{Experimental scheme}{67}{section*.53}
+\contentsline {paragraph}{Experimental results and analysis}{67}{section*.54}
+\contentsline {subsubsection}{\numberline {5.1.3.11}Temporal down-sampling of frames}{68}{subsubsection.5.1.3.11}
+\contentsline {paragraph}{Experimental scheme}{68}{section*.55}
+\contentsline {paragraph}{Experimental results and analysis}{68}{section*.56}
+\contentsline {subsubsection}{\numberline {5.1.3.12}Data normalization}{69}{subsubsection.5.1.3.12}
+\contentsline {paragraph}{Experimental scheme}{69}{section*.57}
+\contentsline {paragraph}{Experimental results and analysis}{69}{section*.58}
+\contentsline {subsection}{\numberline {5.1.4}Conclusions of parameter searching}{70}{subsection.5.1.4}
+\contentsline {section}{\numberline {5.2}The experimental results of of the interaction classification}{71}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Train the network from scratch}{71}{subsection.5.2.1}
+\contentsline {section}{\numberline {5.3}The experimental results of of the interaction detection}{72}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}The results of the interacting people detection}{72}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}The results of interaction detection}{72}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Discussion}{72}{section.5.4}
+\contentsline {chapter}{\chapternumberline {6}Conclusion}{77}{chapter.6}
+\contentsline {appendix}{\chapternumberline {A}Appendix A}{79}{appendix.A}
+\contentsline {chapter}{Bibliography}{81}{section*.62}
