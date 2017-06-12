@@ -38,7 +38,7 @@ class FeatureDescriptor:
             is_training = True
         else:
             if_traning = False
-        bn_en = True 
+        bn_en = False 
         # define the first convlutional layer
         with tf.variable_scope('conv1'):
             numOfFilters_conv1 = nof_conv1 
@@ -94,11 +94,11 @@ class FeatureDescriptor:
         #    W_conv4b = weight_variable([3,3,3,numOfFilters_conv4a,numOfFilters_conv4b])
         #    b_conv4b = bias_variable([numOfFilters_conv4b])
         #    h_conv4b = tf.nn.relu(conv3d(h_conv4a, W_conv4b) + b_conv4b)
-            h_pool4 = max_pool3d_4x2x2(h_relu4a)    
     
         # define the 5rd convlutional layer
         conv5a_en = False
         if conv5a_en == True:
+            h_pool4 = max_pool3d_2x2x2(h_relu4a)    
             with tf.variable_scope('conv5a'):
                 numOfFilters_conv5 = numOfFilters_conv4 
                 W_conv5a = weight_variable([3,3,3,numOfFilters_conv4,numOfFilters_conv5])
@@ -110,7 +110,7 @@ class FeatureDescriptor:
             #    h_conv5b = tf.nn.relu(conv3d(h_conv5a, W_conv5b) + b_conv5b)
                 h_pool5 = max_pool3d_2x1x1(h_conv5a)    
         else:
-            h_pool5 = h_pool4
+            h_pool5 = max_pool3d_4x2x2(h_relu4a)    
     
         # define the full connected layer
         with tf.variable_scope('fc6'):
