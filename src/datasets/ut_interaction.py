@@ -298,7 +298,7 @@ def oneHot(y,numOfClasses):
 def label7to2(labelIn):
     label_out = []
     for label_i in labelIn:
-        if label_i == [0,0,0,0,0,0,1]:
+        if (label_i == [0,0,0,0,0,0,1]).all():
             label_out.append([0,1])
         else:
             label_out.append([1,0])
@@ -312,10 +312,10 @@ if __name__ == '__main__':
     for seq in (8,):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq)
-        ut_set.loadTrainingAll(oneHotLabelMode=False)
-        tr_x,tr_y = ut_set.loadTrainingBatch(16)
-        print(tr_y)
-        print(label7to2(tr_y))
+        #ut_set.loadTrainingAll(oneHotLabelMode=False)
+        #tr_x,tr_y = ut_set.loadTrainingBatch(16)
+        #print(tr_y)
+        #print(label7to2(tr_y))
         tx,ty = ut_set.loadTesting(oneHotLabelMode=True)
         print(ty)
         print(label7to2(ty))
@@ -471,7 +471,7 @@ def genDetectionBBList(videoIn):
         d1 += 32 
     return detectionBBList
     
-if __name__ == '__main__':
+if __name__ == '__main__1':
     for setNo in (1,):
         NoBias = 60
         videoCnt = 0
