@@ -224,7 +224,7 @@ def comb_IBB(pred_yList,vLen=64):
         endingFrameNo = pred_yList[i][0] + vLen 
         ibbList.append(pred_yList[i][1])
         yList.append(pred_yList[i][2])
-        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= vLen/2 or i == len(pred_yList)-1:
+        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= (vLen - 4) or i == len(pred_yList)-1:
             ibbSets.append([[startingFrameNo,endingFrameNo],ibbList,yList])
             if (i < len(pred_yList) - 1):
                 startingFrameNo = pred_yList[i+1][0]
@@ -254,7 +254,7 @@ def NMS_IBB(ibbSets):
         pred_Label = Counter(ySet).most_common(1)[0][0]
         sf = ibbSet[0][0]
         ef = ibbSet[0][1]
-        if (ef - sf) > 56:
+        if (ef - sf) >= 55:
             ibbs.append([pred_Label,sf,ef,ibb[0],ibb[1],ibb[2],ibb[3]])
     return np.array(ibbs)    
 
