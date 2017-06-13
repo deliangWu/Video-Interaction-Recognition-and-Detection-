@@ -208,6 +208,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
         prob = c3d.evaluateProb(vChop_det, sess)[0]
         pred_y = np.argmax(prob)
+        print(pred_y)
         top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
         if pred_y != 6:
             pred_yList.append([bbStartFrmNo,ibb,top2y])
