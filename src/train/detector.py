@@ -220,7 +220,7 @@ def pred_IBB2(video,ibbSets,sess,c3d):
     for ibbSet in ibbSets:
         ibb = np.mean(np.array(ibbSet[1]),0).astype(np.uint16)
         vChop = video[ibbSet[0][0]:ibbSet[0][1],ibb[1]:ibb[3],ibb[0]:ibb[2]]
-        vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=0, RLFlipEn=False,numOfRandomCrop=4)
+        vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=1, RLFlipEn=False,numOfRandomCrop=4)
         vChop = vpp.videoNorm1(vChop,normMode=1)
         vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
         prob = c3d.evaluateProb(vChop_det, sess)[0]
