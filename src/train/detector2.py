@@ -22,6 +22,7 @@ import network
 import videoPreProcess as vpp
 import humanDetectionAndTracking as hdt
 import time
+from collections import Counter
 
 def readDetLog(fname):
     with open(fname) as f:
@@ -44,13 +45,18 @@ def pred_IBB2(video,ibbSets,sess,c3d):
     pred_ibb2List = []
     for ibbSet in ibbSets:
         ibb = ibbSet[3:7]
-        vChop = video[ibbSet[1]:ibbSet[2],ibb[1]:ibb[3],ibb[0]:ibb[2]]
-        vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=0, RLFlipEn=False,numOfRandomCrop=4)
-        vChop = vpp.videoNorm1(vChop,normMode=1)
-        vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
-        prob = c3d.evaluateProb(vChop_det, sess)[0]
-        pred_y = np.argmax(prob)
-        pred_ibb2List.append([pred_y, ibbSet[1],ibbSet[2],ibb[0],ibb[1],ibb[2],ibb[3]])
+        yList = []
+        for i in range(5):
+            vChop = video[ibbSet[1]:ibbSet[2],ibb[1]:ibb[3],ibb[0]:ibb[2]]
+            vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=0, RLFlipEn=False,numOfRandomCrop=4)
+            vChop = vpp.videoNorm1(vChop,normMode=1)
+            vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
+            prob = c3d.evaluateProb(vChop_det, sess)[0]
+            pred_y = np.argmax(prob)
+            yList.append(pred_y)
+        pred_label = Counter(yList).most_common(1)[0][0]
+        
+        pred_ibb2List.append([pred_label, ibbSet[1],ibbSet[2],ibb[0],ibb[1],ibb[2],ibb[3]])
     return np.array(pred_ibb2List)
 
 def main(argv):
@@ -99,14 +105,6 @@ def main(argv):
         ibbSets = readDetLog(logName)
         print('the original ibbSets is \n', ibbSets)
         
-        finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
-        print('the new ibbSets is \n', finalIbbSets)
-        finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
-        print('the new ibbSets is \n', finalIbbSets)
-        finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
-        print('the new ibbSets is \n', finalIbbSets)
-        finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
-        print('the new ibbSets is \n', finalIbbSets)
         finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
         print('the new ibbSets is \n', finalIbbSets)
  
