@@ -59,6 +59,8 @@ def main(argv):
     # ***********************************************************
     saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
     saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
+    saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg2.ckpt'))
+    saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c2.ckpt'))
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     common.pAndWf(logName,log)    
