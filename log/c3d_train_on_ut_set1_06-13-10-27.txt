@@ -1,0 +1,22 @@
+Tue Jun 13 10:27:33 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+-------------------------------------------------------------------------
+---------------------------- RUN 0 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
+seq: 1, epoch: 0, step: 0, training: 0.25, loss: 0.822229, testing: 0.315789, t2y: 1, anv: 0.105263, best: 0.105263 
+seq: 1, epoch: 0, step: 40, training: 0.8125, loss: 0.577787, testing: 0.684211, t2y: 1, anv: 0.333333, best: 0.333333 
+seq: 1, epoch: 0, step: 80, training: 0.5625, loss: 0.693526, testing: 0.684211, t2y: 1, anv: 0.561404, best: 0.561404 
+seq: 1, epoch: 0, step: 120, training: 0.625, loss: 0.63452, testing: 0.684211, t2y: 1, anv: 0.684211, best: 0.684211 
+seq: 1, epoch: 0, step: 160, training: 0.5625, loss: 0.688821, testing: 0.789474, t2y: 1, anv: 0.719298, best: 0.719298 
+seq: 1, epoch: 0, step: 200, training: 0.8125, loss: 0.571603, testing: 0.842105, t2y: 1, anv: 0.77193, best: 0.77193 
+seq: 1, epoch: 1, step: 240, training: 0.75, loss: 0.634945, testing: 0.684211, t2y: 1, anv: 0.77193, best: 0.77193 
+seq: 1, epoch: 1, step: 280, training: 0.875, loss: 0.333183, testing: 0.684211, t2y: 1, anv: 0.736842, best: 0.77193 
+seq: 1, epoch: 1, step: 320, training: 0.875, loss: 0.32944, testing: 0.894737, t2y: 1, anv: 0.754386, best: 0.77193 
+seq: 1, epoch: 1, step: 360, training: 0.8125, loss: 0.454756, testing: 0.947368, t2y: 1, anv: 0.842105, best: 0.842105 
+seq: 1, epoch: 1, step: 400, training: 0.9375, loss: 0.319341, testing: 0.947368, t2y: 1, anv: 0.929825, best: 0.929825 
+seq: 1, epoch: 2, step: 440, training: 0.8125, loss: 0.392458, testing: 0.842105, t2y: 1, anv: 0.912281, best: 0.929825 
+seq: 1, epoch: 2, step: 480, training: 0.75, loss: 0.44291, testing: 0.947368, t2y: 1, anv: 0.912281, best: 0.929825 
+seq: 1, epoch: 2, step: 520, training: 0.9375, loss: 0.224927, testing: 0.947368, t2y: 1, anv: 0.912281, best: 0.929825 
+ 

@@ -1,0 +1,40 @@
+Tue Jun 13 16:37:49 2017 Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! 
+-------------------------------------------------------------------------
+---------------------------- RUN 0 ------------------------------
+-------------------------------------------------------------------------
+****************************************
+current sequence is 1
+****************************************
+seq: 1, epoch: 0, step: 0, training: 0.125, testing: 0.0555556, loss_tr: 2.04314, loss_t: 2.13002  
+seq: 1, epoch: 0, step: 10, training: 0.75, testing: 0.722222, loss_tr: 1.07191, loss_t: 1.2324  
+seq: 1, epoch: 0, step: 20, training: 0.5, testing: 0.722222, loss_tr: 1.85803, loss_t: 1.16019  
+seq: 1, epoch: 0, step: 30, training: 0.625, testing: 0.722222, loss_tr: 1.18372, loss_t: 1.09998  
+seq: 1, epoch: 0, step: 40, training: 0.75, testing: 0.722222, loss_tr: 1.04571, loss_t: 1.06264  
+seq: 1, epoch: 0, step: 50, training: 0.6875, testing: 0.722222, loss_tr: 1.21872, loss_t: 1.11753  
+seq: 1, epoch: 0, step: 60, training: 0.5, testing: 0.722222, loss_tr: 1.68924, loss_t: 1.05364  
+seq: 1, epoch: 0, step: 70, training: 0.6875, testing: 0.722222, loss_tr: 1.12594, loss_t: 1.0424  
+seq: 1, epoch: 0, step: 80, training: 0.75, testing: 0.722222, loss_tr: 0.965063, loss_t: 1.04914  
+seq: 1, epoch: 0, step: 90, training: 0.5625, testing: 0.722222, loss_tr: 1.49716, loss_t: 1.0394  
+seq: 1, epoch: 0, step: 100, training: 0.6875, testing: 0.722222, loss_tr: 1.13016, loss_t: 1.03437  
+seq: 1, epoch: 0, step: 110, training: 0.875, testing: 0.722222, loss_tr: 0.670132, loss_t: 1.03269  
+seq: 1, epoch: 0, step: 120, training: 0.75, testing: 0.722222, loss_tr: 0.917074, loss_t: 1.04536  
+seq: 1, epoch: 0, step: 130, training: 0.5, testing: 0.722222, loss_tr: 1.66144, loss_t: 1.02854  
+seq: 1, epoch: 0, step: 140, training: 0.625, testing: 0.722222, loss_tr: 1.32953, loss_t: 1.04119  
+seq: 1, epoch: 0, step: 150, training: 0.5, testing: 0.722222, loss_tr: 1.63499, loss_t: 1.05287  
+seq: 1, epoch: 0, step: 160, training: 0.625, testing: 0.722222, loss_tr: 1.27051, loss_t: 1.02101  
+seq: 1, epoch: 0, step: 170, training: 0.5625, testing: 0.722222, loss_tr: 1.4092, loss_t: 1.01727  
+seq: 1, epoch: 0, step: 180, training: 0.75, testing: 0.722222, loss_tr: 0.917185, loss_t: 1.01558  
+seq: 1, epoch: 0, step: 190, training: 0.4375, testing: 0.722222, loss_tr: 1.59918, loss_t: 1.05584  
+seq: 1, epoch: 1, step: 200, training: 0.8125, testing: 0.722222, loss_tr: 0.852178, loss_t: 1.01536  
+seq: 1, epoch: 1, step: 210, training: 0.4375, testing: 0.722222, loss_tr: 1.74314, loss_t: 1.00368  
+seq: 1, epoch: 1, step: 220, training: 0.5625, testing: 0.722222, loss_tr: 1.32009, loss_t: 1.00758  
+seq: 1, epoch: 1, step: 230, training: 0.8125, testing: 0.722222, loss_tr: 0.73838, loss_t: 1.05357  
+seq: 1, epoch: 1, step: 240, training: 0.5625, testing: 0.722222, loss_tr: 1.51493, loss_t: 0.99081  
+seq: 1, epoch: 1, step: 250, training: 0.5, testing: 0.722222, loss_tr: 1.38391, loss_t: 0.979508  
+seq: 1, epoch: 1, step: 260, training: 0.5, testing: 0.722222, loss_tr: 1.58646, loss_t: 0.991168  
+seq: 1, epoch: 1, step: 270, training: 0.5, testing: 0.722222, loss_tr: 1.52494, loss_t: 0.957283  
+seq: 1, epoch: 1, step: 280, training: 0.6875, testing: 0.722222, loss_tr: 1.12606, loss_t: 0.941247  
+seq: 1, epoch: 1, step: 290, training: 0.8125, testing: 0.722222, loss_tr: 0.710472, loss_t: 0.927438  
+seq: 1, epoch: 1, step: 300, training: 0.5625, testing: 0.722222, loss_tr: 1.41081, loss_t: 0.935053  
+seq: 1, epoch: 1, step: 310, training: 0.375, testing: 0.722222, loss_tr: 1.75525, loss_t: 0.886695  
+seq: 1, epoch: 1, step: 320, training: 0.5, testing: 0.722222, loss_tr: 1.21477, loss_t: 0.885364  
