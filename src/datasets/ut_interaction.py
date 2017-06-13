@@ -33,8 +33,8 @@ class ut_interaction:
             self._filesSet = np.append(self._filesSet,fs,axis = 0)
         
     def splitTrainingTesting(self,n, loadTrainingEn = False):
-        testingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) == n]
-        trainingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) != n]
+        testingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) == n and int(fileSet[2])!=3]
+        trainingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) != n and int(fileSet[2])!=3]
         self._trainingFilesSet = self._filesSet[trainingIndex]
         self._testingFilesSet = self._filesSet[testingIndex]
         # clean training videos 
@@ -298,7 +298,7 @@ def oneHot(y,numOfClasses):
 def label7to2(labelIn):
     label_out = []
     for label_i in labelIn:
-        if (label_i == [0,0,0,0,0,0,1]).all() or (label_i == [0,0,1,0,0,0,0]).all():
+        if (label_i == [0,0,0,0,0,0,1]).all() or (label_i == [0,0,0,1,0,0,0]).all():
             label_out.append([0,1])
         else:
             label_out.append([1,0])
