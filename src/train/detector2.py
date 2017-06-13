@@ -95,7 +95,7 @@ def main(argv):
         
         # generate candidate bounding boxe by applying person detection and tracking            
         video = ut.loadVideo(seq)
-        logName = common.path.logPath + 'c3d_detector_06-14-00-37.txt'
+        logName = common.path.logPath + 'c3d_detector_06-14-01-03.txt'
         ibbSets = readDetLog(logName)
         print('the original ibbSets is \n', ibbSets)
         
