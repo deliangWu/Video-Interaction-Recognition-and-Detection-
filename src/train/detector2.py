@@ -51,7 +51,7 @@ def pred_IBB2(video,ibbSets,sess,c3d):
         prob = c3d.evaluateProb(vChop_det, sess)[0]
         pred_y = np.argmax(prob)
         pred_ibb2List.append([pred_y, ibbSet[1],ibbSet[2],ibb[0],ibb[1],ibb[2],ibb[3]])
-    return pred_ibb2List
+    return np.array(pred_ibb2List)
 
 def main(argv):
     # ***********************************************************
@@ -97,9 +97,18 @@ def main(argv):
         video = ut.loadVideo(seq)
         logName = common.path.logPath + 'c3d_detector_06-13-21-15.txt'
         ibbSets = readDetLog(logName)
-        print('the original ibbSets is ', ibbSets)
+        print('the original ibbSets is \n', ibbSets)
+        
         finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
-        print('the new ibbSets is ', finalIbbSets)
+        print('the new ibbSets is \n', finalIbbSets)
+        finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
+        print('the new ibbSets is \n', finalIbbSets)
+        finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
+        print('the new ibbSets is \n', finalIbbSets)
+        finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
+        print('the new ibbSets is \n', finalIbbSets)
+        finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
+        print('the new ibbSets is \n', finalIbbSets)
  
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
