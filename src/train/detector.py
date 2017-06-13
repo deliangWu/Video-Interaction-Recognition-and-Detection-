@@ -208,7 +208,6 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
         prob = c3d.evaluateProb(vChop_det, sess)[0]
         pred_y = np.argmax(prob)
-        print(pred_y)
         top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
         if pred_y != 6:
             pred_yList.append([bbStartFrmNo,ibb,top2y])
@@ -253,7 +252,10 @@ def NMS_IBB(ibbSets):
                 ySet.append([y[1]]*1)
         ySet = [item for subList in ySet for item in subList]
         pred_Label = Counter(ySet).most_common(1)[0][0]
-        ibbs.append([pred_Label,ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
+        sf = ibbSet[0][0]
+        ef = ibbSet[0][1]
+        if (sf - ef) > 64:
+            ibbs.append([pred_Label,sf,ef,ibb[0],ibb[1],ibb[2],ibb[3]])
     return np.array(ibbs)    
 
 def main(argv):
