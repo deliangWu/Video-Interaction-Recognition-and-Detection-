@@ -57,8 +57,7 @@ def main(argv):
     # ***********************************************************
     # Train and test the network
     # ***********************************************************
-    saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
-    saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
+    saver_net = tf.train.Saver()
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     common.pAndWf(logName,log)    
@@ -82,12 +81,10 @@ def main(argv):
             test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True)
             #test_y = ut.label7to2(test_y)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
-                f_fg = join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7_3.ckpt')
-                f_c = join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7_3.ckpt')
+                f_var = join(common.path.variablePath, savePrefix + str(seq) + '_det7c.ckpt')
                 if os.path.isfile(join(f_fg,'.meta')):
                     print('load pre-trained variables!')
-                    saver_feature_g.restore(sess,f_fg)
-                    saver_classifier.restore(sess,f_c)
+                    saver_net.restore(sess,f_var)
                 ut_set.loadTrainingAll(oneHotLabelMode=True)
                 best_accuracy = 0
                 epoch = 0
@@ -120,12 +117,10 @@ def main(argv):
                         if i >= 1000:
                             break
                     i+=1
-                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg7_3.ckpt'))
-                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7_3.ckpt'))
+                saver_net.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_det7c.ckpt'))
                 common.pAndWf(logName,' \n')
             else:
-                saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7_3.ckpt'))
-                saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7_3.ckpt'))
+                saver_net.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_det7c.ckpt'))
                 test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
                 print('testing accu is: ',test_accuracy, ' and top2 accu is ', t2y_accu)
                 
