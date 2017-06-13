@@ -84,9 +84,10 @@ def main(argv):
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 f_fg = join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7_3.ckpt')
                 f_c = join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7_3.ckpt')
-                print('load pre-trained variables!')
-                saver_feature_g.restore(sess,f_fg)
-                saver_classifier.restore(sess,f_c)
+                if os.path.isfile(join(f_fg,'.meta')):
+                    print('load pre-trained variables!')
+                    saver_feature_g.restore(sess,f_fg)
+                    saver_classifier.restore(sess,f_c)
                 ut_set.loadTrainingAll(oneHotLabelMode=True)
                 best_accuracy = 0
                 epoch = 0
