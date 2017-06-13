@@ -209,7 +209,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         prob = c3d.evaluateProb(vChop_det, sess)[0]
         pred_y = np.argmax(prob)
         top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
-        if pred_y != 6:
+        if pred_y != 1:
             pred_yList.append([bbStartFrmNo,ibb,top2y])
             print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
         bbStartFrmNo += stride 
@@ -259,7 +259,7 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
-    numOfClasses = 7 
+    numOfClasses = 2 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
@@ -283,7 +283,7 @@ def main(argv):
     common.clearFile(logName)
     #seqNo = int(argv[1][3:])
     #seqRange = (seqNo,)
-    seqRange = range(1,11)
+    seqRange = range(1,)
     for seq in seqRange:
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
@@ -294,8 +294,8 @@ def main(argv):
         # load trained network  
         saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
         saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
-        saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7.ckpt'))
-        saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
+        saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg2.ckpt'))
+        saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c2.ckpt'))
         
         # generate candidate bounding boxe by applying person detection and tracking            
         video = ut.loadVideo(seq)
