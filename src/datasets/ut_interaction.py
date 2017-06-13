@@ -49,7 +49,7 @@ class ut_interaction:
     def loadTrainingAll(self, shuffleEn = True,oneHotLabelMode=False):
         cnt_file = 0
         for file in self._trainingFilesSet:
-            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,RLFlipEn=True, downSample=1,numOfRandomCrop=4)
+            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,RLFlipEn=True, downSample=0,numOfRandomCrop=4)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
             #self._tr.print_diff()
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
@@ -102,7 +102,7 @@ class ut_interaction:
         testLabels = np.empty((0,1),dtype=np.float32)        
         for file in self._testingFilesSet:
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
-            video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True,downSample=1,numOfRandomCrop=1)
+            video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True,downSample=0,numOfRandomCrop=1)
             if video is not None:
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
@@ -473,7 +473,7 @@ def genDetectionBBList(videoIn):
 import os    
 if __name__ == '__main__':
     video = loadVideo(1)    
-    print(os.path.isfile('ovx.avi'))
+    print(os.path.isfile('ovx.*'))
     #vpp.videoSave(video[67:155],fileName='ov1.avi')
     #vpp.videoSave(video[755:859],fileName='ov2.avi')
     #vpp.videoSave(video[907:1059],fileName='ov3.avi')

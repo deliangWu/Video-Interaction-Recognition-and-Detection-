@@ -38,7 +38,7 @@ class FeatureDescriptor:
             is_training = True
         else:
             if_traning = False
-        bn_en = False 
+        bn_en = True 
         # define the first convlutional layer
         with tf.variable_scope('conv1'):
             numOfFilters_conv1 = nof_conv1 
@@ -96,7 +96,7 @@ class FeatureDescriptor:
         #    h_conv4b = tf.nn.relu(conv3d(h_conv4a, W_conv4b) + b_conv4b)
     
         # define the 5rd convlutional layer
-        conv5a_en = False
+        conv5a_en = True 
         if conv5a_en == True:
             h_pool4 = max_pool3d_2x2x2(h_relu4a)    
             with tf.variable_scope('conv5a'):

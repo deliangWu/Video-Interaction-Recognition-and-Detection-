@@ -57,8 +57,9 @@ def main(argv):
     # ***********************************************************
     # Train and test the network
     # ***********************************************************
-    saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
-    saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
+    #saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
+    #saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
+    saver_net = tf.train.Saver()
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     common.pAndWf(logName,log)    
@@ -79,9 +80,9 @@ def main(argv):
                   '****************************************\n'
             common.pAndWf(logName,log)
             ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
-            ut_set.loadTrainingAll(oneHotLabelMode=True)
             test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
+                ut_set.loadTrainingAll(oneHotLabelMode=True)
                 best_accuracy = 0
                 epoch = 0
                 anvAccuList = np.zeros((3))
@@ -133,16 +134,21 @@ def main(argv):
                         if i > 500:
                             break
                     i+=1
-                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
-                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
+                #saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
+                #saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
+                saver_net.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '.ckpt'))
                 common.pAndWf(logName,' \n')
-            accuSet.append(test_accuracy)
-            t2accuSet.append(t2y_accu)
-        log = 'The list of Classification Accuracy: ' + str(accuSet) + \
-              '\n ' + str(t2accuSet) + \
-              '\n Mean Classification Accuracy is ' + str(np.mean(accuSet)) + ', and top2 mean accuracy is ' + str(np.mean(t2accuSet)) + '\n' + \
-              '__________________________________________________________________________________________________\n \n'
-        common.pAndWf(logName,log)
+                accuSet.append(test_accuracy)
+                t2accuSet.append(t2y_accu)
+                log = 'The list of Classification Accuracy: ' + str(accuSet) + \
+                      '\n ' + str(t2accuSet) + \
+                      '\n Mean Classification Accuracy is ' + str(np.mean(accuSet)) + ', and top2 mean accuracy is ' + str(np.mean(t2accuSet)) + '\n' + \
+                      '__________________________________________________________________________________________________\n \n'
+                common.pAndWf(logName,log)
+            else:
+                saver_net.restore(sess, join(common.path.variablePath, savePrefix  + str(seq) + '.ckpt'))
+                test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
+                print('Testing accuracy is ', test_accuracy)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)
