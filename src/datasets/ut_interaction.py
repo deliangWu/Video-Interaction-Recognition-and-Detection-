@@ -49,7 +49,7 @@ class ut_interaction:
     def loadTrainingAll(self, shuffleEn = True,oneHotLabelMode=False):
         cnt_file = 0
         for file in self._trainingFilesSet:
-            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,RLFlipEn=True, downSample=0,numOfRandomCrop=4)
+            video = vpp.videoProcess(file[1],self._frmSize,cropEn=True,NormEn=True,RLFlipEn=True, downSample=2,numOfRandomCrop=4)
             self._trainingVideos = np.append(self._trainingVideos,video,axis=0)
             #self._tr.print_diff()
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
@@ -102,7 +102,7 @@ class ut_interaction:
         testLabels = np.empty((0,1),dtype=np.float32)        
         for file in self._testingFilesSet:
             #labelCode = vpp.int2OneHot(int(file[2]),self._numOfClasses)
-            video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True,downSample=0,numOfRandomCrop=1)
+            video = vpp.videoProcess(file[1],self._frmSize,RLFlipEn=False,NormEn=True,downSample=2,numOfRandomCrop=1)
             if video is not None:
                 video = np.reshape(video,(1,) + video.shape)
                 testVideos = np.append(testVideos,video,axis=0)
@@ -305,7 +305,7 @@ def label7to2(labelIn):
     return np.array(label_out)
             
 
-if __name__ == '__main__':
+if __name__ == '__main__r':
     numOfClasses = 7
     #ut_set = ut_interaction_set1_ga([(112,128,3),(112,80,3)],numOfClasses=numOfClasses)
     ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
@@ -471,16 +471,24 @@ def genDetectionBBList(videoIn):
         d1 += 32 
     return detectionBBList
     
-if __name__ == '__main__1':
-    for setNo in (1,):
-        NoBias = 60
-        videoCnt = 0
-        for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
-            print(setNo,seqNo,NoBias)
-            videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
-            NoBias += videoCnt
-            #NoBias += videoCnt
-            #videoCnt = genNegativeSamples1(setNo,seqNo,NoBias)
+if __name__ == '__main__':
+    video = loadVideo(1)    
+    vpp.videoSave(video[67:155],fileName='ov1.avi')
+    vpp.videoSave(video[755:859],fileName='ov2.avi')
+    vpp.videoSave(video[907:1059],fileName='ov3.avi')
+    vpp.videoSave(video[1059:1211],fileName='ov4.avi')
+    vpp.videoSave(video[1411:1563],fileName='ov5.avi')
+    vpp.videoSave(video[1563:1683],fileName='ov6.avi')
+    vpp.videoSave(video[1811:1883],fileName='ov7.avi')
+    #for setNo in (1,):
+    #    NoBias = 60
+    #    videoCnt = 0
+    #    for seqNo in range(1+(setNo-1)*10,11+(setNo-1)*10):
+    #        print(setNo,seqNo,NoBias)
+    #        videoCnt = genNegativeSamples0(setNo,seqNo,NoBias)
+    #        NoBias += videoCnt
+    #        #NoBias += videoCnt
+    #        #videoCnt = genNegativeSamples1(setNo,seqNo,NoBias)
     #setNo,seqNo = 1,1
     #videoName = 'D:/Course/Final_Thesis_Project/project/datasets/UT_Interaction/ut-interaction_set' + str(setNo) + '/seq' + str(seqNo) +'.avi'
     #gt = getGroundTruth(setNo, seqNo)
