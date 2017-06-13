@@ -214,6 +214,20 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
             print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
         bbStartFrmNo += stride 
     return pred_yList
+
+def pred_IBB2(video,ibbSets,sess,c3d): 
+    pred_ibb2List = []
+    for ibbSet in ibbSets:
+        ibb = np.mean(np.array(ibbSet[1]),0).astype(np.uint16)
+        vChop = video[ibbSet[0][0]:ibbSet[0][1],ibb[1]:ibb[3],ibb[0]:ibb[2]]
+        vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=0, RLFlipEn=False,numOfRandomCrop=4)
+        vChop = vpp.videoNorm1(vChop,normMode=1)
+        vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
+        prob = c3d.evaluateProb(vChop_det, sess)[0]
+        pred_y = np.argmax(prob)
+        pred_ibb2List.append([pred_y, ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
+    print(np.array(pred_ibb2List))
+    return pred_ibb2List
             
 def comb_IBB(pred_yList,vLen=64):           
     ibbSets = []
@@ -318,6 +332,7 @@ def main(argv):
                 pred_yList = pred_IBB(video,ibbLists[:,2], bbInitFrmNo,sess,c3d,vLen,stride)
                 # combine the temporal-neighbour bounding boxes as a same interaction label
                 ibbSets = comb_IBB(pred_yList,vLen)
+                pred_yList2 = pred_IBB2(video, ibbSets, sess, c3d)
                 # non-maximum suppression to vote the most possible lables
                 finalPredIBB = NMS_IBB(ibbSets)
                 common.pAndWf(logName,str(finalPredIBB)+'\n')
