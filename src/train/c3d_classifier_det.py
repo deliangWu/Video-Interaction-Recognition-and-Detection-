@@ -17,7 +17,7 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
-    numOfClasses = 2 
+    numOfClasses = 7 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
@@ -80,10 +80,14 @@ def main(argv):
             common.pAndWf(logName,log)
             ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
             test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True)
-            test_y = ut.label7to2(test_y)
+            #test_y = ut.label7to2(test_y)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
-                saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg2.ckpt'))
-                saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c2.ckpt'))
+                f_fg = sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7_3.ckpt')
+                f_c = sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7_3.ckpt')
+                if os.path.isfile(f_fg) and os.path.isfile(f_c):
+                    print('load pre-trained variables!')
+                    saver_feature_g.restore(f_fg)
+                    saver_classifier.restore(f_c)
                 ut_set.loadTrainingAll(oneHotLabelMode=True)
                 best_accuracy = 0
                 epoch = 0
@@ -91,7 +95,7 @@ def main(argv):
                 i = 0
                 while True:
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
-                    train_y = ut.label7to2(train_y)
+                    #train_y = ut.label7to2(train_y)
                     epoch = ut_set.getEpoch()
                     #learning_rate = 0.0001 * 2**(-int(epoch/8))
                     learning_rate = 0.0001 * 2**(-int(epoch/4))
@@ -116,12 +120,12 @@ def main(argv):
                         if i >= 1000:
                             break
                     i+=1
-                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg2.ckpt'))
-                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c2.ckpt'))
+                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg7_3.ckpt'))
+                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7_3.ckpt'))
                 common.pAndWf(logName,' \n')
             else:
-                saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg2.ckpt'))
-                saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c2.ckpt'))
+                saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7_3.ckpt'))
+                saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7_3.ckpt'))
                 test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
                 print('testing accu is: ',test_accuracy, ' and top2 accu is ', t2y_accu)
                 

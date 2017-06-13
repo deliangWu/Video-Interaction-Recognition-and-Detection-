@@ -470,16 +470,17 @@ def genDetectionBBList(videoIn):
         d0 += 32 
         d1 += 32 
     return detectionBBList
-    
+import os    
 if __name__ == '__main__':
     video = loadVideo(1)    
-    vpp.videoSave(video[67:155],fileName='ov1.avi')
-    vpp.videoSave(video[755:859],fileName='ov2.avi')
-    vpp.videoSave(video[907:1059],fileName='ov3.avi')
-    vpp.videoSave(video[1059:1211],fileName='ov4.avi')
-    vpp.videoSave(video[1411:1563],fileName='ov5.avi')
-    vpp.videoSave(video[1563:1683],fileName='ov6.avi')
-    vpp.videoSave(video[1811:1883],fileName='ov7.avi')
+    print(os.path.isfile('ovx.avi'))
+    #vpp.videoSave(video[67:155],fileName='ov1.avi')
+    #vpp.videoSave(video[755:859],fileName='ov2.avi')
+    #vpp.videoSave(video[907:1059],fileName='ov3.avi')
+    #vpp.videoSave(video[1059:1211],fileName='ov4.avi')
+    #vpp.videoSave(video[1411:1563],fileName='ov5.avi')
+    #vpp.videoSave(video[1563:1683],fileName='ov6.avi')
+    #vpp.videoSave(video[1811:1883],fileName='ov7.avi')
     #for setNo in (1,):
     #    NoBias = 60
     #    videoCnt = 0
