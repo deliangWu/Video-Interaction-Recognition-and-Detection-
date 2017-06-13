@@ -283,7 +283,7 @@ def main(argv):
     common.clearFile(logName)
     #seqNo = int(argv[1][3:])
     #seqRange = (seqNo,)
-    seqRange = range(1,)
+    seqRange = (1,)
     for seq in seqRange:
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
