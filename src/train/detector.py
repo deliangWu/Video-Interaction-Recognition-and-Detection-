@@ -292,10 +292,8 @@ def main(argv):
         with sess.as_default():
             sess.run(initVars)
         # load trained network  
-        saver_feature_g = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.feature_g_VarsList])
-        saver_classifier = tf.train.Saver([tf.get_default_graph().get_tensor_by_name(varName) for varName in common.Vars.classifier_sm_VarsList])
-        saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7_3.ckpt'))
-        saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7_3.ckpt'))
+        saver_net = tf.train.Saver()
+        saver_net.restore(sess, join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_det7c.ckpt'))
         
         # generate candidate bounding boxe by applying person detection and tracking            
         video = ut.loadVideo(seq)
