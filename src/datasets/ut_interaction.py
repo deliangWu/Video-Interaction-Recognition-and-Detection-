@@ -298,7 +298,7 @@ def oneHot(y,numOfClasses):
 def label7to2(labelIn):
     label_out = []
     for label_i in labelIn:
-        if (label_i == [0,0,0,0,0,0,1]).all():
+        if (label_i == [0,0,0,0,0,0,1]).all() or (label_i == [0,0,1,0,0,0,0]).all():
             label_out.append([0,1])
         else:
             label_out.append([1,0])
