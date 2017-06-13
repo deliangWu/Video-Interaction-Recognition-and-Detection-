@@ -97,20 +97,21 @@ def main(argv):
                     c3d.train(train_x, train_y, sess, learning_rate=learning_rate)
                     #loss = c3d.getLoss(train_x, train_y, sess)
                     #print('step: %d, loss: %g '%(i,loss))
-                    if i%int(iteration/50) == 0:
+                    if i% 10 == 0:
                         train_accuracy,_ = c3d.top2Accu(train_x, train_y, sess)
-                        loss = c3d.getLoss(train_x, train_y, sess)
+                        loss_tr = c3d.getLoss(train_x, train_y, sess)
+                        loss_t = c3d.getLoss(test_x, test_y, sess)
                         test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
                         #c3d.obs(test_x, test_y, sess)
                         anvAccuList = np.append(anvAccuList[1:3],test_accuracy)
                         anv_accuracy = np.mean(anvAccuList)
                         if anv_accuracy > best_accuracy:
                             best_accuracy = anv_accuracy
-                        log = "seq: %d, epoch: %d, step: %d, training: %g, loss: %g, testing: %g, t2y: %g, anv: %g, best: %g \n"%(seq, epoch, i, train_accuracy, loss, test_accuracy, t2y_accu, anv_accuracy, best_accuracy)
+                        log = "seq: %d, epoch: %d, step: %d, training: %g, testing: %g, loss_tr: %g, loss_t: %g  \n"%(seq, epoch, i, train_accuracy, test_accuracy, loss_tr, loss_t)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or epoch >= 20:
                         #if test_accuracy == 1 or epoch >= 20 or (i > int(iteration * 0.75) and test_accuracy >= best_accuracy):
-                        if i >= 500:
+                        if i >= 1000:
                             break
                     i+=1
                 saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg2.ckpt'))
