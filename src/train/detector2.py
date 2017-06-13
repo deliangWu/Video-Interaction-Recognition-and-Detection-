@@ -91,7 +91,7 @@ def main(argv):
             sess.run(initVars)
         # load trained network  
         saver_net = tf.train.Saver()
-        saver_net.restore(sess, join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + 'ckpt'))
+        saver_net.restore(sess, join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '.ckpt'))
         
         # generate candidate bounding boxe by applying person detection and tracking            
         video = ut.loadVideo(seq)
