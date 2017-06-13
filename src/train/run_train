@@ -1,0 +1,2 @@
+python c3d_classifier_det.py train set1
+python c3d_train_on_ut.py train set1

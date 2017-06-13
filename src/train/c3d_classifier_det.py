@@ -37,21 +37,21 @@ def main(argv):
         seqRange = (seqNo,)
         if seqNo <= 10:
             ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=7)
-            savePrefix = 'c3d_train_on_ut_set1_'
+            savePrefix = 'c3d_c7_det_set1_'
             log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
         else:
             ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=7)
-            savePrefix = 'c3d_train_on_ut_set2_'
+            savePrefix = 'c3d_c7_det_set2_'
             log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     elif len(argv) >= 3 and argv[2] == 'set2':
         seqRange = range(11,21)
         ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=7)
-        savePrefix = 'c3d_train_on_ut_set2_'
+        savePrefix = 'c3d_c7_det_set2_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:
         seqRange = range(1,11)
         ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=7)
-        savePrefix = 'c3d_train_on_ut_set1_'
+        savePrefix = 'c3d_c7_det_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
     # ***********************************************************
