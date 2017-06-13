@@ -295,20 +295,30 @@ def oneHot(y,numOfClasses):
         y_out.append(y_oh)
     return np.array(y_out)
 
+def label7to2(labelIn):
+    label_out = []
+    for label_i in labelIn:
+        if label_i == [0,0,0,0,0,0,1]:
+            label_out.append([0,1])
+        else:
+            label_out.append([1,0])
+    return np.array(label_out)
+            
+
 if __name__ == '__main__':
     numOfClasses = 7
     #ut_set = ut_interaction_set1_ga([(112,128,3),(112,80,3)],numOfClasses=numOfClasses)
     ut_set = ut_interaction_set1((112,128,3),numOfClasses=numOfClasses)
-    for seq in (8,9):
+    for seq in (8,):
         print('seq = ',seq)
         ut_set.splitTrainingTesting(seq)
-        #ut_set.loadTrainingAll(oneHotLabelMode=True)
-        #tr_x,tr_y = ut_set.loadTrainingBatch(16)
-        #vpp.videoPlay(tr_x) 
+        ut_set.loadTrainingAll(oneHotLabelMode=False)
+        tr_x,tr_y = ut_set.loadTrainingBatch(16)
+        print(tr_y)
+        print(label7to2(tr_y))
         tx,ty = ut_set.loadTesting(oneHotLabelMode=True)
         print(ty)
-        for vx in tx:
-            vpp.videoPlay(vx)
+        print(label7to2(ty))
         
    
 

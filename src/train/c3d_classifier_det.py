@@ -17,7 +17,7 @@ def main(argv):
     # ***********************************************************
     # define the network
     # ***********************************************************
-    numOfClasses = 7 
+    numOfClasses = 2 
     frmSize = (112,128,3)
     with tf.variable_scope('top') as scope:
         c3d = network.C3DNET(numOfClasses, frmSize,nof_conv1=32, nof_conv2= 128, nof_conv3=256, nof_conv4= 512, noo_fc6=4096, noo_fc7=4096)
@@ -36,21 +36,21 @@ def main(argv):
         seqNo = int(argv[2][3:])
         seqRange = (seqNo,)
         if seqNo <= 10:
-            ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses)
+            ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=7)
             savePrefix = 'c3d_train_on_ut_set1_'
             log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
         else:
-            ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=numOfClasses)
+            ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=7)
             savePrefix = 'c3d_train_on_ut_set2_'
             log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     elif len(argv) >= 3 and argv[2] == 'set2':
         seqRange = range(11,21)
-        ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=numOfClasses)
+        ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=7)
         savePrefix = 'c3d_train_on_ut_set2_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:
         seqRange = range(1,11)
-        ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses)
+        ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=7)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
@@ -80,6 +80,7 @@ def main(argv):
             common.pAndWf(logName,log)
             ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
             test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True)
+            test_y = ut.label7to2(test_y)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 ut_set.loadTrainingAll(oneHotLabelMode=True)
                 best_accuracy = 0
@@ -88,6 +89,7 @@ def main(argv):
                 i = 0
                 while True:
                     train_x,train_y = ut_set.loadTrainingBatch(batchSize)
+                    train_y = ut.label7to2(train_y)
                     epoch = ut_set.getEpoch()
                     #learning_rate = 0.0001 * 2**(-int(epoch/8))
                     learning_rate = 0.0001 * 2**(-int(epoch/4))
@@ -107,15 +109,16 @@ def main(argv):
                         log = "seq: %d, epoch: %d, step: %d, training: %g, loss: %g, testing: %g, t2y: %g, anv: %g, best: %g \n"%(seq, epoch, i, train_accuracy, loss, test_accuracy, t2y_accu, anv_accuracy, best_accuracy)
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or epoch >= 20:
-                        if test_accuracy == 1 or epoch >= 20 or (i > int(iteration * 0.75) and test_accuracy >= best_accuracy):
+                        #if test_accuracy == 1 or epoch >= 20 or (i > int(iteration * 0.75) and test_accuracy >= best_accuracy):
+                        if i >= 500:
                             break
                     i+=1
-                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg7.ckpt'))
-                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c7.ckpt'))
+                saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg2.ckpt'))
+                saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c2.ckpt'))
                 common.pAndWf(logName,' \n')
             else:
-                saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg7.ckpt'))
-                saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c7.ckpt'))
+                saver_feature_g.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_fg2.ckpt'))
+                saver_classifier.restore(sess,join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_c2.ckpt'))
                 test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
                 print('testing accu is: ',test_accuracy, ' and top2 accu is ', t2y_accu)
                 
