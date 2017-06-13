@@ -203,7 +203,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
     bbStartFrmNo = bbInitFrmNo
     for ibb in ibbList:
         vChop = video[bbStartFrmNo:bbStartFrmNo+vLen,ibb[1]:ibb[3],ibb[0]:ibb[2]]
-        vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=1, RLFlipEn=False,numOfRandomCrop=4)
+        vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=0, RLFlipEn=False,numOfRandomCrop=1)
         vChop = vpp.videoNorm1(vChop,normMode=1)
         vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
         prob = c3d.evaluateProb(vChop_det, sess)[0]
