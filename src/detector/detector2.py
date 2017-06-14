@@ -24,6 +24,7 @@ import videoPreProcess as vpp
 import humanDetectionAndTracking as hdt
 import time
 from collections import Counter
+import detector_evaluation as det_eva
 
 def readDetLog(fname):
     with open(fname) as f:
@@ -76,19 +77,21 @@ def main(argv):
     sess = tf.InteractiveSession(config=config)
     initVars = tf.global_variables_initializer()
    
-    # ***********************************************************
-    # define the dataset
-    # ***********************************************************
-    
-    # ***********************************************************
-    # Train and test the network
-    # ***********************************************************
     savePrefix = 'c3d_detector2_'
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
-    seqNo = int(argv[1][3:])
-    seqRange = (seqNo,)
-    #seqRange = (1,)
+    # load the results of 2-classes (interacting or not) interaction detection
+    d2cLogName = common.path.logPath + argv[2] 
+    ibbSets = det_eva.readDetLog(d2cLogName)
+    if len(argv) >= 2 and argv[1][0:3] == 'seq':
+        seqNo = int(argv[1][3:])
+        seqRange = (seqNo,)
+    else:
+        seqRange = range(1,11)
+        
+    # ***************************************************    
+    # Run detector    
+    # ***************************************************    
     for seq in seqRange:
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
@@ -99,15 +102,10 @@ def main(argv):
         # load trained network  
         saver_net = tf.train.Saver()
         saver_net.restore(sess, join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '.ckpt'))
-        
-        # generate candidate bounding boxe by applying person detection and tracking            
+        # load the unsegmented video 
         video = ut.loadVideo(seq)
-        #logName = common.path.logPath + 'c3d_detector_06-14-01-03.txt'
-        logName = common.path.logPath + argv[2] 
-        ibbSets = readDetLog(logName)
-        print('the original ibbSets is \n', ibbSets)
-        
-        finalIbbSets = pred_IBB2(video, ibbSets, sess, c3d)
+        print('the original ibbSets is \n', ibbSets[seq])
+        finalIbbSets = pred_IBB2(video, ibbSets[seq], sess, c3d)
         print('the new ibbSets is \n', finalIbbSets)
  
 if __name__ == "__main__":
