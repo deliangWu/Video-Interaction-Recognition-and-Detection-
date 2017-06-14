@@ -106,24 +106,10 @@ def readDetLog(fname):
     ibbSets = np.array(ibbSets)
     return ibbSets
     
-#ibbList= [[  4,  735,  867,  222,  126 , 639 , 425], \
-#     [   2,  899, 1055,  227,  122 , 621 , 421],  \
-#     [   1, 1039, 1227,  296,  124 , 630 , 423],  \
-#     [   0, 1395, 1555,  232,  112 , 625 , 411],  \
-#     [   5, 1555, 1695,  233,  115 , 664 , 414]]    
-#
-#
-#for ibb in ibbList[0:]:
-#    print('*********************************************')
-#    gt_ibb = gt[list(gt[:,0]).index(ibb[0])]
-#    cub1 = gt_ibb[1:]
-#    cub2 = ibb[1:]
-#    tMax = max(np.max(gt[:,2]),np.max(np.array(ibbList)[:,2]))
-#    cubOverlapRation(cub1, cub2)
-#    plotIbb(cub1,cub2,tMax)
-logName = common.path.logPath + 'c3d_detector_06-14-13-27.txt'
-det_ibbSets = readDetLog(logName)
-gt_ibbSets = []
-for seq in range(1,11):
-    gt_ibbSets.append(getGroundTruth(1,seq))
-plotTemp(gt_ibbSets, det_ibbSets, 2200)
+if __name__ == '__main__':
+    logName = common.path.logPath + 'c3d_detector_06-14-13-27.txt'
+    det_ibbSets = readDetLog(logName)
+    gt_ibbSets = []
+    for seq in range(1,11):
+        gt_ibbSets.append(getGroundTruth(1,seq))
+    plotTemp(gt_ibbSets, det_ibbSets, 2200)
