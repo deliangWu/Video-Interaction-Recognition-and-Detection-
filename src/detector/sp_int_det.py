@@ -175,15 +175,15 @@ def genIBB(boundingBoxes,vLen=64,stride=8):
         bb1 = np.array([bb[1][0] for bb in bbList],dtype=np.uint16)
         bb0_mean = np.mean(bb0,axis=0).astype(np.uint16)
         bb1_mean = np.mean(bb1,axis=0).astype(np.uint16)
-        ibb = [int(bb0_mean[0]),int((bb0_mean[1] + bb1_mean[1])/2),int(bb1_mean[2]),int((bb0_mean[3] + bb1_mean[3])/2)]
+        #ibb = [int(bb0_mean[0]),int((bb0_mean[1] + bb1_mean[1])/2),int(bb1_mean[2]),int((bb0_mean[3] + bb1_mean[3])/2)]
         
-        #x_center_ibb = int(np.mean([bb0_mean[0],bb1_mean[2]]))
-        #y_center_ibb = int(np.mean([bb0_mean[1],bb1_mean[1],bb0_mean[3],bb1_mean[3]]))
-        #h_ibb = int((np.mean([bb0_mean[3],bb1_mean[3]]) - np.mean([bb0_mean[1],bb1_mean[1]])) * 1.0)
-        #w_ibb_min = int(h_ibb * 128/112 * 1)
-        #w_ibb_max = int(h_ibb * 128/112 * 1.4)
-        #w_ibb = min(max(w_ibb_min,int(bb1_mean[2] - bb0_mean[0])),w_ibb_max)
-        #ibb = [max(0,x_center_ibb-int(w_ibb*1.15/2)),max(0,y_center_ibb-int(h_ibb/2)),min(720,x_center_ibb+int(w_ibb*1.1/2)),min(480,y_center_ibb+int(h_ibb*1.12/2))]
+        x_center_ibb = int(np.mean([bb0_mean[0],bb1_mean[2]]))
+        y_center_ibb = int(np.mean([bb0_mean[1],bb1_mean[1],bb0_mean[3],bb1_mean[3]]))
+        h_ibb = int((np.mean([bb0_mean[3],bb1_mean[3]]) - np.mean([bb0_mean[1],bb1_mean[1]])) * 1.0)
+        w_ibb_min = int(h_ibb * 128/112 * 1.0)
+        w_ibb_max = int(h_ibb * 128/112 * 1.3)
+        w_ibb = min(max(w_ibb_min,int(bb1_mean[2] - bb0_mean[0])),w_ibb_max)
+        ibb = [max(0,x_center_ibb-int(w_ibb/2)),max(0,y_center_ibb-int(h_ibb/2)),min(720,x_center_ibb+int(w_ibb/2)),min(480,y_center_ibb+int(h_ibb/2))]
         
         ibbList.append([bb0_mean,bb1_mean,ibb])
         i+=stride
