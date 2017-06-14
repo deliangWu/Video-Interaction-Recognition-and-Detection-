@@ -83,9 +83,11 @@ def main(argv):
             #test_y = ut.label7to2(test_y)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 f_var = join(common.path.variablePath, savePrefix + str(seq) + '_det7c.ckpt')
-                if os.path.isfile(join(f_var,'.meta')):
+                if os.path.isfile(join(common.path.variablePath, savePrefix + str(seq) + '_det7c.ckpt.index')):
                     print('load pre-trained variables!')
                     saver_net.restore(sess,f_var)
+                else:
+                    print('Train the model from scratch!')
                 ut_set.loadTrainingAll(oneHotLabelMode=True,downSample=2)
                 best_accuracy = 0
                 epoch = 0
@@ -118,7 +120,7 @@ def main(argv):
                         if i >= 1000:
                             break
                     i+=1
-                saver_net.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_det7c.ckpt'))
+                saver_net.save(sess,join(common.path.variablePath, savePrefix + str(seq) + '_det7c.ckpt'))
                 common.pAndWf(logName,' \n')
             else:
                 saver_net.restore(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_det7c.ckpt'))
