@@ -26,22 +26,6 @@ import time
 from collections import Counter
 import detector_evaluation as det_eva
 
-def readDetLog(fname):
-    with open(fname) as f:
-        content = f.readlines()
-    st_ind = False
-    for line in content:
-        if 'vLen' in line:
-            if st_ind is False:
-                ibbSets= []
-                st_ind = True
-            else:
-                break
-        elif st_ind :
-            ibbSet = [int(item.rstrip(']')) for item in line.split()[1:8]]
-            ibbSets.append(ibbSet)
-    ibbSets = np.array(ibbSets)
-    return ibbSets
 
 def pred_IBB2(video,ibbSets,sess,c3d): 
     pred_ibb2List = []
