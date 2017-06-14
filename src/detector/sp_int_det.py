@@ -281,7 +281,7 @@ def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
             vpp.videoSave(video,'seq_'+str(seq)+'.avi')
         else:
             _,_,_,boundingBoxes,bbInitFrmNo = hdt.humanTracking(video,picks,dispBBEn = False) 
-    return(boundingBoxes,bbInitFrmNo)
+    return(boundingBoxes,bbInitFrmNo,video)
  
 if __name__ == "__main__":
     for seq in range(1,11):

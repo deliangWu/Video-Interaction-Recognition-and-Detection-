@@ -63,7 +63,7 @@ def main(argv):
         saver_net = tf.train.Saver()
         saver_net.restore(sess, join(common.path.variablePath, 'c3d_c7_det_set1_' + str(seq) + '_det7c.ckpt'))
         # get bounding boxes for the interacting people        
-        boundingBoxes,bbInitFrmNo = sid.spIntDet(seq)
+        boundingBoxes,bbInitFrmNo,video = sid.spIntDet(seq)
         for vLen in(48,):
             for stride in (4,):
                 common.pAndWf(logName, '*********** vLen :'+str(vLen)+' stride: '+ str(stride) +' **************************\n')
