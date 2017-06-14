@@ -79,14 +79,14 @@ def main(argv):
                   '****************************************\n'
             common.pAndWf(logName,log)
             ut_set.splitTrainingTesting(seq, loadTrainingEn=False)
-            test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True)
+            test_x,test_y = ut_set.loadTesting(oneHotLabelMode=True,downSample = 2)
             #test_y = ut.label7to2(test_y)
             if len(argv) < 2 or argv[1] == 'train' or argv[1] == 'Train':
                 f_var = join(common.path.variablePath, savePrefix + str(seq) + '_det7c.ckpt')
                 if os.path.isfile(join(f_var,'.meta')):
                     print('load pre-trained variables!')
                     saver_net.restore(sess,f_var)
-                ut_set.loadTrainingAll(oneHotLabelMode=True)
+                ut_set.loadTrainingAll(oneHotLabelMode=True,downSample=2)
                 best_accuracy = 0
                 epoch = 0
                 anvAccuList = np.zeros((3))
