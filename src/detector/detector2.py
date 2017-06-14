@@ -88,8 +88,8 @@ def main(argv):
         saver_net.restore(sess, join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '.ckpt'))
         # load the unsegmented video 
         video = ut.loadVideo(seq)
-        print('the original ibbSets is \n', ibbSets[seq])
-        finalIbbSets = pred_IBB2(video, ibbSets[seq], sess, c3d)
+        print('the original ibbSets is \n', ibbSets[seq-1])
+        finalIbbSets = pred_IBB2(video, ibbSets[seq-1], sess, c3d)
         print('the new ibbSets is \n', finalIbbSets)
  
 if __name__ == "__main__":
