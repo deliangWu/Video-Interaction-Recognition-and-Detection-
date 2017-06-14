@@ -18,7 +18,7 @@ def Label(fileName):
     return int(fileName[fileName.index(".") - 1 : fileName.index(".")])
 
 class ut_interaction:
-    def __init__(self,paths,frmSize,numOfClasses = 6):
+    def __init__(self,paths,frmSize,numOfClasses = 6,c3En = False):
         self._frmSize = frmSize
         self._numOfClasses = numOfClasses
         self._filesSet = np.empty((0,3)) 
@@ -26,15 +26,21 @@ class ut_interaction:
         self._testingFilesSet= []
         self._tr = tracker.SummaryTracker()
         for path in paths:
-            self._files = np.array([f for f in listdir(path) if isfile(join(path,f)) and \
+            if c3En:
+                self._files = np.array([f for f in listdir(path) if isfile(join(path,f)) and \
                                                                 re.search('.avi',f) is not None and \
                                                                 Label(f) < numOfClasses])
+            else:
+                self._files = np.array([f for f in listdir(path) if isfile(join(path,f)) and \
+                                                                re.search('.avi',f) is not None and \
+                                                                Label(f) < numOfClasses  and\
+                                                                Label( f) != 3])
             fs = np.array([[sequence(fileName), join(path,fileName), Label(fileName)] for i,fileName in enumerate(self._files)])
             self._filesSet = np.append(self._filesSet,fs,axis = 0)
         
     def splitTrainingTesting(self,n, loadTrainingEn = False):
-        testingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) == n and int(fileSet[2])!=3]
-        trainingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) != n and int(fileSet[2])!=3]
+        testingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) == n]
+        trainingIndex = [i for i,fileSet in enumerate(self._filesSet) if int(fileSet[0]) != n] 
         self._trainingFilesSet = self._filesSet[trainingIndex]
         self._testingFilesSet = self._filesSet[testingIndex]
         # clean training videos 

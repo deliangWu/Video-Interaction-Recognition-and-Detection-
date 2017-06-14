@@ -36,21 +36,21 @@ def main(argv):
         seqNo = int(argv[2][3:])
         seqRange = (seqNo,)
         if seqNo <= 10:
-            ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses)
+            ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses,c3En=True)
             savePrefix = 'c3d_train_on_ut_set1_'
             log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
         else:
-            ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=numOfClasses)
+            ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=numOfClasses,c3En=True)
             savePrefix = 'c3d_train_on_ut_set2_'
             log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     elif len(argv) >= 3 and argv[2] == 'set2':
         seqRange = range(11,21)
-        ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=numOfClasses)
+        ut_set = ut.ut_interaction_set2(frmSize,numOfClasses=numOfClasses,c3En=True)
         savePrefix = 'c3d_train_on_ut_set2_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set2 from scratch! \n'
     else:
         seqRange = range(1,11)
-        ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses)
+        ut_set = ut.ut_interaction_set1(frmSize,numOfClasses=numOfClasses, c3En=True)
         savePrefix = 'c3d_train_on_ut_set1_'
         log = time.ctime() + ' Train the 3D-ConvNet on UT-Interaction dataset set1 from scratch! \n'
     
@@ -131,24 +131,24 @@ def main(argv):
                         common.pAndWf(logName,log)
                         #if anv_accuracy == 1 or loss_t_mean / loss_t_min > 1.1 or i > 500:
                         #if i > 500 or loss_t_mean < 0.35 and (test_accuracy == 1  or loss_t_mean / loss_t_min > 1.2):
-                        if i > 500:
+                        if i > 700:
                             break
                     i+=1
                 #saver_feature_g.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_fg6.ckpt'))
                 #saver_classifier.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '_c6.ckpt'))
-                saver_net.save(sess,join(common.path.variablePath, savePrefix  + str(seq) + '.ckpt'))
+                saver_net.save(sess,join(common.path.variablePath2, savePrefix  + str(seq) + '.ckpt'))
                 common.pAndWf(logName,' \n')
-                accuSet.append(test_accuracy)
-                t2accuSet.append(t2y_accu)
-                log = 'The list of Classification Accuracy: ' + str(accuSet) + \
+            else:
+                saver_net.restore(sess, join(common.path.variablePath2, savePrefix  + str(seq) + '.ckpt'))
+                test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
+                print('Testing accuracy is ', test_accuracy)
+            accuSet.append(test_accuracy)
+            t2accuSet.append(t2y_accu)
+        log = 'The list of Classification Accuracy: ' + str(accuSet) + \
                       '\n ' + str(t2accuSet) + \
                       '\n Mean Classification Accuracy is ' + str(np.mean(accuSet)) + ', and top2 mean accuracy is ' + str(np.mean(t2accuSet)) + '\n' + \
                       '__________________________________________________________________________________________________\n \n'
-                common.pAndWf(logName,log)
-            else:
-                saver_net.restore(sess, join(common.path.variablePath, savePrefix  + str(seq) + '.ckpt'))
-                test_accuracy,t2y_accu = c3d.top2Accu(test_x, test_y, sess)
-                print('Testing accuracy is ', test_accuracy)
+        common.pAndWf(logName,log)
             
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)

@@ -57,6 +57,7 @@ class path:
         
         
     variablePath = join(projectPath,'variableSave/')
+    variablePath2 = join(projectPath,'tempSave/')
     logPath = join(projectPath,'log/')
     
 class Vars:
