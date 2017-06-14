@@ -211,7 +211,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
         if pred_y != 6:
             pred_yList.append([bbStartFrmNo,ibb,top2y])
-            #print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
+            print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
         bbStartFrmNo += stride 
     return pred_yList
 
@@ -254,7 +254,7 @@ def NMS_IBB(ibbSets):
         pred_Label = Counter(ySet).most_common(1)[0][0]
         sf = ibbSet[0][0]
         ef = ibbSet[0][1]
-        if (ef - sf) >= 55:
+        if (ef - sf) >= 0:
             ibbs.append([pred_Label,sf,ef,ibb[0],ibb[1],ibb[2],ibb[3]])
     return np.array(ibbs)    
 
