@@ -55,7 +55,7 @@ def plotTemp(gt_ibbSets,det_ibbSets,tMax):
 
 # read ground truth from excel file
 def getGroundTruth(setNo, seqNo):
-    workbook = open_workbook(common.projectPath + 'datasets/UT_Interaction/ut-interaction_labels_110912.xls')
+    workbook = open_workbook(common.path.projectPath + 'datasets/UT_Interaction/ut-interaction_labels_110912.xls')
     groundTruth = []
     for sheet in workbook.sheets():
         if sheet.name == 'Set'+str(setNo):
