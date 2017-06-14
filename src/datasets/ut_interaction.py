@@ -250,9 +250,9 @@ class ut_interaction_ga:
         
 
 class ut_interaction_set1(ut_interaction):
-    def __init__(self,frmSize,numOfClasses = 6):
+    def __init__(self,frmSize,numOfClasses = 6, c3En=False):
         path = [common.path.utSet1Path]
-        ut_interaction.__init__(self,path,frmSize, numOfClasses)
+        ut_interaction.__init__(self,path,frmSize, numOfClasses, c3En=c3En)
 
 class ut_interaction_set1_a(ut_interaction):
     def __init__(self,frmSize,numOfClasses = 6):
@@ -270,9 +270,9 @@ class ut_interaction_set1_ga(ut_interaction_ga):
         ut_interaction_ga.__init__(self,paths,frmSize, numOfClasses= numOfClasses)
 
 class ut_interaction_set2(ut_interaction):
-    def __init__(self,frmSize,numOfClasses=6):
+    def __init__(self,frmSize,numOfClasses=6, c3En=False):
         path = [common.path.utSet2Path]
-        ut_interaction.__init__(self,path,frmSize,numOfClasses)
+        ut_interaction.__init__(self,path,frmSize,numOfClasses,c3En=c3En)
 
 class ut_interaction_set2_atomic(ut_interaction_atomic):
     def __init__(self,frmSize):
