@@ -6,6 +6,7 @@ import sys
 from os.path import join 
 sys.path.insert(1,'../datasets')
 sys.path.insert(1,'../model')
+sys.path.insert(1,'../train')
 sys.path.insert(1,'../common')
 import ut_interaction as ut
 import model

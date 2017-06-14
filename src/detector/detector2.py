@@ -15,6 +15,7 @@ sys.path.insert(1,'../datasets')
 sys.path.insert(1,'../model')
 sys.path.insert(1,'../common')
 sys.path.insert(1,'../humanSegmentation')
+sys.path.insert(1,'../train')
 import ut_interaction as ut
 import model
 import common

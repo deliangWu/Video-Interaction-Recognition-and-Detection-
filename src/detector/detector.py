@@ -15,6 +15,7 @@ from os.path import join
 sys.path.insert(1,'../datasets')
 sys.path.insert(1,'../model')
 sys.path.insert(1,'../common')
+sys.path.insert(1,'../train')
 sys.path.insert(1,'../humanSegmentation')
 import ut_interaction as ut
 import model
@@ -211,7 +212,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
         if pred_y != 6:
             pred_yList.append([bbStartFrmNo,ibb,top2y])
-            print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
+            #print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y)
         bbStartFrmNo += stride 
     return pred_yList
 
@@ -285,8 +286,8 @@ def main(argv):
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
     seqNo = int(argv[1][3:])
-    seqRange = (seqNo,)
-    #seqRange = (1,)
+    #seqRange = (seqNo,)
+    seqRange = range(6,11)
     for seq in seqRange:
         log = '****************************************\n' \
             + 'current sequence is ' + str(seq)  + '\n' + \
@@ -296,13 +297,13 @@ def main(argv):
             sess.run(initVars)
         # load trained network  
         saver_net = tf.train.Saver()
-        saver_net.restore(sess, join(common.path.variablePath, 'c3d_train_on_ut_set1_' + str(seq) + '_det7c.ckpt'))
+        saver_net.restore(sess, join(common.path.variablePath, 'c3d_c7_det_set1_' + str(seq) + '_det7c.ckpt'))
         
         # generate candidate bounding boxe by applying person detection and tracking            
         video = ut.loadVideo(seq)
         #picks = humanDetector(video)
         #common.saveList2File('bbList_seq'+str(seq)+'.txt',picks)
-        picks = common.readListFromFile('bbList_seq'+str(seq)+'.txt')
+        picks = common.readListFromFile('./bbList/bbList_seq'+str(seq)+'.txt')
         #picks = normBB(picks,video=video)
         #_,_,_,boundingBoxes,bbInitFrmNo = hdt.humanTracking(video,picks,frmSize,dispBBEn = True) 
         picks = normBB(picks)
