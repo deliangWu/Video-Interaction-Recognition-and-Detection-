@@ -70,6 +70,9 @@ def downSampling(video,n=2):
     #    sample = np.sort(np.random.randint(0,frameN,n))
     #else:
     #    sample = np.sort(np.random.randint(0,frameN,int(frameN/16)*16))
+    if (frameN > 96):
+        video = video[frameN//2-48:frameN//2+48]
+    frameN = video.shape[0]
     if n == 0:
         sample = np.arange(np.random.randint(int(frameN/16)),frameN,int(frameN/16)) 
     else:
