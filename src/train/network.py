@@ -92,7 +92,7 @@ class C3DNET:
                 for single_test_x in test_x:
                     y_conv.append(self._y_conv.eval(feed_dict = {self._x:np.reshape(single_test_x,(1,)+single_test_x.shape), self._keep_prob:1})[0])
             probs = np.array(y_conv)
-            probs = tf.nn.softmax(probs)
+            probs = tf.nn.softmax(probs).eval()
         return probs
     
 class C3DNET_2F1C:
