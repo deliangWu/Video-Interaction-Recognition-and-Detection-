@@ -64,8 +64,8 @@ def main(argv):
         saver_net.restore(sess, join(common.path.variablePath, 'c3d_c7_det_set1_1_det7c.ckpt'))
         # get bounding boxes for the interacting people        
         boundingBoxes,bbInitFrmNo,video = sid.spIntDet(seq)
-        for vLen in(48,):
-            for stride in (4,):
+        for vLen in(64,):
+            for stride in (8,):
                 common.pAndWf(logName, '*********** vLen :'+str(vLen)+' stride: '+ str(stride) +' **************************\n')
                 ibbLists= sid.genIBB(boundingBoxes,vLen,stride)
                 #dispIBB(video, bbInitFrmNo, ibbLists[:,2])
