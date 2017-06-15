@@ -61,7 +61,7 @@ def main(argv):
             sess.run(initVars)
         # load trained network  
         saver_net = tf.train.Saver()
-        saver_net.restore(sess, join(common.path.variablePath, 'c3d_c7_det_set1_' + str(seq) + '_det7c.ckpt'))
+        saver_net.restore(sess, join(common.path.variablePath, 'c3d_c7_det_set1_1_det7c.ckpt'))
         # get bounding boxes for the interacting people        
         boundingBoxes,bbInitFrmNo,video = sid.spIntDet(seq)
         for vLen in(48,):
