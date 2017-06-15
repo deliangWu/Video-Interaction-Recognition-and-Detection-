@@ -76,8 +76,7 @@ def main(argv):
                 # non-maximum suppression to vote the most possible lables
                 finalPredIBB,probs = sid.NMS_IBB(ibbSets)
                 f2p = sid.pred_IBB2(video, finalPredIBB, sess, c3d)
-                common.pAndWf(logName,str(finalPredIBB)+'\n' + 'prob matrix is \n' + str(probs) + '\n')
-                print('The second time predication is \n' + str(f2p))
+                common.pAndWf(logName,str(f2p)+'\n' + 'prob matrix is \n' + str(probs) + '\n')
  
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)

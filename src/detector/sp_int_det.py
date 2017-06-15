@@ -275,12 +275,12 @@ def NMS_IBB(ibbSets):
                 pred_Label = mcy2
                 probs = [mcy2,pmcy2/(pmcy1 + pmcy2),mcy1,pmcy1/(pmcy1 + pmcy2)]    
         else:
-            pred_Label = ySel[0][0]
+            pred_Label = int(ySel[0][0])
             probs = [pred_Label,1]
                 
         ibbs.append([pred_Label,ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
         probsList.append(probs)
-    return (np.array(ibbs,dtype=np.uint16),probsList)  
+    return (np.array(ibbs,dtype=np.uint16),np.array(probsList))  
 
 def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
     # generate candidate bounding boxe by applying person detection and tracking            
