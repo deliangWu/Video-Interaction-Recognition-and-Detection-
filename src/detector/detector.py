@@ -74,8 +74,8 @@ def main(argv):
                 # combine the temporal-neighbour bounding boxes as a same interaction label
                 ibbSets = sid.comb_IBB(pred_yList,vLen)
                 # non-maximum suppression to vote the most possible lables
-                finalPredIBB = sid.NMS_IBB(ibbSets)
-                common.pAndWf(logName,str(finalPredIBB)+'\n')
+                finalPredIBB,probs = sid.NMS_IBB(ibbSets)
+                common.pAndWf(logName,str(finalPredIBB)+'\n' + 'prob matrix is \n' + str(probs) + '\n')
  
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)

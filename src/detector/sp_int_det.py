@@ -273,8 +273,8 @@ def NMS_IBB(ibbSets):
         sf = ibbSet[0][0]
         ef = ibbSet[0][1]
         if (ef - sf) >= 0:
-            ibbs.append([pred_Label,sf,ef,ibb[0],ibb[1],ibb[2],ibb[3],probs])
-    return np.array(ibbs)    
+            ibbs.append([pred_Label,sf,ef,ibb[0],ibb[1],ibb[2],ibb[3]])
+    return (np.array(ibbs),probs)  
 
 def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
     # generate candidate bounding boxe by applying person detection and tracking            
