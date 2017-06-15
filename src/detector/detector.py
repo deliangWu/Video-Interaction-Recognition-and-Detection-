@@ -47,7 +47,7 @@ def main(argv):
     savePrefix = 'c3d_detector_'
     logName =  savePrefix + common.getDateTime() + '.txt'
     common.clearFile(logName)
-    if len(argv) >= 2:
+    if len(argv) >= 2 and argv[1][0:3] == 'seq':
         seqNo = int(argv[1][3:])
         seqRange = (seqNo,)
     else:

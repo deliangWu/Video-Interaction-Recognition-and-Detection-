@@ -242,9 +242,9 @@ def NMS_IBB(ibbSets):
         #ySel = ibbSet[2][int(len(ibbSet[2])/2) - 1: int(len(ibbSet[2])/2 + 2)]
         ySel = ibbSet[2]
         ySet =[]
-        m = len(ySel)//3
-        s = max(0,m-1)
-        e = min(len(ySel),m+2)
+        m = len(ySel)//1.6
+        s = max(0,m-2)
+        e = min(len(ySel),m+3)
         for y in ySel[s:e]:
             if y[0] !=6:
                 ySet.append([y[0]]*4)
