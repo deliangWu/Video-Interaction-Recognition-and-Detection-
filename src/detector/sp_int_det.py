@@ -208,10 +208,10 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
         prob = c3d.evaluateProb(vChop_det, sess)[0]
         pred_y = np.argmax(prob)
-        top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
+        pred_yp = [pred_y,prob[pred_y]]
         if pred_y != 6:
-            pred_yList.append([bbStartFrmNo,ibb,top2y])
-            print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', top2y, '******* prob is ', prob[top2y])
+            pred_yList.append([bbStartFrmNo,ibb,pred_yp])
+            print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_yp)
         bbStartFrmNo += stride 
     return pred_yList
 
@@ -240,22 +240,35 @@ def NMS_IBB(ibbSets):
         ibb = np.mean(np.array(ibbSet[1]),0).astype(np.uint16)
         # vote for the most possible label
         #ySel = ibbSet[2][int(len(ibbSet[2])/2) - 1: int(len(ibbSet[2])/2 + 2)]
-        ySel = ibbSet[2]
-        ySet =[]
-        m = int(len(ySel)/1.6)
-        s = max(0,m-2)
-        e = min(len(ySel),m+3)
-        for y in ySel[s:e]:
-            if y[0] !=6:
-                ySet.append([y[0]]*4)
-            if y[1] !=6:
-                ySet.append([y[1]]*1)
-        ySet = [item for subList in ySet for item in subList]
-        pred_Label = Counter(ySet).most_common(1)[0][0]
+        ySel = np.array(ibbSet[2])
+        #ySet =[]
+        #m = int(len(ySel)/1.6)
+        #s = max(0,m-2)
+        #e = min(len(ySel),m+3)
+        #for y in ySel[s:e]:
+        #    if y[0] !=6:
+        #        ySet.append([y[0]]*4)
+        #    if y[1] !=6:
+        #        ySet.append([y[1]]*1)
+        #ySet = [item for subList in ySet for item in subList]
+        #pred_Label = Counter(ySet).most_common(1)[0][0]
+        # mcy1 is the first most cmmon y 
+        mcy1 = int(Counter(ySel[:,0]).most_common(2)[0][0])
+        mcy2 = int(Counter(ySel[:,0]).most_common(2)[1][0])
+        ind1 = np.where(ySel[:,0] == mcy1)
+        ind2 = np.where(ySel[:,0] == mcy2)
+        pmcy1 = np.mean(ySel[ind1][:,1])
+        pmcy2 = np.mean(ySel[ind2][:,1])
+        if pmcy1 >= pmcy2:
+            pred_Label = mcy1
+            probs = [mcy1,pmcy1/(pmcy1 + pmcy2),mcy2,pmcy2/(pmcy1 + pmcy2)]    
+        else:
+            pred_Label = mcy2
+            probs = [mcy2,pmcy2/(pmcy1 + pmcy2),mcy1,pmcy1/(pmcy1 + pmcy2)]    
         sf = ibbSet[0][0]
         ef = ibbSet[0][1]
         if (ef - sf) >= 0:
-            ibbs.append([pred_Label,sf,ef,ibb[0],ibb[1],ibb[2],ibb[3]])
+            ibbs.append([pred_Label,sf,ef,ibb[0],ibb[1],ibb[2],ibb[3],probs])
     return np.array(ibbs)    
 
 def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
