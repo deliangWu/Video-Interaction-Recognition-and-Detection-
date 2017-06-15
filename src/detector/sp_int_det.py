@@ -278,7 +278,7 @@ def NMS_IBB(ibbSets):
         else:
             pred_Label = int(ySel[0][0])
             probs = [pred_Label,1]
-        if ibbSet[0][1] - ibbSet[0][0] >= 64:        
+        if ibbSet[0][1] - ibbSet[0][0] >= 47:        
             if len(ibbs) > 0 and ibbs[-1][2] > ibbSet[0][0] and ibbs[-1][0] == pred_Label:
                 ibbs[-1][2] = ibbSet[0][1]
             else:
