@@ -252,19 +252,24 @@ def NMS_IBB(ibbSets):
         #        ySet.append([y[1]]*1)
         #ySet = [item for subList in ySet for item in subList]
         #pred_Label = Counter(ySet).most_common(1)[0][0]
-        # mcy1 is the first most cmmon y 
-        mcy1 = int(Counter(ySel[:,0]).most_common(2)[0][0])
-        mcy2 = int(Counter(ySel[:,0]).most_common(2)[1][0])
-        ind1 = np.where(ySel[:,0] == mcy1)
-        ind2 = np.where(ySel[:,0] == mcy2)
-        pmcy1 = np.mean(ySel[ind1][:,1])
-        pmcy2 = np.mean(ySel[ind2][:,1])
-        if pmcy1 >= pmcy2:
-            pred_Label = mcy1
-            probs = [mcy1,pmcy1/(pmcy1 + pmcy2),mcy2,pmcy2/(pmcy1 + pmcy2)]    
+        # mcy1 is the first most cmmon y
+        if len(Counter(ySel[:,0]).most_common(2)) > 1:
+            mcy1 = int(Counter(ySel[:,0]).most_common(2)[0][0])
+            mcy2 = int(Counter(ySel[:,0]).most_common(2)[1][0])
+            ind1 = np.where(ySel[:,0] == mcy1)
+            ind2 = np.where(ySel[:,0] == mcy2)
+            pmcy1 = np.mean(ySel[ind1][:,1])
+            pmcy2 = np.mean(ySel[ind2][:,1])
+            if pmcy1 >= pmcy2:
+                pred_Label = mcy1
+                probs = [mcy1,pmcy1/(pmcy1 + pmcy2),mcy2,pmcy2/(pmcy1 + pmcy2)]    
+            else:
+                pred_Label = mcy2
+                probs = [mcy2,pmcy2/(pmcy1 + pmcy2),mcy1,pmcy1/(pmcy1 + pmcy2)]    
         else:
-            pred_Label = mcy2
-            probs = [mcy2,pmcy2/(pmcy1 + pmcy2),mcy1,pmcy1/(pmcy1 + pmcy2)]    
+            pred_Label = ySel[0][0]
+            probs = [pred_Label,1]
+                
         sf = ibbSet[0][0]
         ef = ibbSet[0][1]
         if (ef - sf) >= 0:
