@@ -212,7 +212,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
         pred_yp = [pred_y,prob[pred_y]]
         #if pred_y != 6 and top2y[1] != 6 and prob[pred_y] > 0.4:
-        if pred_y != 6 and prob[pred_y] > 0.5:
+        if pred_y != 6 and prob[pred_y] > 0.45:
             pred_yList.append([bbStartFrmNo,ibb,pred_yp])
             print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_yp)
         bbStartFrmNo += stride 
@@ -242,7 +242,7 @@ def comb_IBB(pred_yList,vLen=64):
     ibbList = []
     yList = []
     for i in range(len(pred_yList)):
-        endingFrameNo = pred_yList[i][0] + int(vLen/1.5)
+        endingFrameNo = pred_yList[i][0] + int(vLen/1)
         ibbList.append(pred_yList[i][1])
         yList.append(pred_yList[i][2])
         if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= (vLen / 4) or i == len(pred_yList)-1:
@@ -278,9 +278,12 @@ def NMS_IBB(ibbSets):
         else:
             pred_Label = int(ySel[0][0])
             probs = [pred_Label,1]
-        if ibbSet[0][1] - ibbSet[0][0] >= 48:        
-            ibbs.append([pred_Label,ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
-            probsList.append(probs)
+        if ibbSet[0][1] - ibbSet[0][0] >= 64:        
+            if len(ibbs) > 0 and ibbs[-1][2] > ibbSet[0][0] and ibbs[-1][0] == pred_Label:
+                ibbs[-1][2] = ibbSet[0][1]
+            else:
+                ibbs.append([pred_Label,ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
+                probsList.append(probs)
     return (np.array(ibbs,dtype=np.uint16),np.array(probsList))  
 
 def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
