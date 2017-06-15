@@ -242,7 +242,7 @@ def comb_IBB(pred_yList,vLen=64):
     ibbList = []
     yList = []
     for i in range(len(pred_yList)):
-        endingFrameNo = pred_yList[i][0] + vLen 
+        endingFrameNo = pred_yList[i][0] + int(vLen/1.5)
         ibbList.append(pred_yList[i][1])
         yList.append(pred_yList[i][2])
         if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= (vLen / 4) or i == len(pred_yList)-1:
@@ -278,9 +278,9 @@ def NMS_IBB(ibbSets):
         else:
             pred_Label = int(ySel[0][0])
             probs = [pred_Label,1]
-                
-        ibbs.append([pred_Label,ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
-        probsList.append(probs)
+        if ibbSet[0][1] - ibbSet[0][0] >= 48:        
+            ibbs.append([pred_Label,ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
+            probsList.append(probs)
     return (np.array(ibbs,dtype=np.uint16),np.array(probsList))  
 
 def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
