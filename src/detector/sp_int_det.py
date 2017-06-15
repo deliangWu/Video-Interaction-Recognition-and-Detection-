@@ -212,7 +212,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
         pred_yp = [pred_y,prob[pred_y]]
         #if pred_y != 6 and top2y[1] != 6 and prob[pred_y] > 0.4:
-        if pred_y != 6 and prob[pred_y] > 0.45:
+        if pred_y != 6 and prob[pred_y] > 0.5:
             pred_yList.append([bbStartFrmNo,ibb,pred_yp])
             print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_yp)
         bbStartFrmNo += stride 
@@ -245,7 +245,7 @@ def comb_IBB(pred_yList,vLen=64):
         endingFrameNo = pred_yList[i][0] + int(vLen/1)
         ibbList.append(pred_yList[i][1])
         yList.append(pred_yList[i][2])
-        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= vLen or i == len(pred_yList)-1:
+        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= int(vLen/2) or i == len(pred_yList)-1:
             ibbSets.append([[startingFrameNo,endingFrameNo],ibbList,yList])
             if (i < len(pred_yList) - 1):
                 startingFrameNo = pred_yList[i+1][0]
