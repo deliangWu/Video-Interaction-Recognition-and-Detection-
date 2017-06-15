@@ -64,7 +64,7 @@ def main(argv):
         saver_net.restore(sess, join(common.path.variablePath, 'c3d_c7_det_set1_1_det7c.ckpt'))
         # get bounding boxes for the interacting people        
         boundingBoxes,bbInitFrmNo,video = sid.spIntDet(seq)
-        for vLen in(64,):
+        for vLen in(48,):
             for stride in (8,):
                 common.pAndWf(logName, '*********** vLen :'+str(vLen)+' stride: '+ str(stride) +' **************************\n')
                 ibbLists= sid.genIBB(boundingBoxes,vLen,stride)
@@ -75,8 +75,8 @@ def main(argv):
                 ibbSets = sid.comb_IBB(pred_yList,vLen)
                 # non-maximum suppression to vote the most possible lables
                 finalPredIBB,probs = sid.NMS_IBB(ibbSets)
-                f2p = sid.pred_IBB2(video, finalPredIBB, sess, c3d)
-                common.pAndWf(logName,str(f2p)+'\n' + 'prob matrix is \n' + str(probs) + '\n')
+                #f2p = sid.pred_IBB2(video, finalPredIBB, sess, c3d)
+                common.pAndWf(logName,str(finalPredIBB)+'\n' + 'prob matrix is \n' + str(probs) + '\n')
  
 if __name__ == "__main__":
     tf.app.run(main=main, argv=sys.argv)

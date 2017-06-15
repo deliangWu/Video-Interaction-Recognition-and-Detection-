@@ -211,7 +211,8 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         pred_y = np.argmax(prob)
         top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
         pred_yp = [pred_y,prob[pred_y]]
-        if pred_y != 6 and top2y[1] != 6 and prob[pred_y] > 0.4:
+        #if pred_y != 6 and top2y[1] != 6 and prob[pred_y] > 0.4:
+        if pred_y != 6 and prob[pred_y] > 0.5:
             pred_yList.append([bbStartFrmNo,ibb,pred_yp])
             print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_yp)
         bbStartFrmNo += stride 
