@@ -245,7 +245,7 @@ def comb_IBB(pred_yList,vLen=64):
         endingFrameNo = pred_yList[i][0] + int(vLen/1)
         ibbList.append(pred_yList[i][1])
         yList.append(pred_yList[i][2])
-        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= (vLen / 4) or i == len(pred_yList)-1:
+        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= vLen or i == len(pred_yList)-1:
             ibbSets.append([[startingFrameNo,endingFrameNo],ibbList,yList])
             if (i < len(pred_yList) - 1):
                 startingFrameNo = pred_yList[i+1][0]
