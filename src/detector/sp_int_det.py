@@ -209,11 +209,29 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         prob = c3d.evaluateProb(vChop_det, sess)[0]
         pred_y = np.argmax(prob)
         pred_yp = [pred_y,prob[pred_y]]
-        if pred_y != 6:
+        if pred_y != 6 and prob[pred_y] > 0.4:
             pred_yList.append([bbStartFrmNo,ibb,pred_yp])
             print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_yp)
         bbStartFrmNo += stride 
     return pred_yList
+
+def pred_IBB2(video,ibbSets,sess,c3d): 
+    pred_ibb2List = []
+    for ibbSet in ibbSets:
+        ibb = ibbSet[3:7]
+        yList = []
+        for i in range(5):
+            vChop = video[ibbSet[1]:ibbSet[2],ibb[1]:ibb[3],ibb[0]:ibb[2]]
+            vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=0, RLFlipEn=False,numOfRandomCrop=4)
+            vChop = vpp.videoNorm1(vChop,normMode=1)
+            vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
+            prob = c3d.evaluateProb(vChop_det, sess)[0]
+            pred_y = np.argmax(prob)
+            yList.append(pred_y)
+        pred_label = Counter(yList).most_common(1)[0][0]
+        
+        pred_ibb2List.append([pred_label, ibbSet[1],ibbSet[2],ibb[0],ibb[1],ibb[2],ibb[3]])
+    return np.array(pred_ibb2List)
 
 def comb_IBB(pred_yList,vLen=64):           
     ibbSets = []
@@ -224,7 +242,7 @@ def comb_IBB(pred_yList,vLen=64):
         endingFrameNo = pred_yList[i][0] + vLen 
         ibbList.append(pred_yList[i][1])
         yList.append(pred_yList[i][2])
-        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= (vLen - 4) or i == len(pred_yList)-1:
+        if pred_yList[min(len(pred_yList)-1,i+1)][0] - pred_yList[i][0] >= (vLen / 2) or i == len(pred_yList)-1:
             ibbSets.append([[startingFrameNo,endingFrameNo],ibbList,yList])
             if (i < len(pred_yList) - 1):
                 startingFrameNo = pred_yList[i+1][0]
