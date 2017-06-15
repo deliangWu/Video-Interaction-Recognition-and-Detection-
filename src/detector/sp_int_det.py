@@ -209,8 +209,9 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
         prob = c3d.evaluateProb(vChop_det, sess)[0]
         pred_y = np.argmax(prob)
+        top2y = [np.argsort(prob)[-1],np.argsort(prob)[-2]]
         pred_yp = [pred_y,prob[pred_y]]
-        if pred_y != 6 and prob[pred_y] > 0.4:
+        if pred_y != 6 and top2y[1] != 6 and prob[pred_y] > 0.4:
             pred_yList.append([bbStartFrmNo,ibb,pred_yp])
             print(bbStartFrmNo,'+++++++++',ibb,'----- Label is ', pred_yp)
         bbStartFrmNo += stride 
@@ -230,8 +231,8 @@ def pred_IBB2(video,ibbSets,sess,c3d):
             pred_y = np.argmax(prob)
             yList.append(pred_y)
         pred_label = Counter(yList).most_common(1)[0][0]
-        
-        pred_ibb2List.append([pred_label, ibbSet[1],ibbSet[2],ibb[0],ibb[1],ibb[2],ibb[3]])
+        if pred_label != 6:
+            pred_ibb2List.append([pred_label, ibbSet[1],ibbSet[2],ibb[0],ibb[1],ibb[2],ibb[3]])
     return np.array(pred_ibb2List)
 
 def comb_IBB(pred_yList,vLen=64):           
