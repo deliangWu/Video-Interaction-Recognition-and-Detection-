@@ -236,22 +236,11 @@ def comb_IBB(pred_yList,vLen=64):
 def NMS_IBB(ibbSets):
     from collections import Counter
     ibbs = []
+    probsList = []
     for ibbSet in ibbSets:
         ibb = np.mean(np.array(ibbSet[1]),0).astype(np.uint16)
         # vote for the most possible label
-        #ySel = ibbSet[2][int(len(ibbSet[2])/2) - 1: int(len(ibbSet[2])/2 + 2)]
         ySel = np.array(ibbSet[2])
-        #ySet =[]
-        #m = int(len(ySel)/1.6)
-        #s = max(0,m-2)
-        #e = min(len(ySel),m+3)
-        #for y in ySel[s:e]:
-        #    if y[0] !=6:
-        #        ySet.append([y[0]]*4)
-        #    if y[1] !=6:
-        #        ySet.append([y[1]]*1)
-        #ySet = [item for subList in ySet for item in subList]
-        #pred_Label = Counter(ySet).most_common(1)[0][0]
         # mcy1 is the first most cmmon y
         if len(Counter(ySel[:,0]).most_common(2)) > 1:
             mcy1 = int(Counter(ySel[:,0]).most_common(2)[0][0])
@@ -270,11 +259,9 @@ def NMS_IBB(ibbSets):
             pred_Label = ySel[0][0]
             probs = [pred_Label,1]
                 
-        sf = ibbSet[0][0]
-        ef = ibbSet[0][1]
-        if (ef - sf) >= 0:
-            ibbs.append([pred_Label,sf,ef,ibb[0],ibb[1],ibb[2],ibb[3]])
-    return (np.array(ibbs),probs)  
+        ibbs.append([pred_Label,ibbSet[0][0],ibbSet[0][1],ibb[0],ibb[1],ibb[2],ibb[3]])
+        probsList.append(probs)
+    return (np.array(ibbs,dtype=np.uint16),probsList)  
 
 def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
     # generate candidate bounding boxe by applying person detection and tracking            
