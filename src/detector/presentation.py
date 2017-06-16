@@ -91,7 +91,6 @@ def genIDet(seq,fname):
     gt = det_ev.getGroundTruth(1, seq)
     logName = common.path.logPath + 'c3d_detector_06-15-21-21.txt'
     pred_ibbs = np.array(det_ev.readDetLog(logName)[seq-1])
-    print(pred_ibbs)
     video = ut.loadVideo(seq)
     for i,img in enumerate(video):
         # draw gt on the image
@@ -114,7 +113,7 @@ def videoCombine(v1,v2,v3,v4,fname):
     i = 0
     for f1,f2,f3,f4 in zip(v1,v2,v3,v4):
         f12 = np.concatenate([f1,f2],1)
-        f23 = np.concatenate([f3,f4],1)
+        f34 = np.concatenate([f3,f4],1)
         fo = np.concatenate([f12,f34],axis=0)
         if i == 0:
             vo = np.reshape(fo,(1,)+fo.shape)
