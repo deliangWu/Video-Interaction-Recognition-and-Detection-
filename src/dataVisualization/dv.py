@@ -51,6 +51,7 @@ def readLog(logName,seqBias = 1, start = 0, end = 1):
                 step = int(line[line.index('step') + 6:line.index('step:') + line[line.index('step:'):].index(',')])
                 stepList[seq].append(step)
                 t_accu = float(line[line.index('testing:') + 9:line.index('testing:') + line[line.index('testing:'):].index(',')])
+                #t_accu = float(line[line.index('t2y:') + 5:])
                 t_accuList[seq].append(t_accu)
                 tr_accu = float(line[line.index('training:') + 10:line.index('training:') + line[line.index('training:'):].index(',')])
                 tr_accuList[seq].append(tr_accu)
@@ -65,7 +66,7 @@ def readLog(logName,seqBias = 1, start = 0, end = 1):
     steps = stepList[lenList.index(maxLen)]
     steps = np.array(steps) * 16 / 1296
    
-    print(t_accuList) 
+    print(np.array(t_accuList))
     t_accuList_resize = alignList(t_accuList)
     print(t_accuList_resize.shape)
     t_accus = np.mean(t_accuList_resize,0)
@@ -252,7 +253,7 @@ def plot1(figPlot,dispEn=True):
     if figPlot == 'set2':
         fname_0 = common.path.logPath + 'c3d_train_on_ut_set2_06-12-08-50.txt'          # base
         label.append('set2')
-        log.append(readLog(fname_0,seqBias=11,start=1,end=2))
+        log.append(readLog(fname_0,seqBias=11,start=2,end=3))
         fig_name = 'D:/Course/Final_Thesis_Project/Thesis/chapters/chapter05/fig01/plot_set2.pdf'
     
     # ************************************************************* 
@@ -343,16 +344,34 @@ def plot1(figPlot,dispEn=True):
     #figPlot = 'RandomCropping'
     #figPlot = 'downSampling'
     #figPlot = 'dataNormMode'
-figPlotList = ['biases','lr','dropout','layer','kernel', 'nof','noo','RLFlipping','RandomCropping','downSampling','dataNormMode']
-plot1('set2',dispEn=True)
+#figPlotList = ['biases','lr','dropout','layer','kernel', 'nof','noo','RLFlipping','RandomCropping','downSampling','dataNormMode']
+#plot1('set2',dispEn=True)
 
-def dispPersonDetector():
+from xlrd import open_workbook
+def getGroundTruth(setNo, seqNo):
+    workbook = open_workbook(common.path.projectPath + 'datasets/UT_Interaction/ut-interaction_labels_110912.xls')
+    groundTruth = []
+    for sheet in workbook.sheets():
+        if sheet.name == 'Set'+str(setNo):
+            for row in range(62):
+                line = []
+                if sheet.cell(row,0).value == 'seq' + str(seqNo):
+                    for col in range(1,8):
+                        line.append(int(sheet.cell(row,col).value))
+                    groundTruth.append(line)
+    return np.array(groundTruth)
+
+def dispPersonDetector(seq):
     fileName = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/datasets/UT_Interaction/ut-interaction_segmented_set1/segmented_set1/vOut/1_1_2.avi'
     fileName = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/datasets/UT_Interaction/ut-interaction_segmented_set1/segmented_set1/vOut/41_8_0.avi'
-    fileName = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/src/train/seq_10.avi'
+    fileName = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/src/detector/seq_ibb_B_'+str(seq)+'.avi'
     video = vpp.videoRead(fileName,grayMode=False)
     print(video.shape)
-    sample = np.arange(200,video.shape[0]-400,int((video.shape[0]-600)/8))
+    sample = []
+    gt = getGroundTruth(1,seq)
+    for gt_i in gt:
+        sample.append((gt_i[1] + gt_i[2])//2)
+    print(sample)
     video = video[sample]
     resizeRatio_w = 0.2
     resizeRatio_h = 0.2
@@ -365,6 +384,7 @@ def dispPersonDetector():
     cv2.namedWindow('img',1)
     while True:
         cv2.imshow('img',frames)
-        cv2.waitKey(30)
-    
-#dispPersonDetector()   
+        if cv2.waitKey(30) == 27:
+            break
+        
+dispPersonDetector(10)   

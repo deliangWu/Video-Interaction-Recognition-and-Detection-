@@ -104,7 +104,7 @@ def normBB(picks,video=None):
     pre_pick = [[0,0,0,0],[0,0,0,0]]
     new_pick = []
     new_picks = []
-    for i,pick in enumerate(picks):
+    for i,pick in enumerate(picks[0:3500]):
         pick = np.array(pick)
         if pick.shape[0] >= 1:
             y_mean,y_mean_list = genYmean(pick, y_mean,y_mean_list)
@@ -311,6 +311,12 @@ def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
             _,_,_,boundingBoxes,bbInitFrmNo = hdt.humanTracking(video,picks,dispBBEn = False) 
     return(boundingBoxes,bbInitFrmNo,video)
  
-if __name__ == "__main__":
+if __name__ == "__main__t":
     for seq in range(1,11):
-        spIntDet(seq, saveBB=True)
+        spIntDet(seq, saveBB=True)        
+        
+        
+if __name__ == '__main__':
+    for seq in range(1,2):
+        #genPDet(seq,'seq_p_'+str(seq)+'.avi')
+        genIPDet(seq,'seq_ip_'+str(seq)+'.avi')
