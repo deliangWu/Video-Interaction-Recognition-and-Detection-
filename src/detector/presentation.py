@@ -115,10 +115,11 @@ def videoCombine(v1,v2,v3,v4,fname):
         f12 = np.concatenate([f1,f2],1)
         f34 = np.concatenate([f3,f4],1)
         fo = np.concatenate([f12,f34],axis=0)
+        fo_4d = np.reshape(fo,(1,)+fo.shape)
         if i == 0:
-            vo = np.reshape(fo,(1,)+fo.shape)
+            vo = fo_4d
         else:
-            vo = np.append(vo,fo,0)
+            vo = np.append(vo,fo_4d,0)
         i += 1
     vpp.videoPlay(vo)
     vpp.videoSave(vo,fname)
