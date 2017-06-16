@@ -79,8 +79,6 @@ def spatialMeasure(seq):
                     ratioList.append(ratio)
                 if i > gt[gt_i][2]:
                     gt_i+=1
-        cv2.imshow('disp',img)
-        cv2.waitKey(30)
     meanRatio = np.mean(np.array(ratioList))
     print('Seq', seq, ', the overall average overlap of all frames is ',meanRatio)
     vpp.videoSave(video,'seq_ibb_B_'+str(seq)+'.avi')
@@ -110,15 +108,21 @@ def genIDet(seq,fname):
                 cv2.putText(img, ut.labelToString(pred_ibbs[ibbs_i][0]), (pred_ibbs[ibbs_i][5] - 100,pred_ibbs[ibbs_i][4] - 15), cv2.FONT_HERSHEY_COMPLEX, 0.65, (0,0,255), 1, cv2.LINE_AA)
             if i > pred_ibbs[ibbs_i][2]:
                 ibbs_i+=1
-        cv2.imshow('disp',img)
-        cv2.waitKey(30)
     vpp.videoSave(video,fname)
 
 def videoCombine(v1,v2,v3,v4,fname):
-    v12 = np.concatenate([v1,v2],axis=2)
-    v34 = np.concatenate([v3,v4],axis=2)
-    vo = np.concatenate([v12,v34],axis=1)
-    vpp.videoSave(video,fname)
+    i = 0
+    for f1,f2,f3,f4 in zip(v1,v2,v3,v4):
+        f12 = np.concatenate([f1,f2],1)
+        f23 = np.concatenate([f3,f4],1)
+        fo = np.concatenate([f12,f34],axis=0)
+        if i == 0:
+            vo = np.reshape(fo,(1,)+fo.shape)
+        else:
+            vo = np.append(vo,fo,0)
+        i += 1
+    vpp.videoPlay(vo)
+    vpp.videoSave(vo,fname)
     
 
 for seq in range(1,11):

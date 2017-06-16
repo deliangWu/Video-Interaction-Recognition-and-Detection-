@@ -159,8 +159,6 @@ def normBB(picks,video=None):
                 cv2.rectangle(img,(xA,yA),(xB,yB),(0,0,255),1)
             cv2.line(img, (int(x_mean),max(int(y_mean)-20,0)), (int(x_mean),min(int(y_mean)+20,480)), (255,0,0),1)
             cv2.line(img, (max(int(x_mean)-20,0),int(y_mean)), (min(int(x_mean)+20,720),int(y_mean)), (255,0,0),1)
-            cv2.imshow('img',img)
-            cv2.waitKey(30)
         # test code ends
         new_picks.append(new_pick)
     cv2.destroyAllWindows()
