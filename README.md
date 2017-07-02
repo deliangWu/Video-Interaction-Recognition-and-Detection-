@@ -12,9 +12,11 @@ Software dependencies:
 7. imutils  
 
 
-And the file strcture:   
-Project - datasets:   The UT-Interaction dataset (videos)  
-        - log:        The logging files which have all training and evaluating records  
+The file strcture:
+----------------------------------------
+        *Project
+                *- datasets:   The UT-Interaction dataset (videos)  
+                *- log:        The logging files which have all training and evaluating records  
         - variables:  The viarible parameter files  
         -src/
              - common:     Common files   
