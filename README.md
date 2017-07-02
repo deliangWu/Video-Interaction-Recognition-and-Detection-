@@ -1,14 +1,15 @@
 # Video-Interaction-Recognition-and-Detection-
 This is a master thesis project aiming for interaction classification and detection in videos. So, there are two main parts in the projects, including interaction classification and interaction detection.   
 
-Yond need following software dependencies:  
-1. Python 2 or Python 3  
-2. TensorFlow r1.2  
-3. opencv 3.2.0  
-4. numpy  
-5. xlrd  
-6. matplotlib.pyplot  
-7. imutils  
+Software dependencies: 
+----------------------------------------
+1. Python 2 or Python 3  
+2. TensorFlow r1.2  
+3. opencv 3.2.0  
+4. numpy  
+5. xlrd  
+6. matplotlib.pyplot  
+7. imutils  
 
 
 And the file strcture:   
