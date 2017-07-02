@@ -15,12 +15,13 @@ And the file strcture:
 Project - datasets:   The UT-Interaction dataset (videos)  
         - log:        The logging files which have all training and evaluating records  
         - variables:  The viarible parameter files  
-        - common:     Common files  
-        - datasets:   The python files for data pre-processing  
-        - dataVisualization: 3D CNN data visualization, and evaluating results visualization  
-        - model:      3D ConvNet basic model components.  
-        - train:      Interaction classification networks, including singleNet, fullNet, pre-trained Net, etc.  
-        - humanSegmentation: person detection, tracking and segmentation  
-        - detector:   interaction detection.  
+        -src/
+             - common:     Common files   
+             - datasets:   The python files for data pre-processing  
+             - dataVisualization: 3D CNN data visualization, and evaluating results visualization  
+             - model:      3D ConvNet basic model components.  
+             - train:      Interaction classification networks, including singleNet, fullNet, pre-trained Net, etc.  
+             - humanSegmentation: person detection, tracking and segmentation  
+             - detector:   interaction detection.  
         
 
