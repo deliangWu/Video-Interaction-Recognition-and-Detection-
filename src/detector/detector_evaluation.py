@@ -1,3 +1,4 @@
+'''This is more or less a common file to visulize(plot) the results of interaction detection and calculate Intersection over Union, precision, recall, F1-score '''
 import numpy as np
 from xlrd import open_workbook
 import sys
@@ -10,6 +11,7 @@ import videoPreProcess as vpp
 import ut_interaction as ut
 import matplotlib.pyplot as plt
 
+'''Visualize two cub'''
 def plotIbb(cub1,cub2,tMax):
     plt.figure(figsize=(10,5),dpi=72)
     plt.subplots_adjust(hspace=0.3,top = 0.95,bottom = 0.1,left=0.09)
@@ -38,6 +40,7 @@ def plotIbb(cub1,cub2,tMax):
     plt.xlabel('frames',fontsize=9)
     plt.show()
 
+'''Visualize the temporal overlap between the interaction detection and ground truth, the results of interaction detection are loaded from a log file'''
 def plotTemp(logName):
     tMax = 2200
     det_ibbSets = np.array(readDetLog(logName))
@@ -74,22 +77,6 @@ def plotTemp(logName):
     plt.show()
     
     
-def plotSeq(gt_ibbSet,det_ibbSet,tMax):
-    plt.figure(figsize=(10,5),dpi=72)
-    
-    plt.xlim([0,tMax])
-    plt.ylim([0,1])
-    for item in gt_ibbSet:
-        plt.axhline(y=0.52, xmin=item[1]/tMax, xmax=item[2]/tMax, color='g',ls ='-',linewidth=1)
-    for item2 in det_ibbSet:
-        plt.axhline(y=0.48, xmin=item2[1]/tMax, xmax=item2[2]/tMax, color='r',ls ='-',linewidth=1)
-    plt.xlabel('frames',fontsize=9)
-    ax = plt.gca()
-    ax.set_xticks(np.arange(0, tMax, tMax//8))
-    plt.xticks(fontsize=8)
-    plt.legend(fontsize=8)
-    plt.show()
-
 # read ground truth from excel file
 def getGroundTruth(setNo, seqNo):
     workbook = open_workbook(common.path.projectPath + 'datasets/UT_Interaction/ut-interaction_labels_110912.xls')
@@ -104,6 +91,7 @@ def getGroundTruth(setNo, seqNo):
                     groundTruth.append(line)
     return np.array(groundTruth)
 
+'''calculate the overlap ratio between two cubs''' 
 def cubOverlapRation(cub1,cub2):
     volume1 = (cub1[1] - cub1[0]) * (cub1[4] - cub1[2]) * (cub1[5] - cub1[3])
     volume2 = (cub2[1] - cub2[0]) * (cub2[4] - cub2[2]) * (cub2[5] - cub2[3])    
@@ -123,6 +111,7 @@ def cubOverlapRation(cub1,cub2):
     a_ratio = area / ((cub1[4] - cub1[2]) * (cub1[5] - cub1[3]) + (cub2[4] - cub2[2]) * (cub2[5] - cub2[3]) - area)
     return overlapRatio
 
+'''Calculate the overlap ratio between two rectangles'''
 def rectOverlapRation(rect1,rect2):
     area1 =  (rect1[2] - rect1[0]) * (rect1[3] - rect1[1])
     area2 =  (rect2[2] - rect2[0]) * (rect2[3] - rect2[1])    
@@ -137,6 +126,7 @@ def rectOverlapRation(rect1,rect2):
     overlapRatio = area / (area1 + area2 - area)
     return overlapRatio
 
+'''Read the interaction deteciton results from logging file '''
 def readDetLog(fname):
     with open(fname) as f:
         content = f.readlines()
@@ -157,7 +147,7 @@ def readDetLog(fname):
     return ibbSets
 
 '''calculate the precision and recall for the given ground truth and detections'''
-def calPR(gt_ibbSet, det_ibbSet):
+def calPR(gt_ibbSet, det_ibbSet, iou=0.5):
     correctNo = 0
     for item in det_ibbSet:
         det_label = item[0]
@@ -166,37 +156,64 @@ def calPR(gt_ibbSet, det_ibbSet):
             gt_index = list(gt_ibbSet[:,0]).index(det_label)
             gt_cub = gt_ibbSet[gt_index][1:]
             overlapRatio = cubOverlapRation(det_cub, gt_cub)
-            if overlapRatio >= 0.5:
+            if overlapRatio >= iou:
                 correctNo += 1
     precision = correctNo / det_ibbSet.shape[0]
     recall = correctNo / gt_ibbSet.shape[0]
-    print('precison = ', precision, ' and recall = ', recall)
-    return (precision,recall)
-        
-        
-if __name__ == '__main__#':
+    if precision + recall != 0:
+        f1_score = 2 * precision * recall / (precision + recall)
+    else:
+        f1_score = 0
+    #print('precison = ', precision, ' recall = ', recall, ' and f1 socre = ', f1_score)
+    return (precision,recall,f1_score)
+  
+if __name__ == '__main__':
     logName = common.path.logPath + 'c3d_detector_06-15-21-21.txt'
     prList = []
+    prList_w3 = []
     det_ibbSets = np.array(readDetLog(logName))
     for seq in range(1,11):
         det_ibbSet = np.array(det_ibbSets[seq-1])
+        det_ibbSet = np.array([item for item in det_ibbSet if item[0] != 3])
         if det_ibbSet != []:
             print('******************** seq ' + str(seq) + '*******************')
             gt_ibbSet = np.array(getGroundTruth(1,seq))
-            precision,recall = calPR(gt_ibbSet, det_ibbSet)
-            prList.append([precision,recall])
+            for iou in np.arange(0.05,0.51,0.025):
+                precision,recall,f1_score = calPR(gt_ibbSet, det_ibbSet, iou = iou)
+                prList_w3.append([precision,recall,f1_score])
+            gt_ibbSet = np.array([item for item in gt_ibbSet if item[0] != 3])
+            for iou in np.arange(0.05,0.51,0.025):
+                precision,recall,f1_score = calPR(gt_ibbSet, det_ibbSet, iou = iou)
+                prList.append([precision,recall,f1_score])
     prList = np.array(prList)
+    prList = np.reshape(prList,(10,19,3))
+    prList = prList.transpose(1,0,2)
+    mean_f1_list = np.mean(prList[:,:,2],1)
     
-    print('The overall precision is ', np.mean(prList[:,0]))
-    print('The overall recall is ', np.mean(prList[:,1]))
-    plotTemp(logName)
+    prList_w3 = np.array(prList_w3)
+    prList_w3 = np.reshape(prList_w3,(10,19,3))
+    prList_w3 = prList_w3.transpose(1,0,2)
+    mean_f1_list_w3 = np.mean(prList_w3[:,:,2],1)
     
-if __name__ == '__main__s':
-    for seq in range(1,11):
-        spatialMeasure(seq)
-        
-if __name__ == '__main__':
-    for seq in range(1,2):
-        genIDet(1,'seq_idet_'+str(seq)+'.avi')
+    iouList = np.arange(0.05, 0.51, 0.025)
     
+    plt.plot(iouList,mean_f1_list, 'b', label = 'without class <Pointing>',linewidth=1)
+    plt.plot(iouList,mean_f1_list_w3, 'r', label = 'with class <Pointing>',linewidth=1)
+    #plt.title('F1 score ',fontsize=9)
+    plt.xlabel('Intersection over union threshold ',fontsize=8)
+    plt.ylabel('F1 score',fontsize=8)
+    ax = plt.gca()
+    ax.set_xticks(np.arange(0, 0.51, 0.1))
+    ax.set_yticks(np.arange(0, 1.01, 0.1))
+    plt.xticks(fontsize=8)
+    plt.yticks(fontsize=8)
+    plt.legend(fontsize=8)
+    plt.grid(b=6)
+    fig_name = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/thesis/chapters/chapter05/fig01/plot_f1score.pdf'
+    plt.savefig(fig_name)
+    plt.show()
     
+    #print('The overall precision is ', np.mean(prList[:,0]))
+    #print('The overall recall is ', np.mean(prList[:,1]))
+    #print('The overall f1_socre is ', np.mean(prList[:,2]))
+    #plotTemp(logName)

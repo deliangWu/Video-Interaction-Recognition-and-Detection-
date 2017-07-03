@@ -1,3 +1,4 @@
+'''Defines the different networks'''
 import numpy as np
 import os
 import tensorflow as tf
@@ -9,7 +10,7 @@ import model
 import ut_interaction as ut
 import common
 
-
+'''singleNet which is consist of one global feature descriptor and a softmax classifier'''
 class C3DNET:
     def __init__(self, numOfClasses,frmSize,nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256, noo_fc6 = 4096, noo_fc7 = 4096):
         # build the 3D ConvNet
@@ -95,6 +96,7 @@ class C3DNET:
             probs = tf.nn.softmax(probs).eval()
         return probs
     
+'''DualNet which is consist of two atomic action feature descriptors and a softmax classifier'''
 class C3DNET_2F1C:
     def __init__(self, numOfClasses,frmSize, nof_conv1,nof_conv2,nof_conv3,nof_conv4,noo_fc6,noo_fc7, shareFeatureVariable = True):
         # build the 3D ConvNet
@@ -163,6 +165,7 @@ class C3DNET_2F1C:
         return(top1_accu,top2_accu)
     
 
+'''fullNet which is consist of one global featue descriptor and two atomic action feature descriptors and a softmax classifier'''
 class C3DNET_3F1C:
     def __init__(self, numOfClasses,frmSize, nof_conv1,nof_conv2,nof_conv3,nof_conv4,noo_fc6,noo_fc7):
         # build the 3D ConvNet

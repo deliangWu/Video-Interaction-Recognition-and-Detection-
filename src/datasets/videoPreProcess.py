@@ -1,3 +1,4 @@
+'''video pre processing common files, such as loading videos, video normalizations, video to batchs, etc.'''
 from __future__ import division
 import numpy as np
 import sys
@@ -16,7 +17,24 @@ def videoRead(fileName,grayMode=True):
         video.append(frame)
         ret,frame = cap.read()
     video = np.array(video)
-    return np.array(video) 
+    return video 
+
+#def videoRead(fileName,grayMode=True):
+#    cap = cv2.VideoCapture(fileName)
+#    ret,frame = cap.read()
+#    frmNo = 0
+#    video = []
+#    while(ret):
+#        frm_r = np.reshape(frame,(-1,)+frame.shape)
+#        if frmNo == 0:
+#            video = frm_r
+#        else:
+#            video = np.append(video,frm_r)
+#        ret,frame = cap.read()
+#        frmNo +=1
+#        if (frmNo%100 == 0):
+#            print(frmNo)
+#    return video 
     
 def videoNorm(video,normEn = True):
     vmax = np.amax(video)

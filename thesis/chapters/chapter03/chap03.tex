@@ -47,11 +47,11 @@ We locate the position of each person in each frame of the input videos, and tra
 	\label{fig:person_detection}
 \end{figure}
 
-\subsection{Spatial detection of interacting people}
+\subsection{Spatial detection of the interacting people}
 For the interaction detection task, since there are both interacting and irrelevant people are present in the scene, we need to locate the positions for the interacting people and omit the irrelevant people. The overall architecture of the spatial detection of interacting people is illustrated in Figure \ref{fig:ip_det}. We adopt the same model to detect all people in each frame and to track interacting people as the person detection and tracking in the Section \ref{person_segmentation}. The only difference here is that we need the extra works to locate the interacting people and omit the irrelevant people which we will introduce in detail in the next chapter \ref{locate_interacting_people}.  
 \begin{figure}
 	\includegraphics[trim=2cm 24cm 0cm 1cm]{fig01/ip_det.pdf}
-	\caption{The architecture of the person segmentation}
+	\caption{The architecture of the spatial detection  and tracking of the interacting people. }
 	\label{fig:ip_det}
 \end{figure}
 

@@ -1,37 +1,46 @@
+'''Defines the modle of the feature descriptors and classifiers'''
 import numpy as np
 import tensorflow as tf
 import sys
 sys.path.insert(1,'../common')
 import common
 
-
+'''weights initialization'''
 def weight_variable(shape):
     #return tf.get_variable('weight',shape,initializer=tf.truncated_normal_initializer(stddev=0.1,seed=1024))
     return tf.get_variable('weight',shape,initializer=tf.contrib.layers.xavier_initializer())
 
+'''biases initialization'''
 def bias_variable(shape):
     return tf.get_variable('bias',shape,initializer=tf.constant_initializer(0.1))
 
+'''3D convolution'''
 def conv3d(x, W):
     return tf.nn.conv3d(x, W, strides=[1, 1, 1, 1,1], padding='SAME')
 
+'''3D max pooling with strides 1,2,2 (d,h,w)'''
 def max_pool3d_1x2x2(x):
     return tf.nn.max_pool3d(x, ksize=[1, 1, 2, 2, 1],
                             strides=[1, 1, 2, 2, 1], padding='SAME')
 
+'''3D max pooling with strides 2,2,2 (d,h,w)'''
 def max_pool3d_2x2x2(x):
     return tf.nn.max_pool3d(x, ksize=[1, 2, 2, 2, 1],
                             strides=[1, 2, 2, 2, 1], padding='SAME')
 
+'''3D max pooling with strides 2,1,1 (d,h,w)'''
 def max_pool3d_2x1x1(x):
     return tf.nn.max_pool3d(x, ksize=[1, 2, 1, 1, 1],
                             strides=[1, 2, 1, 1, 1], padding='SAME')
 
+'''3D max pooling with strides 4,2,2 (d,h,w)'''
 def max_pool3d_4x2x2(x):
     return tf.nn.max_pool3d(x, ksize=[1, 4, 2, 2, 1],
                             strides=[1, 4, 2, 2, 1], padding='SAME')
 
+'''Defines the model of the feature descriptor'''
 class FeatureDescriptor:
+    '''defines a feature descriptor based on a basic 3D ConvNet'''
     @staticmethod
     def c3d(x,frmSize,drop_var, nof_conv1 = 64, nof_conv2 = 128, nof_conv3 = 256, nof_conv4 = 256, noo_fc6 = 4096, noo_fc7 = 4096):
         if (drop_var != 1):
@@ -137,7 +146,9 @@ class FeatureDescriptor:
         
         return h_fc7_drop
 
+'''defines the models of the classifiers'''
 class Classifier:
+    '''defines a softmax classifier'''
     @staticmethod
     def softmax(features,numOfClasses):
         # softmax
@@ -150,6 +161,7 @@ class Classifier:
             y_conv = tf.matmul(features, W_sm) + b_sm 
         return y_conv
 
+'''define a softmax classifier class'''
 class Softmax:
     def __init__(self,features,numOfClasses):
         # softmax

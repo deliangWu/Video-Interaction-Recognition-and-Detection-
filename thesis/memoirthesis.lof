@@ -24,7 +24,7 @@
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Overall framework of the interaction classification. }}{24}{figure.3.1}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Overall framework of the interaction detection. }}{25}{figure.3.2}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces The architecture of the person segmentation}}{26}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces The architecture of the person segmentation}}{27}{figure.3.4}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces The architecture of the spatial detection and tracking of the interacting people. }}{27}{figure.3.4}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Overall Architecture of the 3D-ConvNet. }}{27}{figure.3.5}
 \addvspace {10pt}
 \contentsline {figure}{\numberline {4.1}{\ignorespaces The overall data-flow of the interaction classification}}{32}{figure.4.1}
@@ -35,8 +35,8 @@
 \contentsline {figure}{\numberline {4.6}{\ignorespaces The architecture of the 3D ConvNet}}{39}{figure.4.6}
 \contentsline {figure}{\numberline {4.7}{\ignorespaces The illustration of the ReLU operation}}{40}{figure.4.7}
 \contentsline {figure}{\numberline {4.8}{\ignorespaces The softmax classifier}}{43}{figure.4.8}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces The data-flow of interaction detection}}{45}{figure.4.9}
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Illustrations of notations of bounding boxes, a). notations of a bounding boxes of an individual and b). notations of a bounding box of two-person interaction.}}{46}{figure.4.10}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces The data-flow of interaction detection.}}{45}{figure.4.9}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Illustrations of notations of bounding boxes, a). notations of the bounding box of an individual and b). notations of the bounding box of a two-person interaction.}}{46}{figure.4.10}
 \contentsline {figure}{\numberline {4.11}{\ignorespaces Some examples of the horizon positions of the interacting people, sampled from the unsegmented videos of UT-Interaction dataset.}}{47}{figure.4.11}
 \contentsline {figure}{\numberline {4.12}{\ignorespaces An example illustration of preserving and discarding bounding boxes according to the value of \(Y_{Imean}\)}}{49}{figure.4.12}
 \contentsline {figure}{\numberline {4.13}{\ignorespaces An example illustration of preserving and discarding bounding boxes according to the value of \(X_{Imean}\)}}{51}{figure.4.13}
@@ -58,6 +58,8 @@
 \contentsline {figure}{\numberline {5.13}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks trained on training data with different random cropping configurations.}}{69}{figure.5.13}
 \contentsline {figure}{\numberline {5.14}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks trained on training data with different temporal down-sampling strides.}}{70}{figure.5.14}
 \contentsline {figure}{\numberline {5.15}{\ignorespaces The loss and classification accuracy vs. training epochs comparison between networks trained on training data with different normalization methods.}}{71}{figure.5.15}
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Sample frames of the results of interacting people detection}}{74}{figure.5.16}
-\addvspace {10pt}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Sample frames of the results of the spatial interacting people detection. The ground truth and detections are marked in green and red bounding boxes, respectively.}}{75}{figure.5.16}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces The temporal overlaps between the interaction detections and the ground truth, evaluated on the 10 unsegmented videos of the UT-Interaction dataset set1. Ground truth data are marked in green, and the detections are marked in red.}}{77}{figure.5.17}
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Spatial detection of interacting people. The green bounding boxes are the ground truth, while the reds are the detection results. For the interactions with class label "3" ("Pointing"), only one person is annotated in the ground truth, while both interacting people are annotated by our detector. }}{78}{figure.5.18}
+\contentsline {figure}{\numberline {5.19}{\ignorespaces The F1 score over different IOU threshold.}}{80}{figure.5.19}
 \addvspace {10pt}

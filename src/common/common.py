@@ -16,27 +16,32 @@ def pAndWf(fileName, string):
     f.close()
     return None
 
+'''Clear a file'''
 def clearFile(fileName):
     f = open(join(path.logPath,fileName),'w+')
     f.close()
     return None
 
+'''Save a list into file'''
 def saveList2File(fileName,theList):
     with open(fileName,'wb') as f:
         pickle.dump(theList,f,protocol=2)
     f.close()
     return None
 
+'''Read a list from file'''
 def readListFromFile(fileName):
     with open(fileName,'rb') as f:
         theList = pickle.load(f) 
     return theList
-    
+
+'''Insert an object into a tuple at a specific position'''    
 def tupleInsert(tIn,ind,obj):
     l = list(tIn)
     l.insert(ind,obj)
     return tuple(l)
 
+'''The commcon path of the project'''
 class path:
     if os.name == 'nt':
         projectPath = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/'
@@ -59,7 +64,8 @@ class path:
     variablePath = join(projectPath,'variableSave/')
     variablePath2 = join(projectPath,'tempSave/')
     logPath = join(projectPath,'log/')
-    
+
+'''The list of parameters of the network'''    
 class Vars:
     if os.name == 'nt':
         dev = ['/cpu:0']
@@ -96,7 +102,9 @@ class Vars:
     classifier_sm_VarsList      = ['top/classifier/sm/weight:0',  'top/classifier/sm/bias:0'] 
     classifier_sm_2f1c_VarsList = ['top/classifier_2f1c/sm/weight:0',  'top/classifier_2f1c/sm/bias:0'] 
     classifier_sm_3f1c_VarsList = ['top/classifier_3f1c/sm/weight:0',  'top/classifier_3f1c/sm/bias:0'] 
-    
+
+
+'''get current system time information'''    
 def getDateTime():
     t = str(datetime.now())
     t = t[5:16]

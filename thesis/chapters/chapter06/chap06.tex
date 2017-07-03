@@ -4,7 +4,39 @@
 % Description: Introduction chapter where the biology goes.
 %
 \let\textcircled=\pgftextcircled
-\chapter{Conclusion}
+\chapter{Conclusions and Future Works}
 \label{chap6}
+\initial{W}e introduced a hierarchical deep learning model for both interaction classifications and spatiotemporal interaction detections in the videos. The key point for the video classifications is how to design the feature descriptor which can well represent the spatial and temporal information of the videos. While the task of spatiotemporal interaction detections is more difficult since we have to not only say whether an interaction has occurred but also determine the spatial and temporal locations for the interaction from an unsegmented video. 
+
+\section{Conclusions for the interaction classification task}
+\par 
+The experimental results show that our 3DConvNet deep learning model is a practical way to describe spatiotemporal features for the videos. We achieved \(88.8\%\) classification accuracy with our \(singleNet\_4096\) model. Though it is not the state-of-art classification performance on the UT-Interaction dataset, the classification accuracy of our hierarchical model is expected to perform better than the \(singleNet\) according to the experimental results. 
+\par 
+Another interesting finding of our thesis project is that the critical factors which determine the classification performance of the network are not the hyper-parameters of the network itself but the training data, e.g. the training data augmentations and training settings, e.g. the learning rate. Of course, such experimental results do not mean that the model hyper-parameters are not important for the deep learning models, in contrast, they only reflect that the critical path of our project is the limitation of the training data. So, we can further improve the classification performance by pre-training our model on the similar interaction dataset.
+
+\section{Conclusions for the interaction detection task}
+\par 
+We introduced a novel method to detect the interactions by two separated steps: spatial interacting people detection and temporal interaction detection. By doing this, we can accelerate the interaction detections in the videos and achieved a decent precision (0.4) and recall (0.42) score under the setting of intersection over union threshold > 0.5. 
+
+\par 
+Despite the good performance of the interaction detections, we still have two significant issues on interaction detections, including 1) our method of the spatial detection of interacting people currently lacks the ability to correctly locate the multi-group interacting people who execute interactions simultaneously, 2) our interaction detection model can't correctly classify the video clips with the class label "Pointing" due to special resolutions of those interactions. we always assume that the bounding boxes of the interactions always contain two interacting people while there are only the main actors contained in the ground truth for those interactions with the class label "Pointing".    
+
+\section{Future work}
+There are some possible future works to further improve the performance of the interaction classifications and detections. 
+\par 
+\paragraph{For the interaction classifications: }
+\begin{enumerate}
+	\item Pre-train the network on similar interaction dataset rather than train it from scratch on the target dataset, because the target dataset UT-Interaction is a relatively small scale video interaction dataset for training a deep learning network. Because for a the high dimensional, more high quality training samples usually mean higher performance.  
+	\item Employ a new training method which is similar to the hard negative mining. The main idea is we first train the network with the training videos from the dataset, then we use the trained model to predict the interaction class label for those video clips which are spatially and temporally cropped from the raw training videos, and finally, use those video clips which are negatively predicted by the model to re-fine the trained model. This method can train the model to discriminate those videos which are previously hard for the model to recognize.   
+	\item Implement the \(fullNet\_4096\) model by finding out some other platforms which consume less GPU memory than tensorFlow.
+\end{enumerate}
+
+\paragraph{The interaction detections:}
+\begin{enumerate}
+	\item Spatial locating of the multi-group interacting people who execute interactions simultaneously. Our model currently lacks of the ability to spatially locate the multi groups of interacting people who execute the interactions simultaneously, so, we failed to detect the interactions in the videos which contain multi-group interacting people who execute interactions simultaneously. We can further discriminate the interacting people by detection of the relative positions and face orientations of all people present in the scene. 
+	
+	\item Another important issue which still needs to be solved is the real-time detection. The two-step method can accelerate the interaction detections, but it is still far from real-time applications. Currently, the time of performing interaction detection on a 2000-frame, 720x480 resolution video is about 6 minutes (excluding the time consumed by the spatial detection of all individuals in each frame). Simplifying the algorithms and some redundant computing are possible to reduce the timing consuming, but it is still very hard to build a real-time interaction detector based on our architecture and computing platform (GPU). But, implementing our interaction detection architecture on the hardware platforms, e.g. FPGA or ASIC, are still possible for the real-time interaction detections.   
+\end{enumerate}
+
 
 %=========================================================

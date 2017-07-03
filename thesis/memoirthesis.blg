@@ -26,10 +26,26 @@ I was expecting a `,' or a `}'---line 295 of file thesisbiblio.bib
  :  Journal = {arXiv:1502.03167}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 303 of file thesisbiblio.bib
+ :  
+ :  Journal = {CVPR2013}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 306 of file thesisbiblio.bib
+ : @article{raptis
+ :                ,
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 320 of file thesisbiblio.bib
+ :  
+ :  Journal = {ICCV2011}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
 Warning--empty journal in xavier
 Warning--empty journal in bn
 Warning--empty journal in adam
+Warning--empty journal in raptis
 Warning--empty journal in bpa
+Warning--empty journal in ryoo2011
 Warning--empty journal in ut2010
 Warning--empty journal in dropout
-(There were 5 error messages)
+(There were 8 error messages)

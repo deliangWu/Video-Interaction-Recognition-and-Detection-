@@ -1,3 +1,4 @@
+'''A file for person detection (HOG + Linear SVM) and tracking (Kalman Filter)'''
 from imutils.object_detection import non_max_suppression
 from imutils import paths
 import imutils
@@ -5,12 +6,14 @@ import numpy as np
 import cv2
 import videoPreProcess as vp
 
+'''video normalization '''
 def imgNorm(imgIn):
     vmax = np.amax(imgIn)
     vmin = np.amin(imgIn)
     vo = np.uint8((imgIn - vmin)/(vmax-vmin) * 255)
     return vo
 
+'''HOG + Linar SVM person detector'''
 def humanDetector(video, dispBBEn = False):
     # initalize the HOG descriptor and person detector
     hog = cv2.HOGDescriptor()
@@ -37,9 +40,11 @@ def humanDetector(video, dispBBEn = False):
         i+= 1        
     return (vo,picks)
 
+'''Calculate the Euclidian distance between two points'''
 def distCalc(p1,p2):
     return np.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
 
+'''Reshape bounding boxes'''
 def bbReShape(boundingBoxes,width,height,frmSize):
     def move(a,b):
         if a - b < 0:
@@ -100,11 +105,13 @@ def bbReShape(boundingBoxes,width,height,frmSize):
         bb_reshape = []
     return ((bb_ori,bb_reshape))
 
+'''Kalman filter'''
 def kalmanFilter(point,kalman):
     kalman.correct(point)
     pred = kalman.predict()
     return pred
 
+'''Segment a video according to the bounding box'''
 def frameSegment(imageIn,boundingBox,frmSize):
     xA,yA,xB,yB = boundingBox
     img_crop = imageIn[yA:yB,xA:xB]
@@ -118,6 +125,7 @@ def frameSegment(imageIn,boundingBox,frmSize):
     
     return imgOut
 
+'''update a bounding boxes according to the results of person tracking'''
 def updateBB(position_pre, pick, updateNo, updateFrameNo, currFrameNo,dists):
     print('position_pre ------------', position_pre)
     print('pick---------------------', pick)
@@ -154,21 +162,10 @@ def checkLabel(position_pre):
         position_pre = [(position_pre[1][0],0),(position_pre[0][0],1)]
     return position_pre
         
-    
+'''tracking two people with Kalman filtes'''    
 def humanTracking(vIn,picks,frmSize = (112,80,3),dispBBEn = True):
     # initialize kalman filter
     global kalman0,kalman1
-    #kalman0 = cv2.KalmanFilter(6,2)
-    #kalman0.measurementMatrix = np.array([[1,0,0,0,0,0],[0,1,0,0,0,0]],np.float32)
-    #kalman0.transitionMatrix = np.array([[1,0,1,0,0.5,0],[0,1,0,1,0,0.5],[0,0,1,0,1,0],[0,0,0,1,0,1],[0,0,0,0,1,0],[0,0,0,0,0,1]],np.float32)
-    #kalman0.processNoiseCov = np.identity(6,np.float32) * 1e-6 
-    #kalman0.measurementNoiseCov = np.identity(2,np.float32) * 1e-2 
-    #kalman1 = cv2.KalmanFilter(6,2)
-    #kalman1.measurementMatrix = np.array([[1,0,0,0,0,0],[0,1,0,0,0,0]],np.float32)
-    #kalman1.transitionMatrix = np.array([[1,0,1,0,0.5,0],[0,1,0,1,0,0.5],[0,0,1,0,1,0],[0,0,0,1,0,1],[0,0,0,0,1,0],[0,0,0,0,0,1]],np.float32)
-    #kalman1.processNoiseCov = np.identity(6,np.float32) * 1e-6 
-    #kalman1.measurementNoiseCov = np.identity(2,np.float32) * 1e-2 
-    
     kalman0 = cv2.KalmanFilter(4,2)
     kalman0.measurementMatrix = np.array([[1,0,0,0],[0,1,0,0]],np.float32)
     kalman0.transitionMatrix = np.array([[1,0,1,0],[0,1,0,1],[0,0,1,0],[0,0,0,1]],np.float32)

@@ -1,3 +1,4 @@
+'''A file to load the traning and evaluating accuracy and loss from the logging file and visualize the expermental results'''
 from __future__ import print_function
 import matplotlib.pyplot as plt
 import os
@@ -12,11 +13,7 @@ import common
 import videoPreProcess as vpp
 import cv2
 
-def transVec(vecIn):
-    vec_exp = np.exp(-vecIn)
-    vecOut = np.divide((1-vec_exp),(1+vec_exp))
-    return vecOut
-
+'''Load the training logging file and get the training and evaluating accuracy and loss from the file'''
 def readLog(logName,seqBias = 1, start = 0, end = 1):
     def alignList(listIn):
         listIn_resize = list(listIn)
@@ -85,7 +82,9 @@ def readLog(logName,seqBias = 1, start = 0, end = 1):
     #assert accuList_resize.shape[0] == 6
     return (steps,t_accus,tr_accus,t_loss,tr_loss)
 
-    
+'''
+Visualize the parameter searching experimental results
+'''    
 def plot1(figPlot,dispEn=True):
     # common definitions
     label = []
@@ -190,6 +189,7 @@ def plot1(figPlot,dispEn=True):
         log.append(readLog(fname_4,start=0,end=1))
         fig_name = 'D:/Course/Final_Thesis_Project/Thesis/chapters/chapter05/fig01/plot_nof.pdf'
     
+    # number of outpur neurons in the fully connected layers
     if figPlot == 'noo':
         fname_0 = common.path.logPath + 'c3d_train_on_ut_set1_06-10-11-02.txt'          # base
         fname_1 = common.path.logPath + 'c3d_train_on_ut_set1_06-11-09-05.txt'
@@ -201,7 +201,8 @@ def plot1(figPlot,dispEn=True):
         log.append(readLog(fname_1,start=0,end=1))
         log.append(readLog(fname_2,start=0,end=1))
         fig_name = 'D:/Course/Final_Thesis_Project/Thesis/chapters/chapter05/fig01/plot_noo.pdf'
-    
+   
+    # data pre-processing: data augmentation: horizontal flipping 
     if figPlot == 'RLFlipping':
         fname_0 = common.path.logPath + 'c3d_train_on_ut_set1_06-10-11-02.txt'          # base
         fname_1 = common.path.logPath + 'c3d_train_on_ut_set1_06-11-11-27.txt'
@@ -211,6 +212,7 @@ def plot1(figPlot,dispEn=True):
         log.append(readLog(fname_1,start=0,end=1))
         fig_name = 'D:/Course/Final_Thesis_Project/Thesis/chapters/chapter05/fig01/plot_rlf.pdf'
     
+    # data pre-processing: data augmentation: random cropping 
     if figPlot == 'RandomCropping':
         fname_0 = common.path.logPath + 'c3d_train_on_ut_set1_06-10-11-02.txt'          # base
         fname_1 = common.path.logPath + 'c3d_train_on_ut_set1_06-11-15-39.txt'
@@ -223,6 +225,7 @@ def plot1(figPlot,dispEn=True):
         log.append(readLog(fname_2,start=3,end=4))
         fig_name = 'D:/Course/Final_Thesis_Project/Thesis/chapters/chapter05/fig01/plot_rc.pdf'
     
+    # data pre-processing: temporal down-sampling    
     if figPlot == 'downSampling':
         fname_0 = common.path.logPath + 'c3d_train_on_ut_set1_06-10-11-02.txt'          # base
         fname_1 = common.path.logPath + 'c3d_train_on_ut_set1_06-11-15-50.txt'
@@ -237,7 +240,8 @@ def plot1(figPlot,dispEn=True):
         log.append(readLog(fname_2,start=0,end=1))
         log.append(readLog(fname_3,start=1,end=2))
         fig_name = 'D:/Course/Final_Thesis_Project/Thesis/chapters/chapter05/fig01/plot_tds.pdf'
-    
+   
+    # data pre-processing: data normalization 
     if figPlot == 'dataNormMode':
         fname_0 = common.path.logPath + 'c3d_train_on_ut_set1_06-10-11-02.txt'          # base
         fname_1 = common.path.logPath + 'c3d_train_on_ut_set1_06-11-18-43.txt'
@@ -250,6 +254,7 @@ def plot1(figPlot,dispEn=True):
         log.append(readLog(fname_2,start=4,end=5))
         fig_name = 'D:/Course/Final_Thesis_Project/Thesis/chapters/chapter05/fig01/plot_dnm.pdf'
     
+    # set2 
     if figPlot == 'set2':
         fname_0 = common.path.logPath + 'c3d_train_on_ut_set2_06-12-08-50.txt'          # base
         label.append('set2')
@@ -276,6 +281,7 @@ def plot1(figPlot,dispEn=True):
     plt.yticks(fontsize=font2)
     plt.legend(fontsize=font2)
     plt.grid(b=1)
+    
     # ************************************************************* 
     # plot evaluating loss 
     # ************************************************************* 
@@ -309,6 +315,7 @@ def plot1(figPlot,dispEn=True):
     plt.yticks(fontsize=font2)
     plt.legend(fontsize=font2)
     plt.grid(b=6)
+    
     # ************************************************************* 
     # plot training loss 
     # ************************************************************* 
@@ -333,20 +340,10 @@ def plot1(figPlot,dispEn=True):
     if dispEn:
         plt.show()
         
-    #figPlot = 'biases'
-    #figPlot = 'lr'
-    #figPlot = 'dropout'
-    #figPlot = 'layer'
-    #figPlot = 'kernel' 
-    #figPlot = 'nof'
-    #figPlot = 'noo'
-    #figPlot = 'RLFlipping'
-    #figPlot = 'RandomCropping'
-    #figPlot = 'downSampling'
-    #figPlot = 'dataNormMode'
 #figPlotList = ['biases','lr','dropout','layer','kernel', 'nof','noo','RLFlipping','RandomCropping','downSampling','dataNormMode']
 #plot1('set2',dispEn=True)
 
+'''Get ground truth of the interaction detection'''
 from xlrd import open_workbook
 def getGroundTruth(setNo, seqNo):
     workbook = open_workbook(common.path.projectPath + 'datasets/UT_Interaction/ut-interaction_labels_110912.xls')
@@ -361,6 +358,7 @@ def getGroundTruth(setNo, seqNo):
                     groundTruth.append(line)
     return np.array(groundTruth)
 
+'''Visualize sample frames of the interaction detection, the sample frames are extracted at the middle time of each interaction execution'''
 def dispPersonDetector(seq):
     fileName = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/datasets/UT_Interaction/ut-interaction_segmented_set1/segmented_set1/vOut/1_1_2.avi'
     fileName = 'D:/Course/Final_Thesis_Project/project/Video-Interaction-Recognition-and-Detection-/datasets/UT_Interaction/ut-interaction_segmented_set1/segmented_set1/vOut/41_8_0.avi'

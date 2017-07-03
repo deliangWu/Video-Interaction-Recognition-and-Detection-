@@ -1,3 +1,4 @@
+'''generates some videos for presentation'''
 import numpy as np
 from xlrd import open_workbook
 import sys
@@ -21,7 +22,7 @@ import time
 from collections import Counter
 
 
-# draw detected bounding boxes of each individual  
+''' draw detected bounding boxes of each individual '''
 def genPDet(seq,fname):
     # generate candidate bounding boxe by applying person detection and tracking            
     video = ut.loadVideo(seq)
@@ -109,23 +110,40 @@ def genIDet(seq,fname):
                 ibbs_i+=1
     vpp.videoSave(video,fname)
 
+'''Combine four videos into one'''
 def videoCombine(v1,v2,v3,v4,fname):
-    i = 0
-    for f1,f2,f3,f4 in zip(v1,v2,v3,v4):
+    cap1 = cv2.VideoCapture(v1)
+    cap2 = cv2.VideoCapture(v2)
+    cap3 = cv2.VideoCapture(v3)
+    cap4 = cv2.VideoCapture(v4)
+    ret1,f1 = cap1.read()
+    ret2,f2 = cap1.read()
+    ret3,f3 = cap1.read()
+    ret4,f4 = cap1.read()
+    
+    frmSize = (720*2,480*2)
+    if cv2.__version__  == '3.2.0':
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        out = cv2.VideoWriter(fname, fourcc, 20.0,frmSize)
+    else:
+        out = cv2.VideoWriter(fname, cv2.cv.CV_FOURCC('X','V','I','D'),20,frmSize)
+        
+    while ret1:
         f12 = np.concatenate([f1,f2],1)
         f34 = np.concatenate([f3,f4],1)
         fo = np.concatenate([f12,f34],axis=0)
         fo_4d = np.reshape(fo,(1,)+fo.shape)
-        if i == 0:
-            vo = fo_4d
-        else:
-            vo = np.append(vo,fo_4d,0)
-        i += 1
-    vpp.videoPlay(vo)
-    vpp.videoSave(vo,fname)
-    
-
-for seq in range(1,11):
+        cv2.imshow('img',fo)
+        cv2.waitKey(1)
+        ret1,f1 = cap1.read()
+        ret2,f2 = cap2.read()
+        ret3,f3 = cap3.read()
+        ret4,f4 = cap4.read()
+        out.write(fo)
+    out.release()
+    cv2.destroyAllWindows()
+        
+for seq in range(9,11):
     print('******************* seq ', seq,'********************')
     genPDet(seq, './genV/seq_pdet_'+str(seq)+'.avi')
     print('./genV/seq_pdet_'+str(seq)+'.avi')
@@ -135,10 +153,9 @@ for seq in range(1,11):
     print('./genV/seq_ipfdet_'+str(seq)+'.avi')
     genIDet(seq, './genV/seq_idet_'+str(seq)+'.avi')    
     print('./genV/seq_idet_'+str(seq)+'.avi')
-    v1 = vpp.videoRead('./genV/seq_pdet_'+str(seq)+'.avi',grayMode=False)
-    v2 = vpp.videoRead('./genV/seq_ipdet_'+str(seq)+'.avi',grayMode=False)
-    v3 = vpp.videoRead('./genV/seq_ipfdet_'+str(seq)+'.avi',grayMode=False)
-    v4 = vpp.videoRead('./genV/seq_idet_'+str(seq)+'.avi',grayMode=False)
+    v1 = './genV/seq_pdet_'+str(seq)+'.avi'
+    v2 = './genV/seq_ipdet_'+str(seq)+'.avi'
+    v3 = './genV/seq_ipfdet_'+str(seq)+'.avi'
+    v4 = './genV/seq_idet_'+str(seq)+'.avi'
     print('start to combine videos')
     videoCombine(v1, v2, v3, v4,'./genV/seq_o_'+str(seq)+'.avi')
-    

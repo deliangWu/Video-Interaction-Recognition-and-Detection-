@@ -112,9 +112,17 @@
 {\sc A.~Patron-Perez, M.~Marszalek, A.~Zisserman, and I.~Reid}, {\em High five:
   Recognising human interactions in tv shows}, BMVC,  (2010).
 
+\bibitem{raptis}
+{\sc M.~Raptis and L.~Sigal}, {\em Poselet key-framing: A model for human
+  activity recognition},  (2013).
+
 \bibitem{bpa}
 {\sc D.~E. Rumelhart, G.~E. Hinton, and R.~J. Williams}, {\em Learning
   representations by back-propagating errors},  (1986), pp.~696 -- 699.
+
+\bibitem{ryoo2011}
+{\sc M.~S. Ryoo}, {\em Human activity prediction: Early recognition of ongoing
+  activities from streaming videos},  (2011).
 
 \bibitem{ut2010}
 {\sc M.~S. Ryoo and J.~K. Aggarwal}, {\em Ut-interaction dataset},  (2010).

@@ -13,6 +13,8 @@
 
 \chapter*{Abstract}
 \begin{SingleSpace}
-\initial{H}ere goes the abstract
+\initial{D}espite the significant achievements in the image recognition domain, the more important and difficult task is the video content analyses (VCA) since many vision information are consist of not only spatial appearances but also temporal motions. There are already many methods introduced for VCA, such as 3DHOG, 3DSIFT, HOGHOF, and improved Dense Trajectory etc., but they are all based on hand-craft feature descriptors, in this thesis project, we introduce a hierarchical deep learning model based on 3DCONVNet and evaluate the model on the UT-Interaction dataset for both interaction classification and detection tasks. The hierarchical model is consist of a global interaction feature descriptor and two atomic action feature descriptors. The global feature descriptor learns the global interaction information, such as the relative position, while the atomic action feature descriptors learn the more detailed information from each individual involved in the interaction.  
+\par 
+We introduce a novel two-step interaction detection method which is composed of detection of the spatial locations for the interacting people and detection of the temporal locations of the interactions based on the spatial locations of the interacting people. Compared with the method which simply uses the sliding 3D window for interaction detection, we can accelerate the interaction detection by applying our two-step interaction detection method. And the experimental results show that we achieved good precision and recall scores based on our two-step interaction detection method.  
 \end{SingleSpace}
 \clearpage

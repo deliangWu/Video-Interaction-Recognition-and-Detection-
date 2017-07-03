@@ -444,7 +444,7 @@ The UT-Interaction dataset contains videos of continuously executions of 6 class
 \subsubsection*{The evaluation methodology}
 We evaluate our models with two different experimental settings: classification and detection. 
 \par 
-For the \textquotesingle classification \textquotesingle \ task, the two sets of videos are evaluated separately. There are 120 video segments which are cropped based on the ground truth and each contains exactly one execution of one type of interaction. So, for each set, we have 60 segmented videos that will be used for the training and testing. The cropped video segments are illustrated in Figure.  10-fold leave-one-out cross validation is employed to evaluate the classification accuracy. That is, for each set, we leave one among 10 sequences for the testing and use the other 9 for the training. The performance is measured ten times and the average accuracy is used as the overall accuracy. 
+For the \textquotesingle classification \textquotesingle \ task, the two sets of videos are evaluated separately. There are 120 video segments which are cropped based on the ground truth and each contains exactly one execution of one type of interaction. So, for each set, we have 60 segmented videos that will be used for the training and testing. The cropped video segments are illustrated in Figure \ref{fig:ut_segments}.  10-fold leave-one-out cross validation is employed to evaluate the classification accuracy. That is, for each set, we leave one among 10 sequences for the testing and use the other 9 for the training. The performance is measured ten times and the average accuracy is used as the overall accuracy. 
 \begin{equation*}
 \text{Classification Accuracy} = \frac{\sum_{i=1}^{10} Accuracy_i }{10}
 \end{equation*}

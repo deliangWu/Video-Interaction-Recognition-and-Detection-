@@ -1,3 +1,6 @@
+'''Spatial interaction detection (the first step in our two-step method of the interaction detection) 
+To fully understand the code in this module, please refer to the low-level implementation of the thesis in Section 4.2.3
+'''
 from __future__ import print_function
 from __future__ import division
 import numpy as np
@@ -29,6 +32,7 @@ from collections import Counter
 def vectorNorm(v):
     return(np.array([vi/sum(v) for vi in v]))
 
+'''On-line learn a vector from the value of previous time and vector of current time'''
 def learnVec(learned_v, new_v):
     new_v = new_v + np.random.randn(new_v.shape[0])
     w1 = vectorNorm(1000/abs(learned_v- new_v)**2)
@@ -39,6 +43,7 @@ def learnVec(learned_v, new_v):
     learned_v = sum([vi * (0.5*w1i + 0.5*w2i) for vi,w1i,w2i in zip(new_v,w1,w2)])
     return learned_v
 
+'''limit the change between previous and current in a reasonable range'''
 def limChg(val,pre_val):
     if abs(val - pre_val) > 5:
         if val > pre_val: 
@@ -47,6 +52,7 @@ def limChg(val,pre_val):
             val = pre_val - 5 
     return val
 
+'''On-line learn the value of y_Imean'''
 def genYmean(pick,y_mean,y_mean_list):
     midP = np.array([[int((xA + xB)/2),int((yA+yB)/2)] for xA,yA,xB,yB in pick])
     midPy = midP[:,1]
@@ -64,6 +70,7 @@ def genYmean(pick,y_mean,y_mean_list):
     #print('y_mean_list is ',y_mean_list)
     return (y_mean,y_mean_list)
 
+'''On-line learn the value of width and heigh of the bounding boxes'''
 def genWHmean(pick,w_mean,h_mean):
     size=np.array([[xB-xA,yB-yA] for xA,yA,xB,yB in pick])
     wide   = size[:,0]
@@ -75,7 +82,8 @@ def genWHmean(pick,w_mean,h_mean):
     w_mean = limChg(w_mean,pre_w_mean)
     h_mean = limChg(h_mean,pre_h_mean)
     return(w_mean,h_mean)
-    
+
+'''HOG + linar SVM person detector'''    
 def humanDetector(video):
     # initalize the HOG descriptor and person detector
     hog = cv2.HOGDescriptor()
@@ -104,7 +112,7 @@ def normBB(picks,video=None):
     pre_pick = [[0,0,0,0],[0,0,0,0]]
     new_pick = []
     new_picks = []
-    for i,pick in enumerate(picks[0:3500]):
+    for i,pick in enumerate(picks):
         pick = np.array(pick)
         if pick.shape[0] >= 1:
             y_mean,y_mean_list = genYmean(pick, y_mean,y_mean_list)
@@ -164,6 +172,7 @@ def normBB(picks,video=None):
     cv2.destroyAllWindows()
     return np.array(new_picks)
 
+'''generate Interaction detection candidate videos with a temporal sliding 3D window with length (vLen) and stride (stride)'''
 def genIBB(boundingBoxes,vLen=64,stride=8):
     bbs = boundingBoxes
     i = 0
@@ -196,7 +205,8 @@ def dispIBB(vIn,bbInitFrmNo,ibbList,vLen=64,stride=8):
         vplay = vIn[bbStartFrmNo:bbStartFrmNo+vLen,ibb[1]:ibb[3],ibb[0]:ibb[2]]
         vpp.videoPlay(vplay)
         bbStartFrmNo += stride 
-    
+
+'''predict the interaction class label for each cadidate video clip'''    
 def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8): 
     pred_yList = []
     bbStartFrmNo = bbInitFrmNo
@@ -216,24 +226,7 @@ def pred_IBB(video,ibbList,bbInitFrmNo,sess,c3d,vLen=64,stride=8):
         bbStartFrmNo += stride 
     return pred_yList
 
-def pred_IBB2(video,ibbSets,sess,c3d): 
-    pred_ibb2List = []
-    for ibbSet in ibbSets:
-        ibb = ibbSet[3:7]
-        yList = []
-        for i in range(5):
-            vChop = video[ibbSet[1]:ibbSet[2],ibb[1]:ibb[3],ibb[0]:ibb[2]]
-            vChop = vpp.videoProcessVin(vChop, (112,128,3), downSample=0, RLFlipEn=False,numOfRandomCrop=4)
-            vChop = vpp.videoNorm1(vChop,normMode=1)
-            vChop_det = np.reshape(vChop,(-1,1,16,112,128,3))
-            prob = c3d.evaluateProb(vChop_det, sess)[0]
-            pred_y = np.argmax(prob)
-            yList.append(pred_y)
-        pred_label = Counter(yList).most_common(1)[0][0]
-        if pred_label != 6:
-            pred_ibb2List.append([pred_label, ibbSet[1],ibbSet[2],ibb[0],ibb[1],ibb[2],ibb[3]])
-    return np.array(pred_ibb2List)
-
+'''Temporally combine the preserved video clips which have successive starting frame number'''
 def comb_IBB(pred_yList,vLen=64):           
     ibbSets = []
     startingFrameNo = pred_yList[0][0] 
@@ -251,7 +244,8 @@ def comb_IBB(pred_yList,vLen=64):
                 yList = []
     #print(ibbSets)
     return ibbSets
-    
+
+'''Set the class label which has the higest confidence as the final class lable for the combination'''    
 def NMS_IBB(ibbSets):
     ibbs = []
     probsList = []
@@ -284,6 +278,7 @@ def NMS_IBB(ibbSets):
                 probsList.append(probs)
     return (np.array(ibbs,dtype=np.uint16),np.array(probsList))  
 
+'''Spatial interaction detection'''
 def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
     # generate candidate bounding boxe by applying person detection and tracking            
     video = ut.loadVideo(seq)
@@ -312,7 +307,6 @@ def spIntDet(seq,testData=False, loadBB=True, debugMode=False, saveBB=False):
 if __name__ == "__main__t":
     for seq in range(1,11):
         spIntDet(seq, saveBB=True)        
-        
         
 if __name__ == '__main__':
     for seq in range(1,2):

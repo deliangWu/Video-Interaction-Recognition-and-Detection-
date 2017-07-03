@@ -1,5 +1,5 @@
-\BOOKMARK [0][-]{section*.3}{List of Tables}{}% 1
-\BOOKMARK [0][-]{section*.4}{List of Figures}{}% 2
+\BOOKMARK [0][-]{section*.7}{List of Tables}{}% 1
+\BOOKMARK [0][-]{section*.8}{List of Figures}{}% 2
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 3
 \BOOKMARK [1][-]{section.1.1}{Background}{chapter.1}% 4
 \BOOKMARK [1][-]{section.1.2}{Project Goals}{chapter.1}% 5
@@ -24,7 +24,7 @@
 \BOOKMARK [2][-]{subsection.3.1.2}{Interaction detection}{section.3.1}% 24
 \BOOKMARK [1][-]{section.3.2}{Models}{chapter.3}% 25
 \BOOKMARK [2][-]{subsection.3.2.1}{Person Segmentation}{section.3.2}% 26
-\BOOKMARK [2][-]{subsection.3.2.2}{Spatial detection of interacting people}{section.3.2}% 27
+\BOOKMARK [2][-]{subsection.3.2.2}{Spatial detection of the interacting people}{section.3.2}% 27
 \BOOKMARK [2][-]{subsection.3.2.3}{Feature Descriptor}{section.3.2}% 28
 \BOOKMARK [1][-]{section.3.3}{Training}{chapter.3}% 29
 \BOOKMARK [2][-]{subsection.3.3.1}{Train the person detection network}{section.3.3}% 30
@@ -40,7 +40,7 @@
 \BOOKMARK [1][-]{section.4.2}{Interaction detection}{chapter.4}% 40
 \BOOKMARK [2][-]{subsection.4.2.1}{Data-flow of interaction detection}{section.4.2}% 41
 \BOOKMARK [2][-]{subsection.4.2.2}{Detection of all people}{section.4.2}% 42
-\BOOKMARK [2][-]{subsection.4.2.3}{Spatial detection and tracking of interacting people}{section.4.2}% 43
+\BOOKMARK [2][-]{subsection.4.2.3}{Spatial detection and tracking of the interacting people}{section.4.2}% 43
 \BOOKMARK [2][-]{subsection.4.2.4}{Generate candidates of interaction video clips}{section.4.2}% 44
 \BOOKMARK [2][-]{subsection.4.2.5}{Classification of interaction video clips}{section.4.2}% 45
 \BOOKMARK [2][-]{subsection.4.2.6}{Temporal combination}{section.4.2}% 46
@@ -53,9 +53,10 @@
 \BOOKMARK [1][-]{section.5.2}{The experimental results of of the interaction classification}{chapter.5}% 53
 \BOOKMARK [2][-]{subsection.5.2.1}{Train the network from scratch}{section.5.2}% 54
 \BOOKMARK [1][-]{section.5.3}{The experimental results of of the interaction detection}{chapter.5}% 55
-\BOOKMARK [2][-]{subsection.5.3.1}{The results of the interacting people detection}{section.5.3}% 56
-\BOOKMARK [2][-]{subsection.5.3.2}{The results of interaction detection}{section.5.3}% 57
-\BOOKMARK [1][-]{section.5.4}{Discussion}{chapter.5}% 58
-\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 59
-\BOOKMARK [0][-]{appendix.A}{Appendix A}{}% 60
-\BOOKMARK [0][-]{section*.62}{Bibliography}{}% 61
+\BOOKMARK [2][-]{subsection.5.3.1}{Results of the interacting people detection}{section.5.3}% 56
+\BOOKMARK [2][-]{subsection.5.3.2}{Results of the interaction detection}{section.5.3}% 57
+\BOOKMARK [0][-]{chapter.6}{Conclusions and Future Works}{}% 58
+\BOOKMARK [1][-]{section.6.1}{Conclusions for the interaction classification task}{chapter.6}% 59
+\BOOKMARK [1][-]{section.6.2}{Conclusions for the interaction detection task}{chapter.6}% 60
+\BOOKMARK [1][-]{section.6.3}{Future work}{chapter.6}% 61
+\BOOKMARK [0][-]{section*.72}{Bibliography}{}% 62
