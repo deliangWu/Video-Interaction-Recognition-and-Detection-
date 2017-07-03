@@ -3,7 +3,7 @@ This is a master thesis project aiming for interaction classification and detect
 
 ## Software dependencies: 
 > * Python 2 or Python 3  
-> * ensorFlow r1.2  
+> * tensorFlow r1.2  
 > * opencv 3.2.0  
 > * numpy  
 > * xlrd  
