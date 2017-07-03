@@ -13,10 +13,10 @@ This is a master thesis project aiming for interaction classification and detect
 
 ## The file strcture:
 > * Project/  
->  * datasets/:   The UT-Interaction dataset (videos)  
->  * log/:        The logging files which have all training and evaluating records  
->  * variables/:  The viarible parameter files  
->  * src/    
+>   * datasets/:   The UT-Interaction dataset (videos)  
+>   * log/:        The logging files which have all training and evaluating records  
+>   * variables/:  The viarible parameter files  
+>   * src/    
 >        * common/: Common files   
 >        * datasets/:   The python files for data pre-processing  
 >        * dataVisualization/: 3D CNN data visualization, and evaluating results visualization
